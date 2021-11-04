@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ライブラリファイル">
+      <UniqueIdentifier>{8b391ebd-f3e1-416e-8553-128edbb800d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEngine">
+      <UniqueIdentifier>{0b9aabcc-9b33-46e6-ac0e-78785db0b66b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem">
+      <UniqueIdentifier>{fd504f3d-c845-4039-8da8-6add0525e821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreRenderer">
+      <UniqueIdentifier>{52aa6559-dd06-45b1-94f7-7ecf5b953876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEditor">
+      <UniqueIdentifier>{27052a2f-322d-4d28-aa6b-e826e1bab263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\Input">
+      <UniqueIdentifier>{8235c6d1-7fca-4690-80b2-8f2046dadef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\Audio">
+      <UniqueIdentifier>{78d1ee35-b5d3-4322-bd11-7c281d830d4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\Window">
+      <UniqueIdentifier>{8e87cc29-1f8f-4cf4-8d86-3776253482ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\Main">
+      <UniqueIdentifier>{21e06336-2103-4dd3-bef1-8fa820aa4290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\Main\Win">
+      <UniqueIdentifier>{34c97e90-95c9-4d3d-9d19-baf50cdb73a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\Window\Core">
+      <UniqueIdentifier>{183f960c-a462-4f6e-8683-5fc75531516d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\Window\Win">
+      <UniqueIdentifier>{31e74255-8784-446c-92fd-2a9b4df690f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\Utils">
+      <UniqueIdentifier>{04a828c6-97e5-4f02-a467-1966183dc1f5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp">
+      <Filter>ソース ファイル\CoreSystem\Main\Win</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreSystem\Window\Core\Core_Window.cpp">
+      <Filter>ソース ファイル\CoreSystem\Window\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreSystem\Window\Win\Win_Window.cpp">
+      <Filter>ソース ファイル\CoreSystem\Window\Win</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">
+      <Filter>ソース ファイル\CoreSystem\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreSystem\Window\Core\Core_Window.h">
+      <Filter>ソース ファイル\CoreSystem\Window\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreSystem\Window\Win\Win_Window.h">
+      <Filter>ソース ファイル\CoreSystem\Window\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreSystem\Window\Win\Win_Resource.h">
+      <Filter>ソース ファイル\CoreSystem\Window\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreSystem\Utils\Core_String.h">
+      <Filter>ソース ファイル\CoreSystem\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Code\CoreSystem\Window\Win\Win_Resource.rc">
+      <Filter>ソース ファイル\CoreSystem\Window\Win</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
