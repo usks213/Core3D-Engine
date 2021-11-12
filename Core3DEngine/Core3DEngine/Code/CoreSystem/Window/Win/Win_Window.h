@@ -27,7 +27,7 @@ namespace win
 		/// @param windowName[in] ウィンドウ名
 		/// @param windowWidth[in] ウィンドウの幅
 		/// @param windowHeight[in] ウィンドウの高さ
-		explicit WinWindow(core::CoreString windowName, UINT windowWidth, UINT windowHeight);
+		explicit WinWindow(util::String windowName, UINT windowWidth, UINT windowHeight);
 
 		/// @brief デストラクタ
 		~WinWindow() noexcept = default;
@@ -38,7 +38,7 @@ namespace win
 		/// @param nCmdShow 
 		/// @param lpfnWndProc ウィンドウプロシージャ関数のポインタ
 		/// @return 初期化: 成功 true | 失敗 false
-		bool initialize(HINSTANCE& hInstance, core::CoreString className, int nCmdShow, WNDPROC lpfnWndProc);
+		bool initialize(HINSTANCE& hInstance, util::String className, int nCmdShow, WNDPROC lpfnWndProc);
 
 		/// @brief 終了処理
 		void finalize() override;
@@ -59,7 +59,7 @@ namespace win
 
 		HINSTANCE		m_hInstance;		///< インスタンスハンドル
 		HWND				m_hWnd;			///< ウィンドウハンドル
-		core::CoreString	m_className;		///< クラス名
+		util::String		m_className;		///< クラス名
 		int				m_nCmdShow;		///< フルスクリーン切り替えで使うかも？
 	};
 

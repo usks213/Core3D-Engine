@@ -19,13 +19,89 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Code\Application\StartUp.cpp" />
+    <ClCompile Include="Code\CoreEngine\Core_Engine.cpp" />
+    <ClCompile Include="Code\CoreRenderer\Core\Core_Device.cpp" />
+    <ClCompile Include="Code\CoreRenderer\Core\Core_Material.cpp" />
+    <ClCompile Include="Code\CoreRenderer\Core\Core_Renderer.cpp" />
+    <ClCompile Include="Code\CoreRenderer\Core\Core_Shader.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Buffer.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_CommandList.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_CommonState.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Defines.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_DepthStencil.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Device.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Material.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_RenderBuffer.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Renderer.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_RenderTarget.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Shader.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Texture.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Buffer.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_CommandList.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_CommonState.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Defines.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_DepthStencil.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Device.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Material.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_RenderBuffer.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Renderer.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_RenderTarget.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Shader.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Texture.cpp" />
     <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp" />
+    <ClCompile Include="Code\CoreSystem\Utils\Util_Mathf.cpp" />
     <ClCompile Include="Code\CoreSystem\Window\Core\Core_Window.cpp" />
     <ClCompile Include="Code\CoreSystem\Window\Win\Win_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\CoreEngine\Core_Engine.h" />
+    <ClInclude Include="Code\CoreEngine\Scene\Core_Scene.h" />
+    <ClInclude Include="Code\CoreEngine\Scene\Core_SceneManager.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Buffer.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_CommandList.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_CommonState.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_DepthStencil.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Device.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Light.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Material.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Mesh.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_RenderBuffer.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Renderer.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_RenderTarget.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Shader.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_ShaderResource.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_SubResource.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Texture.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Buffer.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_CommandList.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_CommonState.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Defines.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_DepthStencil.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Device.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Material.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_RenderBuffer.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Renderer.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_RenderTarget.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Shader.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Texture.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Buffer.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_CommandList.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_CommonState.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Defines.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_DepthStencil.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Device.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Material.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_RenderBuffer.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Renderer.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_RenderTarget.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Shader.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Texture.h" />
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h" />
-    <ClInclude Include="Code\CoreSystem\Utils\Core_String.h" />
+    <ClInclude Include="Code\CoreSystem\Utils\Util_Hash.h" />
+    <ClInclude Include="Code\CoreSystem\Utils\Util_Mathf.h" />
+    <ClInclude Include="Code\CoreSystem\Utils\Util_Singleton.h" />
+    <ClInclude Include="Code\CoreSystem\Utils\Util_String.h" />
     <ClInclude Include="Code\CoreSystem\Window\Core\Core_Window.h" />
     <ClInclude Include="Code\CoreSystem\Window\Win\Win_Resource.h" />
     <ClInclude Include="Code\CoreSystem\Window\Win\Win_Window.h" />
@@ -89,25 +165,25 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\</OutDir>
     <TargetName>$(ProjectName)x86D</TargetName>
-    <IncludePath>$(ProjectDir)Code</IncludePath>
+    <IncludePath>$(ProjectDir)Code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\</OutDir>
     <TargetName>$(ProjectName)x86R</TargetName>
-    <IncludePath>$(ProjectDir)Code</IncludePath>
+    <IncludePath>$(ProjectDir)Code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\</OutDir>
     <TargetName>$(ProjectName)x64D</TargetName>
-    <IncludePath>$(ProjectDir)Code</IncludePath>
+    <IncludePath>$(ProjectDir)Code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\</OutDir>
     <TargetName>$(ProjectName)x64R</TargetName>
-    <IncludePath>$(ProjectDir)Code</IncludePath>
+    <IncludePath>$(ProjectDir)Code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

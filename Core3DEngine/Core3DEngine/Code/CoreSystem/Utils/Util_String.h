@@ -1,27 +1,24 @@
 /*****************************************************************//**
- * \file   Core_String.h
+ * \file   Util_String.h
  * \brief  •¶Žš—ñŒ^
  * 
  * \author USAMI KOSHI
  * \date   2021/11/04
  *********************************************************************/
-#ifndef _CORE_STRING_
-#define _CORE_STRING_
+#ifndef _UTIL_STRING_
+#define _UTIL_STRING_
 
 #include <string>
 
-namespace core
+namespace util
 {
 #ifdef _UNICODE
 	/// @brief Unicode•¶Žš—ñŒ^
-	class CoreString : public std::wstring
+	using String = std::wstring;
 #elif
 	/// @brief ƒ}ƒ‹ƒ`ƒoƒCƒg•¶Žš—ñŒ^
-	class CoreString : public std::string
+	using String = std::string;
 #endif // !_UNICODE
-	{
-
-	};
 }
 
-#endif // !_CORE_STRING_
+#endif // !_UTIL_STRING_
