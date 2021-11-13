@@ -72,6 +72,9 @@
     <Filter Include="ソース ファイル\App">
       <UniqueIdentifier>{354a22a3-492b-4903-9777-e371ccf82340}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\App\Scene">
+      <UniqueIdentifier>{65948329-30ac-4231-b257-0f6a697245ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp">
@@ -175,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="Code\Application\StartUp.cpp">
       <Filter>ソース ファイル\App</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Application\Scene\TestScene.cpp">
+      <Filter>ソース ファイル\App\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreRenderer\Core\Core_Geometry.cpp">
+      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +336,12 @@
     </ClInclude>
     <ClInclude Include="Code\CoreEngine\Scene\Core_SceneManager.h">
       <Filter>ソース ファイル\CoreEngine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Application\Scene\TestScene.h">
+      <Filter>ソース ファイル\App\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Geometry.h">
+      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

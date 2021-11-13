@@ -30,7 +30,7 @@ int WINAPI _tWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);		// 未使用宣言
 
 	// 初期化処理
-	MainStartup();
+	MainStartup(hInstance, nCmdShow);
 
 	// メッセージループ
 	MSG msg = {};

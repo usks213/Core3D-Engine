@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Code\Application\Scene\TestScene.cpp" />
     <ClCompile Include="Code\Application\StartUp.cpp" />
     <ClCompile Include="Code\CoreEngine\Core_Engine.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Device.cpp" />
+    <ClCompile Include="Code\CoreRenderer\Core\Core_Geometry.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Material.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Renderer.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Shader.cpp" />
@@ -55,6 +57,7 @@
     <ClCompile Include="Code\CoreSystem\Window\Win\Win_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\Application\Scene\TestScene.h" />
     <ClInclude Include="Code\CoreEngine\Core_Engine.h" />
     <ClInclude Include="Code\CoreEngine\Scene\Core_Scene.h" />
     <ClInclude Include="Code\CoreEngine\Scene\Core_SceneManager.h" />
@@ -63,6 +66,7 @@
     <ClInclude Include="Code\CoreRenderer\Core\Core_CommonState.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_DepthStencil.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_Device.h" />
+    <ClInclude Include="Code\CoreRenderer\Core\Core_Geometry.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_Light.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_Material.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_Mesh.h" />

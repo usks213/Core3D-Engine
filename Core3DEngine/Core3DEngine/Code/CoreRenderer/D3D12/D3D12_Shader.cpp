@@ -19,7 +19,7 @@ using namespace d3d12;
 
 namespace {
 	/// @brief シェーダファイルパス
-	const char* SHADER_FILE_PATH = "Source/Shader/";
+	const char* SHADER_FILE_PATH = "Assets/Shader/";
 
 	/// @brief エントリーポイント、ファイル識別子
 	const char* SHADER_TYPES[] = {
