@@ -60,9 +60,6 @@
     <Filter Include="ソース ファイル\CoreEngine\Scene">
       <UniqueIdentifier>{457c7c55-3efd-4115-96f3-21c358cd2910}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\Object">
-      <UniqueIdentifier>{111469e6-5caa-4c5f-87ba-9d9e62bbd9f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\CoreEngine\Component">
       <UniqueIdentifier>{abb1aaa6-0363-4804-b0e5-20a7fa4a0568}</UniqueIdentifier>
     </Filter>
@@ -74,6 +71,9 @@
     </Filter>
     <Filter Include="ソース ファイル\App\Scene">
       <UniqueIdentifier>{65948329-30ac-4231-b257-0f6a697245ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEngine\Core">
+      <UniqueIdentifier>{111469e6-5caa-4c5f-87ba-9d9e62bbd9f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -342,6 +342,21 @@
     </ClInclude>
     <ClInclude Include="Code\CoreRenderer\Core\Core_Geometry.h">
       <Filter>ソース ファイル\CoreRenderer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Object.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\TypeHash.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Entity.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Resource.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Component.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -58,6 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Component.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Resource.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Entity.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Object.h" />
+    <ClInclude Include="Code\CoreEngine\Core\TypeHash.h" />
     <ClInclude Include="Code\CoreEngine\Core_Engine.h" />
     <ClInclude Include="Code\CoreEngine\Scene\Core_Scene.h" />
     <ClInclude Include="Code\CoreEngine\Scene\Core_SceneManager.h" />
