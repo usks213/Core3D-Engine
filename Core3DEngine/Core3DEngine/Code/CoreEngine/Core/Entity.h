@@ -9,12 +9,16 @@
 #define _ENTITY_
 
 #include "Object.h"
+#include <unordered_map>
 
+class Component;
 class EntityManager;
+class ComponentManager;
 
 /// @brief エンティティ
 class Entity final : public Object
 {
+	friend class Component;
 	friend class EntityManager;
 public:
 	/// @brief オブジェクト情報
@@ -23,13 +27,25 @@ public:
 	/// @brief コンストラクタ
 	/// @param id エンティティID
 	/// @param entity エンティティ
-	explicit Entity(const InstanceID& id, std::string_view name) :
-		Object(id, name)
+	explicit Entity(ComponentManager* pComponentManager, const InstanceID& id,
+		std::string_view name, const InstanceID& transformID) :
+		Object(id, name), 
+		m_transformID(transformID),
+		m_pComponentManager(pComponentManager)
 	{
 	}
 
 	/// @brief デストラクタ
 	~Entity() = default;
+
+
+	template<class T>
+	constexpr T* AddComponent()
+	{
+		constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
+		// 検索
+
+	}
 
 
 	///// @brief シリアライズ化
@@ -44,10 +60,13 @@ public:
 	//	);
 	//}
 
-protected:
-
-
 private:
+	/// @brief 保持しているコンポーネント
+	std::unordered_map<TypeID, InstanceID> m_components;
+	/// @brief トランスフォームID
+	InstanceID				m_transformID;
+	/// @brief コンポーネントマネージャー
+	ComponentManager*		m_pComponentManager;
 
 };
 

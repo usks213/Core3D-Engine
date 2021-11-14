@@ -10,6 +10,9 @@
 
 #include "Object.h"
 
+// リソースID スマートID
+class ResourceID;
+
 class Resource : public Object
 {
 public:

@@ -13,11 +13,11 @@
  /// @brief Œ^î•ñ•t‰Á
 #define DECLARE_TYPE_INFO(T) 								\
 public:														\
-	static constexpr std::string_view getTypeString()		\
+	static constexpr std::string_view GetTypeString()		\
 	{														\
 		return #T;											\
 	}														\
-	static constexpr std::uint32_t getTypeHash()			\
+	static constexpr std::uint32_t GetTypeHash()			\
 	{														\
 		return util::stringHash(#T);						\
 	}														\

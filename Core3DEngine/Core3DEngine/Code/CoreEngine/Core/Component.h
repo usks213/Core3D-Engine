@@ -5,11 +5,13 @@
  * \author USAMI KOSHI
  * \date   2021/11/13
  *********************************************************************/
-#ifndef _ENTITY_
-#define _ENTITY_
+#ifndef _COMPONENT_
+#define _COMPONENT_
 
 #include "Object.h"
 
+class Entity;
+class Transform;
 class ComponentManager;
 
 /// @brief コンポーネント
@@ -30,23 +32,22 @@ public:
 	virtual ~Component() = default;
 
 
-	///// @brief シリアライズ化
-	//template<class T>
-	//void serialize(T& archive)
-	//{
-	//	Object::serialize(archive);
-	//	archive(
-	//		CEREAL_NVP(m_entity),
-	//		CEREAL_NVP(m_parentID),
-	//		CEREAL_NVP(m_childsID)
-	//	);
-	//}
+	/// @brief 親エンティティの取得
+	/// @return エンティティポインタ
+	Entity* GetParent();
+
+	/// @brief トランスフォームの取得
+	/// @return トランスフォームポインタ
+	Transform* GetTransform();
+
+
 
 protected:
 
+	/// @brief 親のエンティティID
+	InstanceID m_parentID;
 
-private:
 
 };
 
-#endif // !_ENTITY_
+#endif // !_COMPONENT_

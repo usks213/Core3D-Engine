@@ -25,11 +25,11 @@ constexpr TypeID MAX_TYPE_ID = std::numeric_limits<TypeID>::max();
  /// @brief オブジェクトの情報を付加
 #define DECLARE_OBJECT_INFO(T)									\
 DECLARE_TYPE_INFO( T );											\
-[[nodiscard]] TypeID getTypeID() override {						\
-	return static_cast<TypeID>(getTypeHash());					\
+[[nodiscard]] TypeID GetTypeID() override {						\
+	return static_cast<TypeID>(GetTypeHash());					\
 }																\
-[[nodiscard]] std::string_view getTypeName() override {			\
-	return getTypeString();										\
+[[nodiscard]] std::string_view GetTypeName() override {			\
+	return GetTypeString();										\
 }																\
 void _dumyFunction2() = delete
 
@@ -52,19 +52,19 @@ public:
 
 	/// @brief タイプID取得
 	/// @return ID
-	[[nodiscard]] virtual TypeID getTypeID() = 0;
+	[[nodiscard]] virtual TypeID GetTypeID() = 0;
 
 	/// @brief タイプ名取得
 	/// @return 名前
-	[[nodiscard]] virtual std::string_view getTypeName() = 0;
+	[[nodiscard]] virtual std::string_view GetTypeName() = 0;
 
 	/// @brief インスタンスID取得
 	/// @return ID
-	[[nodiscard]] InstanceID getInstanceID() { return m_instanceID; }
+	[[nodiscard]] InstanceID GetInstanceID() { return m_instanceID; }
 
 	/// @brief 名前の取得
 	/// @return 名前
-	[[nodiscard]] std::string_view getName() { return m_name; }
+	[[nodiscard]] std::string_view GetName() { return m_name; }
 
 	///// @brief シリアライズ化
 	//template<class T>
