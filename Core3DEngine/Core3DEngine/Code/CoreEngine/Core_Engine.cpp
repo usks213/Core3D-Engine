@@ -26,7 +26,7 @@ CoreEngine::CoreEngine()
 bool CoreEngine::initialize()
 {
 	// シーンマネージャーの生成
-	m_pSceneManager = std::make_unique<CoreSceneManager>(this);
+	m_pSceneManager = std::make_unique<SceneManager>(this);
 
 	// フレームカウント初期化
 	m_ExecLastTime = m_FPSLastTime = 

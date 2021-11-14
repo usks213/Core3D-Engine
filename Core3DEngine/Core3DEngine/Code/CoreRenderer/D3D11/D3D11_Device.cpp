@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "D3D11_Device.h"
-#include <CoreSystem/Utils/Util_Hash.h>
+#include <Utils/Util_Hash.h>
 
 #include <CoreRenderer/D3D11/D3D11_Buffer.h>
 #include <CoreRenderer/D3D11/D3D11_DepthStencil.h>

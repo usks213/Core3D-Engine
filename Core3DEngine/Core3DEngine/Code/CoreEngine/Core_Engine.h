@@ -13,10 +13,10 @@
 #include <memory>
 #include <chrono>
 
-#include <CoreSystem\Utils\Util_Singleton.h>
+#include <Utils\Util_Singleton.h>
 #include <CoreSystem\Window\Core\Core_Window.h>
 #include <CoreRenderer\Core\Core_Renderer.h>
-#include <CoreEngine\Scene\Core_SceneManager.h>
+#include "Core\SceneManager.h"
 
 
 namespace core
@@ -76,7 +76,7 @@ namespace core
 
 		/// @brief シーンマネージャーの取得
 		/// @return シーンマネージャーのポインタ
-		[[nodiscard]] CoreSceneManager* getSceneManager() const noexcept { return m_pSceneManager.get(); }
+		[[nodiscard]] SceneManager* getSceneManager() const noexcept { return m_pSceneManager.get(); }
 
 		/// @brief ウィンドウ名取得
 		/// @return ウィンドウ名
@@ -110,9 +110,12 @@ namespace core
 		// private variables
 		//------------------------------------------------------------------------------
 
-		std::unique_ptr<CoreWindow>				m_pWindow;			///< ウィンドウ
+		std::unique_ptr<CoreWindow>				m_pWindow;				///< ウィンドウ
 		std::unique_ptr<CoreRenderer>			m_pRenderer;			///< レンダラー
-		std::unique_ptr<CoreSceneManager>		m_pSceneManager;		///< シーンマネージャー
+
+		std::unique_ptr<SceneManager>			m_pSceneManager;		///< シーンマネージャー
+		///< リソースマネージャー
+		///< エディタマネージャー
 
 		//--- タイマー 
 		// ↓これがもっともいい精度

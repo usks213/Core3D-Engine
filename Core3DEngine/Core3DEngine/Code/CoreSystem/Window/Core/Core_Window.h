@@ -9,7 +9,7 @@
 #ifndef _CORE_WINDOW_
 #define _CORE_WINDOW_
 
-#include <CoreSystem\Utils\Util_String.h>
+#include <Utils/Util_String.h>
 
 namespace core
 {

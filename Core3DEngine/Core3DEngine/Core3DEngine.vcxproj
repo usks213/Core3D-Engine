@@ -52,9 +52,9 @@
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Shader.cpp" />
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Texture.cpp" />
     <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp" />
-    <ClCompile Include="Code\CoreSystem\Utils\Util_Mathf.cpp" />
     <ClCompile Include="Code\CoreSystem\Window\Core\Core_Window.cpp" />
     <ClCompile Include="Code\CoreSystem\Window\Win\Win_Window.cpp" />
+    <ClCompile Include="Code\Utils\Util_Mathf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h" />
@@ -62,10 +62,10 @@
     <ClInclude Include="Code\CoreEngine\Core\Resource.h" />
     <ClInclude Include="Code\CoreEngine\Core\Entity.h" />
     <ClInclude Include="Code\CoreEngine\Core\Object.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Scene.h" />
+    <ClInclude Include="Code\CoreEngine\Core\SceneManager.h" />
     <ClInclude Include="Code\CoreEngine\Core\TypeHash.h" />
     <ClInclude Include="Code\CoreEngine\Core_Engine.h" />
-    <ClInclude Include="Code\CoreEngine\Scene\Core_Scene.h" />
-    <ClInclude Include="Code\CoreEngine\Scene\Core_SceneManager.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_Buffer.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_CommandList.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_CommonState.h" />
@@ -107,13 +107,13 @@
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Shader.h" />
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Texture.h" />
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h" />
-    <ClInclude Include="Code\CoreSystem\Utils\Util_Hash.h" />
-    <ClInclude Include="Code\CoreSystem\Utils\Util_Mathf.h" />
-    <ClInclude Include="Code\CoreSystem\Utils\Util_Singleton.h" />
-    <ClInclude Include="Code\CoreSystem\Utils\Util_String.h" />
     <ClInclude Include="Code\CoreSystem\Window\Core\Core_Window.h" />
     <ClInclude Include="Code\CoreSystem\Window\Win\Win_Resource.h" />
     <ClInclude Include="Code\CoreSystem\Window\Win\Win_Window.h" />
+    <ClInclude Include="Code\Utils\Util_Hash.h" />
+    <ClInclude Include="Code\Utils\Util_Mathf.h" />
+    <ClInclude Include="Code\Utils\Util_Singleton.h" />
+    <ClInclude Include="Code\Utils\Util_String.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Code\CoreSystem\Window\Win\Win_Resource.rc" />

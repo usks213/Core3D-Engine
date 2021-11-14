@@ -8,7 +8,7 @@
 #ifndef _CORE_LIGHT_
 #define _CORE_LIGHT_
 
-#include <CoreSystem\Utils\Util_Mathf.h>
+#include <Utils/Util_Mathf.h>
 
 namespace core
 {

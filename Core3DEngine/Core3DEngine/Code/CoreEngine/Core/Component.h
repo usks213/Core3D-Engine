@@ -13,12 +13,10 @@
 class ComponentManager;
 
 /// @brief コンポーネント
-class Component final : public Object
+class Component : public Object
 {
 	friend class ComponentManager;
 public:
-	/// @brief オブジェクト情報
-	DECLARE_OBJECT_INFO(Component);
 
 	/// @brief コンストラクタ
 	/// @param id コンポーネントID
@@ -29,7 +27,7 @@ public:
 	}
 
 	/// @brief デストラクタ
-	~Component() = default;
+	virtual ~Component() = default;
 
 
 	///// @brief シリアライズ化

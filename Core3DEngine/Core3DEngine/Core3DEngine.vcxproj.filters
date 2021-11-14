@@ -21,9 +21,6 @@
     <Filter Include="ソース ファイル\CoreRenderer">
       <UniqueIdentifier>{52aa6559-dd06-45b1-94f7-7ecf5b953876}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreEditor">
-      <UniqueIdentifier>{27052a2f-322d-4d28-aa6b-e826e1bab263}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\CoreSystem\Input">
       <UniqueIdentifier>{8235c6d1-7fca-4690-80b2-8f2046dadef1}</UniqueIdentifier>
     </Filter>
@@ -45,9 +42,6 @@
     <Filter Include="ソース ファイル\CoreSystem\Window\Win">
       <UniqueIdentifier>{31e74255-8784-446c-92fd-2a9b4df690f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\Utils">
-      <UniqueIdentifier>{04a828c6-97e5-4f02-a467-1966183dc1f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\CoreRenderer\Core">
       <UniqueIdentifier>{40b006c8-c424-4054-8ce8-153e154c09db}</UniqueIdentifier>
     </Filter>
@@ -56,9 +50,6 @@
     </Filter>
     <Filter Include="ソース ファイル\CoreRenderer\D3D12">
       <UniqueIdentifier>{8d437866-2d74-4e38-a62e-bcc98222a0f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\Scene">
-      <UniqueIdentifier>{457c7c55-3efd-4115-96f3-21c358cd2910}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\CoreEngine\Component">
       <UniqueIdentifier>{abb1aaa6-0363-4804-b0e5-20a7fa4a0568}</UniqueIdentifier>
@@ -75,6 +66,27 @@
     <Filter Include="ソース ファイル\CoreEngine\Core">
       <UniqueIdentifier>{111469e6-5caa-4c5f-87ba-9d9e62bbd9f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\GUI">
+      <UniqueIdentifier>{7e0db1c4-5db7-4c0c-b0ef-8b36df8aea0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEngine\Editor">
+      <UniqueIdentifier>{bee5840f-7636-4531-8646-3483be32374a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\GUI\Core">
+      <UniqueIdentifier>{dba1eadd-c6c6-4a20-af05-bce6070f040f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreSystem\GUI\ImGui">
+      <UniqueIdentifier>{04a12c80-187c-4787-8853-f4d5454cc81a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Utils">
+      <UniqueIdentifier>{827b6bfa-42ef-43eb-87bb-a31190c4d94a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEngine\Pipeline">
+      <UniqueIdentifier>{a6917436-ed06-4453-8f2d-1baf37bf40e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEngine\Resource">
+      <UniqueIdentifier>{68d49ddb-9caf-464c-982e-623c68f999d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp">
@@ -88,9 +100,6 @@
     </ClCompile>
     <ClCompile Include="Code\CoreEngine\Core_Engine.cpp">
       <Filter>ソース ファイル\CoreEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreSystem\Utils\Util_Mathf.cpp">
-      <Filter>ソース ファイル\CoreSystem\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Code\CoreRenderer\Core\Core_Device.cpp">
       <Filter>ソース ファイル\CoreRenderer\Core</Filter>
@@ -185,6 +194,9 @@
     <ClCompile Include="Code\CoreRenderer\Core\Core_Geometry.cpp">
       <Filter>ソース ファイル\CoreRenderer\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Utils\Util_Mathf.cpp">
+      <Filter>ソース ファイル\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">
@@ -201,18 +213,6 @@
     </ClInclude>
     <ClInclude Include="Code\CoreEngine\Core_Engine.h">
       <Filter>ソース ファイル\CoreEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreSystem\Utils\Util_Mathf.h">
-      <Filter>ソース ファイル\CoreSystem\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreSystem\Utils\Util_Singleton.h">
-      <Filter>ソース ファイル\CoreSystem\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreSystem\Utils\Util_Hash.h">
-      <Filter>ソース ファイル\CoreSystem\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreSystem\Utils\Util_String.h">
-      <Filter>ソース ファイル\CoreSystem\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Code\CoreRenderer\Core\Core_Buffer.h">
       <Filter>ソース ファイル\CoreRenderer\Core</Filter>
@@ -331,12 +331,6 @@
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Texture.h">
       <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Scene\Core_Scene.h">
-      <Filter>ソース ファイル\CoreEngine\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Scene\Core_SceneManager.h">
-      <Filter>ソース ファイル\CoreEngine\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Application\Scene\TestScene.h">
       <Filter>ソース ファイル\App\Scene</Filter>
     </ClInclude>
@@ -357,6 +351,24 @@
     </ClInclude>
     <ClInclude Include="Code\CoreEngine\Core\Component.h">
       <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Scene.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\SceneManager.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Utils\Util_Hash.h">
+      <Filter>ソース ファイル\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Utils\Util_Mathf.h">
+      <Filter>ソース ファイル\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Utils\Util_Singleton.h">
+      <Filter>ソース ファイル\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Utils\Util_String.h">
+      <Filter>ソース ファイル\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

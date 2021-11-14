@@ -8,9 +8,9 @@
 #ifndef _TEST_SCENE_
 #define _TEST_SCENE_
 
-#include <CoreEngine/Scene/Core_Scene.h>
+#include <CoreEngine/Core/Scene.h>
 
-class TestScene :public core::CoreScene
+class TestScene :public Scene
 {
 public:
 	//------------------------------------------------------------------------------
@@ -19,8 +19,8 @@ public:
 
 	/// @brief コンストラクタ
 	/// @param pSceneManager シーンマネージャー
-	explicit TestScene(core::CoreSceneManager* pSceneManager) :
-		core::CoreScene(pSceneManager)
+	explicit TestScene(SceneManager* pSceneManager) :
+		Scene(pSceneManager)
 	{
 	}
 	/// @brief デストラクタ

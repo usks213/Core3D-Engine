@@ -8,7 +8,7 @@
 #ifndef _CORE_TYPEID_
 #define _CORE_TYPEID_
 
-#include <CoreSystem\Utils\Util_Hash.h>
+#include <Utils/Util_Hash.h>
 
  /// @brief Œ^î•ñ•t‰Á
 #define DECLARE_TYPE_INFO(T) 								\
