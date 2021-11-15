@@ -17,14 +17,20 @@ class ComponentManager;
 /// @brief コンポーネント
 class Component : public Object
 {
+	friend class Entity;
 	friend class ComponentManager;
 public:
 
 	/// @brief コンストラクタ
-	/// @param id コンポーネントID
-	/// @param entity コンポーネント
-	explicit Component(const InstanceID& id, std::string_view name) :
-		Object(id, name)
+	explicit Component() :
+		Object("Component"), m_parentID(MAX_INSTANCE_ID)
+	{
+	}
+
+	/// @brief コンストラクタ
+	/// @param name コンポーネント名
+	explicit Component(std::string_view name) :
+		Object(name), m_parentID(MAX_INSTANCE_ID)
 	{
 	}
 

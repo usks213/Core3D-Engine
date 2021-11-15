@@ -40,10 +40,15 @@ class Object
 {
 public:
 	/// @brief コンストラクタ
-	/// @param id インスタンスID
+	explicit Object() :
+		m_instanceID(MAX_INSTANCE_ID), m_name("Object")
+	{
+	}
+
+	/// @brief コンストラクタ
 	/// @param name 名前
-	explicit Object(const InstanceID& id, std::string_view name) :
-		m_instanceID(id), m_name(name)
+	explicit Object(std::string_view name) :
+		m_instanceID(MAX_INSTANCE_ID), m_name(name)
 	{
 	}
 

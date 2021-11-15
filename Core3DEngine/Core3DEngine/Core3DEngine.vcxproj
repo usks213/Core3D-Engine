@@ -58,12 +58,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h" />
+    <ClInclude Include="Code\CoreEngine\Core\ComponentManager.h" />
     <ClInclude Include="Code\CoreEngine\Core\Component.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Editor.h" />
+    <ClInclude Include="Code\CoreEngine\Core\EditorManager.h" />
+    <ClInclude Include="Code\CoreEngine\Core\EntityManager.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Pipeline.h" />
+    <ClInclude Include="Code\CoreEngine\Core\PipelineManager.h" />
     <ClInclude Include="Code\CoreEngine\Core\Resource.h" />
     <ClInclude Include="Code\CoreEngine\Core\Entity.h" />
     <ClInclude Include="Code\CoreEngine\Core\Object.h" />
+    <ClInclude Include="Code\CoreEngine\Core\ResourceManager.h" />
     <ClInclude Include="Code\CoreEngine\Core\Scene.h" />
     <ClInclude Include="Code\CoreEngine\Core\SceneManager.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Script.h" />
+    <ClInclude Include="Code\CoreEngine\Core\System.h" />
+    <ClInclude Include="Code\CoreEngine\Core\SystemManager.h" />
+    <ClInclude Include="Code\CoreEngine\Core\Transform.h" />
+    <ClInclude Include="Code\CoreEngine\Core\TransformManager.h" />
     <ClInclude Include="Code\CoreEngine\Core\TypeHash.h" />
     <ClInclude Include="Code\CoreEngine\Core_Engine.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_Buffer.h" />

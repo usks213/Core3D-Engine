@@ -370,6 +370,42 @@
     <ClInclude Include="Code\Utils\Util_String.h">
       <Filter>ソース ファイル\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\ResourceManager.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\EditorManager.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Editor.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\System.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Transform.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Pipeline.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\ComponentManager.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\EntityManager.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\PipelineManager.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\SystemManager.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\TransformManager.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\Script.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Code\CoreSystem\Window\Win\Win_Resource.rc">
