@@ -67,11 +67,23 @@ private:
 
 private:
 	/// @brief 型ごとのコンポーネントプール
-	std::unordered_map<TypeID, std::vector<std::unique_ptr<Component>>> m_componentPool;
+	std::unordered_map<TypeID, std::vector<std::unique_ptr<Component>>>		m_componentPool;
 	/// @brief コンポーネントのルックアップテーブル
 	std::unordered_map<TypeID, std::unordered_map<InstanceID, std::size_t>> m_componentLookupTable;
+
+	/// @brief 生成リスト
+	std::unordered_map<TypeID, InstanceID>	m_createList;
 	/// @brief 削除リスト
 	std::unordered_map<TypeID, InstanceID>	m_destroyList;
+
+	/// @brief アクティブコンポーネントリスト
+	std::unordered_map<TypeID, std::vector<InstanceID>>						m_activeComponents;
+	/// @brief アクティブコンポーネントテーブル
+	std::unordered_map<TypeID, std::unordered_map<InstanceID, std::size_t>> m_activeComponentsTable;
+	/// @brief 非アクティブコンポーネントリスト
+	std::unordered_map<TypeID, std::vector<InstanceID>>						m_inactiveComponents;
+	/// @brief 非アクティブコンポーネントテーブル
+	std::unordered_map<TypeID, std::unordered_map<InstanceID, std::size_t>> m_inactiveComponentsTable;
 
 };
 

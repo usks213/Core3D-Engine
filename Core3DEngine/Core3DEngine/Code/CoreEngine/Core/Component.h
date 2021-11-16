@@ -12,6 +12,7 @@
 
 class Entity;
 class Transform;
+class EntityManager;
 class ComponentManager;
 
 /// @brief コンポーネント
@@ -22,37 +23,50 @@ class Component : public Object
 public:
 
 	/// @brief コンストラクタ
-	explicit Component() :
-		Object("Component"), m_parentID(MAX_INSTANCE_ID)
+	explicit Component() noexcept :
+		Object("Component"), 
+		m_pEntityManager(nullptr),
+		m_parentID(MAX_INSTANCE_ID),
+		m_isActive(true)
 	{
 	}
 
 	/// @brief コンストラクタ
 	/// @param name コンポーネント名
-	explicit Component(std::string_view name) :
-		Object(name), m_parentID(MAX_INSTANCE_ID)
+	explicit Component(std::string_view name) noexcept :
+		Object(name), 
+		m_pEntityManager(nullptr),
+		m_parentID(MAX_INSTANCE_ID),
+		m_isActive(true)
 	{
 	}
 
 	/// @brief デストラクタ
-	virtual ~Component() = default;
+	virtual ~Component() noexcept = default;
 
 
 	/// @brief 親エンティティの取得
 	/// @return エンティティポインタ
-	Entity* GetParent();
+	Entity* GetParent() noexcept;
 
 	/// @brief トランスフォームの取得
 	/// @return トランスフォームポインタ
-	Transform* GetTransform();
+	Transform* GetTransform() noexcept;
 
-
+	/// @brief アクティブ指定
+	/// @param isActive フラグ
+	void SetActive(bool isActive) noexcept;
 
 protected:
+	//--- manager
+	EntityManager* m_pEntityManager;
+
+	//--- param
 
 	/// @brief 親のエンティティID
-	InstanceID m_parentID;
-
+	InstanceID	m_parentID;
+	/// @brief アクティブフラグ
+	bool		m_isActive;
 
 };
 

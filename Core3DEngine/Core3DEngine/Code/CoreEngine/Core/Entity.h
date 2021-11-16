@@ -10,7 +10,6 @@
 
 #include "Script.h"
 #include "ComponentManager.h"
-#include <unordered_map>
 
 class Component;
 class EntityManager;
@@ -28,10 +27,14 @@ public:
 	/// @brief コンストラクタ
 	/// @param id エンティティID
 	/// @param entity エンティティ
-	explicit Entity() :
+	explicit Entity() noexcept :
 		Object("Entity"), 
-		m_transformID(MAX_INSTANCE_ID),
+		m_pEntityManager(nullptr),
 		m_pComponentManager(nullptr),
+		// components
+		m_transformID(MAX_INSTANCE_ID),
+		m_components(),
+		m_scripts(),
 		// param
 		m_isActive(true),
 		m_isStatic(false),
@@ -41,7 +44,7 @@ public:
 	}
 
 	/// @brief デストラクタ
-	~Entity() = default;
+	~Entity() noexcept = default;
 
 
 	/// @brief コンポーネントの追加
@@ -154,12 +157,13 @@ public:
 	}
 
 	/// @brief トランスフォームの取得
-	/// @return 
-	Transform* transform()
+	/// @return トランスフォームポインタ
+	Transform* transform() noexcept
 	{
 		return m_pComponentManager->FindComponent<Transform>(m_transformID);
 	}
 
+	void DispInspector() noexcept override;
 
 	///// @brief シリアライズ化
 	//template<class T>
@@ -174,15 +178,21 @@ public:
 	//}
 
 private:
-	/// @brief 保持しているコンポーネント
-	std::unordered_map<TypeID, InstanceID> m_components;
-	/// @brief 保持しているスクリプトコンポーネント
-	std::unordered_map<ScriptID, InstanceID> m_scripts;
+	//--- manager
+
+	/// @brief エンティティマネージャー
+	EntityManager*		m_pEntityManager;
+	/// @brief コンポーネントマネージャー
+	ComponentManager*	m_pComponentManager;
+
+	//--- components
 
 	/// @brief トランスフォームID
-	InstanceID				m_transformID;
-	/// @brief コンポーネントマネージャー
-	ComponentManager*		m_pComponentManager;
+	InstanceID								 m_transformID;
+	/// @brief 保持しているコンポーネント
+	std::unordered_map<TypeID, InstanceID>	 m_components;
+	/// @brief 保持しているスクリプトコンポーネント
+	std::unordered_map<ScriptID, InstanceID> m_scripts;
 
 	//--- param
 

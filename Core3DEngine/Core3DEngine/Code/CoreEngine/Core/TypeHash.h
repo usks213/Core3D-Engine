@@ -11,16 +11,16 @@
 #include <Utils/Util_Hash.h>
 
  /// @brief å^èÓïÒïtâ¡
-#define DECLARE_TYPE_INFO(T) 								\
-public:														\
-	static constexpr std::string_view GetTypeString()		\
-	{														\
-		return #T;											\
-	}														\
-	static constexpr std::uint32_t GetTypeHash()			\
-	{														\
-		return util::stringHash(#T);						\
-	}														\
+#define DECLARE_TYPE_INFO(T) 									\
+public:															\
+	static constexpr std::string_view GetTypeString() noexcept	\
+	{															\
+		return #T;												\
+	}															\
+	static constexpr std::uint32_t GetTypeHash() noexcept		\
+	{															\
+		return util::stringHash(#T);							\
+	}															\
 	void _dumyFunction() = delete
 
 
