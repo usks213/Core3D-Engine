@@ -178,14 +178,14 @@ public:
 	//}
 
 private:
-	//--- manager
+	//--- none serialize param
 
 	/// @brief エンティティマネージャー
 	EntityManager*		m_pEntityManager;
 	/// @brief コンポーネントマネージャー
 	ComponentManager*	m_pComponentManager;
 
-	//--- components
+	//--- serialize param
 
 	/// @brief トランスフォームID
 	InstanceID								 m_transformID;
@@ -193,8 +193,6 @@ private:
 	std::unordered_map<TypeID, InstanceID>	 m_components;
 	/// @brief 保持しているスクリプトコンポーネント
 	std::unordered_map<ScriptID, InstanceID> m_scripts;
-
-	//--- param
 
 	bool					m_isActive;		///< アクティブフラグ
 	bool					m_isStatic;		///< 静的フラグ

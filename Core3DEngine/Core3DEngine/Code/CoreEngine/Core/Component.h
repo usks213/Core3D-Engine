@@ -47,21 +47,33 @@ public:
 
 	/// @brief 親エンティティの取得
 	/// @return エンティティポインタ
-	Entity* GetParent() noexcept;
+	Entity* entity() noexcept;
 
 	/// @brief トランスフォームの取得
 	/// @return トランスフォームポインタ
-	Transform* GetTransform() noexcept;
+	Transform* transform() noexcept;
 
 	/// @brief アクティブ指定
 	/// @param isActive フラグ
 	void SetActive(bool isActive) noexcept;
 
+public:
+	//--- コールバック関数
+
+	virtual void OnCreate() = 0;
+	virtual void OnDestroy() = 0;
+
+	virtual void OnEnable() = 0;
+	virtual void OnDisable() = 0;
+
+	virtual void OnStart() = 0;	///< 初回更新前に一度
+
 protected:
-	//--- manager
+	//--- none serialize param
+
 	EntityManager* m_pEntityManager;
 
-	//--- param
+	//--- serialize param
 
 	/// @brief 親のエンティティID
 	InstanceID	m_parentID;

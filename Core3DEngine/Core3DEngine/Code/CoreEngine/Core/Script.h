@@ -30,8 +30,6 @@ public:														\
 	void _dumyFunction3() = delete
 
 
-class Entity;
-
 /// @brief スクリプトクラス
 class Script : public Component
 {
@@ -42,13 +40,13 @@ public:
 public:
 
 	/// @brief コンストラクタ
-	explicit Script() :
+	explicit Script() noexcept :
 		Component("Script"), m_scriptID(MAX_SCRIPT_ID)
 	{
 	}
 
 	/// @brief デストラクタ
-	virtual ~Script() = default;
+	virtual ~Script() noexcept = default;
 
 private:
 

@@ -548,6 +548,15 @@ public:
 	static const Vector4 one;
 };
 
+class Quaternion : public Vector4
+{
+public:
+	explicit Quaternion() : Vector4() {}
+	explicit Quaternion(float inX, float inY, float inZ, float inW) :
+		Vector4(inX, inY, inZ, inW)
+	{}
+};
+
 // マトリックス4x4
 class Matrix
 {

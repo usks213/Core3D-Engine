@@ -16,12 +16,19 @@ class ResourceID;
 class Resource : public Object
 {
 public:
-	explicit Resource(const InstanceID& id, std::string_view name) :
-		Object(id, name)
+	explicit Resource() noexcept :
+		Object("Resource")
 	{
 	}
 
-	virtual ~Resource() = default;
+	explicit Resource(std::string_view name) noexcept :
+		Object(name)
+	{
+	}
+
+	virtual ~Resource() noexcept = default;
+
+	virtual void DispAssets() = 0;
 
 private:
 

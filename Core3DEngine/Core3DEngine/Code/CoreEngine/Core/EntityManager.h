@@ -14,19 +14,34 @@
 
 class Entity;
 
-class EntityManager
+class EntityManager final
 {
 public:
-	EntityManager();
-	~EntityManager();
 
+	/// @brief コンストラクタ
+	explicit EntityManager() noexcept : 
+		m_entityPool()
+	{
+	}
+
+	/// @brief デストラクタ
+	~EntityManager() noexcept = default;
+
+	/// @brief エンティティの生成
+	/// @param name エンティティ名
+	/// @param bActive アクティブ指定
+	/// @param bStatic 静的指定
+	/// @return エンティティポインタ
 	Entity* CreateEntity(std::string_view name, bool bActive = true, bool bStatic = false);
 
+	/// @brief エンティティの削除
+	/// @param instanceID インスタンスID
 	void DestroyEntity(const InstanceID& instanceID);
 
 private:
 	/// @brief エンティティプール
 	std::unordered_map<InstanceID, std::unique_ptr<Entity>> m_entityPool;
+
 
 
 };

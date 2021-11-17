@@ -82,6 +82,9 @@ public:
 	//}
 
 protected:
+
+	//--- serialize param
+
 	/// @brief インスタンスID
 	InstanceID		m_instanceID;
 	/// @brief 名前

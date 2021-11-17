@@ -66,8 +66,13 @@ private:
 	Component* RegisterComponent(const TypeID& typeID, const InstanceID& instanceID, Component* pComponent);
 
 private:
+	//--- serialize param
+
 	/// @brief 型ごとのコンポーネントプール
 	std::unordered_map<TypeID, std::vector<std::unique_ptr<Component>>>		m_componentPool;
+
+	//--- none serialize param
+
 	/// @brief コンポーネントのルックアップテーブル
 	std::unordered_map<TypeID, std::unordered_map<InstanceID, std::size_t>> m_componentLookupTable;
 
