@@ -22,6 +22,8 @@
     <ClCompile Include="Code\Application\Scene\TestScene.cpp" />
     <ClCompile Include="Code\Application\StartUp.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\EntityManager.cpp" />
+    <ClCompile Include="Code\CoreEngine\Core\Scene.cpp" />
+    <ClCompile Include="Code\CoreEngine\Core\TransformManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core_Engine.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Device.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Geometry.cpp" />

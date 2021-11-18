@@ -12,8 +12,10 @@
 #include <Utils\Util_Mathf.h>
 #include <vector>
 
+ /// @brief トランスフォームID
+enum class TransformID : BaseID {};
  /// @brief ルートトランスフォームID
-constexpr InstanceID ROOT_TRANSFORM_ID = MAX_INSTANCE_ID;
+constexpr TransformID MAX_TRANSFORM_ID = std::numeric_limits<TransformID>::max();
 
 class TransformManager;
 
@@ -31,13 +33,20 @@ public:
 	explicit Transform() noexcept :
 		Component("Transform"),
 		m_pTransformManager(nullptr),
-		m_root(MAX_INSTANCE_ID),
+		m_parent(MAX_TRANSFORM_ID),
 		m_childs()
 	{
 	}
 
 	/// @brief デストラクタ
 	~Transform() noexcept = default;
+
+	/// @brief 自身のトランスフォームIDを取得
+	/// @return トランスフォームID
+	TransformID GetTransformID() noexcept 
+	{ 
+		return static_cast<TransformID>(GetInstanceID()); 
+	}
 
 private:
 
@@ -56,21 +65,21 @@ private:
 
 	//--- none serialize param
 
-	TransformManager*	m_pTransformManager;
+	TransformManager*			m_pTransformManager;
 
 	//--- serialize param
 
-	InstanceID				m_root;			  ///< ルートトランスフォームID
-	std::vector<InstanceID>	m_childs;		  ///< 子ノードトランスフォームID
+	TransformID					m_parent;		  ///< 親のトランスフォームID
+	std::vector<TransformID>	m_childs;		  ///< 子のトランスフォームIDリスト
 
-	Vector3					m_localPosition;  ///< 
-	Quaternion				m_localRotation;  ///<
-	Vector3					m_localScale;	  ///<
-	Vector3					m_globalScale;	  ///<
+	Vector3						m_localPosition;  ///< 
+	Quaternion					m_localRotation;  ///<
+	Vector3						m_localScale;	  ///<
+	Vector3						m_globalScale;	  ///<
 
-	Matrix					m_localMatrix;	  ///<
-	Matrix					m_globalMatrix;	  ///<
-	Matrix					m_parentMatrix;	  ///<
+	Matrix						m_localMatrix;	  ///<
+	Matrix						m_globalMatrix;	  ///<
+	Matrix						m_parentMatrix;	  ///<
 };
 
 #endif // !_TRANSFORM_

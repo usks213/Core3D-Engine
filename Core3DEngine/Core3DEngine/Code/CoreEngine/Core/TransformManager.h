@@ -11,23 +11,38 @@
 #include "Object.h"
 #include <vector>
 
+class Scene;
 class Transform;
 
-class TransformManager
+class TransformManager final
 {
+	friend class Transform;
 public:
-	TransformManager();
-	~TransformManager();
 
-	Transform* RegisterRoot(const InstanceID& instanceID);
+	/// @brief コンストラクタ
+	/// @param pScene シーンポインタ
+	explicit TransformManager(Scene* pScene) :
+		m_pScene(pScene)
+	{
+	}
 
-	void RemoveRoot(const InstanceID& instanceID);
+	/// @brief デストラクタ
+	~TransformManager() noexcept = default;
+
+	Transform* CreateTransform(const InstanceID& entityID);
+
+	void DestroyTransform(const InstanceID& transformID);
+
+	Transform* RegisterRoot(const InstanceID& transformID);
+
+	void RemoveRoot(const InstanceID& transformID);
 
 private:
+	/// @brief 所属シーン
+	Scene* m_pScene;
 
 	/// @brief ルートトランスフォームリスト
 	std::vector<InstanceID> m_rootTransforms;
-
 
 };
 

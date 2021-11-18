@@ -14,11 +14,20 @@
 #include <vector>
 #include <unordered_map>
 
+class Scene;
+
 class ComponentManager final
 {
 public:
-	ComponentManager();
-	~ComponentManager();
+	/// @brief コンストラクタ
+	/// @param pScene シーンポインタ
+	explicit ComponentManager(Scene* pScene) noexcept :
+		m_pScene(pScene)
+	{
+	}
+
+	/// @brief デストラクタ
+	~ComponentManager() noexcept = default;
 
 
 	template<class T, bool isComBase = std::is_base_of_v<Component, T>>
@@ -68,6 +77,8 @@ private:
 private:
 	//--- serialize param
 
+	/// @brief 所属シーン
+	Scene* m_pScene;
 	/// @brief 型ごとのコンポーネントプール
 	std::unordered_map<TypeID, std::vector<std::unique_ptr<Component>>>		m_componentPool;
 

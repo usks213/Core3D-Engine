@@ -11,7 +11,7 @@
 #include "Component.h"
 
  /// @brief スクリプトID
-enum class ScriptID : std::uint32_t{};
+enum class ScriptID : BaseID {};
 /// @brief 最大スクリプトID
 constexpr ScriptID MAX_SCRIPT_ID = std::numeric_limits<ScriptID>::max();
 

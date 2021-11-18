@@ -12,15 +12,18 @@
 #include <memory>
 #include <unordered_map>
 
+class Scene;
 class Entity;
+class ComponentManager;
+class TransformManager;
 
 class EntityManager final
 {
 public:
 
 	/// @brief コンストラクタ
-	explicit EntityManager() noexcept : 
-		m_entityPool()
+	explicit EntityManager(Scene* pScene) noexcept : 
+		m_pScene(pScene) ,m_entityPool()
 	{
 	}
 
@@ -38,11 +41,20 @@ public:
 	/// @param instanceID インスタンスID
 	void DestroyEntity(const InstanceID& instanceID);
 
+	/// @brief コンポーネントマネージャー取得
+	/// @return コンポーネントマネージャー
+	ComponentManager* GetComponentManager();
+
+	/// @brief トランスフォームマネージャー取得
+	/// @return トランスフォームマネージャー
+	TransformManager* GetTransformManager();
+
 private:
+	/// @brief 所属シーン
+	Scene* m_pScene;
+
 	/// @brief エンティティプール
 	std::unordered_map<InstanceID, std::unique_ptr<Entity>> m_entityPool;
-
-
 
 };
 

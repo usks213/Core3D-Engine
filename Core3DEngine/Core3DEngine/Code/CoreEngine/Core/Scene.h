@@ -8,8 +8,15 @@
 #ifndef _SCENE_
 #define _SCENE_
 
+#include <memory>
+
 // 前定義
 class SceneManager;
+class EntityManager;
+class ComponentManager;
+class TransformManager;
+class SystemManager;
+class PipelineManager;
 
 /// @brief シーン
 class Scene
@@ -22,10 +29,8 @@ public:
 
 	/// @brief コンストラクタ
 	/// @param pSceneManager シーンマネージャー
-	explicit Scene(SceneManager* pSceneManager) :
-		m_pSceneManager(pSceneManager)
-	{
-	}
+	explicit Scene(SceneManager* pSceneManager) noexcept;
+
 	/// @brief デストラクタ
 	virtual ~Scene() noexcept = default;
 
@@ -44,15 +49,33 @@ public:
 
 	/// @brief シーンマネージャーの取得
 	/// @return シーンマネージャーのポインタ
-	SceneManager* getSceneManager() noexcept { return m_pSceneManager; }
+	SceneManager* GetSceneManager() noexcept { return m_pSceneManager; }
+
+	/// @brief エンティティマネージャーの取得
+	/// @return エンティティマネージャーのポインタ
+	EntityManager* GetEntityManager() noexcept { return m_pEntityManager.get(); }
+
+	/// @brief コンポーネントマネージャーの取得
+	/// @return コンポーネントマネージャーのポインタ
+	ComponentManager* GetComponentManager() noexcept { return m_pComponentManager.get(); }
+
+	/// @brief トランスフォームマネージャーの取得
+	/// @return トランスフォームマネージャーのポインタ
+	TransformManager* GetTransformManager() noexcept { return m_pTransformManager.get(); }
 
 protected:
 	//------------------------------------------------------------------------------
 	// protected variables
 	//------------------------------------------------------------------------------
 
-	/// @brief ワールドマネージャー
+	/// @brief シーンマネージャー
 	SceneManager* m_pSceneManager;
+
+	std::unique_ptr<EntityManager>		m_pEntityManager;
+	std::unique_ptr<ComponentManager>	m_pComponentManager;
+	std::unique_ptr<TransformManager>	m_pTransformManager;
+	std::unique_ptr<SystemManager>		m_pSystemManager;
+	std::unique_ptr<PipelineManager>	m_pPipelineManager;
 };
 
 #endif // !_SCENE_

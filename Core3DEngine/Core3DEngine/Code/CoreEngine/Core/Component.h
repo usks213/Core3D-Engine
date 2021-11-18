@@ -12,7 +12,6 @@
 
 class Entity;
 class Transform;
-class EntityManager;
 class ComponentManager;
 
 /// @brief コンポーネント
@@ -25,18 +24,17 @@ public:
 	/// @brief コンストラクタ
 	explicit Component() noexcept :
 		Object("Component"), 
-		m_pEntityManager(nullptr),
-		m_parentID(MAX_INSTANCE_ID),
+		m_pComponentManager(nullptr),
+		m_entityID(MAX_INSTANCE_ID),
 		m_isActive(true)
 	{
 	}
 
 	/// @brief コンストラクタ
-	/// @param name コンポーネント名
 	explicit Component(std::string_view name) noexcept :
-		Object(name), 
-		m_pEntityManager(nullptr),
-		m_parentID(MAX_INSTANCE_ID),
+		Object(name),
+		m_pComponentManager(nullptr),
+		m_entityID(MAX_INSTANCE_ID),
 		m_isActive(true)
 	{
 	}
@@ -71,12 +69,12 @@ public:
 protected:
 	//--- none serialize param
 
-	EntityManager* m_pEntityManager;
+	ComponentManager* m_pComponentManager;
 
 	//--- serialize param
 
 	/// @brief 親のエンティティID
-	InstanceID	m_parentID;
+	InstanceID	m_entityID;
 	/// @brief アクティブフラグ
 	bool		m_isActive;
 

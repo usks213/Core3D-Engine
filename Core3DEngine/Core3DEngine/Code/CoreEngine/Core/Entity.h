@@ -8,12 +8,15 @@
 #ifndef _ENTITY_
 #define _ENTITY_
 
-#include "Script.h"
+#include "EntityManager.h"
 #include "ComponentManager.h"
+#include "Transform.h"
+#include "Script.h"
 
-class Component;
-class EntityManager;
-class Transform;
+ /// @brief エンティティID
+enum class EntityID : BaseID {};
+/// @brief 最大エンティティID
+constexpr EntityID MAX_TRANSFORM_ID = std::numeric_limits<EntityID>::max();
 
 /// @brief エンティティ
 class Entity final : public Object
@@ -25,12 +28,9 @@ public:
 	DECLARE_OBJECT_INFO(Entity);
 
 	/// @brief コンストラクタ
-	/// @param id エンティティID
-	/// @param entity エンティティ
 	explicit Entity() noexcept :
 		Object("Entity"), 
 		m_pEntityManager(nullptr),
-		m_pComponentManager(nullptr),
 		// components
 		m_transformID(MAX_INSTANCE_ID),
 		m_components(),
@@ -43,9 +43,32 @@ public:
 	{
 	}
 
+	explicit Entity(const InstanceID& id, std::string_view name, 
+		EntityManager* pEntityManager,
+		bool bActive, bool bStatic) noexcept :
+		Object(id, name),
+		m_pEntityManager(pEntityManager),
+		// components
+		m_transformID(MAX_INSTANCE_ID),
+		m_components(),
+		m_scripts(),
+		// param
+		m_isActive(bActive),
+		m_isStatic(bStatic),
+		m_tag("Default"),
+		m_layer("Default")
+	{
+	}
+
 	/// @brief デストラクタ
 	~Entity() noexcept = default;
 
+	/// @brief 自身のエンティティIDの取得
+	/// @return エンティティID
+	EntityID GetEntityID() noexcept
+	{
+		return static_cast<EntityID>(GetInstanceID());
+	}
 
 	/// @brief コンポーネントの追加
 	/// @tparam T コンポーネントクラス
@@ -55,6 +78,7 @@ public:
 	{
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
+		ComponentManager* pComponentManager = m_pEntityManager->GetComponentManager();
 
 		// コンポーネントかスクリプトか
 		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
@@ -64,10 +88,10 @@ public:
 			auto itr = m_scripts.find(typeID);
 			if (m_scripts.end() != itr)
 			{
-				return m_pComponentManager->FindComponent<T>(itr->second);
+				return pComponentManager->FindComponent<T>(itr->second);
 			}
 			// 新規生成
-			T* pCom = m_pComponentManager->CreateComponent<T>(m_instanceID);
+			T* pCom = pComponentManager->CreateComponent<T>(m_instanceID);
 			pCom->m_parentID = m_instanceID;
 			pCom->m_scriptID = T::GetScriptTypeID();
 			// 格納
@@ -82,10 +106,10 @@ public:
 			auto itr = m_components.find(typeID);
 			if (.end() != itr)
 			{
-				return m_pComponentManager->FindComponent<T>(itr->second);
+				return pComponentManager->FindComponent<T>(itr->second);
 			}
 			// 新規生成
-			T* pCom = m_pComponentManager->CreateComponent<T>(m_instanceID);
+			T* pCom = pComponentManager->CreateComponent<T>(m_instanceID);
 			pCom->m_parentID = m_instanceID;
 			// 格納
 			m_components.emplace(typeID, pCom->GetInstanceID());
@@ -98,6 +122,7 @@ public:
 	/// @param pComponent コンポーネントポインタ
 	void RemoveComponent(Component* pComponent)
 	{
+		ComponentManager* pComponentManager = m_pEntityManager->GetComponentManager();
 		TypeID typeID = pComponent->GetTypeID();
 		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
 		{
@@ -107,7 +132,7 @@ public:
 			auto itr = m_scripts.find(pScript->m_scriptID);
 			if (m_scripts.end() != itr)
 			{
-				m_pComponentManager->DestroyComponent(typeID, itr->second);
+				pComponentManager->DestroyComponent(typeID, itr->second);
 			}
 		}
 		else
@@ -117,7 +142,7 @@ public:
 			auto itr = m_components.find(typeID);
 			if (m_components.end() != itr)
 			{
-				m_pComponentManager->DestroyComponent(typeID, itr->second);
+				pComponentManager->DestroyComponent(typeID, itr->second);
 			}
 		}
 	}
@@ -130,6 +155,7 @@ public:
 	{
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
+		ComponentManager* pComponentManager = m_pEntityManager->GetComponentManager();
 
 		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
 		{
@@ -139,7 +165,7 @@ public:
 			auto itr = m_scripts.find(scriptID);
 			if (m_scripts.end() != itr)
 			{
-				return m_pComponentManager->FindComponent<T>(itr->second);
+				return pComponentManager->FindComponent<T>(itr->second);
 			}
 		}
 		else
@@ -149,7 +175,7 @@ public:
 			auto itr = m_components.find(typeID);
 			if (m_components.end() != itr)
 			{
-				return m_pComponentManager->FindComponent<T>(itr->second);
+				return pComponentManager->FindComponent<T>(itr->second);
 			}
 		}
 		// なし
@@ -160,7 +186,8 @@ public:
 	/// @return トランスフォームポインタ
 	Transform* transform() noexcept
 	{
-		return m_pComponentManager->FindComponent<Transform>(m_transformID);
+		ComponentManager* pComponentManager = m_pEntityManager->GetComponentManager();
+		return pComponentManager->FindComponent<Transform>(m_transformID);
 	}
 
 	void DispInspector() noexcept override;
@@ -182,13 +209,11 @@ private:
 
 	/// @brief エンティティマネージャー
 	EntityManager*		m_pEntityManager;
-	/// @brief コンポーネントマネージャー
-	ComponentManager*	m_pComponentManager;
 
 	//--- serialize param
 
 	/// @brief トランスフォームID
-	InstanceID								 m_transformID;
+	TransformID								 m_transformID;
 	/// @brief 保持しているコンポーネント
 	std::unordered_map<TypeID, InstanceID>	 m_components;
 	/// @brief 保持しているスクリプトコンポーネント

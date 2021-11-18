@@ -11,10 +11,13 @@
 
 #include "TypeHash.h"
 
+/// @brief 基底のID(サイズ)
+using BaseID = std::uint32_t;
+
  /// @brief インスタンスID
-enum class InstanceID : std::uint32_t;
+enum class InstanceID : BaseID;
 /// @brief タイプID
-enum class TypeID : std::uint32_t {};
+enum class TypeID : BaseID {};
 
 /// @brief 最大インスタンスID
 constexpr InstanceID MAX_INSTANCE_ID = std::numeric_limits<InstanceID>::max();
@@ -49,6 +52,13 @@ public:
 	/// @param name 名前
 	explicit Object(std::string_view name) noexcept :
 		m_instanceID(MAX_INSTANCE_ID), m_name(name)
+	{
+	}
+
+	/// @brief コンストラクタ
+	/// @param name 名前
+	explicit Object(const InstanceID& id ,std::string_view name) noexcept :
+		m_instanceID(id), m_name(name)
 	{
 	}
 
