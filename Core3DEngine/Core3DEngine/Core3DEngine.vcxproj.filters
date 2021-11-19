@@ -415,6 +415,9 @@
     <ClInclude Include="Code\CoreEngine\Core\Script.h">
       <Filter>ソース ファイル\CoreEngine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Core\TypeID.h">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Code\CoreSystem\Window\Win\Win_Resource.rc">

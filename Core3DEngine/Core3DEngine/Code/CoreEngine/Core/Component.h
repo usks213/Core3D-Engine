@@ -25,7 +25,7 @@ public:
 	explicit Component() noexcept :
 		Object("Component"), 
 		m_pComponentManager(nullptr),
-		m_entityID(MAX_INSTANCE_ID),
+		m_entityID(NONE_ENTITY_ID),
 		m_isActive(true)
 	{
 	}
@@ -34,7 +34,7 @@ public:
 	explicit Component(std::string_view name) noexcept :
 		Object(name),
 		m_pComponentManager(nullptr),
-		m_entityID(MAX_INSTANCE_ID),
+		m_entityID(NONE_ENTITY_ID),
 		m_isActive(true)
 	{
 	}
@@ -74,7 +74,7 @@ protected:
 	//--- serialize param
 
 	/// @brief 親のエンティティID
-	InstanceID	m_entityID;
+	EntityID	m_entityID;
 	/// @brief アクティブフラグ
 	bool		m_isActive;
 

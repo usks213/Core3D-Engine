@@ -80,6 +80,7 @@
     <ClInclude Include="Code\CoreEngine\Core\Transform.h" />
     <ClInclude Include="Code\CoreEngine\Core\TransformManager.h" />
     <ClInclude Include="Code\CoreEngine\Core\TypeHash.h" />
+    <ClInclude Include="Code\CoreEngine\Core\TypeID.h" />
     <ClInclude Include="Code\CoreEngine\Core_Engine.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_Buffer.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_CommandList.h" />

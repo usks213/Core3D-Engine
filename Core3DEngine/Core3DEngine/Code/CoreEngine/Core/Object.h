@@ -10,20 +10,7 @@
 #define _OBJECT_
 
 #include "TypeHash.h"
-
-/// @brief 基底のID(サイズ)
-using BaseID = std::uint32_t;
-
- /// @brief インスタンスID
-enum class InstanceID : BaseID;
-/// @brief タイプID
-enum class TypeID : BaseID {};
-
-/// @brief 最大インスタンスID
-constexpr InstanceID MAX_INSTANCE_ID = std::numeric_limits<InstanceID>::max();
-/// @brief 最大タイプID
-constexpr TypeID MAX_TYPE_ID = std::numeric_limits<TypeID>::max();
-
+#include "TypeID.h"
 
  /// @brief オブジェクトの情報を付加
 #define DECLARE_OBJECT_INFO(T)									\
@@ -44,14 +31,14 @@ class Object
 public:
 	/// @brief コンストラクタ
 	explicit Object() noexcept :
-		m_instanceID(MAX_INSTANCE_ID), m_name("Object")
+		m_instanceID(NONE_INSTANCE_ID), m_name("Object")
 	{
 	}
 
 	/// @brief コンストラクタ
 	/// @param name 名前
 	explicit Object(std::string_view name) noexcept :
-		m_instanceID(MAX_INSTANCE_ID), m_name(name)
+		m_instanceID(NONE_INSTANCE_ID), m_name(name)
 	{
 	}
 

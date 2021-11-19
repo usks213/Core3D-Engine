@@ -12,11 +12,6 @@
 #include <Utils\Util_Mathf.h>
 #include <vector>
 
- /// @brief トランスフォームID
-enum class TransformID : BaseID {};
- /// @brief ルートトランスフォームID
-constexpr TransformID MAX_TRANSFORM_ID = std::numeric_limits<TransformID>::max();
-
 class TransformManager;
 
 /// @brief トランスフォームクラス

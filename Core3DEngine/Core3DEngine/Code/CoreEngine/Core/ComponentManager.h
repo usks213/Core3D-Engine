@@ -39,21 +39,21 @@ public:
 		auto pCom = std::make_unique<T>();
 		auto pResult = pCom.get();
 		// 格納
-		m_componentLookupTable[typeID].emplace(pCom->GetInstanceID(), m_componentPool[typeID].size());
+		m_componentLookupTable[typeID].emplace(pCom->GetComponentID(), m_componentPool[typeID].size());
 		m_componentPool[typeID].push_back(std::move(pCom));
 
 		return pResult;
 	}
 
-	void DestroyComponent(const TypeID& typeID ,const InstanceID& instanceID);
+	void DestroyComponent(const TypeID& typeID ,const ComponentID& componentID);
 
 	template<class T, bool isComBase = std::is_base_of_v<Component, T>>
-	T* FindComponent(const InstanceID& instanceID)
+	T* FindComponent(const ComponentID& componentID)
 	{
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
 		// 検索
-		auto itr = m_componentLookupTable[typeID].find(instanceID);
+		auto itr = m_componentLookupTable[typeID].find(componentID);
 		if (m_componentLookupTable[typeID].end()) == itr)
 		{
 			return nullptr;
@@ -72,7 +72,7 @@ public:
 
 private:
 
-	Component* RegisterComponent(const TypeID& typeID, const InstanceID& instanceID, Component* pComponent);
+	Component* RegisterComponent(const TypeID& typeID, const ComponentID& componentID, Component* pComponent);
 
 private:
 	//--- serialize param
@@ -85,21 +85,21 @@ private:
 	//--- none serialize param
 
 	/// @brief コンポーネントのルックアップテーブル
-	std::unordered_map<TypeID, std::unordered_map<InstanceID, std::size_t>> m_componentLookupTable;
+	std::unordered_map<TypeID, std::unordered_map<ComponentID, std::size_t>> m_componentLookupTable;
 
 	/// @brief 生成リスト
-	std::unordered_map<TypeID, InstanceID>	m_createList;
+	std::unordered_map<TypeID, ComponentID>	m_createList;
 	/// @brief 削除リスト
-	std::unordered_map<TypeID, InstanceID>	m_destroyList;
+	std::unordered_map<TypeID, ComponentID>	m_destroyList;
 
 	/// @brief アクティブコンポーネントリスト
-	std::unordered_map<TypeID, std::vector<InstanceID>>						m_activeComponents;
+	std::unordered_map<TypeID, std::vector<ComponentID>>						m_activeComponents;
 	/// @brief アクティブコンポーネントテーブル
-	std::unordered_map<TypeID, std::unordered_map<InstanceID, std::size_t>> m_activeComponentsTable;
+	std::unordered_map<TypeID, std::unordered_map<ComponentID, std::size_t>> m_activeComponentsTable;
 	/// @brief 非アクティブコンポーネントリスト
-	std::unordered_map<TypeID, std::vector<InstanceID>>						m_inactiveComponents;
+	std::unordered_map<TypeID, std::vector<ComponentID>>						m_inactiveComponents;
 	/// @brief 非アクティブコンポーネントテーブル
-	std::unordered_map<TypeID, std::unordered_map<InstanceID, std::size_t>> m_inactiveComponentsTable;
+	std::unordered_map<TypeID, std::unordered_map<ComponentID, std::size_t>> m_inactiveComponentsTable;
 
 };
 

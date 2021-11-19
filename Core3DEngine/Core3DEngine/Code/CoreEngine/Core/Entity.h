@@ -13,10 +13,6 @@
 #include "Transform.h"
 #include "Script.h"
 
- /// @brief エンティティID
-enum class EntityID : BaseID {};
-/// @brief 最大エンティティID
-constexpr EntityID MAX_TRANSFORM_ID = std::numeric_limits<EntityID>::max();
 
 /// @brief エンティティ
 class Entity final : public Object
@@ -32,7 +28,7 @@ public:
 		Object("Entity"), 
 		m_pEntityManager(nullptr),
 		// components
-		m_transformID(MAX_INSTANCE_ID),
+		m_transformID(NONE_TRANSFORM_ID),
 		m_components(),
 		m_scripts(),
 		// param
@@ -43,13 +39,13 @@ public:
 	{
 	}
 
-	explicit Entity(const InstanceID& id, std::string_view name, 
+	explicit Entity(const EntityID& id, std::string_view name, 
 		EntityManager* pEntityManager,
 		bool bActive, bool bStatic) noexcept :
-		Object(id, name),
+		Object(static_cast<InstanceID>(id), name),
 		m_pEntityManager(pEntityManager),
 		// components
-		m_transformID(MAX_INSTANCE_ID),
+		m_transformID(NONE_TRANSFORM_ID),
 		m_components(),
 		m_scripts(),
 		// param
@@ -95,7 +91,7 @@ public:
 			pCom->m_parentID = m_instanceID;
 			pCom->m_scriptID = T::GetScriptTypeID();
 			// 格納
-			m_scripts.emplace(T::GetScriptTypeID(), pCom->GetInstanceID());
+			m_scripts.emplace(T::GetScriptTypeID(), pCom->GetComponentID());
 
 			return pCom;
 		}
@@ -112,7 +108,7 @@ public:
 			T* pCom = pComponentManager->CreateComponent<T>(m_instanceID);
 			pCom->m_parentID = m_instanceID;
 			// 格納
-			m_components.emplace(typeID, pCom->GetInstanceID());
+			m_components.emplace(typeID, pCom->GetComponentID());
 
 			return pCom;
 		}
@@ -215,9 +211,9 @@ private:
 	/// @brief トランスフォームID
 	TransformID								 m_transformID;
 	/// @brief 保持しているコンポーネント
-	std::unordered_map<TypeID, InstanceID>	 m_components;
+	std::unordered_map<TypeID, ComponentID>	 m_components;
 	/// @brief 保持しているスクリプトコンポーネント
-	std::unordered_map<ScriptID, InstanceID> m_scripts;
+	std::unordered_map<ScriptID, ComponentID> m_scripts;
 
 	bool					m_isActive;		///< アクティブフラグ
 	bool					m_isStatic;		///< 静的フラグ

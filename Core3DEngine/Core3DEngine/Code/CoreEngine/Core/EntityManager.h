@@ -39,7 +39,7 @@ public:
 
 	/// @brief エンティティの削除
 	/// @param instanceID インスタンスID
-	void DestroyEntity(const InstanceID& instanceID);
+	void DestroyEntity(const EntityID& entityID);
 
 	/// @brief コンポーネントマネージャー取得
 	/// @return コンポーネントマネージャー
@@ -54,7 +54,7 @@ private:
 	Scene* m_pScene;
 
 	/// @brief エンティティプール
-	std::unordered_map<InstanceID, std::unique_ptr<Entity>> m_entityPool;
+	std::unordered_map<EntityID, std::unique_ptr<Entity>> m_entityPool;
 
 };
 

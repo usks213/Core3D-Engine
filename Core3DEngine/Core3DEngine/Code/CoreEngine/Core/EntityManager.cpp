@@ -23,11 +23,11 @@
 Entity* EntityManager::CreateEntity(std::string_view name, bool bActive, bool bStatic)
 {
 	// ID作成
-	InstanceID instanceID = MAX_INSTANCE_ID;
+	EntityID entityID = NONE_ENTITY_ID;
 	do
 	{
-		instanceID = static_cast<InstanceID>(rand() % std::numeric_limits<int>::max());
-		auto itr = m_entityPool.find(instanceID);
+		entityID = static_cast<EntityID>(rand() % std::numeric_limits<int>::max());
+		auto itr = m_entityPool.find(entityID);
 		if (m_entityPool.end() == itr)
 		{
 			break;
@@ -40,9 +40,9 @@ Entity* EntityManager::CreateEntity(std::string_view name, bool bActive, bool bS
 	auto* pTransformManager = m_pScene->GetTransformManager();
 
 	// エンティティ生成
-	auto entity = std::make_unique<Entity>(instanceID, name, pComponentManager, bActive, bStatic);
+	auto entity = std::make_unique<Entity>(entityID, name, pComponentManager, bActive, bStatic);
 	auto* pEntity = entity.get();
-	m_entityPool.emplace(instanceID, std::move(entity));
+	m_entityPool.emplace(entityID, std::move(entity));
 
 	// トランスフォーム生成
 
@@ -51,8 +51,8 @@ Entity* EntityManager::CreateEntity(std::string_view name, bool bActive, bool bS
 }
 
 /// @brief エンティティの削除
-/// @param instanceID インスタンスID
-void EntityManager::DestroyEntity(const InstanceID& instanceID)
+/// @param entityID インスタンスID
+void EntityManager::DestroyEntity(const EntityID& entityID)
 {
 
 }

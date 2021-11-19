@@ -10,12 +10,6 @@
 
 #include "Component.h"
 
- /// @brief スクリプトID
-enum class ScriptID : BaseID {};
-/// @brief 最大スクリプトID
-constexpr ScriptID MAX_SCRIPT_ID = std::numeric_limits<ScriptID>::max();
-
-
  /// @brief 型情報付加
 #define DECLARE_SCRIPT_INFO(T) 								\
 public:														\
