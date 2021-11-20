@@ -95,8 +95,7 @@ public:
 				return pComponentManager->FindComponent<T>(itr->second);
 			}
 			// V‹K¶¬
-			T* pCom = pComponentManager->CreateComponent<T>(m_instanceID, m_isActive);
-			pCom->m_parentID = m_instanceID;
+			T* pCom = pComponentManager->CreateComponent<T>(GetEntityID(), m_isActive);
 			pCom->m_scriptID = T::GetScriptTypeID();
 			// Ši”[
 			m_scripts.emplace(T::GetScriptTypeID(), pCom->GetComponentID());
@@ -113,8 +112,7 @@ public:
 				return pComponentManager->FindComponent<T>(itr->second);
 			}
 			// V‹K¶¬
-			T* pCom = pComponentManager->CreateComponent<T>(m_instanceID, m_isActive);
-			pCom->m_parentID = m_instanceID;
+			T* pCom = pComponentManager->CreateComponent<T>((GetEntityID(), m_isActive);
 			// Ši”[
 			m_components.emplace(typeID, pCom->GetComponentID());
 
