@@ -58,6 +58,7 @@
     <ClCompile Include="Code\CoreSystem\Window\Core\Core_Window.cpp" />
     <ClCompile Include="Code\CoreSystem\Window\Win\Win_Window.cpp" />
     <ClCompile Include="Code\Utils\Util_Mathf.cpp" />
+    <ClCompile Include="Library\SimpleMath\SimpleMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Code\Utils\Util_Mathf.h" />
     <ClInclude Include="Code\Utils\Util_Singleton.h" />
     <ClInclude Include="Code\Utils\Util_String.h" />
+    <ClInclude Include="Library\SimpleMath\SimpleMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Code\CoreSystem\Window\Win\Win_Resource.rc" />
@@ -218,6 +220,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)Library\SimpleMath</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -234,6 +237,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)Library\SimpleMath</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -250,6 +254,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)Library\SimpleMath</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -266,6 +271,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)Library\SimpleMath</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

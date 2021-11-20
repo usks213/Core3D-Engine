@@ -87,6 +87,15 @@
     <Filter Include="ソース ファイル\CoreEngine\Resource">
       <UniqueIdentifier>{68d49ddb-9caf-464c-982e-623c68f999d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ライブラリファイル\ImGui">
+      <UniqueIdentifier>{fc169d21-c771-4f7b-b5c7-7fa49ef27822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ライブラリファイル\DirectXTex">
+      <UniqueIdentifier>{8dbd5fcb-c009-440e-aab0-35b506015180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ライブラリファイル\SimpleMath">
+      <UniqueIdentifier>{313cff93-bb8a-4862-b84c-7e5aab42035d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp">
@@ -205,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="Code\CoreEngine\Core\TransformManager.cpp">
       <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\SimpleMath\SimpleMath.cpp">
+      <Filter>ライブラリファイル\SimpleMath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -417,6 +429,9 @@
     </ClInclude>
     <ClInclude Include="Code\CoreEngine\Core\TypeID.h">
       <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\SimpleMath\SimpleMath.h">
+      <Filter>ライブラリファイル\SimpleMath</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

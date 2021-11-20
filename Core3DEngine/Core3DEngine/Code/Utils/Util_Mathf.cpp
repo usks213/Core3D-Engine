@@ -8,6 +8,11 @@
 
 #include "Util_Mathf.h"
 
+
+#ifdef _WIN32
+
+
+#else
 const Vector2 Vector2::zero = Vector2{ 0,0 };
 const Vector2 Vector2::one = Vector2{ 1,1 };
 const Vector2 Vector2::right = Vector2{ 1,0 };
@@ -151,3 +156,4 @@ void Matrix::Invert() noexcept
 		}
 	}
 }
+#endif // _WIN32

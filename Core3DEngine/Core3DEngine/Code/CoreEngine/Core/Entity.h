@@ -108,7 +108,7 @@ public:
 			//--- コンポーネント
 			// 検索
 			auto itr = m_components.find(typeID);
-			if (.end() != itr)
+			if (m_components.end() != itr)
 			{
 				return pComponentManager->FindComponent<T>(itr->second);
 			}

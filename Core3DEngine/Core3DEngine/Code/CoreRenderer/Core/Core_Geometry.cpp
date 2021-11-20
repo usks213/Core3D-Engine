@@ -305,7 +305,7 @@ void Geometry::Sphere(core::CoreMesh& out, int nSplit, float fSize, float fTexSi
 			// 座標を回転マトリックスで回転させる
 			Vector3 v = pVtx->vtx;
 			v = Vector3::Transform(v, mR);
-			v = v.Normalize();
+			v.Normalize();
 			pVtx->vtx = v;
 
 			// 法線の設定
