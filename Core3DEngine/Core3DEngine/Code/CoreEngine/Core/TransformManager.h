@@ -8,12 +8,10 @@
 #ifndef _TRANSFORM_MANAGER_
 #define _TRANSFORM_MANAGER_
 
-#include "Object.h"
-#include <vector>
+#include "Transform.h"
 #include <unordered_map>
 
 class Scene;
-class Transform;
 
 class TransformManager final
 {

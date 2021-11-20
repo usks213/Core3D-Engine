@@ -37,7 +37,8 @@ public:
 	/// @param bActive アクティブ指定
 	/// @param bStatic 静的指定
 	/// @return エンティティポインタ
-	Entity* CreateEntity(std::string_view name, bool bActive = true, bool bStatic = false);
+	Entity* CreateEntity(std::string_view name, bool bActive = true, 
+		bool bStatic = false, const TransformID& parentID = NONE_TRANSFORM_ID);
 
 	/// @brief エンティティの削除
 	/// @param instanceID インスタンスID

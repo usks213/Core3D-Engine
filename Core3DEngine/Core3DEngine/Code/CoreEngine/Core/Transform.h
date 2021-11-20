@@ -43,18 +43,45 @@ public:
 		return static_cast<TransformID>(GetInstanceID()); 
 	}
 
-private:
+public:
 
-	//void SetParent(const TransformID& parentID);
-	//Transform* GetParent();
-	//void ResetRelation();
+	/// @brief 親のトランスフォーム指定
+	/// @param parentID 親のトランスフォームID
+	void SetParent(const TransformID& parentID);
 
-	//void AddChild(const TransformID& childID);
-	//Transform* GetChild(std::size_t index);
-	//void RemoveChild(const TransformID& childID);
+	/// @brief 親のトランスフォーム取得
+	/// @return トランスフォームポインタ
+	Transform* GetParent();
 
-	//std::vector<TransformID>& GetChildList();
-	//std::size_t GetChildCount();
+	/// @brief 自身をルートに戻す
+	void ReturnRoot();
+
+	/// @brief 子のトランスフォームを追加
+	/// @param childID 子のトランスフォームID
+	void AddChild(const TransformID& childID);
+
+	/// @brief 指定した子のトランスフォームを取得
+	/// @param index インデックス
+	/// @return トランスフォームポインタ
+	Transform* GetChild(std::size_t index);
+
+	/// @brief 子のトランスフォームを削除
+	/// @param childID 子のトランスフォームID
+	void RemoveChild(const TransformID& childID);
+
+	/// @brief 子のリストを取得
+	/// @return 子の配列
+	std::vector<TransformID>& GetChildList() noexcept
+	{
+		return m_childs;
+	}
+
+	/// @brief 子の数を取得
+	/// @return サイズ
+	std::size_t GetChildCount() const noexcept
+	{
+		return m_childs.size();
+	}
 
 private:
 

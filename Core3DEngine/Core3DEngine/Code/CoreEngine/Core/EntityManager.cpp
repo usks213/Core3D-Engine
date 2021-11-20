@@ -20,7 +20,8 @@
  /// @param bActive アクティブ指定
  /// @param bStatic 静的指定
  /// @return エンティティポインタ
-Entity* EntityManager::CreateEntity(std::string_view name, bool bActive, bool bStatic)
+Entity* EntityManager::CreateEntity(std::string_view name, bool bActive, 
+	bool bStatic, const TransformID& parentID)
 {
 	// ID作成
 	EntityID entityID = NONE_ENTITY_ID;
@@ -45,7 +46,9 @@ Entity* EntityManager::CreateEntity(std::string_view name, bool bActive, bool bS
 	m_entityPool.emplace(entityID, std::move(entity));
 
 	// トランスフォーム生成
-
+	auto pTransform = pTransformManager->CreateTransform(entityID, 
+		pEntity->m_isActive, pEntity->m_isStatic, parentID);
+	pEntity->m_transformID = pTransform->GetTransformID();
 
 	return pEntity;
 }

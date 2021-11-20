@@ -39,21 +39,21 @@ public:
 	{
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
-		// ID生成
-		InstanceID id = NONE_INSTANCE_ID;
 		// 生成
 		auto pCom = std::make_unique<T>();
 		auto pResult = pCom.get();
-		pResult->m_instanceID = id;
+		pResult->m_pComponentManager = this;
+		pResult->m_instanceID = static_cast<InstanceID>(CreateComponentID(typeID));
 		pResult->m_entityID = entityID;
 		pResult->m_isEnable = isEnable;
 		// 格納
-		m_componentLookupTable[typeID].emplace(pCom->GetComponentID(), m_componentPool[typeID].size());
+		m_componentLookupTable[typeID].emplace(
+			pResult->GetComponentID(), m_componentPool[typeID].size());
 		m_componentPool[typeID].push_back(std::move(pCom));
-		// 生成時コールバック
-		pCom->OnCreate();
+		// 生成リスト格納
+		RegisterCreateList(pResult);
 		// 有効フラグ
-		SetComponentEnable(pCom, isEnable);
+		SetComponentEnable(pResult, isEnable);
 
 		return pResult;
 	}
@@ -97,18 +97,18 @@ public:
 
 private:
 
-	Component* RegisterComponent(const TypeID& typeID, const ComponentID& componentID, Component* pComponent);
+	/// @brief 型ごとに一意なIDを作成
+	/// @param typeID 型ID
+	/// @return コンポーネントID
+	ComponentID CreateComponentID(const TypeID& typeID);
+
+	/// @brief 生成リストに格納
+	/// @param pComponent コンポーネントポインタ
+	void RegisterCreateList(Component* pComponent);
 
 private:
 	/// @brief vectorIndex
 	using Index = std::size_t;
-
-	/// @brief コンポーネント情報
-	struct ComponentInfo
-	{
-		ComponentID	id;		///< コンポーネントID
-		TypeID		type;	///< コンポーネント型ID
-	};
 
 	//--- serialize param
 

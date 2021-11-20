@@ -16,10 +16,10 @@ void ComponentManager::DestroyComponent(const TypeID& typeID, const ComponentID&
 	Component* pCom = FindComponent(typeID, componentID);
 	if (pCom)
 	{
-		// 削除時コールバック
-		pCom->OnDestroy();
 		//　格納
 		m_destroyList[typeID].push_back(componentID);
+		// 削除時コールバック
+		pCom->OnDestroy();
 	}
 }
 
@@ -61,16 +61,16 @@ void ComponentManager::SetComponentEnable(Component* pComponent, bool isEnable)
 	}
 
 	// 無効リスト
-	auto disable = m_disableComponentsTable[typeID].find(comID);
-	if (m_disableComponentsTable[typeID].end() != enableItr)
+	auto disableItr = m_disableComponentsTable[typeID].find(comID);
+	if (m_disableComponentsTable[typeID].end() != disableItr)
 	{
 		// 最後尾と入れ替え
 		auto backComID = m_disableComponents[typeID].back();
-		m_disableComponents[typeID][enableItr->second] = backComID;
-		m_disableComponentsTable[typeID][backComID] = enableItr->second;
+		m_disableComponents[typeID][disableItr->second] = backComID;
+		m_disableComponentsTable[typeID][backComID] = disableItr->second;
 		// 削除
 		m_disableComponents[typeID].pop_back();
-		m_disableComponentsTable[typeID].erase(enableItr);
+		m_disableComponentsTable[typeID].erase(disableItr);
 	}
 
 	// 変更先に追加
@@ -117,4 +117,34 @@ void ComponentManager::CleanupComponent()
 			m_componentLookupTable[typeID].erase(itr);
 		}
 	}
+}
+
+/// @brief 型ごとに一意なIDを作成
+/// @param typeID 型ID
+/// @return コンポーネントID
+ComponentID ComponentManager::CreateComponentID(const TypeID& typeID)
+{
+	// ID作成
+	ComponentID componentID = NONE_COMPONENT_ID;
+	do
+	{
+		componentID = static_cast<ComponentID>(rand() % std::numeric_limits<int>::max());
+		auto itr = m_componentLookupTable[typeID].find(componentID);
+		if (m_componentLookupTable[typeID].end() == itr)
+		{
+			break;
+		}
+	} while (true);
+
+	return componentID;
+}
+
+/// @brief 生成リストに格納
+/// @param pComponent コンポーネントポインタ
+void ComponentManager::RegisterCreateList(Component* pComponent)
+{
+	// 生成リスト格納
+	m_createList[pComponent->GetTypeID()].push_back(pComponent->GetComponentID());
+	// 生成時コールバック
+	pComponent->OnCreate();
 }

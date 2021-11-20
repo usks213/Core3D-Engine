@@ -15,7 +15,6 @@
 
 #include "Scene\TestScene.h"
 
-
  //===== プロトタイプ宣言 =====
  // ウィンドウプロシージャ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

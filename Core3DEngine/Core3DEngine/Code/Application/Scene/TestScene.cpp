@@ -14,6 +14,9 @@
 #include <CoreRenderer/Core/Core_CommandList.h>
 #include <CoreRenderer/Core/Core_Geometry.h>
 
+#include <CoreEngine\Core\EntityManager.h>
+#include <CoreEngine\Core\ComponentManager.h>
+
 
 core::ShaderID			g_shaderID;
 core::MaterialID			g_matID;
@@ -46,7 +49,7 @@ constexpr int MAX_WORLD = 1000;
  /// @brief スタート
 void TestScene::Start()
 {
-	auto* renderer = m_pSceneManager->getEngine()->getRenderer();
+	auto* renderer = GetSceneManager()->getEngine()->getRenderer();
 	auto* device = renderer->getDevice();
 
 	float width = static_cast<float>(renderer->getCoreEngine()->getWindowWidth());
@@ -230,6 +233,12 @@ void TestScene::Start()
 		g_litRdID = device->createRenderBuffer(g_lightShaderID, cubeMehID);
 		g_litQuadID = device->createRenderBuffer(g_lightShaderID, quadID);
 	}
+
+	// テスト
+
+	auto pEntity = GetEntityManager()->CreateEntity("Entity");
+	auto pTransform = pEntity->AddComponent<Transform>();
+
 }
 
 /// @brief システムの更新
@@ -241,7 +250,7 @@ void TestScene::Update()
 /// @brief パイプラインの描画
 void TestScene::Render()
 {
-	auto* renderer = m_pSceneManager->getEngine()->getRenderer();
+	auto* renderer = GetSceneManager()->getEngine()->getRenderer();
 	auto* device = renderer->getDevice();
 	auto* cmdList = renderer->getCommandList();
 

@@ -30,7 +30,7 @@ Transform* TransformManager::CreateTransform(
 	else
 	{
 		// 親の子格納
-		//pParent->AddChild(pTransform->GetTransformID());
+		pParent->AddChild(pTransform->GetTransformID());
 	}
 
 	return pTransform;
@@ -38,17 +38,21 @@ Transform* TransformManager::CreateTransform(
 
 void TransformManager::DestroyTransform(const TransformID& transformID)
 {
-	auto pComponentManager = m_pScene->GetComponentManager();
 	// 検索
 	Transform* pTransform = FindTransform(transformID);
 	if (pTransform)
 	{
+		// ルートから削除
+		RemoveRoot(transformID);
+		// コンポーネントマネージャーから削除
+		auto pComponentManager = m_pScene->GetComponentManager();
 		pComponentManager->DestroyComponent(pTransform->GetTypeID(), pTransform->GetComponentID());
 	}
 }
 
 Transform* TransformManager::FindTransform(const TransformID& transformID)
 {
+	// コンポーネントマネージャーから検索
 	auto pComponentManager = m_pScene->GetComponentManager();
 	return pComponentManager->FindComponent<Transform>(static_cast<ComponentID>(transformID));
 }
@@ -75,7 +79,27 @@ void TransformManager::CreateRelation(const TransformID& transformID, const Tran
 	pParent->m_childs.push_back(parentID);
 
 	//--- 行列再計算
+	
+	// 親の逆行列を反映
+	auto invParent = pParent->m_globalMatrix.Invert();
+	auto invParentScale = Vector3(1, 1, 1) / pParent->m_globalScale;
+	auto localMatrix = pTransfrom->m_localMatrix * invParent;
+	// 位置
+	pTransfrom->m_localPosition = localMatrix.Translation();
+	// 回転
+	Matrix invSca = Matrix::CreateScale(pTransfrom->m_localPosition * invParentScale);
+	invSca = invSca.Invert();
+	pTransfrom->m_localRotation = Quaternion::CreateFromRotationMatrix(invSca * localMatrix);
+	// 拡縮
+	pTransfrom->m_localScale = pTransfrom->m_localScale * invParentScale;
 
+	// マトリックス更新
+	// 拡縮
+	pTransfrom->m_localMatrix = Matrix::CreateScale(pTransfrom->m_localScale);
+	// 回転
+	pTransfrom->m_localMatrix *= Matrix::CreateFromQuaternion(pTransfrom->m_localRotation);
+	// 移動
+	pTransfrom->m_localMatrix *= Matrix::CreateTranslation(pTransfrom->m_localPosition);
 
 }
 
@@ -98,6 +122,25 @@ void TransformManager::DestroyRelation(const TransformID& transformID, const Tra
 	pTransfrom->m_parent = NONE_TRANSFORM_ID;
 
 	//--- 行列再計算
+
+	// グローバル
+	auto global = pTransfrom->m_globalMatrix;
+	// 位置
+	pTransfrom->m_localPosition = global.Translation();
+	// 回転
+	Matrix invSca = Matrix::CreateScale(pTransfrom->m_globalScale);
+	invSca = invSca.Invert();
+	pTransfrom->m_localRotation = Quaternion::CreateFromRotationMatrix(invSca * global);
+	// 拡縮
+	pTransfrom->m_localScale = pTransfrom->m_globalScale;
+
+	// マトリックス更新
+	// 拡縮
+	pTransfrom->m_localMatrix = Matrix::CreateScale(pTransfrom->m_localScale);
+	// 回転
+	pTransfrom->m_localMatrix *= Matrix::CreateFromQuaternion(pTransfrom->m_localRotation);
+	// 移動
+	pTransfrom->m_localMatrix *= Matrix::CreateTranslation(pTransfrom->m_localPosition);
 
 }
 

@@ -25,6 +25,7 @@
     <ClCompile Include="Code\CoreEngine\Core\Entity.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\EntityManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\Scene.cpp" />
+    <ClCompile Include="Code\CoreEngine\Core\Transform.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\TransformManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core_Engine.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Device.cpp" />

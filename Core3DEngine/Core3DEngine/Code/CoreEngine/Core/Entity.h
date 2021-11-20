@@ -84,25 +84,25 @@ public:
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
 		ComponentManager* pComponentManager = GetComponentManager();
 
-		// コンポーネントかスクリプトか
-		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
-		{
-			//--- スクリプト
-			// 検索
-			auto itr = m_scripts.find(typeID);
-			if (m_scripts.end() != itr)
-			{
-				return pComponentManager->FindComponent<T>(itr->second);
-			}
-			// 新規生成
-			T* pCom = pComponentManager->CreateComponent<T>(GetEntityID(), m_isActive);
-			pCom->m_scriptID = T::GetScriptTypeID();
-			// 格納
-			m_scripts.emplace(T::GetScriptTypeID(), pCom->GetComponentID());
+		//// コンポーネントかスクリプトか
+		//if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
+		//{
+		//	//--- スクリプト
+		//	// 検索
+		//	auto itr = m_scripts.find(typeID);
+		//	if (m_scripts.end() != itr)
+		//	{
+		//		return pComponentManager->FindComponent<T>(itr->second);
+		//	}
+		//	// 新規生成
+		//	T* pCom = pComponentManager->CreateComponent<T>(GetEntityID(), m_isActive);
+		//	pCom->m_scriptID = T::GetScriptTypeID();
+		//	// 格納
+		//	m_scripts.emplace(T::GetScriptTypeID(), pCom->GetComponentID());
 
-			return pCom;
-		}
-		else
+		//	return pCom;
+		//}
+		//else
 		{
 			//--- コンポーネント
 			// 検索
@@ -112,7 +112,7 @@ public:
 				return pComponentManager->FindComponent<T>(itr->second);
 			}
 			// 新規生成
-			T* pCom = pComponentManager->CreateComponent<T>((GetEntityID(), m_isActive);
+			T* pCom = pComponentManager->CreateComponent<T>(GetEntityID(), m_isActive);
 			// 格納
 			m_components.emplace(typeID, pCom->GetComponentID());
 

@@ -57,13 +57,13 @@ public:
 public:
 	//--- コールバック関数
 
-	virtual void OnCreate() override {}
-	virtual void OnDestroy() override {}
+	virtual void OnCreate() override {}		///< 生成リスト格納時
+	virtual void OnDestroy() override {}	///< 削除リスト格納時
 
-	virtual void OnEnable() override {}
-	virtual void OnDisable() override {}
+	virtual void OnEnable() override {}		///< 有効時
+	virtual void OnDisable() override {}	///< 無効時
 
-	virtual void OnStart() override {}	///< 初回更新前に一度
+	virtual void OnStart() override {}		///< 初回更新前に一度
 
 private:
 

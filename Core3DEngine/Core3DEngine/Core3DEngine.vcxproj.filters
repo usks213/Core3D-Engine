@@ -224,6 +224,9 @@
     <ClCompile Include="Code\CoreEngine\Core\ComponentManager.cpp">
       <Filter>ソース ファイル\CoreEngine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Core\Transform.cpp">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">
