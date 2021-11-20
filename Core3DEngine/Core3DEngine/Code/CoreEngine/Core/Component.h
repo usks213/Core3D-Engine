@@ -40,13 +40,13 @@ public:
 		return static_cast<ComponentID>(GetInstanceID()); 
 	}
 
-	/// @brief 親エンティティの取得
-	/// @return エンティティポインタ
-	Entity* entity() noexcept;
+	///// @brief 親エンティティの取得
+	///// @return エンティティポインタ
+	//Entity* entity() noexcept;
 
-	/// @brief トランスフォームの取得
-	/// @return トランスフォームポインタ
-	Transform* transform() noexcept;
+	///// @brief トランスフォームの取得
+	///// @return トランスフォームポインタ
+	//Transform* transform() noexcept;
 
 	/// @brief 使用フラグ指定
 	/// @param isEnable フラグ
@@ -57,13 +57,15 @@ public:
 public:
 	//--- コールバック関数
 
-	virtual void OnCreate() = 0;
-	virtual void OnDestroy() = 0;
+	virtual void OnCreate() {}
+	virtual void OnDestroy() {}
 
-	virtual void OnEnable() = 0;
-	virtual void OnDisable() = 0;
+	virtual void OnEnable() {}
+	virtual void OnDisable() {}
 
-	virtual void OnStart() = 0;	///< 初回更新前に一度
+	virtual void OnStart() {} ///< 初回更新前に一度
+
+	virtual void DispInspector() noexcept override {}
 
 protected:
 	//--- none serialize param

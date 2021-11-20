@@ -218,6 +218,9 @@
     <ClCompile Include="Library\SimpleMath\SimpleMath.cpp">
       <Filter>ライブラリファイル\SimpleMath</Filter>
     </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Core\Entity.cpp">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">

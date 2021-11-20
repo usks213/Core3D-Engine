@@ -40,7 +40,7 @@ Entity* EntityManager::CreateEntity(std::string_view name, bool bActive, bool bS
 	auto* pTransformManager = m_pScene->GetTransformManager();
 
 	// エンティティ生成
-	auto entity = std::make_unique<Entity>(entityID, pComponentManager, name, bActive, bStatic);
+	auto entity = std::make_unique<Entity>(entityID, pEntityManager, name, bActive, bStatic);
 	auto* pEntity = entity.get();
 	m_entityPool.emplace(entityID, std::move(entity));
 

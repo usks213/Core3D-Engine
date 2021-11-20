@@ -36,11 +36,11 @@ public:
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
 		// IDê∂ê¨
-
+		InstanceID id = NONE_INSTANCE_ID;
 		// ê∂ê¨
 		auto pCom = std::make_unique<T>();
 		auto pResult = pCom.get();
-		pResult->m_instanceID = ;
+		pResult->m_instanceID = id;
 		pResult->m_entityID = entityID;
 		pResult->m_isEnable = isEnable;
 		// äiî[
@@ -50,7 +50,7 @@ public:
 		return pResult;
 	}
 
-	void DestroyComponent(const TypeID& typeID ,const ComponentID& componentID);
+	void DestroyComponent(const TypeID& typeID ,const ComponentID& componentID){}
 
 	template<class T, bool isComBase = std::is_base_of_v<Component, T>>
 	T* FindComponent(const ComponentID& componentID)
@@ -59,7 +59,7 @@ public:
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
 		// åüçı
 		auto itr = m_componentLookupTable[typeID].find(componentID);
-		if (m_componentLookupTable[typeID].end()) == itr)
+		if (m_componentLookupTable[typeID].end() == itr)
 		{
 			return nullptr;
 		}

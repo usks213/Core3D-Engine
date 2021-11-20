@@ -10,13 +10,18 @@
 
 #include <memory>
 
+#include "EntityManager.h"
+#include "ComponentManager.h"
+#include "TransformManager.h"
+
+
 // 前定義
 class SceneManager;
 class EntityManager;
 class ComponentManager;
 class TransformManager;
-class SystemManager;
-class PipelineManager;
+//class SystemManager;
+//class PipelineManager;
 
 /// @brief シーン
 class Scene
@@ -53,15 +58,15 @@ public:
 
 	/// @brief エンティティマネージャーの取得
 	/// @return エンティティマネージャーのポインタ
-	EntityManager* GetEntityManager() noexcept { return m_pEntityManager.get(); }
+	EntityManager* GetEntityManager() noexcept;
 
 	/// @brief コンポーネントマネージャーの取得
 	/// @return コンポーネントマネージャーのポインタ
-	ComponentManager* GetComponentManager() noexcept { return m_pComponentManager.get(); }
+	ComponentManager* GetComponentManager() noexcept;
 
 	/// @brief トランスフォームマネージャーの取得
 	/// @return トランスフォームマネージャーのポインタ
-	TransformManager* GetTransformManager() noexcept { return m_pTransformManager.get(); }
+	TransformManager* GetTransformManager() noexcept;
 
 protected:
 	//------------------------------------------------------------------------------
@@ -74,8 +79,8 @@ protected:
 	std::unique_ptr<EntityManager>		m_pEntityManager;
 	std::unique_ptr<ComponentManager>	m_pComponentManager;
 	std::unique_ptr<TransformManager>	m_pTransformManager;
-	std::unique_ptr<SystemManager>		m_pSystemManager;
-	std::unique_ptr<PipelineManager>	m_pPipelineManager;
+	/*std::unique_ptr<SystemManager>		m_pSystemManager;
+	std::unique_ptr<PipelineManager>	m_pPipelineManager;*/
 };
 
 #endif // !_SCENE_

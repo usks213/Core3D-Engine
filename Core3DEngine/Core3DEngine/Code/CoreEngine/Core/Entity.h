@@ -8,11 +8,11 @@
 #ifndef _ENTITY_
 #define _ENTITY_
 
-#include "EntityManager.h"
 #include "ComponentManager.h"
-#include "Transform.h"
 #include "Script.h"
 
+class EntityManager;
+class Transform;
 
 /// @brief エンティティ
 class Entity final : public Object
@@ -82,7 +82,7 @@ public:
 	{
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
-		ComponentManager* pComponentManager = m_pEntityManager->GetComponentManager();
+		ComponentManager* pComponentManager = GetComponentManager();
 
 		// コンポーネントかスクリプトか
 		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
@@ -126,7 +126,7 @@ public:
 	/// @param pComponent コンポーネントポインタ
 	void RemoveComponent(Component* pComponent)
 	{
-		ComponentManager* pComponentManager = m_pEntityManager->GetComponentManager();
+		ComponentManager* pComponentManager = GetComponentManager();
 		TypeID typeID = pComponent->GetTypeID();
 		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
 		{
@@ -159,7 +159,7 @@ public:
 	{
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
-		ComponentManager* pComponentManager = m_pEntityManager->GetComponentManager();
+		ComponentManager* pComponentManager = GetComponentManager();
 
 		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
 		{
@@ -188,13 +188,9 @@ public:
 
 	/// @brief トランスフォームの取得
 	/// @return トランスフォームポインタ
-	Transform* transform() noexcept
-	{
-		ComponentManager* pComponentManager = m_pEntityManager->GetComponentManager();
-		return pComponentManager->FindComponent<Transform>(m_transformID);
-	}
+	Transform* transform() noexcept;
 
-	void DispInspector() noexcept override;
+	void DispInspector() noexcept override {}
 
 	///// @brief シリアライズ化
 	//template<class T>
@@ -207,6 +203,12 @@ public:
 	//		CEREAL_NVP(m_childsID)
 	//	);
 	//}
+
+private:
+
+	/// @brief コンポーネントマネージャー取得
+	/// @return コンポーネントマネージャーポインタ
+	ComponentManager* GetComponentManager() noexcept;
 
 private:
 	//--- none serialize param

@@ -21,6 +21,27 @@ Scene::Scene(SceneManager* pSceneManager) noexcept :
 	m_pEntityManager = std::make_unique<EntityManager>(this);
 	m_pComponentManager = std::make_unique<ComponentManager>(this);
 	m_pTransformManager = std::make_unique<TransformManager>(this);
-	m_pSystemManager = std::make_unique<SystemManager>(this);
-	m_pPipelineManager = std::make_unique<PipelineManager>(this);
+	//m_pSystemManager = std::make_unique<SystemManager>(this);
+	//m_pPipelineManager = std::make_unique<PipelineManager>(this);
+}
+
+/// @brief エンティティマネージャーの取得
+/// @return エンティティマネージャーのポインタ
+EntityManager* Scene::GetEntityManager() noexcept 
+{ 
+	return m_pEntityManager.get();
+}
+
+/// @brief コンポーネントマネージャーの取得
+/// @return コンポーネントマネージャーのポインタ
+ComponentManager* Scene::GetComponentManager() noexcept
+{ 
+	return m_pComponentManager.get(); 
+}
+
+/// @brief トランスフォームマネージャーの取得
+/// @return トランスフォームマネージャーのポインタ
+TransformManager* Scene::GetTransformManager() noexcept 
+{ 
+	return m_pTransformManager.get();
 }

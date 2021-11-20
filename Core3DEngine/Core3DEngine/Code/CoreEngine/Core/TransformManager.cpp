@@ -30,7 +30,7 @@ Transform* TransformManager::CreateTransform(
 	else
 	{
 		// e‚ÌŽqŠi”[
-		pParent->AddChild(pTransform->GetTransformID());
+		//pParent->AddChild(pTransform->GetTransformID());
 	}
 
 	return pTransform;

@@ -263,10 +263,9 @@ void TestScene::Render()
 	Vector3 up = Vector3(0, 1, 0);
 	Matrix view = Matrix::CreateLookAt(eyepos, eyedir, up);
 
-	Matrix proj = Matrix::CreatePerspectiveFOV(
+	Matrix proj = Matrix::CreatePerspectiveFieldOfView(
 		Mathf::ToRadians(60),
-		width,
-		height,
+		width / height,
 		1.0f,
 		100.0f
 	);
@@ -292,7 +291,7 @@ void TestScene::Render()
 			//Vector3 sca = Vector3(0.3f, 0.3f, 0.3f);
 			Vector3 sca = Vector3(s,s,s);
 			world = Matrix::CreateScale(sca);
-			world *= Matrix::CreateRotationZXY(rot);
+			world *= Matrix::CreateFromYawPitchRoll(rot.y, rot.x, rot.z);
 			world *= Matrix::CreateTranslation(pos);
 			world = world.Transpose();
 		}
@@ -304,7 +303,7 @@ void TestScene::Render()
 		Vector3 rot = Vector3(0, angleY, 0);
 		Vector3 sca = Vector3(1.0f, 1.0f, 1.0f);
 		world = Matrix::CreateScale(sca);
-		world *= Matrix::CreateRotationZXY(rot);
+		world *= Matrix::CreateFromYawPitchRoll(rot.y, rot.x, rot.z);
 		world *= Matrix::CreateTranslation(pos);
 		world = world.Transpose();
 	}
@@ -383,7 +382,7 @@ void TestScene::Render()
 			//Vector3 sca = Vector3(0.3f, 0.3f, 0.3f);
 			Vector3 sca = Vector3(5.0f, 5.0f, 5.0f);
 			world = Matrix::CreateScale(sca);
-			world *= Matrix::CreateRotationZXY(rot);
+			world *= Matrix::CreateFromYawPitchRoll(rot.y, rot.x, rot.z);
 			world *= Matrix::CreateTranslation(pos);
 			world = world.Transpose();
 			pWorldBuffer1->UpdateBuffer(&world, sizeof(Matrix));
@@ -407,7 +406,7 @@ void TestScene::Render()
 		world = world.Transpose();
 		view = Matrix::CreateLookAt(Vector3(0,0,-1), Vector3(), up);
 		view = view.Transpose();
-		proj = Matrix::CreateOrtho(width, height, 1.0f, 100.0f);
+		proj = Matrix::CreateOrthographic(width, height, 1.0f, 100.0f);
 		proj = proj.Transpose();
 
 		pPostMat->setMatrix("_mWorld", world);

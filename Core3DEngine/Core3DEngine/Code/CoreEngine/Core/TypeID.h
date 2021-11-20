@@ -10,11 +10,18 @@
 
 #include <numeric>
 
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
+
 /// @brief 基底のID(サイズ)
 using BaseID = std::uint32_t;
 
 /// @brief インスタンスID
-enum class InstanceID : BaseID;
+enum class InstanceID : BaseID {};
 /// @brief 未定義インスタンスID
 constexpr InstanceID NONE_INSTANCE_ID = std::numeric_limits<InstanceID>::max();
 

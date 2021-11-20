@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Code\Application\Scene\TestScene.cpp" />
     <ClCompile Include="Code\Application\StartUp.cpp" />
+    <ClCompile Include="Code\CoreEngine\Core\Entity.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\EntityManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\Scene.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\TransformManager.cpp" />

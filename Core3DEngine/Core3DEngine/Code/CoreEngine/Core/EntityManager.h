@@ -12,6 +12,8 @@
 #include <memory>
 #include <unordered_map>
 
+#include "Entity.h"
+
 class Scene;
 class Entity;
 class ComponentManager;

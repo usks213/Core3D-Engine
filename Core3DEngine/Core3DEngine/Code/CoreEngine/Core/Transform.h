@@ -45,16 +45,16 @@ public:
 
 private:
 
-	void SetParent(const TransformID& parentID);
-	Transform* GetParent();
-	void ResetRelation();
+	//void SetParent(const TransformID& parentID);
+	//Transform* GetParent();
+	//void ResetRelation();
 
-	void AddChild(const TransformID& childID);
-	Transform* GetChild(std::size_t index);
-	void RemoveChild(const TransformID& childID);
+	//void AddChild(const TransformID& childID);
+	//Transform* GetChild(std::size_t index);
+	//void RemoveChild(const TransformID& childID);
 
-	std::vector<TransformID>& GetChildList();
-	std::size_t GetChildCount();
+	//std::vector<TransformID>& GetChildList();
+	//std::size_t GetChildCount();
 
 private:
 

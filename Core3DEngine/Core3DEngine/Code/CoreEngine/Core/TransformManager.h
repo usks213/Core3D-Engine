@@ -22,7 +22,7 @@ public:
 
 	/// @brief コンストラクタ
 	/// @param pScene シーンポインタ
-	explicit TransformManager(Scene* pScene) :
+	explicit TransformManager(Scene* pScene) noexcept :
 		m_pScene(pScene)
 	{
 	}
@@ -41,11 +41,11 @@ public:
 
 	void DestroyRelation(const TransformID& transformID, const TransformID& parentID);
 
-	void SetParentTransform(Transform* pTransform, const TransformID& parentID);
+	//void SetParentTransform(Transform* pTransform, const TransformID& parentID);
 
-	void AddChildTransform(Transform* pTransform, const TransformID& childID);
+	//void AddChildTransform(Transform* pTransform, const TransformID& childID);
 
-	void RemoveChildTransform(Transform* pTransform, const TransformID& childID);
+	//void RemoveChildTransform(Transform* pTransform, const TransformID& childID);
 
 private:
 
