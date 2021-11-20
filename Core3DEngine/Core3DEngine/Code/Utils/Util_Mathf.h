@@ -9,6 +9,14 @@
 #define _UTIL_MATHF_
 
 
+// ウィンドウならSimpleMathを使用
+#ifdef _WIN32
+
+// 
+
+#else
+// 自作の使用
+
 #include <cmath>
 #include <memory>
 #include <limits>
@@ -189,14 +197,14 @@ public:
 	}
 
 	/// @brief ベクトルの長さ(二乗)
-	float LengthSq()
+	float LengthSquared()
 	{
 		return x * x + y * y;
 	}
 	/// @brief ベクトルの長さ
 	float Length()
 	{
-		return sqrtf(LengthSq());
+		return sqrtf(LengthSquared());
 	}
 	// ベクトルの正規化
 	Vector2 Normalize()
@@ -323,14 +331,14 @@ public:
 
 public:
 	// ベクトルの長さ(二乗)
-	float LengthSq()
+	float LengthSquared()
 	{
 		return x * x + y * y + z * z;
 	}
 	// ベクトルの長さ
 	float Length()
 	{
-		return sqrtf(LengthSq());
+		return sqrtf(LengthSquared());
 	}
 	// ベクトルの正規化
 	Vector3 Normalize()
@@ -480,14 +488,14 @@ public:
 
 public:
 	// ベクトルの長さ(二乗)
-	float LengthSq()
+	float LengthSquared()
 	{
 		return x * x + y * y + z * z + w * w;
 	}
 	// ベクトルの長さ
 	float Length()
 	{
-		return sqrtf(LengthSq());
+		return sqrtf(LengthSquared());
 	}
 	// ベクトルの正規化
 	Vector4 Normalize()
@@ -1232,6 +1240,6 @@ class AABB {
 	//	Plane m_planes[6];
 	//};
 
-
+#endif // _WIN32
 
 #endif // !_UTIL_MATHF_
