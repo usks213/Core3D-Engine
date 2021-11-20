@@ -31,15 +31,18 @@ public:
 
 
 	template<class T, bool isComBase = std::is_base_of_v<Component, T>>
-	T* CreateComponent(const EntityID& entityID, bool isActive)
+	T* CreateComponent(const EntityID& entityID, bool isEnable)
 	{
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
+		// ID生成
+
 		// 生成
 		auto pCom = std::make_unique<T>();
 		auto pResult = pCom.get();
+		pResult->m_instanceID = ;
 		pResult->m_entityID = entityID;
-		pResult->m_isActive = isActive;
+		pResult->m_isEnable = isEnable;
 		// 格納
 		m_componentLookupTable[typeID].emplace(pCom->GetComponentID(), m_componentPool[typeID].size());
 		m_componentPool[typeID].push_back(std::move(pCom));
@@ -77,6 +80,9 @@ private:
 	Component* RegisterComponent(const TypeID& typeID, const ComponentID& componentID, Component* pComponent);
 
 private:
+	/// @brief vectorIndex
+	using Index = std::size_t;
+
 	//--- serialize param
 
 	/// @brief 型ごとのコンポーネントプール
@@ -88,7 +94,7 @@ private:
 	Scene* m_pScene;
 
 	/// @brief コンポーネントのルックアップテーブル
-	std::unordered_map<TypeID, std::unordered_map<ComponentID, std::size_t>> m_componentLookupTable;
+	std::unordered_map<TypeID, std::unordered_map<ComponentID, Index>>		m_componentLookupTable;
 
 	/// @brief 生成リスト
 	std::unordered_map<TypeID, ComponentID>	m_createList;
@@ -96,13 +102,13 @@ private:
 	std::unordered_map<TypeID, ComponentID>	m_destroyList;
 
 	/// @brief アクティブコンポーネントリスト
-	std::unordered_map<TypeID, std::vector<ComponentID>>						m_activeComponents;
+	std::unordered_map<TypeID, std::vector<ComponentID>>					m_activeComponents;
 	/// @brief アクティブコンポーネントテーブル
-	std::unordered_map<TypeID, std::unordered_map<ComponentID, std::size_t>> m_activeComponentsTable;
+	std::unordered_map<TypeID, std::unordered_map<ComponentID, Index>>		m_activeComponentsTable;
 	/// @brief 非アクティブコンポーネントリスト
-	std::unordered_map<TypeID, std::vector<ComponentID>>						m_inactiveComponents;
+	std::unordered_map<TypeID, std::vector<ComponentID>>					m_inactiveComponents;
 	/// @brief 非アクティブコンポーネントテーブル
-	std::unordered_map<TypeID, std::unordered_map<ComponentID, std::size_t>> m_inactiveComponentsTable;
+	std::unordered_map<TypeID, std::unordered_map<ComponentID, Index>>		m_inactiveComponentsTable;
 
 };
 

@@ -26,7 +26,7 @@ public:
 		Object(), 
 		m_pComponentManager(nullptr),
 		m_entityID(NONE_ENTITY_ID),
-		m_isActive(true)
+		m_isEnable(true)
 	{
 	}
 
@@ -48,9 +48,11 @@ public:
 	/// @return トランスフォームポインタ
 	Transform* transform() noexcept;
 
-	/// @brief アクティブ指定
-	/// @param isActive フラグ
-	void SetActive(bool isActive) noexcept;
+	/// @brief 使用フラグ指定
+	/// @param isEnable フラグ
+	void SetEnable(bool isEnable) noexcept;
+
+	bool GetEnable() { return m_isEnable; }
 
 public:
 	//--- コールバック関数
@@ -73,7 +75,7 @@ protected:
 	/// @brief 親のエンティティID
 	EntityID	m_entityID;
 	/// @brief アクティブフラグ
-	bool		m_isActive;
+	bool		m_isEnable;
 
 };
 

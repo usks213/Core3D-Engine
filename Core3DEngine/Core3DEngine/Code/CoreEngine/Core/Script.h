@@ -54,6 +54,17 @@ public:
 	/// @brief スクリプト名の取得
 	[[nodiscard]] virtual std::string_view GetScriptName() noexcept = 0;
 
+public:
+	//--- コールバック関数
+
+	virtual void OnCreate() override {}
+	virtual void OnDestroy() override {}
+
+	virtual void OnEnable() override {}
+	virtual void OnDisable() override {}
+
+	virtual void OnStart() override {}	///< 初回更新前に一度
+
 private:
 
 };
