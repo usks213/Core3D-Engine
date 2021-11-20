@@ -26,9 +26,9 @@ public:
 
 	/// @brief コンストラクタ
 	explicit Transform() noexcept :
-		Component("Transform"),
+		Component(),
 		m_pTransformManager(nullptr),
-		m_parent(MAX_TRANSFORM_ID),
+		m_parent(NONE_TRANSFORM_ID),
 		m_childs()
 	{
 	}

@@ -29,13 +29,13 @@ public:
 	/// @brief デストラクタ
 	~TransformManager() noexcept = default;
 
-	Transform* CreateTransform(const InstanceID& entityID);
+	Transform* CreateTransform();
 
-	void DestroyTransform(const InstanceID& transformID);
+	void DestroyTransform(const TransformID& transformID);
 
-	Transform* RegisterRoot(const InstanceID& transformID);
+	Transform* RegisterRoot(const TransformID& transformID);
 
-	void RemoveRoot(const InstanceID& transformID);
+	void RemoveRoot(const TransformID& transformID);
 
 private:
 	/// @brief 所属シーン

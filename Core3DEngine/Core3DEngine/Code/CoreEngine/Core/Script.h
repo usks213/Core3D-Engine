@@ -11,16 +11,22 @@
 #include "Component.h"
 
  /// @brief 型情報付加
-#define DECLARE_SCRIPT_INFO(T) 								\
-public:														\
-	static constexpr std::string_view GetScriptTypeString()	\
-	{														\
-		return #T;											\
-	}														\
-	static constexpr ScriptID GetScriptTypeID()				\
-	{														\
-		return static_cast<ScriptID>(util::stringHash(#T));	\
-	}														\
+#define DECLARE_SCRIPT_INFO(T) 										\
+public:																\
+	static constexpr std::string_view GetScriptTypeString()			\
+	{																\
+		return #T;													\
+	}																\
+	static constexpr ScriptID GetScriptTypeID()						\
+	{																\
+		return static_cast<ScriptID>(util::stringHash(#T));			\
+	}																\
+[[nodiscard]] ScriptID GetScriptID() noexcept override {			\
+	return static_cast<ScriptID>(GetScriptTypeID());				\
+}																	\
+[[nodiscard]] std::string_view GetScriptName() noexcept override {	\
+	return GetScriptTypeString();									\
+}																	\
 	void _dumyFunction3() = delete
 
 
@@ -35,17 +41,20 @@ public:
 
 	/// @brief コンストラクタ
 	explicit Script() noexcept :
-		Component("Script"), m_scriptID(MAX_SCRIPT_ID)
+		Component()
 	{
 	}
 
 	/// @brief デストラクタ
 	virtual ~Script() noexcept = default;
 
-private:
+	/// @brief スクリプトIDの取得
+	[[nodiscard]] virtual ScriptID GetScriptID() noexcept = 0;
 
-	/// @brief スクリプトタイプID
-	ScriptID m_scriptID;
+	/// @brief スクリプト名の取得
+	[[nodiscard]] virtual std::string_view GetScriptName() noexcept = 0;
+
+private:
 
 };
 

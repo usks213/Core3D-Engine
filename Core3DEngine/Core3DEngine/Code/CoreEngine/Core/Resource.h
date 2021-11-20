@@ -17,12 +17,12 @@ class Resource : public Object
 {
 public:
 	explicit Resource() noexcept :
-		Object("Resource")
+		Object()
 	{
 	}
 
 	explicit Resource(std::string_view name) noexcept :
-		Object(name)
+		Object(), m_name(name)
 	{
 	}
 
@@ -31,6 +31,8 @@ public:
 	virtual void DispAssets() = 0;
 
 private:
+
+	std::string		m_name;	///< ƒŠƒ\[ƒX–¼
 
 };
 

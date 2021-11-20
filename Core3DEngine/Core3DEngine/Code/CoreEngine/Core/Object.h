@@ -31,21 +31,14 @@ class Object
 public:
 	/// @brief コンストラクタ
 	explicit Object() noexcept :
-		m_instanceID(NONE_INSTANCE_ID), m_name("Object")
+		m_instanceID(NONE_INSTANCE_ID)
 	{
 	}
 
 	/// @brief コンストラクタ
 	/// @param name 名前
-	explicit Object(std::string_view name) noexcept :
-		m_instanceID(NONE_INSTANCE_ID), m_name(name)
-	{
-	}
-
-	/// @brief コンストラクタ
-	/// @param name 名前
-	explicit Object(const InstanceID& id ,std::string_view name) noexcept :
-		m_instanceID(id), m_name(name)
+	explicit Object(const InstanceID& id) noexcept :
+		m_instanceID(id)
 	{
 	}
 
@@ -64,10 +57,6 @@ public:
 	/// @return ID
 	[[nodiscard]] InstanceID GetInstanceID() noexcept { return m_instanceID; }
 
-	/// @brief 名前の取得
-	/// @return 名前
-	[[nodiscard]] std::string_view GetName() noexcept { return m_name; }
-
 	/// @brief インスペクター表示
 	virtual void DispInspector() noexcept = 0;
 	
@@ -84,8 +73,7 @@ protected:
 
 	/// @brief インスタンスID
 	InstanceID		m_instanceID;
-	/// @brief 名前
-	std::string		m_name;
+
 };
 
 #endif // !_OBJECT_

@@ -23,16 +23,7 @@ public:
 
 	/// @brief コンストラクタ
 	explicit Component() noexcept :
-		Object("Component"), 
-		m_pComponentManager(nullptr),
-		m_entityID(NONE_ENTITY_ID),
-		m_isActive(true)
-	{
-	}
-
-	/// @brief コンストラクタ
-	explicit Component(std::string_view name) noexcept :
-		Object(name),
+		Object(), 
 		m_pComponentManager(nullptr),
 		m_entityID(NONE_ENTITY_ID),
 		m_isActive(true)
@@ -42,6 +33,12 @@ public:
 	/// @brief デストラクタ
 	virtual ~Component() noexcept = default;
 
+	/// @brief コンポーネントID取得
+	/// @return コンポーネントID
+	ComponentID GetComponentID() noexcept
+	{
+		return static_cast<ComponentID>(GetInstanceID()); 
+	}
 
 	/// @brief 親エンティティの取得
 	/// @return エンティティポインタ

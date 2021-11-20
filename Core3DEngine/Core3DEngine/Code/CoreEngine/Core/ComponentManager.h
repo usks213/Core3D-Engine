@@ -31,13 +31,15 @@ public:
 
 
 	template<class T, bool isComBase = std::is_base_of_v<Component, T>>
-	T* CreateComponent()
+	T* CreateComponent(const EntityID& entityID, bool isActive)
 	{
 		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
 		// 生成
 		auto pCom = std::make_unique<T>();
 		auto pResult = pCom.get();
+		pResult->m_entityID = entityID;
+		pResult->m_isActive = isActive;
 		// 格納
 		m_componentLookupTable[typeID].emplace(pCom->GetComponentID(), m_componentPool[typeID].size());
 		m_componentPool[typeID].push_back(std::move(pCom));
@@ -77,12 +79,13 @@ private:
 private:
 	//--- serialize param
 
-	/// @brief 所属シーン
-	Scene* m_pScene;
 	/// @brief 型ごとのコンポーネントプール
 	std::unordered_map<TypeID, std::vector<std::unique_ptr<Component>>>		m_componentPool;
 
 	//--- none serialize param
+
+	/// @brief 所属シーン
+	Scene* m_pScene;
 
 	/// @brief コンポーネントのルックアップテーブル
 	std::unordered_map<TypeID, std::unordered_map<ComponentID, std::size_t>> m_componentLookupTable;

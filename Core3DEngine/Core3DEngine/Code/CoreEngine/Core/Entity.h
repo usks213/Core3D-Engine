@@ -25,13 +25,14 @@ public:
 
 	/// @brief コンストラクタ
 	explicit Entity() noexcept :
-		Object("Entity"), 
+		Object(), 
 		m_pEntityManager(nullptr),
 		// components
 		m_transformID(NONE_TRANSFORM_ID),
 		m_components(),
 		m_scripts(),
 		// param
+		m_name("Entity"),
 		m_isActive(true),
 		m_isStatic(false),
 		m_tag("Default"),
@@ -39,16 +40,19 @@ public:
 	{
 	}
 
-	explicit Entity(const EntityID& id, std::string_view name, 
+	explicit Entity(const EntityID& id,
 		EntityManager* pEntityManager,
+		std::string_view name,
 		bool bActive, bool bStatic) noexcept :
-		Object(static_cast<InstanceID>(id), name),
+		// 
+		Object(static_cast<InstanceID>(id)),
 		m_pEntityManager(pEntityManager),
 		// components
 		m_transformID(NONE_TRANSFORM_ID),
 		m_components(),
 		m_scripts(),
 		// param
+		m_name(name),
 		m_isActive(bActive),
 		m_isStatic(bStatic),
 		m_tag("Default"),
@@ -61,10 +65,14 @@ public:
 
 	/// @brief 自身のエンティティIDの取得
 	/// @return エンティティID
-	EntityID GetEntityID() noexcept
+	[[nodiscard]] EntityID GetEntityID() noexcept
 	{
 		return static_cast<EntityID>(GetInstanceID());
 	}
+
+	/// @brief 名前の取得
+	/// @return 名前
+	[[nodiscard]] std::string_view GetName() noexcept { return m_name; }
 
 	/// @brief コンポーネントの追加
 	/// @tparam T コンポーネントクラス
@@ -125,7 +133,7 @@ public:
 			//--- スクリプト
 			Script* pScript = static_cast<Script*>(pComponent);
 			// 検索
-			auto itr = m_scripts.find(pScript->m_scriptID);
+			auto itr = m_scripts.find(pScript->GetScriptID());
 			if (m_scripts.end() != itr)
 			{
 				pComponentManager->DestroyComponent(typeID, itr->second);
@@ -215,6 +223,7 @@ private:
 	/// @brief 保持しているスクリプトコンポーネント
 	std::unordered_map<ScriptID, ComponentID> m_scripts;
 
+	std::string				m_name;			///< エンティティ名
 	bool					m_isActive;		///< アクティブフラグ
 	bool					m_isStatic;		///< 静的フラグ
 	std::string				m_tag;			///< タグ
