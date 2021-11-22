@@ -66,18 +66,6 @@
     <Filter Include="ソース ファイル\CoreEngine\Core">
       <UniqueIdentifier>{111469e6-5caa-4c5f-87ba-9d9e62bbd9f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\GUI">
-      <UniqueIdentifier>{7e0db1c4-5db7-4c0c-b0ef-8b36df8aea0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\Editor">
-      <UniqueIdentifier>{bee5840f-7636-4531-8646-3483be32374a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\GUI\Core">
-      <UniqueIdentifier>{dba1eadd-c6c6-4a20-af05-bce6070f040f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\GUI\ImGui">
-      <UniqueIdentifier>{04a12c80-187c-4787-8853-f4d5454cc81a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Utils">
       <UniqueIdentifier>{827b6bfa-42ef-43eb-87bb-a31190c4d94a}</UniqueIdentifier>
     </Filter>
@@ -95,6 +83,9 @@
     </Filter>
     <Filter Include="ライブラリファイル\SimpleMath">
       <UniqueIdentifier>{313cff93-bb8a-4862-b84c-7e5aab42035d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEditor">
+      <UniqueIdentifier>{7eb0d34b-1e21-4122-99fd-83bafbb78716}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -401,12 +392,6 @@
       <Filter>ソース ファイル\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Code\CoreEngine\Core\ResourceManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\EditorManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Editor.h">
       <Filter>ソース ファイル\CoreEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="Code\CoreEngine\Core\System.h">

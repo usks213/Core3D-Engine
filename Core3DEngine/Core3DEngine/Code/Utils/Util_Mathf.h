@@ -134,7 +134,7 @@ public:
 #ifdef _WIN32
 
 #include <Windows.h>
-#include <SimpleMath.h>
+#include <SimpleMath/SimpleMath.h>
 
 using Vector2 = DirectX::SimpleMath::Vector2;
 using Vector3 = DirectX::SimpleMath::Vector3;
