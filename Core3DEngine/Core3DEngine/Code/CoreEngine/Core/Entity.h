@@ -75,49 +75,58 @@ public:
 	[[nodiscard]] std::string_view GetName() noexcept { return m_name; }
 
 	/// @brief コンポーネントの追加
-	/// @tparam T コンポーネントクラス
+	/// @tparam T スクリプト型クラス
 	/// @return コンポーネントポインタ
-	template<class T, bool isComBase = std::is_base_of_v<Component, T>>
-	T* AddComponent()
+	template<class T, typename = std::enable_if_t<std::is_base_of_v<Component, T> && std::is_base_of_v<Script, T>>>
+	T* AddComponent(T* Type = nullptr)
 	{
-		static_assert(isComBase, "Not ComponentBase");
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
+		static constexpr ScriptID scriptID = T::GetScriptTypeID();
 		ComponentManager* pComponentManager = GetComponentManager();
 
-		//// コンポーネントかスクリプトか
-		//if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
-		//{
-		//	//--- スクリプト
-		//	// 検索
-		//	auto itr = m_scripts.find(typeID);
-		//	if (m_scripts.end() != itr)
-		//	{
-		//		return pComponentManager->FindComponent<T>(itr->second);
-		//	}
-		//	// 新規生成
-		//	T* pCom = pComponentManager->CreateComponent<T>(GetEntityID(), m_isActive);
-		//	pCom->m_scriptID = T::GetScriptTypeID();
-		//	// 格納
-		//	m_scripts.emplace(T::GetScriptTypeID(), pCom->GetComponentID());
-
-		//	return pCom;
-		//}
-		//else
+		// スクリプトか
+		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
 		{
-			//--- コンポーネント
+			//--- スクリプト
 			// 検索
-			auto itr = m_components.find(typeID);
-			if (m_components.end() != itr)
+			auto itr = m_scripts.find(scriptID);
+			if (m_scripts.end() != itr)
 			{
 				return pComponentManager->FindComponent<T>(itr->second);
 			}
 			// 新規生成
 			T* pCom = pComponentManager->CreateComponent<T>(GetEntityID(), m_isActive);
 			// 格納
-			m_components.emplace(typeID, pCom->GetComponentID());
+			m_scripts.emplace(scriptID, pCom->GetComponentID());
 
 			return pCom;
 		}
+
+		return nullptr;
+	}
+
+	/// @brief コンポーネントの追加
+	/// @tparam T コンポーネントクラス
+	/// @return コンポーネントポインタ
+	template<class T, typename = std::enable_if_t<std::is_base_of_v<Component, T> && !std::is_base_of_v<Script, T>>>
+	T* AddComponent()
+	{
+		//static_assert(isComBase, "Not ComponentBase");
+		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
+		ComponentManager* pComponentManager = GetComponentManager();
+		//--- コンポーネント
+		// 検索
+		auto itr = m_components.find(typeID);
+		if (m_components.end() != itr)
+		{
+			return pComponentManager->FindComponent<T>(itr->second);
+		}
+		// 新規生成
+		T* pCom = pComponentManager->CreateComponent<T>(GetEntityID(), m_isActive);
+		// 格納
+		m_components.emplace(typeID, pCom->GetComponentID());
+
+		return pCom;
 	}
 
 	/// @brief コンポーネントの削除

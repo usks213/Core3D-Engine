@@ -16,6 +16,16 @@
 
 #include <CoreEngine\Core\EntityManager.h>
 #include <CoreEngine\Core\ComponentManager.h>
+#include <CoreEngine\Core\Script.h>
+
+class TestScript : public Script
+{
+	DECLARE_SCRIPT_INFO(TestScript);
+public:
+
+private:
+
+};
 
 
 core::ShaderID			g_shaderID;
@@ -238,6 +248,7 @@ void TestScene::Start()
 
 	auto pEntity = GetEntityManager()->CreateEntity("Entity");
 	auto pTransform = pEntity->AddComponent<Transform>();
+	auto pTestScript = pEntity->AddComponent<TestScript>();
 
 }
 

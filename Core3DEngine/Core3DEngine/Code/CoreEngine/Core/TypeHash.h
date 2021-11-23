@@ -10,6 +10,8 @@
 
 #include <Utils/Util_Hash.h>
 
+using TypeHash = std::uint32_t;
+
  /// @brief å^èÓïÒïtâ¡
 #define DECLARE_TYPE_INFO(T) 									\
 public:															\
@@ -17,7 +19,7 @@ public:															\
 	{															\
 		return #T;												\
 	}															\
-	static constexpr std::uint32_t GetTypeHash() noexcept		\
+	static constexpr TypeHash GetTypeHash() noexcept			\
 	{															\
 		return util::stringHash(#T);							\
 	}															\

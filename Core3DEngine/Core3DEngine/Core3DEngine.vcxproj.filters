@@ -85,7 +85,13 @@
       <UniqueIdentifier>{313cff93-bb8a-4862-b84c-7e5aab42035d}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\CoreEditor">
-      <UniqueIdentifier>{7eb0d34b-1e21-4122-99fd-83bafbb78716}</UniqueIdentifier>
+      <UniqueIdentifier>{67b3e9ce-ba62-40eb-be14-b53d08a27e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEditor\Core">
+      <UniqueIdentifier>{ab33e1d2-7d01-4aa2-9674-fb2de2293a22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CoreEditor\Window">
+      <UniqueIdentifier>{dcd6cc00-9961-4073-8157-7cbfa9b7de66}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +223,12 @@
     </ClCompile>
     <ClCompile Include="Code\CoreEngine\Core\Transform.cpp">
       <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEditor\Core\EditorWindow.cpp">
+      <Filter>ソース ファイル\CoreEditor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEditor\Window\HierarchyWindow.cpp">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -426,6 +438,36 @@
     </ClInclude>
     <ClInclude Include="Library\SimpleMath\SimpleMath.h">
       <Filter>ライブラリファイル\SimpleMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Core_Editor.h">
+      <Filter>ソース ファイル\CoreEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Core\EditorWindow.h">
+      <Filter>ソース ファイル\CoreEditor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Window\InspectorWindow.h">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Window\HierarchyWindow.h">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Window\ProjectWindow.h">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Window\ConsoleWindow.h">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Window\GameWindow.h">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Window\SceneWindow.h">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Core\EditorWindowManager.h">
+      <Filter>ソース ファイル\CoreEditor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Window\EngineWindow.h">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

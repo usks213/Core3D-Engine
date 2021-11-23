@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="Code\Application\Scene\TestScene.cpp" />
     <ClCompile Include="Code\Application\StartUp.cpp" />
+    <ClCompile Include="Code\CoreEditor\Core\EditorWindow.cpp" />
+    <ClCompile Include="Code\CoreEditor\Window\HierarchyWindow.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\ComponentManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\Entity.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\EntityManager.cpp" />
@@ -65,6 +67,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h" />
+    <ClInclude Include="Code\CoreEditor\Core\EditorWindow.h" />
+    <ClInclude Include="Code\CoreEditor\Core\EditorWindowManager.h" />
+    <ClInclude Include="Code\CoreEditor\Core_Editor.h" />
+    <ClInclude Include="Code\CoreEditor\Window\ConsoleWindow.h" />
+    <ClInclude Include="Code\CoreEditor\Window\EngineWindow.h" />
+    <ClInclude Include="Code\CoreEditor\Window\ProjectWindow.h" />
+    <ClInclude Include="Code\CoreEditor\Window\GameWindow.h" />
+    <ClInclude Include="Code\CoreEditor\Window\HierarchyWindow.h" />
+    <ClInclude Include="Code\CoreEditor\Window\InspectorWindow.h" />
+    <ClInclude Include="Code\CoreEditor\Window\SceneWindow.h" />
     <ClInclude Include="Code\CoreEngine\Core\ComponentManager.h" />
     <ClInclude Include="Code\CoreEngine\Core\Component.h" />
     <ClInclude Include="Code\CoreEngine\Core\EntityManager.h" />
