@@ -7,7 +7,6 @@
  *********************************************************************/
 #include "HierarchyWindow.h"
 
-
  /// @brief コンストラクタ
 HierarchyWindow::HierarchyWindow() noexcept
 {
@@ -23,5 +22,6 @@ HierarchyWindow::HierarchyWindow() noexcept
 void HierarchyWindow::OnGUI()
 {
 	// 現在シーンの取得
+
 
 }

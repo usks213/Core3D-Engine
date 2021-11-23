@@ -16,6 +16,7 @@
 #include <Utils\Util_Singleton.h>
 #include <CoreSystem\Window\Core\Core_Window.h>
 #include <CoreRenderer\Core\Core_Renderer.h>
+#include <CoreEditor\Core_Editor.h>
 #include "Core\SceneManager.h"
 
 
@@ -66,6 +67,17 @@ namespace core
 			return static_cast<T*>(m_pRenderer.get());
 		}
 
+		/// @brief エディターの生成
+		/// @tparam T エディタータイプ
+		/// @tparam CoreEditor継承型のみ
+		/// @return エディターのポインタ
+		template<class T, typename = std::enable_if_t<std::is_base_of_v<CoreEditor, T>>>
+		T* createEditor() {
+			m_pEditor = std::make_unique<T>();
+			m_pEditor->setCoreEngine(this);
+			return static_cast<T*>(m_pEditor.get());
+		}
+
 		/// @brief ウィンドウの取得
 		/// @return ウィンドウのポインタ
 		[[nodiscard]] CoreWindow* getWindow() const noexcept { return m_pWindow.get(); }
@@ -73,6 +85,10 @@ namespace core
 		/// @brief レンダラー取得
 		/// @return レンダラーのポインタ
 		[[nodiscard]] CoreRenderer* getRenderer() const noexcept { return m_pRenderer.get(); }
+
+		/// @brief エディター取得
+		/// @return エディターのポインタ
+		[[nodiscard]] CoreEditor* getEditor() const noexcept { return m_pEditor.get(); }
 
 		/// @brief シーンマネージャーの取得
 		/// @return シーンマネージャーのポインタ
@@ -112,6 +128,7 @@ namespace core
 
 		std::unique_ptr<CoreWindow>				m_pWindow;				///< ウィンドウ
 		std::unique_ptr<CoreRenderer>			m_pRenderer;			///< レンダラー
+		std::unique_ptr<CoreEditor>				m_pEditor;				///< エディター
 
 		std::unique_ptr<SceneManager>			m_pSceneManager;		///< シーンマネージャー
 		///< リソースマネージャー

@@ -93,6 +93,9 @@
     <Filter Include="ソース ファイル\CoreEditor\Window">
       <UniqueIdentifier>{dcd6cc00-9961-4073-8157-7cbfa9b7de66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\CoreEditor\Platform">
+      <UniqueIdentifier>{ca848895-f7e0-4d08-b504-bef91046afdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp">
@@ -229,6 +232,36 @@
     </ClCompile>
     <ClCompile Include="Code\CoreEditor\Window\HierarchyWindow.cpp">
       <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEditor\Platform\D3D11_Editor.cpp">
+      <Filter>ソース ファイル\CoreEditor\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEditor\Platform\D3D12_Editor.cpp">
+      <Filter>ソース ファイル\CoreEditor\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_demo.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_draw.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_impl_dx11.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_impl_dx12.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_impl_win32.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_tables.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_widgets.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -468,6 +501,39 @@
     </ClInclude>
     <ClInclude Include="Code\CoreEditor\Window\EngineWindow.h">
       <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Platform\D3D11_Editor.h">
+      <Filter>ソース ファイル\CoreEditor\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEditor\Platform\D3D12_Editor.h">
+      <Filter>ソース ファイル\CoreEditor\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imconfig.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui_impl_dx11.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui_impl_dx12.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui_impl_win32.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui_internal.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imstb_rectpack.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imstb_textedit.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imstb_truetype.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

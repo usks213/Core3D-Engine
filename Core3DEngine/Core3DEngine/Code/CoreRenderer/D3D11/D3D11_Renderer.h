@@ -60,6 +60,14 @@ namespace d3d11
 		/// @return コマンドリストのポインタ 
 		core::CoreCommandList* getCommandList() override;
 
+		/// @brief DirectX11デバイスの取得
+		/// @return DirectX11デバイス
+		ID3D11Device1* GetD3D11Device() const noexcept { return m_d3dDevice.Get(); }
+
+		/// @brief DirectX11イミディエイトコンテキストの取得
+		/// @return DirectX11デバイスコンテキスト
+		ID3D11DeviceContext* GetD3D11Context() const noexcept { return m_d3dContext.Get(); }
+
 		/// @brief コピーコンストラクタ削除
 		D3D11Renderer(const D3D11Renderer&) = delete;
 		/// @brief ムーブコンストラクタ削除

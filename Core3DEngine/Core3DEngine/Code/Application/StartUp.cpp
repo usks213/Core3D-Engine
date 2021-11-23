@@ -12,14 +12,19 @@
 #include <CoreSystem\Window\Win\Win_Window.h>
 #include <CoreRenderer\D3D11\D3D11_Renderer.h>
 #include <CoreRenderer\D3D12\D3D12_Renderer.h>
+#include <CoreEditor\Platform\D3D11_Editor.h>
 
 #include "Scene\TestScene.h"
+
+
 
  //===== プロトタイプ宣言 =====
  // ウィンドウプロシージャ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 // ウィンドウ初期化
 int OnCreate(HWND hWnd, LPCREATESTRUCT lpcs);
+// imgui
+IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
 //===== グローバル変数 =====
@@ -37,8 +42,12 @@ void MainStartup(HINSTANCE hInstance, int nCmdShow)
 	pWindow->initialize(hInstance, _T("Core3D-Engine"), nCmdShow, WndProc);
 
 	// レンダラーの初期化
-	auto* pRenderer = g_pEngine->createRenderer<d3d12::D3D12Renderer>();
+	auto* pRenderer = g_pEngine->createRenderer<d3d11::D3D11Renderer>();
 	pRenderer->initialize(pWindow->getWindowHandle(), pWindow->getWindowWidth(), pWindow->getWindowHeight());
+
+	// エディターの初期化
+	auto* pEditor = g_pEngine->createEditor<d3d11::D3D11Editor>();
+	pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D11Device(), pRenderer->GetD3D11Context());
 
 	// エンジンの初期化
 	g_pEngine->initialize();
@@ -71,6 +80,9 @@ void MainCleanup()
 /// @return 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+		true;
+
 	switch (uMsg) {
 	case WM_CREATE:
 	{//----- ウィンドウが生成された

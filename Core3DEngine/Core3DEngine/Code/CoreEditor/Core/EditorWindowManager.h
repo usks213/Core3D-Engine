@@ -12,7 +12,10 @@
 #include <unordered_map>
 #include <memory>
 
-class CoreEditor;
+namespace core
+{
+	class CoreEditor;
+}
 
 /// @brief エディターウィンドウマネージャークラス
 class EditorWindowManager final
@@ -20,13 +23,22 @@ class EditorWindowManager final
 public:
 	/// @brief コンストラクタ
 	/// @param pCoreEditor コアエディターポインタ
-	explicit EditorWindowManager(CoreEditor* pCoreEditor) noexcept :
+	explicit EditorWindowManager(core::CoreEditor* pCoreEditor) noexcept :
 		m_pCoreEditor(pCoreEditor)
 	{
 	}
 
 	/// @brief デストラクタ
 	~EditorWindowManager() noexcept = default;
+
+	/// @brief ウィンドウの表示
+	void DispWindow()
+	{
+		for (auto& window : m_windowPool)
+		{
+			window.second->DispWindow();
+		}
+	}
 
 	/// @brief エディターウィンドウの追加
 	/// @tparam T エディターウィンドウ型
@@ -70,18 +82,17 @@ public:
 
 	/// @brief コアエディターの取得
 	/// @return コアエディターポインタ
-	CoreEditor* GetCoreEditor() { return m_pCoreEditor; }
+	core::CoreEditor* GetCoreEditor() { return m_pCoreEditor; }
 
 private:
 
 	/// @brief コアエディター
-	CoreEditor* m_pCoreEditor;
+	core::CoreEditor* m_pCoreEditor;
 
 	/// @brief 型種別のエディターウィンドウ
 	std::unordered_map<TypeHash, std::unique_ptr<EditorWindow>>	m_windowPool;
 
 };
-
 
 
 #endif // !_EDITOR_WINDOW_MANAGER_
