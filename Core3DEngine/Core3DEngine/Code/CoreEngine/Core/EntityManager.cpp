@@ -27,7 +27,7 @@ Entity* EntityManager::CreateEntity(std::string_view name, bool bActive,
 	EntityID entityID = NONE_ENTITY_ID;
 	do
 	{
-		entityID = static_cast<EntityID>(rand() % std::numeric_limits<int>::max());
+		entityID = static_cast<EntityID>(static_cast<BaseID>(rand()) % NONE_BASE_ID);
 		auto itr = m_entityPool.find(entityID);
 		if (m_entityPool.end() == itr)
 		{
@@ -58,6 +58,21 @@ Entity* EntityManager::CreateEntity(std::string_view name, bool bActive,
 void EntityManager::DestroyEntity(const EntityID& entityID)
 {
 
+}
+
+/// @brief エンティティの検索
+/// @param entityID エンティティID
+/// @return あった エンティティポインタ / なし nullptr
+Entity* EntityManager::FindEntity(const EntityID& entityID)
+{
+	// 検索
+	auto itr = m_entityPool.find(entityID);
+	if (m_entityPool.end() != itr)
+	{
+		return itr->second.get();
+	}
+
+	return nullptr;
 }
 
 /// @brief コンポーネントマネージャー取得

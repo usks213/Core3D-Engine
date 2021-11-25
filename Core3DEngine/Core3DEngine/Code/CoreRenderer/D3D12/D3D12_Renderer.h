@@ -57,6 +57,10 @@ namespace d3d12
 		/// @return コマンドリストのポインタ 
 		core::CoreCommandList* getCommandList() override;
 
+		/// @brief D3D12デバイスの取得
+		/// @return D3D12デバイスポインタ
+		D3D12Device* GetD3D12Device() { return &m_device; }
+
 		/// @brief コピーコンストラクタ削除
 		D3D12Renderer(const D3D12Renderer&) = delete;
 		/// @brief ムーブコンストラクタ削除

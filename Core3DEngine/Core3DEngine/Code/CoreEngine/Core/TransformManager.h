@@ -39,11 +39,8 @@ public:
 
 	void DestroyRelation(const TransformID& transformID, const TransformID& parentID);
 
-	//void SetParentTransform(Transform* pTransform, const TransformID& parentID);
-
-	//void AddChildTransform(Transform* pTransform, const TransformID& childID);
-
-	//void RemoveChildTransform(Transform* pTransform, const TransformID& childID);
+	/// @brief ルートトランスフォームを取得
+	std::vector<TransformID>& GetRootTransforms() { return m_rootTransforms; }
 
 private:
 

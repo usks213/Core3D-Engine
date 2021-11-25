@@ -128,7 +128,7 @@ ComponentID ComponentManager::CreateComponentID(const TypeID& typeID)
 	ComponentID componentID = NONE_COMPONENT_ID;
 	do
 	{
-		componentID = static_cast<ComponentID>(rand() % std::numeric_limits<int>::max());
+		componentID = static_cast<ComponentID>(static_cast<BaseID>(rand()) % NONE_BASE_ID);
 		auto itr = m_componentLookupTable[typeID].find(componentID);
 		if (m_componentLookupTable[typeID].end() == itr)
 		{

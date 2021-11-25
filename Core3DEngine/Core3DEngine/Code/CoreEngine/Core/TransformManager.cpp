@@ -76,7 +76,7 @@ void TransformManager::CreateRelation(const TransformID& transformID, const Tran
 	// 自分の親に設定
 	pTransfrom->m_parent = parentID;
 	// 親の子に設定
-	pParent->m_childs.push_back(parentID);
+	pParent->m_childs.push_back(transformID);
 
 	//--- 行列再計算
 	

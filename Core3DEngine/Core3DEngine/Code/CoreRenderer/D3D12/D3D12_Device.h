@@ -61,6 +61,13 @@ namespace d3d12
 		core::TextureID		createTexture(std::string filePath) override;
 		core::TextureID		createTexture(core::TextureDesc& desc, const core::TextureData* pData = nullptr) override;
 
+		//----- Native DirectX12 -----
+
+		ID3D12Device* GetD3D12Device() { return m_pD3DDevice; }
+		UINT GetBackBufferCount() { return m_backBufferCount; }
+		DXGI_FORMAT GetBackBufferFormat() { return m_backBufferFormat; }
+
+
 	private:
 		//------------------------------------------------------------------------------
 		// private methods

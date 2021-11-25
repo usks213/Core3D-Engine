@@ -12,7 +12,10 @@
 #include <CoreSystem\Window\Win\Win_Window.h>
 #include <CoreRenderer\D3D11\D3D11_Renderer.h>
 #include <CoreRenderer\D3D12\D3D12_Renderer.h>
+
 #include <CoreEditor\Platform\D3D11_Editor.h>
+#include <CoreEditor\Platform\D3D12_Editor.h>
+#include <CoreEditor\Window\HierarchyWindow.h>
 
 #include "Scene\TestScene.h"
 
@@ -38,16 +41,31 @@ void MainStartup(HINSTANCE hInstance, int nCmdShow)
 	g_pEngine = &core::CoreEngine::get();
 
 	// ウィンドウの初期化
-	auto* pWindow = g_pEngine->createWindow<win::WinWindow>(_T("Core3D-Engine"), 1280, 720);
+	auto* pWindow = g_pEngine->createWindow<win::WinWindow>(_T("Core3D-Engine"), 1280 * 0.75f, 720 * 0.75f);
 	pWindow->initialize(hInstance, _T("Core3D-Engine"), nCmdShow, WndProc);
 
-	// レンダラーの初期化
-	auto* pRenderer = g_pEngine->createRenderer<d3d11::D3D11Renderer>();
-	pRenderer->initialize(pWindow->getWindowHandle(), pWindow->getWindowWidth(), pWindow->getWindowHeight());
-
-	// エディターの初期化
-	auto* pEditor = g_pEngine->createEditor<d3d11::D3D11Editor>();
-	pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D11Device(), pRenderer->GetD3D11Context());
+	// DirectX12 or DirectX11
+	if (true)
+	{
+		// レンダラーの初期化
+		auto* pRenderer = g_pEngine->createRenderer<d3d12::D3D12Renderer>();
+		pRenderer->initialize(pWindow->getWindowHandle(), pWindow->getWindowWidth(), pWindow->getWindowHeight());
+		// エディターの初期化
+		auto* pEditor = g_pEngine->createEditor<d3d12::D3D12Editor>();
+		pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D12Device()->GetD3D12Device(),
+			pRenderer->GetD3D12Device()->GetBackBufferCount(), pRenderer->GetD3D12Device()->GetBackBufferFormat());
+		pEditor->GetEditorWindowManager()->AddEditorWindow<HierarchyWindow>();
+	}
+	else
+	{
+		// レンダラーの初期化
+		auto* pRenderer = g_pEngine->createRenderer<d3d11::D3D11Renderer>();
+		pRenderer->initialize(pWindow->getWindowHandle(), pWindow->getWindowWidth(), pWindow->getWindowHeight());
+		// エディターの初期化
+		auto* pEditor = g_pEngine->createEditor<d3d11::D3D11Editor>();
+		pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D11Device(), pRenderer->GetD3D11Context());
+		pEditor->GetEditorWindowManager()->AddEditorWindow<HierarchyWindow>();
+	}
 
 	// エンジンの初期化
 	g_pEngine->initialize();
@@ -113,7 +131,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 /// @return 
 int OnCreate(HWND hWnd, LPCREATESTRUCT lpcs)
 {
-	// クライアント領域サイズをSCREEN_WIDTH×SCREEN_HEIGHTに再設定.
+	// クライアント領域サイズをSCREEN_WIDTH×SCREEN_HEIGHTに再設定
 	RECT rcClnt;
 	int SCREEN_WIDTH = core::CoreEngine::get().getWindowWidth();
 	int SCREEN_HEIGHT = core::CoreEngine::get().getWindowHeight();

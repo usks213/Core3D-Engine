@@ -40,13 +40,13 @@ public:
 		return static_cast<ComponentID>(GetInstanceID()); 
 	}
 
-	///// @brief 親エンティティの取得
-	///// @return エンティティポインタ
-	//Entity* entity() noexcept;
+	/// @brief 親エンティティの取得
+	/// @return エンティティポインタ
+	Entity* entity() noexcept;
 
-	///// @brief トランスフォームの取得
-	///// @return トランスフォームポインタ
-	//Transform* transform() noexcept;
+	/// @brief トランスフォームの取得
+	/// @return トランスフォームポインタ
+	Transform* transform() noexcept;
 
 	/// @brief 使用フラグ指定
 	/// @param isEnable フラグ

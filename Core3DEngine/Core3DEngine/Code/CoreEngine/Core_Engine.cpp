@@ -73,6 +73,9 @@ void CoreEngine::tick()
 		// レンダラーのクリア
 		m_pRenderer->beginFrame();
 
+		// エディターのクリア・更新
+		m_pEditor->NewFrame();
+		m_pEditor->DispEditor();
 
 		// Update
 		m_pSceneManager->Update();
@@ -80,6 +83,8 @@ void CoreEngine::tick()
 		// Render
 		m_pSceneManager->Render();
 		
+		// エディターの描画
+		m_pEditor->Render(m_pRenderer->getCommandList());
 
 		// フレーム終了
 		m_pRenderer->endFrame();
@@ -92,8 +97,10 @@ void CoreEngine::tick()
 /// @brief 終了処理
 void CoreEngine::finalize()
 {
-	// レンダラーマネージャーのの終了処理
+	// エディターの終了処理
+	m_pEditor->finalize();
+	// レンダラーの終了処理
 	m_pRenderer->finalize();
-	// ウィンドウマネージャーの終了処理
+	// ウィンドウの終了処理
 	m_pWindow->finalize();
 }

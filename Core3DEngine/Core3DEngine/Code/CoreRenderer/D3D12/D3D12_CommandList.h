@@ -105,6 +105,11 @@ namespace d3d12
 		void copyTexture(const core::TextureID& destID, const core::TextureID& sourceID) override;
 
 
+	public:
+		// native
+
+		ID3D12GraphicsCommandList* GetD3D12GraphicsCommandList() { return m_pCmdList.Get(); }
+
 	private:
 		//------------------------------------------------------------------------------
 		// private methods 

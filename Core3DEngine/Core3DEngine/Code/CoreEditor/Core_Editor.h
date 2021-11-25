@@ -9,6 +9,7 @@
 #define _CORE_EDITOR_
 
 #include "Core/EditorWindowManager.h"
+#include <CoreEngine\Core\TypeID.h>
 
 namespace core
 {
@@ -18,6 +19,19 @@ namespace core
 	/// @brief コアエディタークラス
 	class CoreEditor
 	{
+	public:
+		/// @brief 選択中のオブジェクト
+		struct SelectObject
+		{
+			enum class ObjectType
+			{
+				Entity,
+				Resource,
+				MaxType,
+			};
+			InstanceID	instanceID = NONE_INSTANCE_ID;
+			ObjectType	objectType = ObjectType::MaxType;
+		};
 	public:
 		/// @brief コンストラクタ
 		/// @param pEngine エンジンポインタ
@@ -64,6 +78,19 @@ namespace core
 			return m_pEditorWindowManager.get();
 		}
 
+		/// @brief 現在選択中のオブジェクトを取得
+		/// @return 選択中のオブジェクト情報
+		SelectObject GetSelectObject() { return m_selectObject; }
+
+		/// @brief 選択のオブジェクトの指定
+		/// @param objectType オブジェクトタイプ
+		/// @param instanceID インスタンスID
+		void SetSelectObject(SelectObject::ObjectType objectType, const InstanceID& instanceID)
+		{
+			m_selectObject.objectType = objectType;
+			m_selectObject.instanceID = instanceID;
+		}
+
 	private:
 		/// @brief エンジンポインタ
 		CoreEngine* m_pCoreEngine;
@@ -71,6 +98,8 @@ namespace core
 		/// @brief エディターウィンドウマネージャー
 		std::unique_ptr<EditorWindowManager> m_pEditorWindowManager;
 
+		/// @brief 現在選択中のオブジェクト
+		SelectObject	m_selectObject;
 	};
 }
 

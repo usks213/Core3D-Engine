@@ -103,6 +103,10 @@ namespace d3d11
 
 		void copyTexture(const core::TextureID& destID, const core::TextureID& sourceID) override;
 
+		//----- Native -----
+
+		D3D11Renderer* GetD3D11Renderer() { return m_pRenderer; }
+
 	private:
 		//------------------------------------------------------------------------------
 		// private methods 

@@ -245,10 +245,17 @@ void TestScene::Start()
 	}
 
 	// テスト
-
-	auto pEntity = GetEntityManager()->CreateEntity("Entity");
-	auto pTransform = pEntity->AddComponent<Transform>();
-	auto pTestScript = pEntity->AddComponent<TestScript>();
+	Entity* pParent = nullptr;
+	for (int i = 0; i < 10; ++i)
+	{
+		auto pEntity = GetEntityManager()->CreateEntity(std::to_string(i));
+		auto pTestScript = pEntity->AddComponent<TestScript>();
+		if (pParent)
+		{
+			pParent->transform()->AddChild(pEntity->transform()->GetTransformID());
+		}
+		pParent = pEntity;
+	}
 
 }
 
@@ -458,7 +465,7 @@ void TestScene::Render()
 	cmdList->setMaterial(g_postMatID);
 
 	// バックバッファへコピー
-	cmdList->copyBackBuffer(pRT->m_texID);
+	//cmdList->copyBackBuffer(pRT->m_texID);
 
 }
 

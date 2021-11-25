@@ -71,6 +71,10 @@ public:
 		Start();
 	}
 
+	/// @brief 現在のシーン取得
+	/// @return シーンのポインタ
+	Scene* GetCurrentScene() { return m_pScene.get(); }
+
 	/// @brief エンジンの取得
 	/// @return エンジンのポインタ
 	core::CoreEngine* getEngine() { return m_pEngine; }

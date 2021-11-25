@@ -13,7 +13,9 @@ EditorWindow::EditorWindow() noexcept :
 	m_isDisp(true),
 	m_name("DefaultWindow"),
 	m_isOpne(true),
-	m_flags(ImGuiWindowFlags_None)
+	m_flags(ImGuiWindowFlags_None),
+	m_pos(100, 100),
+	m_size(100, 100)
 {
 }
 
@@ -24,6 +26,10 @@ void EditorWindow::DispWindow()
 	if (!m_isDisp) return;
 
 	// ウィンドウの開始
+	//ImGui::SetNextWindowPos(m_pos);
+	//ImGui::SetNextWindowSize(m_size);
+	ImGui::SetNextWindowBgAlpha(0.9f);
+	//ImGui::SetNextWindowFocus();
 	if (ImGui::Begin(m_name.c_str(), &m_isOpne, m_flags))
 	{
 		m_size = ImGui::GetWindowSize();

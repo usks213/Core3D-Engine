@@ -90,7 +90,8 @@ void D3D11Renderer::endFrame()
 			m_cmdLists[m_curBackBufferIndex][i]->m_pCmdList.GetAddressOf());
 	}
 
-	//--- 前フレームのコマンド完了を待つ
+	//--- 前フレームのコマンド完了を待つ(フェンス)
+
 
 	// スワップ
 	//m_swapChain->Present(0, DXGI_PRESENT_ALLOW_TEARING);	// ティアリング許容描画
@@ -113,6 +114,13 @@ core::CoreCommandList* D3D11Renderer::getCommandList()
 	}
 
 	return m_cmdLists[m_curBackBufferIndex][m_useCmdListCnt[m_curBackBufferIndex]++].get();
+}
+
+/// @brief イミディエイトコンテキストでバッファ指定
+void D3D11Renderer::SetD3D11BackBuffer()
+{
+	m_d3dContext->OMSetRenderTargets(1, m_device.m_backBufferRTV.GetAddressOf(), 
+		m_device.m_depthStencilView.Get());
 }
 
 //------------------------------------------------------------------------------

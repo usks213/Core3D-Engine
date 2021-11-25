@@ -95,6 +95,10 @@ public:
 	/// @brief コンポーネントのデシリアライズ
 	void Deserialize();
 
+	/// @brief 所属シーンの取得
+	/// @return シートポインタ
+	Scene* GetScene() { return m_pScene; }
+
 private:
 
 	/// @brief 型ごとに一意なIDを作成

@@ -263,6 +263,9 @@
     <ClCompile Include="Library\ImGui\imgui_widgets.cpp">
       <Filter>ライブラリファイル\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Core\Component.cpp">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">

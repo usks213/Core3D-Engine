@@ -7,6 +7,9 @@
  *********************************************************************/
 #include "D3D11_Editor.h"
 
+#include <CoreRenderer\D3D11\D3D11_Renderer.h>
+#include <CoreRenderer\D3D11\D3D11_CommandList.h>
+
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_impl_win32.h>
 #include <ImGui/imgui_impl_dx11.h>
@@ -54,7 +57,7 @@ bool D3D11Editor::initialize(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceConte
 	config.PixelSnapH = 1;
 	io.Fonts->AddFontDefault();
 	ImFont* pFont = io.Fonts->AddFontFromFileTTF("Essentials/Fonts/msgothic.ttc", 
-		18.0f * 1.5f, &config, io.Fonts->GetGlyphRangesJapanese());
+		18.0f, &config, io.Fonts->GetGlyphRangesJapanese());
 	IM_ASSERT(pFont != nullptr);
 	ImFont* currentFont = ImGui::GetFont();
 	currentFont = pFont;
@@ -86,6 +89,9 @@ void D3D11Editor::NewFrame()
 /// @param cmdList コマンドリスト
 void D3D11Editor::Render(core::CoreCommandList* cmdList)
 {
+	// バックバッファに変更
+	static_cast<D3D11CommandList*>(cmdList)->GetD3D11Renderer()->SetD3D11BackBuffer();
+
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	ImGuiIO& io = ImGui::GetIO();

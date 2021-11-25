@@ -7,11 +7,12 @@
  *********************************************************************/
 #include "HierarchyWindow.h"
 
+
  /// @brief コンストラクタ
 HierarchyWindow::HierarchyWindow() noexcept
 {
 	SetWindowDisp(true);
-	SetWindowName("ヒエラルキー");
+	SetWindowName("Hierarchy");
 	SetWindowOpen(true);
 	SetWindowFlags(
 		WindowFlags::ImGuiWindowFlags_HorizontalScrollbar
@@ -22,6 +23,91 @@ HierarchyWindow::HierarchyWindow() noexcept
 void HierarchyWindow::OnGUI()
 {
 	// 現在シーンの取得
+	auto* pSceneMgr = GetEditorWindowManager()->GetCoreEditor()->getCoreEngine()->getSceneManager();
+	auto* pScene = pSceneMgr->GetCurrentScene();
+	if (pScene == nullptr) return;
+	auto* pTransformManager = pScene->GetTransformManager();
 
+	// ルートへ戻すボタン
+	ImGui::Button("Return Root", ImVec2(200, 30));
+	if (ImGui::BeginDragDropTarget()) {
+		// Some processing...
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_DEMO_CELL"))
+		{
+			IM_ASSERT(payload->DataSize == sizeof(TransformID));
+			TransformID payload_n = *(const TransformID*)payload->Data;
+			// 親子関係再構築
+			auto* pTransform = pTransformManager->FindTransform(payload_n);
+			if (pTransform) pTransform->ReturnRoot();
+		}
+		ImGui::EndDragDropTarget();
+	}
 
+	// シーンの階層構造を取得
+	auto& rootList = pTransformManager->GetRootTransforms();
+	for (const auto& parent : rootList)
+	{
+		DispEntity(pScene->GetTransformManager(), parent);
+	}
+}
+
+void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const TransformID& parentID)
+{
+	// 親の取得
+	auto* pTransform = pTransformManager->FindTransform(parentID);
+	if (pTransform == nullptr) return;
+	auto* pEntity = pTransform->entity();
+	if (pEntity == nullptr) return;
+
+	// 子ノードがあるか
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5, 5));
+	bool open = ImGui::TreeNodeEx(pEntity->GetName().data(), ImGuiTreeNodeFlags_FramePadding |
+		ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnDoubleClick |
+		(pTransform->GetChildCount() ? 0 : ImGuiTreeNodeFlags_Leaf));
+	ImGui::PopStyleVar();
+
+	// ドラッグ時
+	ImGui::PushID((int)pEntity->GetEntityID());
+	if (ImGui::BeginPopupContextItem()) {
+		// Some processing...
+		ImGui::Text("Move Parent");
+		ImGui::EndPopup();
+	}
+	ImGui::PopID();
+	// クリック
+	if (ImGui::IsItemClicked()) {
+		// 選択IDを格納
+		GetEditorWindowManager()->GetCoreEditor()->SetSelectObject(
+			core::CoreEditor::SelectObject::ObjectType::Entity, pEntity->GetInstanceID());
+	}
+	// ドロップ
+	if (ImGui::BeginDragDropTarget()) {
+		// Some processing...
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_DEMO_CELL"))
+		{
+			IM_ASSERT(payload->DataSize == sizeof(TransformID));
+			TransformID payload_n = *(const TransformID*)payload->Data;
+			// 親子関係再構築
+			auto* pDrop = pTransformManager->FindTransform(payload_n);
+			if (pDrop) pTransform->AddChild(payload_n);
+		}
+		ImGui::EndDragDropTarget();
+	}
+	// ドラッグ
+	if (ImGui::BeginDragDropSource()) {
+		// Some processing...
+		TransformID id = pTransform->GetTransformID();
+		ImGui::SetDragDropPayload("DND_DEMO_CELL", &id, sizeof(TransformID));
+		ImGui::Text("Move Parent");
+		ImGui::EndDragDropSource();
+	}
+	// ノード内
+	if (open) {
+		// 子の表示
+		for (const auto& child : pTransform->GetChildList())
+		{
+			DispEntity(pTransformManager, child);
+		}
+		ImGui::TreePop();
+	}
 }

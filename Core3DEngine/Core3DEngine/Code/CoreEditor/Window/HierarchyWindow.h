@@ -9,9 +9,11 @@
 #define _HIERARCHY_WINDOW_
 
 #include <CoreEditor/Core/EditorWindow.h>
+#include <CoreEngine\Core_Engine.h>
 
 class HierarchyWindow final : public EditorWindow
 {
+	DECLARE_TYPE_INFO(HierarchyWindow);
 public:
 	/// @brief コンストラクタ
 	explicit HierarchyWindow() noexcept;
@@ -23,6 +25,8 @@ public:
 	void OnGUI() final override;
 
 private:
+
+	void DispEntity(TransformManager* pTransformManager, const TransformID& parentID);
 
 };
 

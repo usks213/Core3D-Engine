@@ -44,6 +44,11 @@ public:
 	/// @param instanceID インスタンスID
 	void DestroyEntity(const EntityID& entityID);
 
+	/// @brief エンティティの検索
+	/// @param entityID エンティティID
+	/// @return あった エンティティポインタ / なし nullptr
+	Entity* FindEntity(const EntityID& entityID);
+
 	/// @brief コンポーネントマネージャー取得
 	/// @return コンポーネントマネージャー
 	ComponentManager* GetComponentManager();

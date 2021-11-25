@@ -60,6 +60,15 @@ namespace d3d11
 		/// @return コマンドリストのポインタ 
 		core::CoreCommandList* getCommandList() override;
 
+		/// @brief コピーコンストラクタ削除
+		D3D11Renderer(const D3D11Renderer&) = delete;
+		/// @brief ムーブコンストラクタ削除
+		D3D11Renderer(D3D11Renderer&&) = delete;
+
+	public:
+
+		//--- Native ---
+
 		/// @brief DirectX11デバイスの取得
 		/// @return DirectX11デバイス
 		ID3D11Device1* GetD3D11Device() const noexcept { return m_d3dDevice.Get(); }
@@ -68,10 +77,8 @@ namespace d3d11
 		/// @return DirectX11デバイスコンテキスト
 		ID3D11DeviceContext* GetD3D11Context() const noexcept { return m_d3dContext.Get(); }
 
-		/// @brief コピーコンストラクタ削除
-		D3D11Renderer(const D3D11Renderer&) = delete;
-		/// @brief ムーブコンストラクタ削除
-		D3D11Renderer(D3D11Renderer&&) = delete;
+		/// @brief イミディエイトコンテキストでバッファ指定
+		void SetD3D11BackBuffer();
 
 	private:
 		//------------------------------------------------------------------------------

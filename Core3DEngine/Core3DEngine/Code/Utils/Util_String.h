@@ -15,7 +15,7 @@ namespace util
 #ifdef _UNICODE
 	/// @brief Unicode文字列型
 	using String = std::wstring;
-#elif
+#else
 	/// @brief マルチバイト文字列型
 	using String = std::string;
 #endif // !_UNICODE
