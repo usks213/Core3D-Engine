@@ -36,7 +36,7 @@ public:
 	{
 		for (auto& window : m_windowPool)
 		{
-			window.second->DispWindow();
+			//window.second->DispWindow();
 		}
 	}
 

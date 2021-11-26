@@ -32,6 +32,8 @@ bool D3D11Editor::initialize(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceConte
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;	// ウィンドウになる
+	// doking
+	io.ConfigWindowsMoveFromTitleBarOnly = true;
 	// style
 	//ImGui::StyleColorsDark();
 	ImGui::StyleColorsClassic();

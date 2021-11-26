@@ -15,7 +15,7 @@ HierarchyWindow::HierarchyWindow() noexcept
 	SetWindowName("Hierarchy");
 	SetWindowOpen(true);
 	SetWindowFlags(
-		WindowFlags::ImGuiWindowFlags_HorizontalScrollbar
+		WindowFlag::ImGuiWindowFlags_HorizontalScrollbar
 	);
 }
 
@@ -58,16 +58,22 @@ void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const Tran
 	if (pTransform == nullptr) return;
 	auto* pEntity = pTransform->entity();
 	if (pEntity == nullptr) return;
+	int id = static_cast<int>(pTransform->GetInstanceID());
+	auto selectObject = GetEditorWindowManager()->GetCoreEditor()->GetSelectObject();
 
 	// 子ノードがあるか
-	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(5, 5));
-	bool open = ImGui::TreeNodeEx(pEntity->GetName().data(), ImGuiTreeNodeFlags_FramePadding |
-		ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnDoubleClick |
-		(pTransform->GetChildCount() ? 0 : ImGuiTreeNodeFlags_Leaf));
-	ImGui::PopStyleVar();
+	ImGui::PushID(id++);
+	bool open = ImGui::TreeNodeEx(pEntity->GetName().data(),
+		ImGuiTreeNodeFlags_FramePadding |
+		ImGuiTreeNodeFlags_OpenOnDoubleClick |
+		(pTransform->GetChildCount() ? 0 : ImGuiTreeNodeFlags_Leaf) | 
+		(selectObject.objectType == core::CoreEditor::SelectObject::ObjectType::Entity && 
+		 selectObject.instanceID == pEntity->GetInstanceID() ? ImGuiTreeNodeFlags_Selected : 0)
+	);
+	ImGui::PopID();
 
 	// ドラッグ時
-	ImGui::PushID((int)pEntity->GetEntityID());
+	ImGui::PushID(id++);
 	if (ImGui::BeginPopupContextItem()) {
 		// Some processing...
 		ImGui::Text("Move Parent");

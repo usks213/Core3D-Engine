@@ -41,8 +41,8 @@ bool D3D12Editor::initialize(HWND hWnd, ID3D12Device* pDevice, int nBackBufferCo
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;	// ウィンドウになる
 	// style
-	//ImGui::StyleColorsDark();
-	ImGui::StyleColorsClassic();
+	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsClassic();
 
 	ImGuiStyle& style = ImGui::GetStyle();
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)

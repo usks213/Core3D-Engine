@@ -68,6 +68,21 @@ public:
 	virtual void DispInspector() noexcept override {}
 
 protected:
+
+	/// @brief コンポーネント名の取得(スクリプト継承先も)
+	/// @return コンポーネント名
+	virtual std::string_view GetComponentName() noexcept;
+
+protected:
+
+	/// @brief インスペクター表示の開始
+	/// @return ノードが開いているか
+	bool BeginInspectorGUI();
+
+	/// @brief インスペクター表示の終了
+	void EndInspectorGUI();
+
+protected:
 	//--- none serialize param
 
 	ComponentManager* m_pComponentManager;

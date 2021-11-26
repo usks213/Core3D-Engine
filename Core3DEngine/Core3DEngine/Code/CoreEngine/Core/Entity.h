@@ -74,6 +74,11 @@ public:
 	/// @return 名前
 	[[nodiscard]] std::string_view GetName() noexcept { return m_name; }
 
+	/// @brief 名前の指定
+	/// @param name エンティティ名
+	void SetName(std::string_view name) noexcept { m_name = name; }
+
+
 	/// @brief コンポーネントの追加
 	/// @tparam T スクリプト型クラス
 	/// @return コンポーネントポインタ
@@ -193,11 +198,20 @@ public:
 		return nullptr;
 	}
 
+	/// @brief アクティブ指定
+	/// @param isActive フラグ
+	void SetActive(bool isActive);
+
+	/// @brief スタティック指定
+	/// @param isStatic フラグ
+	void SetStatic(bool isStatic);
+
 	/// @brief トランスフォームの取得
 	/// @return トランスフォームポインタ
 	Transform* transform() noexcept;
 
-	void DispInspector() noexcept override {}
+	/// @brief インスペクター表示
+	void DispInspector() noexcept override;
 
 	///// @brief シリアライズ化
 	//template<class T>

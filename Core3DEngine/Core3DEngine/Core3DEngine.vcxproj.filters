@@ -266,6 +266,12 @@
     <ClCompile Include="Code\CoreEngine\Core\Component.cpp">
       <Filter>ソース ファイル\CoreEngine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Code\CoreEditor\Window\InspectorWindow.cpp">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEditor\Window\EngineWindow.cpp">
+      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">

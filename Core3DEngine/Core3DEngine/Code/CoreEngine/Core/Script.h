@@ -54,6 +54,15 @@ public:
 	/// @brief スクリプト名の取得
 	[[nodiscard]] virtual std::string_view GetScriptName() noexcept = 0;
 
+private:
+
+	/// @brief コンポーネント名の取得(スクリプト継承先も)
+	/// @return コンポーネント名
+	std::string_view GetComponentName() noexcept override
+	{
+		return GetScriptName();
+	}
+
 public:
 	//--- コールバック関数
 

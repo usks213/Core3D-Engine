@@ -18,7 +18,8 @@ class EditorWindow
 {
 public:
 	friend class EditorWindowManager;
-	using WindowFlags = ImGuiWindowFlags_;	///< ImGuiウィンドウフラグ
+	using WindowFlags = ImGuiWindowFlags;	///< ImGuiウィンドウフラグ
+	using WindowFlag = ImGuiWindowFlags_;	///< ImGuiウィンドウフラグ
 public:
 
 	/// @brief コンストラクタ

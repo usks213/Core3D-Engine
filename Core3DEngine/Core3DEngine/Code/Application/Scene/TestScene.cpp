@@ -262,7 +262,51 @@ void TestScene::Start()
 /// @brief システムの更新
 void TestScene::Update()
 {
+	auto* renderer = GetSceneManager()->getEngine()->getRenderer();
+	float width = static_cast<float>(renderer->getCoreEngine()->getWindowWidth());
+	float height = static_cast<float>(renderer->getCoreEngine()->getWindowHeight());
 
+	static ImGuiID dockspaceID = 0;
+	bool active = true;
+	ImGui::SetNextWindowPos(ImVec2());
+	ImGui::SetNextWindowSize(ImVec2(width, height));
+	if (ImGui::Begin("Master Window", &active, 
+		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize))
+	{
+		ImGui::TextUnformatted("DockSpace below");
+	}
+	if (active)
+	{
+		// Declare Central dockspace
+		dockspaceID = ImGui::GetID("HUB_DockSpace");
+		ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_PassthruCentralNode/*|ImGuiDockNodeFlags_NoResize*/);
+	}
+	ImGui::End();
+
+	ImGui::SetNextWindowDockID(dockspaceID, ImGuiCond_FirstUseEver);
+	if (ImGui::Begin("Dockable Window"))
+	{
+		ImGui::TextUnformatted("Test");
+	}
+	ImGui::End();
+	ImGui::SetNextWindowDockID(dockspaceID, ImGuiCond_FirstUseEver);
+	if (ImGui::Begin("Dockable Window2"))
+	{
+		ImGui::TextUnformatted("Test");
+	}
+	ImGui::End();
+	ImGui::SetNextWindowDockID(dockspaceID, ImGuiCond_FirstUseEver);
+	if (ImGui::Begin("Dockable Window3"))
+	{
+		ImGui::TextUnformatted("Test");
+	}
+	ImGui::End();
+	ImGui::SetNextWindowDockID(dockspaceID, ImGuiCond_FirstUseEver);
+	if (ImGui::Begin("Dockable Window4"))
+	{
+		ImGui::TextUnformatted("Test");
+	}
+	ImGui::End();
 }
 
 /// @brief パイプラインの描画
@@ -465,7 +509,7 @@ void TestScene::Render()
 	cmdList->setMaterial(g_postMatID);
 
 	// バックバッファへコピー
-	//cmdList->copyBackBuffer(pRT->m_texID);
+	cmdList->copyBackBuffer(pRT->m_texID);
 
 }
 

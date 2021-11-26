@@ -15,7 +15,10 @@
 
 #include <CoreEditor\Platform\D3D11_Editor.h>
 #include <CoreEditor\Platform\D3D12_Editor.h>
+
 #include <CoreEditor\Window\HierarchyWindow.h>
+#include <CoreEditor\Window\InspectorWindow.h>
+#include <CoreEditor\Window\EngineWindow.h>
 
 #include "Scene\TestScene.h"
 
@@ -55,6 +58,8 @@ void MainStartup(HINSTANCE hInstance, int nCmdShow)
 		pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D12Device()->GetD3D12Device(),
 			pRenderer->GetD3D12Device()->GetBackBufferCount(), pRenderer->GetD3D12Device()->GetBackBufferFormat());
 		pEditor->GetEditorWindowManager()->AddEditorWindow<HierarchyWindow>();
+		pEditor->GetEditorWindowManager()->AddEditorWindow<InspectorWindow>();
+		pEditor->GetEditorWindowManager()->AddEditorWindow<EngineWindow>();
 	}
 	else
 	{
@@ -65,6 +70,8 @@ void MainStartup(HINSTANCE hInstance, int nCmdShow)
 		auto* pEditor = g_pEngine->createEditor<d3d11::D3D11Editor>();
 		pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D11Device(), pRenderer->GetD3D11Context());
 		pEditor->GetEditorWindowManager()->AddEditorWindow<HierarchyWindow>();
+		pEditor->GetEditorWindowManager()->AddEditorWindow<InspectorWindow>();
+		pEditor->GetEditorWindowManager()->AddEditorWindow<EngineWindow>();
 	}
 
 	// ƒGƒ“ƒWƒ“‚Ì‰Šú‰»
