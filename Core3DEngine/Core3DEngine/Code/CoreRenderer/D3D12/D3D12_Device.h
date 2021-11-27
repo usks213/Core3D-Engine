@@ -11,8 +11,10 @@
 
 #include <CoreRenderer/Core/Core_Device.h>
 #include "D3D12_CommonState.h"
+#include "D3D12_DescriptorPool.h"
 #include <tuple>
 #include <map>
+
 
 namespace d3d12
 {
@@ -66,7 +68,7 @@ namespace d3d12
 		ID3D12Device* GetD3D12Device() { return m_pD3DDevice; }
 		UINT GetBackBufferCount() { return m_backBufferCount; }
 		DXGI_FORMAT GetBackBufferFormat() { return m_backBufferFormat; }
-
+		D3D12DescriptorPool* GetTextureDescriptor() { return m_pTexturePool.get(); }
 
 	private:
 		//------------------------------------------------------------------------------
@@ -146,8 +148,10 @@ namespace d3d12
 			ID3D12Resource*			pResource = nullptr;
 			std::vector<std::byte>	data;
 		};
-		std::vector<UpdateResourceData>		m_updateResourceList;
+		std::vector<UpdateResourceData>			m_updateResourceList;
 
+		// ディスクリプタプール
+		std::unique_ptr<D3D12DescriptorPool>	m_pTexturePool;
 	};
 }
 

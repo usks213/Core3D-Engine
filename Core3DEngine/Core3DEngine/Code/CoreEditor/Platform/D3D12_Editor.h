@@ -9,7 +9,7 @@
 #define _D3D12_EDITOR_
 
 #include <CoreEditor/Core_Editor.h>
-#include <CoreRenderer/D3D12/D3D12_Defines.h>
+#include <CoreRenderer\D3D12\D3D12_Device.h>
 
 namespace d3d12
 {
@@ -31,7 +31,7 @@ namespace d3d12
 		/// @param pDevice デバイス
 		/// @param pContext イミディエイトコンテキスト
 		/// @return 成功 TRUE / 失敗 FALSE
-		bool initialize(HWND hWnd, ID3D12Device* pDevice, int nBackBufferCount, DXGI_FORMAT backBufferFormat);
+		bool initialize(HWND hWnd, D3D12Device* pDevice, int nBackBufferCount, DXGI_FORMAT backBufferFormat);
 
 		/// @brief 終了処理
 		void finalize() override;
@@ -46,7 +46,7 @@ namespace d3d12
 	private:
 
 		/// @brief ImGui用GUPヒープ
-		ComPtr<ID3D12DescriptorHeap> m_pImGuiHeap;
+		ID3D12DescriptorHeap*	 m_pTexHeap;
 
 	};
 }

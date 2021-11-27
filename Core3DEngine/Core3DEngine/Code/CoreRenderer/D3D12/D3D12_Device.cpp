@@ -66,6 +66,10 @@ HRESULT D3D12Device::initialize(ID3D12Device* pDevice, IDXGIFactory2* pFactory2,
 	// 共通ステートの初期化
 	CHECK_FAILED(createCommonState());
 
+	// ディスクリプタプールの生成
+	m_pTexturePool = std::make_unique<D3D12DescriptorPool>(
+		pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024 * 4);
+
 	return S_OK;
 }
 
@@ -210,7 +214,7 @@ core::TextureID D3D12Device::createTexture(std::string filePath)
 	if (m_texturePool.end() != itr) return id;
 
 	// 新規生成
-	m_texturePool[id] = std::make_unique<D3D12Texture>(m_pD3DDevice, id, filePath);
+	m_texturePool[id] = std::make_unique<D3D12Texture>(m_pD3DDevice, m_pTexturePool.get(), id, filePath);
 
 	return id;
 }
@@ -224,7 +228,7 @@ core::TextureID D3D12Device::createTexture(core::TextureDesc& desc, const core::
 	if (m_texturePool.end() != itr) return id;
 
 	// 新規生成
-	m_texturePool[id] = std::make_unique<D3D12Texture>(m_pD3DDevice, id, desc, pData);
+	m_texturePool[id] = std::make_unique<D3D12Texture>(m_pD3DDevice, m_pTexturePool.get(), id, desc, pData);
 
 	return id;
 }
@@ -520,7 +524,7 @@ D3D12Texture* D3D12Device::createD3D12Texture(core::TextureDesc& desc, D3D12_CLE
 	if (m_texturePool.end() != itr) return nullptr;
 
 	// 新規生成
-	auto pD3D12Tex = std::make_unique<D3D12Texture>(m_pD3DDevice, id, desc, nullptr, pClear);
+	auto pD3D12Tex = std::make_unique<D3D12Texture>(m_pD3DDevice, m_pTexturePool.get(), id, desc, nullptr, pClear);
 	auto pTex = pD3D12Tex.get();
 
 	m_texturePool[id] = std::move(pD3D12Tex);

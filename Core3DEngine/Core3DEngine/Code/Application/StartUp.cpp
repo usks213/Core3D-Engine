@@ -51,7 +51,7 @@ void MainStartup(HINSTANCE hInstance, int nCmdShow)
 		pRenderer->initialize(pWindow->getWindowHandle(), pWindow->getWindowWidth(), pWindow->getWindowHeight());
 		// エディターの初期化
 		auto* pEditor = g_pEngine->createEditor<d3d12::D3D12Editor>();
-		pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D12Device()->GetD3D12Device(),
+		pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D12Device(),
 			pRenderer->GetD3D12Device()->GetBackBufferCount(), pRenderer->GetD3D12Device()->GetBackBufferFormat());
 	}
 	else

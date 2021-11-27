@@ -59,6 +59,7 @@
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_CommonState.cpp" />
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Defines.cpp" />
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_DepthStencil.cpp" />
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_DescriptorPool.cpp" />
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Device.cpp" />
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Material.cpp" />
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_RenderBuffer.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_CommonState.h" />
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Defines.h" />
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_DepthStencil.h" />
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_DescriptorPool.h" />
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Device.h" />
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Material.h" />
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_RenderBuffer.h" />

@@ -8,6 +8,7 @@
 #ifndef _D3D12_DEFINES_
 #define _D3D12_DEFINES_
 
+#include <exception>
 #include <tchar.h>
 #include <comdef.h>
 #include <Windows.h>

@@ -278,6 +278,9 @@
     <ClCompile Include="Code\CoreEditor\Window\ProjectWindow.cpp">
       <Filter>ソース ファイル\CoreEditor\Window</Filter>
     </ClCompile>
+    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_DescriptorPool.cpp">
+      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">
@@ -546,6 +549,9 @@
     </ClInclude>
     <ClInclude Include="Library\ImGui\imstb_truetype.h">
       <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_DescriptorPool.h">
+      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

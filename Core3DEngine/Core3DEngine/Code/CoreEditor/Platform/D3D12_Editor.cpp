@@ -20,18 +20,21 @@ using namespace d3d12;
 /// @param pDevice デバイス
 /// @param pContext イミディエイトコンテキスト
 /// @return 成功 TRUE / 失敗 FALSE
-bool D3D12Editor::initialize(HWND hWnd, ID3D12Device* pDevice, int nBackBufferCount, DXGI_FORMAT backBufferFormat)
+bool D3D12Editor::initialize(HWND hWnd, D3D12Device* pDevice, int nBackBufferCount, DXGI_FORMAT backBufferFormat)
 {
 	bool bResult = true;
 
-	//--- DirectX12
-	// ヒープの作成
-	D3D12_DESCRIPTOR_HEAP_DESC desc = {};
-	desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAGS::D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-	desc.NodeMask = 0;				// 今ゼロ
-	desc.NumDescriptors = 10000;	// 最大ディスクリプタ数
-	desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-	pDevice->CreateDescriptorHeap(&desc, IID_PPV_ARGS(m_pImGuiHeap.ReleaseAndGetAddressOf()));
+	////--- DirectX12
+	//// ヒープの作成
+	//D3D12_DESCRIPTOR_HEAP_DESC desc = {};
+	//desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAGS::D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	//desc.NodeMask = 0;				// 今ゼロ
+	//desc.NumDescriptors = 1;	// 最大ディスクリプタ数
+	//desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	//pDevice->CreateDescriptorHeap(&desc, IID_PPV_ARGS(m_pImGuiHeap.ReleaseAndGetAddressOf()));
+	D3D12DescriptorPool* pPool = pDevice->GetTextureDescriptor();
+	D3D12DescriptorHandle handle = pPool->Allocate();
+	m_pTexHeap = pPool->GetDescriptorHeap();
 
 	//--- imgui
 	IMGUI_CHECKVERSION();
@@ -57,9 +60,8 @@ bool D3D12Editor::initialize(HWND hWnd, ID3D12Device* pDevice, int nBackBufferCo
 	bResult = ImGui_ImplWin32_Init(hWnd);
 	if (bResult == false) return bResult;
 
-	bResult = ImGui_ImplDX12_Init(pDevice, nBackBufferCount, backBufferFormat,
-		m_pImGuiHeap.Get(), m_pImGuiHeap->GetCPUDescriptorHandleForHeapStart(), 
-		m_pImGuiHeap->GetGPUDescriptorHandleForHeapStart());
+	bResult = ImGui_ImplDX12_Init(pDevice->GetD3D12Device(), nBackBufferCount, backBufferFormat,
+		m_pTexHeap, handle.CPUHandle, handle.GPUHandle);
 	if (bResult == false) return bResult;
 
 	// 日本語フォント
@@ -101,14 +103,14 @@ void D3D12Editor::NewFrame()
 /// @param cmdList コマンドリスト
 void D3D12Editor::Render(core::CoreCommandList* cmdList)
 {
-	ImGui::Render();
 
 	// バックバッファ指定
 	auto* pD3D12Cmd = static_cast<D3D12CommandList*>(cmdList);
 	pD3D12Cmd->setBackBuffer();
-	pD3D12Cmd->GetD3D12GraphicsCommandList()->SetDescriptorHeaps(1, m_pImGuiHeap.GetAddressOf());
+	pD3D12Cmd->GetD3D12GraphicsCommandList()->SetDescriptorHeaps(1, &m_pTexHeap);
 
-	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), 
+	ImGui::Render();
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(),
 		pD3D12Cmd->GetD3D12GraphicsCommandList());
 	ImGuiIO& io = ImGui::GetIO();
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)

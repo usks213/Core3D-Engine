@@ -35,9 +35,10 @@ namespace
 /// @brief コンストラクタ(ファイル読み込み)
 /// @param id テクスチャID
 /// @param filepath ファイルパス
-D3D12Texture::D3D12Texture(ID3D12Device* pDevice, const core::TextureID& id, const std::string& filepath) :
+D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescriptorPool,
+    const core::TextureID& id, const std::string& filepath) :
 	core::CoreTexture(id, filepath),
-    m_pTexHeap(nullptr),
+    //m_pTexHeap(nullptr),
     m_pTex(nullptr)
 {
 
@@ -46,10 +47,11 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, const core::TextureID& id, con
 /// @brief コンストラクタ(Descから生成)
 /// @param id テクスチャID
 /// @param desc テクスチャDesc
-D3D12Texture::D3D12Texture(ID3D12Device* pDevice, const core::TextureID& id, 
-    core::TextureDesc& desc, const core::TextureData* pData, const D3D12_CLEAR_VALUE* pClear) :
+D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescriptorPool,
+    const core::TextureID& id, core::TextureDesc& desc, 
+    const core::TextureData* pData, const D3D12_CLEAR_VALUE* pClear) :
 	core::CoreTexture(id, desc),
-	m_pTexHeap(nullptr),
+	//m_pTexHeap(nullptr),
 	m_pTex(nullptr),
     m_eState(D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE)
 {
@@ -139,17 +141,17 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, const core::TextureID& id,
         ));
     }
 
-    // ヒープ生成
-    D3D12_DESCRIPTOR_HEAP_DESC descHeapDesc = {};
-    descHeapDesc.Flags = d3d12::getD3D12HeapFlags(desc.bindFlags);//シェーダから見えるように
-    descHeapDesc.NodeMask = 0;//マスクは0
-    descHeapDesc.NumDescriptors = 1;//ビューは今のところ１つだけ
-    descHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;//シェーダリソースビュー(および定数、UAVも)
+    //// ヒープ生成
+    //D3D12_DESCRIPTOR_HEAP_DESC descHeapDesc = {};
+    //descHeapDesc.Flags = d3d12::getD3D12HeapFlags(desc.bindFlags);//シェーダから見えるように
+    //descHeapDesc.NodeMask = 0;//マスクは0
+    //descHeapDesc.NumDescriptors = 1;//ビューは今のところ１つだけ
+    //descHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;//シェーダリソースビュー(および定数、UAVも)
 
-    CHECK_FAILED(pDevice->CreateDescriptorHeap(&descHeapDesc,
-        IID_PPV_ARGS(m_pTexHeap.ReleaseAndGetAddressOf())));//生成
-    m_CPUHandle = m_pTexHeap->GetCPUDescriptorHandleForHeapStart();
-    m_GPUHandle = m_pTexHeap->GetGPUDescriptorHandleForHeapStart();
+    //CHECK_FAILED(pDevice->CreateDescriptorHeap(&descHeapDesc,
+    //    IID_PPV_ARGS(m_pTexHeap.ReleaseAndGetAddressOf())));//生成
+    m_handle = pDescriptorPool->Allocate();
+
 
     // シェーダーリソース
     if (desc.bindFlags & core::BindFlags::SHADER_RESOURCE)
@@ -166,7 +168,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, const core::TextureID& id,
 
         pDevice->CreateShaderResourceView(m_pTex.Get(), //ビューと関連付けるバッファ
             &srvDesc, //先ほど設定したテクスチャ設定情報
-            m_pTexHeap->GetCPUDescriptorHandleForHeapStart()//ヒープのどこに割り当てるか
+            m_handle.CPUHandle//ヒープのどこに割り当てるか
         );
     }
 
@@ -184,12 +186,12 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, const core::TextureID& id,
         if (true)
         {
             pDevice->CreateUnorderedAccessView(m_pTex.Get(), nullptr, &uavDesc,
-                m_pTexHeap->GetCPUDescriptorHandleForHeapStart());
+                m_handle.CPUHandle);
         }
         else
         {
             pDevice->CreateUnorderedAccessView(m_pTex.Get(), nullptr, &uavDesc,
-                m_pTexHeap->GetCPUDescriptorHandleForHeapStart());
+                m_handle.CPUHandle);
         }
     }
 }

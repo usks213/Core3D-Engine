@@ -409,11 +409,12 @@ void D3D12CommandList::bindGlobalTexture(const core::ShaderID& shaderID, const s
 				stage == ShaderStage::PS ? D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE :
 				D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
 			// ヒープ指定
-			m_pCmdList->SetDescriptorHeaps(1, pTexture->m_pTexHeap.GetAddressOf());
+			ID3D12DescriptorHeap* pHeap[] = { m_pDevice->m_pTexturePool->GetDescriptorHeap() };
+			m_pCmdList->SetDescriptorHeaps(_countof(pHeap), pHeap);
 			// Table
 			m_pCmdList->SetGraphicsRootDescriptorTable(
 				itr->second.rootIndex,
-				pTexture->m_pTexHeap->GetGPUDescriptorHandleForHeapStart());
+				pTexture->m_handle.GPUHandle);
 			break;
 		}
 	}
@@ -597,11 +598,11 @@ void D3D12CommandList::setTextureResource(core::ShaderStage stage, std::uint32_t
 			stage == ShaderStage::PS ? D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE :
 			D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
 		// ヒープ指定
-		ID3D12DescriptorHeap* pHeap[] = { pD3DTex->m_pTexHeap.Get() };
+		ID3D12DescriptorHeap* pHeap[] = { m_pDevice->m_pTexturePool->GetDescriptorHeap() };
 		m_pCmdList->SetDescriptorHeaps(_countof(pHeap), pHeap);
 		// テーブル指定
 		m_pCmdList->SetGraphicsRootDescriptorTable(rootIndex,
-			pD3DTex->m_pTexHeap->GetGPUDescriptorHandleForHeapStart());
+			pD3DTex->m_handle.GPUHandle);
 	}
 	else
 	{
