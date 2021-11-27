@@ -148,6 +148,8 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, const core::TextureID& id,
 
     CHECK_FAILED(pDevice->CreateDescriptorHeap(&descHeapDesc,
         IID_PPV_ARGS(m_pTexHeap.ReleaseAndGetAddressOf())));//生成
+    m_CPUHandle = m_pTexHeap->GetCPUDescriptorHandleForHeapStart();
+    m_GPUHandle = m_pTexHeap->GetGPUDescriptorHandleForHeapStart();
 
     // シェーダーリソース
     if (desc.bindFlags & core::BindFlags::SHADER_RESOURCE)

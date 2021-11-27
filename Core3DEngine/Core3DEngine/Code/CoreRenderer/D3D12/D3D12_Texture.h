@@ -36,14 +36,28 @@ namespace d3d12
 		/// @brief デストラクタ
 		~D3D12Texture() noexcept = default;
 		
+		/// @brief リソースポインタの取得
+		/// @return リソース型
+		void* GetResource() override { return m_pTex.Get(); }
+
+		/// @brief SRVポインタの取得
+		/// @return SRV型
+		void* GetSRV() override { return (void*)m_GPUHandle.ptr; }
+
+		/// @brief UAVポインタの取得
+		/// @return UAV型
+		void* GetUAV() override { return (void*)m_GPUHandle.ptr; }
+
 	public:
 		//------------------------------------------------------------------------------
 		// public variables
 		//------------------------------------------------------------------------------
 
 		ComPtr<ID3D12DescriptorHeap>		m_pTexHeap;	///< ヒープ
-		ComPtr<ID3D12Resource>			m_pTex;		///< テクスチャ
+		ComPtr<ID3D12Resource>				m_pTex;		///< テクスチャ
 		D3D12_RESOURCE_STATES				m_eState;	///< リソースの状態
+		D3D12_CPU_DESCRIPTOR_HANDLE			m_CPUHandle;	///< CPUハンドル
+		D3D12_GPU_DESCRIPTOR_HANDLE			m_GPUHandle;	///< GPUハンドル
 	};
 }
 

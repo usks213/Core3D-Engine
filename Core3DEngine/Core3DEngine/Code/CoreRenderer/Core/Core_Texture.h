@@ -72,6 +72,19 @@ namespace core
 		/// @brief デストラクタ
 		virtual ~CoreTexture() noexcept = default;
 
+
+		/// @brief リソースポインタの取得
+		/// @return リソース型
+		virtual void* GetResource() = 0;
+
+		/// @brief SRVポインタの取得
+		/// @return SRV型
+		virtual void* GetSRV() = 0;
+
+		/// @brief UAVポインタの取得
+		/// @return UAV型
+		virtual void* GetUAV() = 0;
+
 	public:
 		//------------------------------------------------------------------------------
 		// public variables

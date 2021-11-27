@@ -9,6 +9,8 @@
 
 #include <CoreEditor\Core_Editor.h>
 #include <CoreEngine\Core_Engine.h>
+#include <CoreRenderer\Core\Core_Device.h>
+
 
  /// @brief コンストラクタ
 GameWindow::GameWindow() noexcept
@@ -29,7 +31,11 @@ void GameWindow::OnGUI()
 	auto* pSceneMgr = pEditor->getCoreEngine()->getSceneManager();
 	auto* pScene = pSceneMgr->GetCurrentScene();
 	if (pScene == nullptr) return;
+	auto* pDevice = pEditor->getCoreEngine()->getRenderer()->getDevice();
 
 	// ゲームの描画結果を表示
-
+	auto resultID = pScene->GetSceneResult();
+	auto pResultRT = pDevice->getRenderTarget(resultID);
+	auto pResultTex = pDevice->getTexture(pResultRT->m_texID);
+	ImGui::Image((ImTextureID)pResultTex->GetSRV(), ImVec2(16 * 40, 9 * 40));
 }

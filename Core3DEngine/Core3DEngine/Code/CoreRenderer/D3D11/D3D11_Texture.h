@@ -36,6 +36,18 @@ namespace d3d11
 		/// @brief デストラクタ
 		~D3D11Texture() noexcept = default;
 		
+		/// @brief リソースポインタの取得
+		/// @return リソース型
+		void* GetResource() override { return m_tex.Get(); }
+
+		/// @brief SRVポインタの取得
+		/// @return SRV型
+		void* GetSRV() override { return m_srv.Get(); }
+
+		/// @brief UAVポインタの取得
+		/// @return UAV型
+		void* GetUAV() override { return m_uav.Get(); }
+
 	public:
 		//------------------------------------------------------------------------------
 		// public variables

@@ -7,11 +7,15 @@
  *********************************************************************/
 #include "Scene.h"
 
+#include "SceneManager.h"
 #include "EntityManager.h"
 #include "ComponentManager.h"
 #include "TransformManager.h"
 #include "SystemManager.h"
 #include "PipelineManager.h"
+
+#include <CoreEngine\Core_Engine.h>
+#include <CoreRenderer\Core\Core_Device.h>
 
  /// @brief コンストラクタ
  /// @param pSceneManager シーンマネージャー
@@ -23,6 +27,18 @@ Scene::Scene(SceneManager* pSceneManager) noexcept :
 	m_pTransformManager = std::make_unique<TransformManager>(this);
 	//m_pSystemManager = std::make_unique<SystemManager>(this);
 	//m_pPipelineManager = std::make_unique<PipelineManager>(this);
+
+	float width = static_cast<float>(pSceneManager->getEngine()->getWindowWidth());
+	float height = static_cast<float>(pSceneManager->getEngine()->getWindowHeight());
+
+	// シーンリザルトの作成
+	core::TextureDesc rtDesc = {};
+	rtDesc.name = "SceneResult";
+	rtDesc.width = width;
+	rtDesc.height = height;
+	rtDesc.bindFlags = 0 | core::BindFlags::RENDER_TARGET | core::BindFlags::SHADER_RESOURCE;
+	rtDesc.format = core::TextureFormat::R8G8B8A8_UNORM;
+	m_sceneResultID = pSceneManager->getEngine()->getRenderer()->getDevice()->createRenderTarget(rtDesc);
 }
 
 /// @brief エンティティマネージャーの取得

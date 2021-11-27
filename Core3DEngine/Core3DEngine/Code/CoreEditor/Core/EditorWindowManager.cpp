@@ -16,17 +16,7 @@
 #include <CoreEditor/Window/InspectorWindow.h>
 #include <CoreEditor/Window/ProjectWindow.h>
 #include <CoreEditor/Window/SceneWindow.h>
-
-#define DECLARE_WINDOW_MENU_ITEM(Name, Type)\
-if (ImGui::MenuItem(Name))					\
-{											\
-	auto pWindow = GetEditorWindow<Type>();	\
-	if (!pWindow->GetWindowOpen())			\
-	{										\
-		pWindow->SetWindowOpen(true);		\
-	}										\
-}														
-
+						
 
  /// @brief コンストラクタ
  /// @param pCoreEditor コアエディターポインタ
@@ -94,10 +84,16 @@ void EditorWindowManager::DispMenueBar()
 
 		if (ImGui::BeginMenu("Window"))
 		{
-			DECLARE_WINDOW_MENU_ITEM("Game",		GameWindow);
-			DECLARE_WINDOW_MENU_ITEM("Hierarchy",	HierarchyWindow);
-			DECLARE_WINDOW_MENU_ITEM("Inspector",	InspectorWindow);
-			DECLARE_WINDOW_MENU_ITEM("Project",		ProjectWindow);
+			for (auto& window : m_windowPool)
+			{
+				if (ImGui::MenuItem(window.second->GetWindowName().data()))
+				{
+					if (!window.second->GetWindowOpen())
+					{
+						window.second->SetWindowOpen(true);
+					}
+				}
+			}
 			ImGui::EndMenu();
 		}
 

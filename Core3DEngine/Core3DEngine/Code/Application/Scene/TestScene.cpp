@@ -449,8 +449,10 @@ void TestScene::Render()
 
 
 		// バッファバッファ指定
-		cmdList->setBackBuffer();
-		cmdList->clearBackBuffer(Color());
+		//cmdList->setBackBuffer();
+		//cmdList->clearBackBuffer(Color());
+		cmdList->setRenderTarget(m_sceneResultID);
+		cmdList->clearRederTarget(m_sceneResultID, Color());
 
 		// マテリアルの指定
 		cmdList->setMaterial(g_postMatID);
@@ -465,7 +467,7 @@ void TestScene::Render()
 	cmdList->setMaterial(g_postMatID);
 
 	// バックバッファへコピー
-	cmdList->copyBackBuffer(pRT->m_texID);
+	//cmdList->copyBackBuffer(pRT->m_texID);
 
 }
 

@@ -11,9 +11,11 @@
 #include "Scene.h"
 #include <memory>
 
-
 // 前定義
-class core::CoreEngine;
+namespace core
+{
+	class CoreEngine;
+}
 
 /// @brief シーンマネージャ
 class SceneManager final

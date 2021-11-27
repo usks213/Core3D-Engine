@@ -14,6 +14,7 @@
 #include "ComponentManager.h"
 #include "TransformManager.h"
 
+#include <CoreRenderer\Core\Core_RenderTarget.h>
 
 // 前定義
 class SceneManager;
@@ -68,9 +69,20 @@ public:
 	/// @return トランスフォームマネージャーのポインタ
 	TransformManager* GetTransformManager() noexcept;
 
-private:
+	/// @brief シーンの描画結果を取得
+	/// @return レンダーターゲットID
+	core::RenderTargetID GetSceneResult() { return m_sceneResultID; }
+
+protected:
 	//------------------------------------------------------------------------------
 	// protected variables
+	//------------------------------------------------------------------------------
+
+	core::RenderTargetID				m_sceneResultID;
+
+private:
+	//------------------------------------------------------------------------------
+	// private variables
 	//------------------------------------------------------------------------------
 
 	/// @brief シーンマネージャー
@@ -81,6 +93,7 @@ private:
 	std::unique_ptr<TransformManager>	m_pTransformManager;
 	/*std::unique_ptr<SystemManager>		m_pSystemManager;
 	std::unique_ptr<PipelineManager>	m_pPipelineManager;*/
+
 };
 
 #endif // !_SCENE_

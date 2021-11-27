@@ -101,11 +101,13 @@ void D3D12Editor::NewFrame()
 /// @param cmdList コマンドリスト
 void D3D12Editor::Render(core::CoreCommandList* cmdList)
 {
+	ImGui::Render();
+
 	// バックバッファ指定
 	auto* pD3D12Cmd = static_cast<D3D12CommandList*>(cmdList);
 	pD3D12Cmd->setBackBuffer();
+	pD3D12Cmd->GetD3D12GraphicsCommandList()->SetDescriptorHeaps(1, m_pImGuiHeap.GetAddressOf());
 
-	ImGui::Render();
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), 
 		pD3D12Cmd->GetD3D12GraphicsCommandList());
 	ImGuiIO& io = ImGui::GetIO();
