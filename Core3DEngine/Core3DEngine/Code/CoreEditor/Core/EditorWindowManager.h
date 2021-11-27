@@ -23,22 +23,13 @@ class EditorWindowManager final
 public:
 	/// @brief コンストラクタ
 	/// @param pCoreEditor コアエディターポインタ
-	explicit EditorWindowManager(core::CoreEditor* pCoreEditor) noexcept :
-		m_pCoreEditor(pCoreEditor)
-	{
-	}
+	explicit EditorWindowManager(core::CoreEditor* pCoreEditor) noexcept;
 
 	/// @brief デストラクタ
 	~EditorWindowManager() noexcept = default;
 
 	/// @brief ウィンドウの表示
-	void DispWindow()
-	{
-		for (auto& window : m_windowPool)
-		{
-			//window.second->DispWindow();
-		}
-	}
+	void DispWindow();
 
 	/// @brief エディターウィンドウの追加
 	/// @tparam T エディターウィンドウ型
@@ -83,6 +74,11 @@ public:
 	/// @brief コアエディターの取得
 	/// @return コアエディターポインタ
 	core::CoreEditor* GetCoreEditor() { return m_pCoreEditor; }
+
+private:
+
+	/// @brief メニューバーの表示
+	void DispMenueBar();
 
 private:
 

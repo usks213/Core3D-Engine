@@ -16,10 +16,6 @@
 #include <CoreEditor\Platform\D3D11_Editor.h>
 #include <CoreEditor\Platform\D3D12_Editor.h>
 
-#include <CoreEditor\Window\HierarchyWindow.h>
-#include <CoreEditor\Window\InspectorWindow.h>
-#include <CoreEditor\Window\EngineWindow.h>
-
 #include "Scene\TestScene.h"
 
 
@@ -44,7 +40,7 @@ void MainStartup(HINSTANCE hInstance, int nCmdShow)
 	g_pEngine = &core::CoreEngine::get();
 
 	// ウィンドウの初期化
-	auto* pWindow = g_pEngine->createWindow<win::WinWindow>(_T("Core3D-Engine"), 1280 * 0.75f, 720 * 0.75f);
+	auto* pWindow = g_pEngine->createWindow<win::WinWindow>(_T("Core3D-Engine"), 1280, 720);
 	pWindow->initialize(hInstance, _T("Core3D-Engine"), nCmdShow, WndProc);
 
 	// DirectX12 or DirectX11
@@ -57,9 +53,6 @@ void MainStartup(HINSTANCE hInstance, int nCmdShow)
 		auto* pEditor = g_pEngine->createEditor<d3d12::D3D12Editor>();
 		pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D12Device()->GetD3D12Device(),
 			pRenderer->GetD3D12Device()->GetBackBufferCount(), pRenderer->GetD3D12Device()->GetBackBufferFormat());
-		pEditor->GetEditorWindowManager()->AddEditorWindow<HierarchyWindow>();
-		pEditor->GetEditorWindowManager()->AddEditorWindow<InspectorWindow>();
-		pEditor->GetEditorWindowManager()->AddEditorWindow<EngineWindow>();
 	}
 	else
 	{
@@ -69,9 +62,6 @@ void MainStartup(HINSTANCE hInstance, int nCmdShow)
 		// エディターの初期化
 		auto* pEditor = g_pEngine->createEditor<d3d11::D3D11Editor>();
 		pEditor->initialize(pWindow->getWindowHandle(), pRenderer->GetD3D11Device(), pRenderer->GetD3D11Context());
-		pEditor->GetEditorWindowManager()->AddEditorWindow<HierarchyWindow>();
-		pEditor->GetEditorWindowManager()->AddEditorWindow<InspectorWindow>();
-		pEditor->GetEditorWindowManager()->AddEditorWindow<EngineWindow>();
 	}
 
 	// エンジンの初期化

@@ -40,6 +40,8 @@ bool D3D12Editor::initialize(HWND hWnd, ID3D12Device* pDevice, int nBackBufferCo
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;	// ウィンドウになる
+	// doking
+	io.ConfigWindowsMoveFromTitleBarOnly = true;
 	// style
 	ImGui::StyleColorsDark();
 	//ImGui::StyleColorsClassic();

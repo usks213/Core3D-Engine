@@ -22,11 +22,13 @@
     <ClCompile Include="Code\Application\Scene\TestScene.cpp" />
     <ClCompile Include="Code\Application\StartUp.cpp" />
     <ClCompile Include="Code\CoreEditor\Core\EditorWindow.cpp" />
+    <ClCompile Include="Code\CoreEditor\Core\EditorWindowManager.cpp" />
     <ClCompile Include="Code\CoreEditor\Platform\D3D11_Editor.cpp" />
     <ClCompile Include="Code\CoreEditor\Platform\D3D12_Editor.cpp" />
-    <ClCompile Include="Code\CoreEditor\Window\EngineWindow.cpp" />
+    <ClCompile Include="Code\CoreEditor\Window\GameWindow.cpp" />
     <ClCompile Include="Code\CoreEditor\Window\HierarchyWindow.cpp" />
     <ClCompile Include="Code\CoreEditor\Window\InspectorWindow.cpp" />
+    <ClCompile Include="Code\CoreEditor\Window\ProjectWindow.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\Component.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\ComponentManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\Entity.cpp" />
@@ -86,7 +88,6 @@
     <ClInclude Include="Code\CoreEditor\Platform\D3D11_Editor.h" />
     <ClInclude Include="Code\CoreEditor\Platform\D3D12_Editor.h" />
     <ClInclude Include="Code\CoreEditor\Window\ConsoleWindow.h" />
-    <ClInclude Include="Code\CoreEditor\Window\EngineWindow.h" />
     <ClInclude Include="Code\CoreEditor\Window\ProjectWindow.h" />
     <ClInclude Include="Code\CoreEditor\Window\GameWindow.h" />
     <ClInclude Include="Code\CoreEditor\Window\HierarchyWindow.h" />
