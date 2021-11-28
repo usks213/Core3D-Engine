@@ -27,7 +27,7 @@ public:																\
 [[nodiscard]] std::string_view GetScriptName() noexcept override {	\
 	return GetScriptTypeString();									\
 }																	\
-	void _dumyFunction3() = delete
+using T##ID = ComponentID
 
 
 /// @brief スクリプトクラス
@@ -73,6 +73,9 @@ public:
 	virtual void OnDisable() override {}	///< 無効時
 
 	virtual void OnStart() override {}		///< 初回更新前に一度
+
+	/// @brief インスペクター表示
+	virtual void OnInspectorGUI() override {}
 
 private:
 

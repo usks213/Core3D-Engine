@@ -211,7 +211,7 @@ public:
 	Transform* transform() noexcept;
 
 	/// @brief インスペクター表示
-	void DispInspector() noexcept override;
+	void OnInspectorGUI() override;
 
 	///// @brief シリアライズ化
 	//template<class T>

@@ -23,7 +23,7 @@
 
 namespace Mathf
 {
-	constexpr float Pi = 3.1415926535f;
+	constexpr float Pi = 3.14159265359f;
 	constexpr float TwoPi = Pi * 2.0f;
 
 	inline float ToRadians(float degrees)

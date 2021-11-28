@@ -10,9 +10,7 @@
 
 #include "Object.h"
 
-// リソースID スマートID
-class ResourceID;
-
+/// @brief リソースクラス
 class Resource : public Object
 {
 public:
@@ -28,7 +26,10 @@ public:
 
 	virtual ~Resource() noexcept = default;
 
-	virtual void DispAssets() = 0;
+
+	virtual void OnInspectorGUI() = 0;
+
+	virtual void OnProjectGUI() = 0;
 
 private:
 

@@ -44,6 +44,9 @@ public:
 		return static_cast<TransformID>(GetInstanceID()); 
 	}
 
+	/// @brief インスペクター表示
+	void OnInspectorGUI() override;
+
 public:
 	
 	/// @brief ローカル座標指定
@@ -55,6 +58,9 @@ public:
 	/// @brief ローカルスケール指定
 	/// @param scale スケール
 	void scale(Vector3 scale);
+	/// @brief オイラー角指定
+	/// @param euler オイラー角
+	void euler(Vector3 euler);
 
 	/// @brief ローカル座標取得
 	/// @return ローカル座標
@@ -65,6 +71,10 @@ public:
 	/// @brief ローカルスケール取得
 	/// @return ローカルスケール
 	const Vector3 scale() const noexcept { return m_localScale; }
+
+	/// @brief オイラー角取得
+	/// @return オイラー角
+	const Vector3 euler();
 
 public:
 

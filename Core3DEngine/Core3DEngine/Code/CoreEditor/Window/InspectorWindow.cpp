@@ -43,7 +43,7 @@ void InspectorWindow::OnGUI()
 		auto* pEntity = pEntityMgr->FindEntity(static_cast<EntityID>(selectObject.instanceID));
 		if (pEntity == nullptr) break;
 		// インスペクター表示
-		pEntity->DispInspector();
+		pEntity->OnInspectorGUI();
 		
 	}
 		break;

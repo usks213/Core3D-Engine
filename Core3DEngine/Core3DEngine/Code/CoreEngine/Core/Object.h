@@ -58,7 +58,7 @@ public:
 	[[nodiscard]] InstanceID GetInstanceID() noexcept { return m_instanceID; }
 
 	/// @brief インスペクター表示
-	virtual void DispInspector() noexcept = 0;
+	virtual void OnInspectorGUI() = 0;
 	
 	///// @brief シリアライズ化
 	//template<class T>

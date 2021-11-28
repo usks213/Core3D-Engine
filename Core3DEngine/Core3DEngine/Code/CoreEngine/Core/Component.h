@@ -10,6 +10,11 @@
 
 #include "Object.h"
 
+ /// @brief 型情報付加
+#define DECLARE_COMPONENT_INFO(T)	\
+DECLARE_OBJECT_INFO(T);				\
+using T##ID = ComponentID
+
 class Entity;
 class Transform;
 class ComponentManager;
@@ -65,7 +70,8 @@ public:
 
 	virtual void OnStart() {}	///< 初回更新前に一度
 
-	virtual void DispInspector() noexcept override {}
+	/// @brief インスペクター表示
+	virtual void OnInspectorGUI() override {}
 
 protected:
 

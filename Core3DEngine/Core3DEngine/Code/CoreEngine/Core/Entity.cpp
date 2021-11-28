@@ -45,7 +45,7 @@ Transform* Entity::transform() noexcept
 }
 
 /// @brief インスペクター表示
-void Entity::DispInspector() noexcept
+void Entity::OnInspectorGUI()
 {
 	int id = static_cast<int>(GetInstanceID());
 
@@ -78,6 +78,7 @@ void Entity::DispInspector() noexcept
 		{
 			m_name = szName;
 		}
+		ImGui::PopItemWidth();
 		ImGui::PopID();
 	}
 
@@ -91,6 +92,7 @@ void Entity::DispInspector() noexcept
 		{
 			m_tag = szTag;
 		}
+		ImGui::PopItemWidth();
 		ImGui::PopID();
 	}
 
@@ -104,6 +106,7 @@ void Entity::DispInspector() noexcept
 		{
 			m_layer = szLayer;
 		}
+		ImGui::PopItemWidth();
 		ImGui::PopID();
 	}
 
@@ -116,7 +119,7 @@ void Entity::DispInspector() noexcept
 	{
 		if (pTransform->BeginInspectorGUI())
 		{
-			pTransform->DispInspector();
+			pTransform->OnInspectorGUI();
 			pTransform->EndInspectorGUI();
 		}
 	}
@@ -129,7 +132,7 @@ void Entity::DispInspector() noexcept
 		{
 			if (pCom->BeginInspectorGUI())
 			{
-				pCom->DispInspector();
+				pCom->OnInspectorGUI();
 				pCom->EndInspectorGUI();
 			}
 		}
@@ -145,7 +148,7 @@ void Entity::DispInspector() noexcept
 		{
 			if (pScript->BeginInspectorGUI())
 			{
-				pScript->DispInspector();
+				pScript->OnInspectorGUI();
 				pScript->EndInspectorGUI();
 			}
 		}

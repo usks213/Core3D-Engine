@@ -290,6 +290,27 @@
     <ClCompile Include="Code\CoreEngine\System\TransformSystem.cpp">
       <Filter>ソース ファイル\CoreEngine\System</Filter>
     </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Component\MeshRenderer.cpp">
+      <Filter>ソース ファイル\CoreEngine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Resource\Mesh.cpp">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Resource\Material.cpp">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Resource\GraphicsShader.cpp">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Resource\Texture.cpp">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Resource\ComputeShader.cpp">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Resource\Animation.cpp">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">
@@ -576,6 +597,27 @@
     </ClInclude>
     <ClInclude Include="Code\CoreEngine\System\TransformSystm.h">
       <Filter>ソース ファイル\CoreEngine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Component\MeshRenderer.h">
+      <Filter>ソース ファイル\CoreEngine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Resource\Mesh.h">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Resource\Material.h">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Resource\GraphicsShader.h">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Resource\Texture.h">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Resource\ComputeShader.h">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Resource\Animation.h">
+      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
