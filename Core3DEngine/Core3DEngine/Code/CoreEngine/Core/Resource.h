@@ -10,28 +10,40 @@
 
 #include "Object.h"
 
+ /// @brief 型情報付加
+#define DECLARE_RESOURCE_INFO(T)	\
+DECLARE_OBJECT_INFO(T);				\
+using T##ID = ResourceID
+
+class ResourceManager;
+
+
 /// @brief リソースクラス
 class Resource : public Object
 {
 public:
+	/// @brief コンストラクタ
+	/// @return 
 	explicit Resource() noexcept :
-		Object()
+		Object(),
+		m_pResourceManager(nullptr)
 	{
 	}
 
-	explicit Resource(std::string_view name) noexcept :
-		Object(), m_name(name)
-	{
-	}
-
+	/// @brief デストラクタ
+	/// @return 
 	virtual ~Resource() noexcept = default;
 
 
+	/// @brief インスペクター表示
 	virtual void OnInspectorGUI() = 0;
 
-	virtual void OnProjectGUI() = 0;
-
 private:
+	//--- none serialize param
+
+	ResourceManager* m_pResourceManager;
+
+	//--- serialize param
 
 	std::string		m_name;	///< リソース名
 

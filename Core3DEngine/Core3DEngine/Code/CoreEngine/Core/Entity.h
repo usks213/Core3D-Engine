@@ -86,7 +86,7 @@ public:
 	T* AddComponent(T* Type = nullptr)
 	{
 		static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
-		static constexpr ScriptID scriptID = T::GetScriptTypeID();
+		static constexpr ScriptTypeID scriptTypeID = static_cast<ScriptTypeID>(T::GetScriptTypeHash());
 		ComponentManager* pComponentManager = GetComponentManager();
 
 		// スクリプトか
@@ -94,7 +94,7 @@ public:
 		{
 			//--- スクリプト
 			// 検索
-			auto itr = m_scripts.find(scriptID);
+			auto itr = m_scripts.find(scriptTypeID);
 			if (m_scripts.end() != itr)
 			{
 				return pComponentManager->FindComponent<T>(itr->second);
@@ -102,7 +102,7 @@ public:
 			// 新規生成
 			T* pCom = pComponentManager->CreateComponent<T>(GetEntityID(), m_isActive);
 			// 格納
-			m_scripts.emplace(scriptID, pCom->GetComponentID());
+			m_scripts.emplace(scriptTypeID, pCom->GetComponentID());
 
 			return pCom;
 		}
@@ -145,7 +145,7 @@ public:
 			//--- スクリプト
 			Script* pScript = static_cast<Script*>(pComponent);
 			// 検索
-			auto itr = m_scripts.find(pScript->GetScriptID());
+			auto itr = m_scripts.find(pScript->GetScriptTypeID());
 			if (m_scripts.end() != itr)
 			{
 				pComponentManager->DestroyComponent(typeID, itr->second);
@@ -176,9 +176,9 @@ public:
 		if (typeID == static_cast<TypeID>(Script::GetTypeHash()))
 		{
 			//--- スクリプト
-			ScriptID scriptID = T::GetScriptTypeID();
+			ScriptTypeID scriptTypeID = T::GetScriptTypeHash();
 			// 検索
-			auto itr = m_scripts.find(scriptID);
+			auto itr = m_scripts.find(scriptTypeID);
 			if (m_scripts.end() != itr)
 			{
 				return pComponentManager->FindComponent<T>(itr->second);
@@ -240,11 +240,11 @@ private:
 	//--- serialize param
 
 	/// @brief トランスフォームID
-	TransformID								 m_transformID;
+	TransformID										m_transformID;
 	/// @brief 保持しているコンポーネント
-	std::unordered_map<TypeID, ComponentID>	 m_components;
+	std::unordered_map<TypeID, ComponentID>			m_components;
 	/// @brief 保持しているスクリプトコンポーネント
-	std::unordered_map<ScriptID, ComponentID> m_scripts;
+	std::unordered_map<ScriptTypeID, ComponentID>	m_scripts;
 
 	std::string				m_name;			///< エンティティ名
 	bool					m_isActive;		///< アクティブフラグ

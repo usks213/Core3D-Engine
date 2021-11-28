@@ -35,6 +35,11 @@ enum class TypeID : BaseID {};
 /// @brief 未定義タイプID
 constexpr TypeID NONE_TYPE_ID = NONE_TYPE_ID(TypeID);
 
+/// @brief スクリプトタイプID
+enum class ScriptTypeID : BaseID {};
+/// @brief 未定義スクリプトタイプID
+constexpr ScriptTypeID NONE_SCRIPT_ID = NONE_TYPE_ID(ScriptTypeID);
+
 /// @brief エンティティID
 enum class EntityID : BaseID {};
 /// @brief 未定義エンティティID
@@ -44,11 +49,6 @@ constexpr EntityID NONE_ENTITY_ID = NONE_TYPE_ID(EntityID);
 enum class ComponentID : BaseID {};
 /// @brief 未定義コンポーネントID
 constexpr ComponentID NONE_COMPONENT_ID = NONE_TYPE_ID(ComponentID);
-
-/// @brief スクリプトID
-enum class ScriptID : BaseID {};
-/// @brief 未定義スクリプトID
-constexpr ScriptID NONE_SCRIPT_ID = NONE_TYPE_ID(ScriptID);
 
 /// @brief トランスフォームID
 enum class TransformID : BaseID {};

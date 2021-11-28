@@ -17,12 +17,12 @@ public:																\
 	{																\
 		return #T;													\
 	}																\
-	static constexpr ScriptID GetScriptTypeID()						\
+	static constexpr TypeHash GetScriptTypeHash()					\
 	{																\
-		return static_cast<ScriptID>(util::stringHash(#T));			\
+		return static_cast<TypeHash>(util::stringHash(#T));			\
 	}																\
-[[nodiscard]] ScriptID GetScriptID() noexcept override {			\
-	return static_cast<ScriptID>(GetScriptTypeID());				\
+[[nodiscard]] ScriptTypeID GetScriptTypeID() noexcept override {	\
+	return static_cast<ScriptTypeID>(GetScriptTypeHash());			\
 }																	\
 [[nodiscard]] std::string_view GetScriptName() noexcept override {	\
 	return GetScriptTypeString();									\
@@ -48,8 +48,8 @@ public:
 	/// @brief デストラクタ
 	virtual ~Script() noexcept = default;
 
-	/// @brief スクリプトIDの取得
-	[[nodiscard]] virtual ScriptID GetScriptID() noexcept = 0;
+	/// @brief スクリプトタイプの取得
+	[[nodiscard]] virtual ScriptTypeID GetScriptTypeID() noexcept = 0;
 
 	/// @brief スクリプト名の取得
 	[[nodiscard]] virtual std::string_view GetScriptName() noexcept = 0;
