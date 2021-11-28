@@ -144,6 +144,51 @@ void TransformManager::DestroyRelation(const TransformID& transformID, const Tra
 
 }
 
+void TransformManager::UpdateAllMatrix(bool isStaticUpdate)
+{
+	// マトリックス・親子関係の更新
+	for (const auto& rootID : m_rootTransforms)
+	{
+		auto* pTransform = FindTransform(rootID);
+		if (pTransform)
+		{
+			// 静的でも更新するか
+			if (pTransform->m_isEnable || isStaticUpdate)
+			{
+				UpdateChildMatrix(pTransform, Matrix(), Vector3(1, 1, 1));
+			}
+		}
+	}
+}
+
+void TransformManager::UpdateChildMatrix(Transform* pTransform, 
+	const Matrix& parentMatrix, const Vector3& parentScale, const bool isParentDirty)
+{
+	// 更新フラグ
+	const bool isDirty = pTransform->m_isDirty;
+
+	// ローカルマトリックス更新
+	if (isDirty)
+	{
+		pTransform->UpdateLocalMatrix();
+	}
+	// グローバルマトリックス更新
+	if (isDirty || isParentDirty)
+	{
+		pTransform->m_globalMatrix = pTransform->m_localMatrix * parentMatrix;
+		pTransform->m_globalScale = pTransform->m_localScale * parentScale;
+		pTransform->m_parentMatrix = parentMatrix;
+	}
+	// 子の更新
+	for (const auto& childID : pTransform->m_childs)
+	{
+		auto* pChild = FindTransform(childID);
+		if (pChild)
+		{
+			UpdateChildMatrix(pChild, pTransform->m_globalMatrix, pTransform->m_globalScale, isDirty);
+		}
+	}
+}
 
 //---------------------------------------------------------------------------
 //	private methods

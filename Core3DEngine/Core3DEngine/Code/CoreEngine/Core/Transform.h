@@ -28,6 +28,7 @@ public:
 	explicit Transform() noexcept :
 		Component(),
 		m_pTransformManager(nullptr),
+		m_isDirty(true),
 		m_parent(NONE_TRANSFORM_ID),
 		m_childs()
 	{
@@ -42,6 +43,28 @@ public:
 	{ 
 		return static_cast<TransformID>(GetInstanceID()); 
 	}
+
+public:
+	
+	/// @brief ローカル座標指定
+	/// @param pos 座標
+	void position(Vector3 pos);
+	/// @brief ローカル回転指定
+	/// @param rot クォータニオン
+	void rotation(Quaternion rot);
+	/// @brief ローカルスケール指定
+	/// @param scale スケール
+	void scale(Vector3 scale);
+
+	/// @brief ローカル座標取得
+	/// @return ローカル座標
+	const Vector3 position() const noexcept { return m_localPosition; }
+	/// @brief ローカル回転取得
+	/// @return ローカル回転
+	const Quaternion rotation() const noexcept { return m_localRotation; }
+	/// @brief ローカルスケール取得
+	/// @return ローカルスケール
+	const Vector3 scale() const noexcept { return m_localScale; }
 
 public:
 
@@ -85,9 +108,15 @@ public:
 
 private:
 
+	/// @brief ローカルマトリックス更新
+	void UpdateLocalMatrix();
+
+private:
+
 	//--- none serialize param
 
-	TransformManager*			m_pTransformManager;
+	TransformManager*			m_pTransformManager;	///< トランスフォームマネージャー
+	bool						m_isDirty;				///< 更新フラグ
 
 	//--- serialize param
 

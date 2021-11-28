@@ -39,6 +39,10 @@ public:
 
 	void DestroyRelation(const TransformID& transformID, const TransformID& parentID);
 
+	void UpdateAllMatrix(bool isStaticUpdate);
+
+	void UpdateChildMatrix(Transform* pTransform, const Matrix& parentMatrix, const Vector3& parentScale, const bool isParentDirty = false);
+
 	/// @brief ルートトランスフォームを取得
 	std::vector<TransformID>& GetRootTransforms() { return m_rootTransforms; }
 

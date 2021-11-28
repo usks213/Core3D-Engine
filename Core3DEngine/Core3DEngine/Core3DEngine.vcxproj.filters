@@ -96,6 +96,9 @@
     <Filter Include="ソース ファイル\CoreEditor\Platform">
       <UniqueIdentifier>{ca848895-f7e0-4d08-b504-bef91046afdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\CoreEngine\Factory">
+      <UniqueIdentifier>{10d2b291-fd76-45e5-aa24-f6faa7ad74d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp">
@@ -280,6 +283,12 @@
     </ClCompile>
     <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_DescriptorPool.cpp">
       <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEngine\Core\SystemManager.cpp">
+      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CoreEngine\System\TransformSystem.cpp">
+      <Filter>ソース ファイル\CoreEngine\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -552,6 +561,21 @@
     </ClInclude>
     <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_DescriptorPool.h">
       <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Factory\ComponentFactory.h">
+      <Filter>ソース ファイル\CoreEngine\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Factory\ResourceFactory.h">
+      <Filter>ソース ファイル\CoreEngine\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Factory\PipelineFactory.h">
+      <Filter>ソース ファイル\CoreEngine\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\Factory\SystemFactory.h">
+      <Filter>ソース ファイル\CoreEngine\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\CoreEngine\System\TransformSystm.h">
+      <Filter>ソース ファイル\CoreEngine\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

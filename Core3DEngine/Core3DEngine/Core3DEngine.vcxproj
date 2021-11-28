@@ -34,9 +34,11 @@
     <ClCompile Include="Code\CoreEngine\Core\Entity.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\EntityManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\Scene.cpp" />
+    <ClCompile Include="Code\CoreEngine\Core\SystemManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\Transform.cpp" />
     <ClCompile Include="Code\CoreEngine\Core\TransformManager.cpp" />
     <ClCompile Include="Code\CoreEngine\Core_Engine.cpp" />
+    <ClCompile Include="Code\CoreEngine\System\TransformSystem.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Device.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Geometry.cpp" />
     <ClCompile Include="Code\CoreRenderer\Core\Core_Material.cpp" />
@@ -113,6 +115,11 @@
     <ClInclude Include="Code\CoreEngine\Core\TypeHash.h" />
     <ClInclude Include="Code\CoreEngine\Core\TypeID.h" />
     <ClInclude Include="Code\CoreEngine\Core_Engine.h" />
+    <ClInclude Include="Code\CoreEngine\Factory\ComponentFactory.h" />
+    <ClInclude Include="Code\CoreEngine\Factory\PipelineFactory.h" />
+    <ClInclude Include="Code\CoreEngine\Factory\ResourceFactory.h" />
+    <ClInclude Include="Code\CoreEngine\Factory\SystemFactory.h" />
+    <ClInclude Include="Code\CoreEngine\System\TransformSystm.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_Buffer.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_CommandList.h" />
     <ClInclude Include="Code\CoreRenderer\Core\Core_CommonState.h" />

@@ -55,6 +55,21 @@ enum class TransformID : BaseID {};
 /// @brief 未定義トランスフォームID
 constexpr TransformID NONE_TRANSFORM_ID = NONE_TYPE_ID(TransformID);
 
+/// @brief システムID
+enum class SystemID : BaseID {};
+/// @brief 未定義システムID
+constexpr SystemID NONE_SYSTEM_ID = NONE_TYPE_ID(SystemID);
+
+/// @brief パイプラインID
+enum class PipelineID : BaseID {};
+/// @brief 未定義パイプラインID
+constexpr PipelineID NONE_PIPELINE_ID = NONE_TYPE_ID(PipelineID);
+
+/// @brief リソースID
+enum class ResourceID : BaseID {};
+/// @brief 未定義リソースID
+constexpr ResourceID NONE_RESOURCE_ID = NONE_TYPE_ID(ResourceID);
+
 
 #endif // !_TYPE_ID_
 

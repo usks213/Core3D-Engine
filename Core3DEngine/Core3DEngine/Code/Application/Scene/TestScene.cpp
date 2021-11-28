@@ -18,6 +18,9 @@
 #include <CoreEngine\Core\ComponentManager.h>
 #include <CoreEngine\Core\Script.h>
 
+#include <CoreEngine\System\TransformSystm.h>
+
+
 class TestScript : public Script
 {
 	DECLARE_SCRIPT_INFO(TestScript);
@@ -257,6 +260,8 @@ void TestScene::Start()
 		pParent = pEntity;
 	}
 
+
+	GetSystemManager()->AddSystem<TransformSystem>();
 }
 
 /// @brief システムの更新

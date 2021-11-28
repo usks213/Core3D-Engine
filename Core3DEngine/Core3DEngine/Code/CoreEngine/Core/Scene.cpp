@@ -8,11 +8,6 @@
 #include "Scene.h"
 
 #include "SceneManager.h"
-#include "EntityManager.h"
-#include "ComponentManager.h"
-#include "TransformManager.h"
-#include "SystemManager.h"
-#include "PipelineManager.h"
 
 #include <CoreEngine\Core_Engine.h>
 #include <CoreRenderer\Core\Core_Device.h>
@@ -25,7 +20,7 @@ Scene::Scene(SceneManager* pSceneManager) noexcept :
 	m_pEntityManager = std::make_unique<EntityManager>(this);
 	m_pComponentManager = std::make_unique<ComponentManager>(this);
 	m_pTransformManager = std::make_unique<TransformManager>(this);
-	//m_pSystemManager = std::make_unique<SystemManager>(this);
+	m_pSystemManager = std::make_unique<SystemManager>(this);
 	//m_pPipelineManager = std::make_unique<PipelineManager>(this);
 
 	float width = static_cast<float>(pSceneManager->getEngine()->getWindowWidth());
@@ -60,4 +55,11 @@ ComponentManager* Scene::GetComponentManager() noexcept
 TransformManager* Scene::GetTransformManager() noexcept 
 { 
 	return m_pTransformManager.get();
+}
+
+/// @brief システムマネージャーの取得
+/// @return システムマネージャーのポインタ
+SystemManager* Scene::GetSystemManager() noexcept
+{
+	return m_pSystemManager.get();
 }

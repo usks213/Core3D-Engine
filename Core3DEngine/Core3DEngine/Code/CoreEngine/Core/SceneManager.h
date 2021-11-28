@@ -49,12 +49,14 @@ public:
 	void Update()
 	{
 		m_pScene->Update();
+		m_pScene->GetSystemManager()->Update();
 	}
 
 	/// @brief •`‰æ
 	void Render()
 	{
 		m_pScene->Render();
+		m_pScene->GetSystemManager()->DispGizmo();
 	}
 
 	/// @brief ƒGƒ“ƒh

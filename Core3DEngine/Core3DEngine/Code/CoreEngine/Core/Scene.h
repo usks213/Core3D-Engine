@@ -13,16 +13,13 @@
 #include "EntityManager.h"
 #include "ComponentManager.h"
 #include "TransformManager.h"
+#include "SystemManager.h"
 
 #include <CoreRenderer\Core\Core_RenderTarget.h>
 
 // 前定義
 class SceneManager;
-class EntityManager;
-class ComponentManager;
-class TransformManager;
-//class SystemManager;
-//class PipelineManager;
+
 
 /// @brief シーン
 class Scene
@@ -69,6 +66,10 @@ public:
 	/// @return トランスフォームマネージャーのポインタ
 	TransformManager* GetTransformManager() noexcept;
 
+	/// @brief システムマネージャーの取得
+	/// @return システムマネージャーのポインタ
+	SystemManager* GetSystemManager() noexcept;
+
 	/// @brief シーンの描画結果を取得
 	/// @return レンダーターゲットID
 	core::RenderTargetID GetSceneResult() { return m_sceneResultID; }
@@ -91,8 +92,8 @@ private:
 	std::unique_ptr<EntityManager>		m_pEntityManager;
 	std::unique_ptr<ComponentManager>	m_pComponentManager;
 	std::unique_ptr<TransformManager>	m_pTransformManager;
-	/*std::unique_ptr<SystemManager>		m_pSystemManager;
-	std::unique_ptr<PipelineManager>	m_pPipelineManager;*/
+	std::unique_ptr<SystemManager>		m_pSystemManager;
+	//std::unique_ptr<PipelineManager>	m_pPipelineManager;
 
 };
 
