@@ -35,10 +35,10 @@ void InspectorWindow::OnGUI()
 	auto* pTransformMgr = pScene->GetTransformManager();
 	
 	// 選択中のオブジェクト
-	auto selectObject = pEditor->GetSelectObject();
+	auto selectObject = GetEditorWindowManager()->GetSelectObject();
 	switch (selectObject.objectType)
 	{
-	case core::CoreEditor::SelectObject::ObjectType::Entity:
+	case EditorWindowManager::SelectObject::Type::Entity:
 	{
 		auto* pEntity = pEntityMgr->FindEntity(static_cast<EntityID>(selectObject.instanceID));
 		if (pEntity == nullptr) break;
@@ -47,7 +47,7 @@ void InspectorWindow::OnGUI()
 		
 	}
 		break;
-	case core::CoreEditor::SelectObject::ObjectType::Resource:
+	case EditorWindowManager::SelectObject::Type::Resource:
 		// リソース情報の表示
 
 		break;

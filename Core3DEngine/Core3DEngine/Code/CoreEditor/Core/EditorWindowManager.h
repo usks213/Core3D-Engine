@@ -9,6 +9,7 @@
 #define _EDITOR_WINDOW_MANAGER_
 
 #include "EditorWindow.h"
+#include <CoreEngine\Core\TypeID.h>
 #include <unordered_map>
 #include <memory>
 
@@ -20,6 +21,19 @@ namespace core
 /// @brief エディターウィンドウマネージャークラス
 class EditorWindowManager final
 {
+public:
+	/// @brief 選択中のオブジェクト
+	struct SelectObject
+	{
+		enum class Type
+		{
+			Entity,
+			Resource,
+			MaxType,
+		};
+		InstanceID	instanceID = NONE_INSTANCE_ID;
+		Type		objectType = Type::MaxType;
+	};
 public:
 	/// @brief コンストラクタ
 	/// @param pCoreEditor コアエディターポインタ
@@ -75,10 +89,28 @@ public:
 	/// @return コアエディターポインタ
 	core::CoreEditor* GetCoreEditor() { return m_pCoreEditor; }
 
+	/// @brief 現在選択中のオブジェクトを取得
+	/// @return 選択中のオブジェクト情報
+	SelectObject GetSelectObject() { return m_selectObject; }
+
+	/// @brief 選択のオブジェクトの指定
+	/// @param objectType オブジェクトタイプ
+	/// @param instanceID インスタンスID
+	void SetSelectObject(SelectObject::Type objectType, const InstanceID& instanceID)
+	{
+		m_selectObject.objectType = objectType;
+		m_selectObject.instanceID = instanceID;
+	}
+
+
+
 private:
 
 	/// @brief メニューバーの表示
 	void DispMenueBar();
+
+	/// @brief ボタンの表示
+	void DispButton();
 
 private:
 
@@ -87,6 +119,11 @@ private:
 
 	/// @brief 型種別のエディターウィンドウ
 	std::unordered_map<TypeHash, std::unique_ptr<EditorWindow>>	m_windowPool;
+
+	//--- EditorParam
+
+	/// @brief 現在選択中のオブジェクト
+	SelectObject	m_selectObject;
 
 };
 

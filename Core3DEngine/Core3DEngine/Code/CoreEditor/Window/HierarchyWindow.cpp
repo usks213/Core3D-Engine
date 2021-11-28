@@ -59,7 +59,7 @@ void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const Tran
 	auto* pEntity = pTransform->entity();
 	if (pEntity == nullptr) return;
 	int id = static_cast<int>(pTransform->GetInstanceID());
-	auto selectObject = GetEditorWindowManager()->GetCoreEditor()->GetSelectObject();
+	auto selectObject = GetEditorWindowManager()->GetSelectObject();
 
 	// 子ノードがあるか
 	ImGui::PushID(id++);
@@ -67,7 +67,7 @@ void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const Tran
 		ImGuiTreeNodeFlags_FramePadding |
 		ImGuiTreeNodeFlags_OpenOnDoubleClick |
 		(pTransform->GetChildCount() ? 0 : ImGuiTreeNodeFlags_Leaf) | 
-		(selectObject.objectType == core::CoreEditor::SelectObject::ObjectType::Entity && 
+		(selectObject.objectType == EditorWindowManager::SelectObject::Type::Entity && 
 		 selectObject.instanceID == pEntity->GetInstanceID() ? ImGuiTreeNodeFlags_Selected : 0)
 	);
 	ImGui::PopID();
@@ -83,8 +83,8 @@ void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const Tran
 	// クリック
 	if (ImGui::IsItemClicked()) {
 		// 選択IDを格納
-		GetEditorWindowManager()->GetCoreEditor()->SetSelectObject(
-			core::CoreEditor::SelectObject::ObjectType::Entity, pEntity->GetInstanceID());
+		GetEditorWindowManager()->SetSelectObject(
+			EditorWindowManager::SelectObject::Type::Entity, pEntity->GetInstanceID());
 	}
 	// ドロップ
 	if (ImGui::BeginDragDropTarget()) {

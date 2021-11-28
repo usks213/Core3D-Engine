@@ -47,6 +47,9 @@ void EditorWindowManager::DispWindow()
 	{
 		// メニューバー
 		DispMenueBar();
+		// ボタン
+		DispButton();
+
 	}
 	if (active)
 	{
@@ -99,4 +102,39 @@ void EditorWindowManager::DispMenueBar()
 
 		ImGui::EndMenuBar();
 	}
+}
+
+/// @brief ボタンの表示
+void EditorWindowManager::DispButton()
+{
+	//--- マニピュレーターの切り替え
+
+	// Hand
+
+	// Translation
+
+	// Rotation
+
+	// Scale
+
+
+	//--- 座標系
+
+	// Bounds or Centor
+
+	// Local or Global
+
+
+	//--- シーンデバッグ
+
+	// Start or End
+
+	// Stop
+
+	// Frame
+
+
+	//--- その他
+
+
 }
