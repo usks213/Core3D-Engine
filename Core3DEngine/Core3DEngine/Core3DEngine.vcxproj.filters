@@ -12,68 +12,11 @@
     <Filter Include="ライブラリファイル">
       <UniqueIdentifier>{8b391ebd-f3e1-416e-8553-128edbb800d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreEngine">
-      <UniqueIdentifier>{0b9aabcc-9b33-46e6-ac0e-78785db0b66b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem">
-      <UniqueIdentifier>{fd504f3d-c845-4039-8da8-6add0525e821}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreRenderer">
-      <UniqueIdentifier>{52aa6559-dd06-45b1-94f7-7ecf5b953876}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\Input">
-      <UniqueIdentifier>{8235c6d1-7fca-4690-80b2-8f2046dadef1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\Audio">
-      <UniqueIdentifier>{78d1ee35-b5d3-4322-bd11-7c281d830d4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\Window">
-      <UniqueIdentifier>{8e87cc29-1f8f-4cf4-8d86-3776253482ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\Main">
-      <UniqueIdentifier>{21e06336-2103-4dd3-bef1-8fa820aa4290}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\Main\Win">
-      <UniqueIdentifier>{34c97e90-95c9-4d3d-9d19-baf50cdb73a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\Window\Core">
-      <UniqueIdentifier>{183f960c-a462-4f6e-8683-5fc75531516d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreSystem\Window\Win">
-      <UniqueIdentifier>{31e74255-8784-446c-92fd-2a9b4df690f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreRenderer\Core">
-      <UniqueIdentifier>{40b006c8-c424-4054-8ce8-153e154c09db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreRenderer\D3D11">
-      <UniqueIdentifier>{20857694-4100-4636-a9d2-33f6f994d2e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreRenderer\D3D12">
-      <UniqueIdentifier>{8d437866-2d74-4e38-a62e-bcc98222a0f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\Component">
-      <UniqueIdentifier>{abb1aaa6-0363-4804-b0e5-20a7fa4a0568}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\System">
-      <UniqueIdentifier>{572d1457-9931-497b-85dd-340cb8a7c68f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\App">
       <UniqueIdentifier>{354a22a3-492b-4903-9777-e371ccf82340}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\App\Scene">
       <UniqueIdentifier>{65948329-30ac-4231-b257-0f6a697245ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\Core">
-      <UniqueIdentifier>{111469e6-5caa-4c5f-87ba-9d9e62bbd9f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Utils">
-      <UniqueIdentifier>{827b6bfa-42ef-43eb-87bb-a31190c4d94a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\Pipeline">
-      <UniqueIdentifier>{a6917436-ed06-4453-8f2d-1baf37bf40e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\Resource">
-      <UniqueIdentifier>{68d49ddb-9caf-464c-982e-623c68f999d5}</UniqueIdentifier>
     </Filter>
     <Filter Include="ライブラリファイル\ImGui">
       <UniqueIdentifier>{fc169d21-c771-4f7b-b5c7-7fa49ef27822}</UniqueIdentifier>
@@ -84,163 +27,124 @@
     <Filter Include="ライブラリファイル\SimpleMath">
       <UniqueIdentifier>{313cff93-bb8a-4862-b84c-7e5aab42035d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreEditor">
-      <UniqueIdentifier>{67b3e9ce-ba62-40eb-be14-b53d08a27e84}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Engine">
+      <UniqueIdentifier>{908a31bd-90a4-4124-8eb3-846bd4804d6b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreEditor\Core">
-      <UniqueIdentifier>{ab33e1d2-7d01-4aa2-9674-fb2de2293a22}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Engine\Editor">
+      <UniqueIdentifier>{c68b8e43-7fb6-4c13-8709-35de76223dcc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreEditor\Window">
-      <UniqueIdentifier>{dcd6cc00-9961-4073-8157-7cbfa9b7de66}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Engine\Runtime">
+      <UniqueIdentifier>{45279162-f811-4376-b879-0750af7b61c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreEditor\Platform">
-      <UniqueIdentifier>{ca848895-f7e0-4d08-b504-bef91046afdc}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Engine\Resource">
+      <UniqueIdentifier>{609d81c1-33ec-4d92-89df-c637151007d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CoreEngine\Factory">
-      <UniqueIdentifier>{10d2b291-fd76-45e5-aa24-f6faa7ad74d5}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Engine\Renderer">
+      <UniqueIdentifier>{63a0352a-e2a9-49e6-983a-1a53a2f44d87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Runtime\Component">
+      <UniqueIdentifier>{08e6f6a3-80bc-41ef-bec8-3b10390c27c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Runtime\System">
+      <UniqueIdentifier>{fe1a72dc-dccc-4cd0-aa6e-b346d8e24dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Renderer\D3D11">
+      <UniqueIdentifier>{af0cae24-023a-4232-a9bc-832cdc8a9f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Renderer\D3D12">
+      <UniqueIdentifier>{cca21136-2e1a-4fcc-a7f0-cbfebf858657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Editor\Core">
+      <UniqueIdentifier>{18efbe2b-78c6-46cb-8ecc-0b23326b130a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Editor\D3D11">
+      <UniqueIdentifier>{630a687c-2f6f-498a-ae0a-c5abcc4134a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Editor\D3D12">
+      <UniqueIdentifier>{4fe7e3ec-9efe-466f-8692-fe916eb5b4a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Editor\Window">
+      <UniqueIdentifier>{1073dd65-51c7-4645-a788-29bc439262c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Core">
+      <UniqueIdentifier>{bccd5a6f-ec04-4fd9-9e59-a516081fca50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Utils">
+      <UniqueIdentifier>{63381a8b-f36c-4a06-80fd-5bfb8b1dfcfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Runtime\Core">
+      <UniqueIdentifier>{0903154d-3f5e-4889-9f96-7356d96f7674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Renderer\Core">
+      <UniqueIdentifier>{c4eb4fb0-9531-4d61-a988-a768bc350e73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Resource\Core">
+      <UniqueIdentifier>{11bbbad0-657e-48dd-9ac6-6fc497c490fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Resource\D3D11">
+      <UniqueIdentifier>{09eeb4f2-b6a4-4894-81f3-917982fd95a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Resource\D3D12">
+      <UniqueIdentifier>{0bdda839-7ba7-49eb-bdb5-af3458904dad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Audio">
+      <UniqueIdentifier>{6900e548-d230-4e3b-a701-ae6098f2be51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Window">
+      <UniqueIdentifier>{5e03a718-5f73-4779-b9e2-e4522e53b78d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Input">
+      <UniqueIdentifier>{bebf7978-d4e5-4632-8522-7038f60ab86f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Network">
+      <UniqueIdentifier>{1f833ae2-0420-4e68-b282-be0cf4dd2c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Input\XInput">
+      <UniqueIdentifier>{6a1c7e82-f493-4e49-9311-c9f060e811e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Network\WinSock">
+      <UniqueIdentifier>{e6a37cf3-bcf7-4ba1-ae35-80131381cea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Window\Core">
+      <UniqueIdentifier>{2d75ea58-2e35-4417-bf5b-9bd14dd8c1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Window\Win">
+      <UniqueIdentifier>{393ae9a0-02f0-4666-82e6-bebe9b118813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Window\Mac">
+      <UniqueIdentifier>{327aff60-9594-4804-8928-d6102fd77c8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Window\Linux">
+      <UniqueIdentifier>{f57eba19-4ec6-421f-b9d6-f5f6e5568da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Network\Core">
+      <UniqueIdentifier>{9cb97c83-dded-4692-9ceb-2fadd7f1d5f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Input\Core">
+      <UniqueIdentifier>{36d7e15a-5aa2-4e48-aff2-e46c0c90daae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Audio\Core">
+      <UniqueIdentifier>{f7c58ad6-a323-479f-b352-0207d73785a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Audio\XAudio">
+      <UniqueIdentifier>{97fa1754-180a-4b29-8f3f-c911cd079010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Runtime\Factory">
+      <UniqueIdentifier>{d0df89c6-0992-42ce-a83b-88d427fecdcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Runtime\Pipeline">
+      <UniqueIdentifier>{b100ff62-40fa-4283-9700-c4c105b1614b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Code\CoreSystem\Main\Win\Win_Main.cpp">
-      <Filter>ソース ファイル\CoreSystem\Main\Win</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreSystem\Window\Core\Core_Window.cpp">
-      <Filter>ソース ファイル\CoreSystem\Window\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreSystem\Window\Win\Win_Window.cpp">
-      <Filter>ソース ファイル\CoreSystem\Window\Win</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core_Engine.cpp">
-      <Filter>ソース ファイル\CoreEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\Core\Core_Device.cpp">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\Core\Core_Material.cpp">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\Core\Core_Renderer.cpp">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\Core\Core_Shader.cpp">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Buffer.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_CommandList.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_CommonState.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Defines.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_DepthStencil.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Device.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Material.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_RenderBuffer.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Renderer.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_RenderTarget.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Shader.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D11\D3D11_Texture.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Buffer.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_CommandList.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_CommonState.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Defines.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_DepthStencil.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Device.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Material.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_RenderBuffer.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Renderer.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_RenderTarget.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Shader.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_Texture.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Application\StartUp.cpp">
       <Filter>ソース ファイル\App</Filter>
     </ClCompile>
     <ClCompile Include="Code\Application\Scene\TestScene.cpp">
       <Filter>ソース ファイル\App\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\Core\Core_Geometry.cpp">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Utils\Util_Mathf.cpp">
-      <Filter>ソース ファイル\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\EntityManager.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\Scene.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\TransformManager.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Library\SimpleMath\SimpleMath.cpp">
       <Filter>ライブラリファイル\SimpleMath</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\Entity.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\ComponentManager.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\Transform.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEditor\Core\EditorWindow.cpp">
-      <Filter>ソース ファイル\CoreEditor\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEditor\Window\HierarchyWindow.cpp">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEditor\Platform\D3D11_Editor.cpp">
-      <Filter>ソース ファイル\CoreEditor\Platform</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CoreEditor\Platform\D3D12_Editor.cpp">
-      <Filter>ソース ファイル\CoreEditor\Platform</Filter>
     </ClCompile>
     <ClCompile Include="Library\ImGui\imgui.cpp">
       <Filter>ライブラリファイル\ImGui</Filter>
@@ -266,295 +170,172 @@
     <ClCompile Include="Library\ImGui\imgui_widgets.cpp">
       <Filter>ライブラリファイル\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\Component.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    <ClCompile Include="Code\Engine\Core\Engine.cpp">
+      <Filter>ソース ファイル\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEditor\Window\InspectorWindow.cpp">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    <ClCompile Include="Code\Engine\Editor\Core\EditorWindow.cpp">
+      <Filter>ソース ファイル\Engine\Editor\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEditor\Core\EditorWindowManager.cpp">
-      <Filter>ソース ファイル\CoreEditor\Core</Filter>
+    <ClCompile Include="Code\Engine\Editor\Core\EditorWindowManager.cpp">
+      <Filter>ソース ファイル\Engine\Editor\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEditor\Window\GameWindow.cpp">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    <ClCompile Include="Code\Engine\Editor\D3D11\D3D11_Editor.cpp">
+      <Filter>ソース ファイル\Engine\Editor\D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEditor\Window\ProjectWindow.cpp">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
+    <ClCompile Include="Code\Engine\Editor\D3D12\D3D12_Editor.cpp">
+      <Filter>ソース ファイル\Engine\Editor\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreRenderer\D3D12\D3D12_DescriptorPool.cpp">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
+    <ClCompile Include="Code\Engine\Editor\Window\GameWindow.cpp">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\SystemManager.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    <ClCompile Include="Code\Engine\Editor\Window\HierarchyWindow.cpp">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\System\TransformSystem.cpp">
-      <Filter>ソース ファイル\CoreEngine\System</Filter>
+    <ClCompile Include="Code\Engine\Editor\Window\InspectorWindow.cpp">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Component\MeshRenderer.cpp">
-      <Filter>ソース ファイル\CoreEngine\Component</Filter>
+    <ClCompile Include="Code\Engine\Editor\Window\ProjectWindow.cpp">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Resource\Mesh.cpp">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClCompile Include="Code\Engine\Window\Core\Window.cpp">
+      <Filter>ソース ファイル\Engine\Window\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Resource\Material.cpp">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClCompile Include="Code\Engine\Window\Win\Win_Window.cpp">
+      <Filter>ソース ファイル\Engine\Window\Win</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Resource\GraphicsShader.cpp">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClCompile Include="Code\Engine\Renderer\Core\Core_Device.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Resource\Texture.cpp">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClCompile Include="Code\Engine\Renderer\Core\Core_Renderer.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Resource\ComputeShader.cpp">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_CommandList.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Resource\Animation.cpp">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_CommonState.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="Code\CoreEngine\Core\ResourceManager.cpp">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
+    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_Defines.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_Device.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_Renderer.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_CommandList.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_CommonState.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_Device.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_Renderer.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_Defines.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Core\Core_Geometry.cpp">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Core\Core_Material.cpp">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Core\Core_Shader.cpp">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Core\ResourceManager.cpp">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_Buffer.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_DepthStencil.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_Material.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_RenderBuffer.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_RenderTarget.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_Shader.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_Texture.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_Buffer.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_DepthStencil.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_DescriptorPool.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_Material.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_RenderBuffer.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_RenderTarget.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_Shader.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_Texture.cpp">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Component\MeshRenderer.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Core\Component.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Core\ComponentManager.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Core\Entity.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Core\EntityManager.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Core\Scene.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Core\SystemManager.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Core\Transform.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\Core\TransformManager.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Runtime\System\TransformSystem.cpp">
+      <Filter>ソース ファイル\Engine\Runtime\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Utils\Util_Mathf.cpp">
+      <Filter>ソース ファイル\Engine\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Code\CoreSystem\Main\Core_Main.h">
-      <Filter>ソース ファイル\CoreSystem\Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreSystem\Window\Core\Core_Window.h">
-      <Filter>ソース ファイル\CoreSystem\Window\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreSystem\Window\Win\Win_Window.h">
-      <Filter>ソース ファイル\CoreSystem\Window\Win</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreSystem\Window\Win\Win_Resource.h">
-      <Filter>ソース ファイル\CoreSystem\Window\Win</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core_Engine.h">
-      <Filter>ソース ファイル\CoreEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Buffer.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_CommandList.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_CommonState.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_DepthStencil.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Device.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Light.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Material.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Mesh.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_RenderBuffer.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Renderer.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_RenderTarget.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Shader.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_ShaderResource.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_SubResource.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Texture.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Buffer.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_CommandList.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_CommonState.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Defines.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_DepthStencil.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Device.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Material.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_RenderBuffer.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Renderer.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_RenderTarget.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Shader.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D11\D3D11_Texture.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Buffer.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_CommandList.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_CommonState.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Defines.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_DepthStencil.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Device.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Material.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_RenderBuffer.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Renderer.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_RenderTarget.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Shader.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_Texture.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Application\Scene\TestScene.h">
       <Filter>ソース ファイル\App\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\Core\Core_Geometry.h">
-      <Filter>ソース ファイル\CoreRenderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Object.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\TypeHash.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Entity.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Resource.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Component.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Scene.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\SceneManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Utils\Util_Hash.h">
-      <Filter>ソース ファイル\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Utils\Util_Mathf.h">
-      <Filter>ソース ファイル\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Utils\Util_Singleton.h">
-      <Filter>ソース ファイル\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Utils\Util_String.h">
-      <Filter>ソース ファイル\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\ResourceManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\System.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Transform.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Pipeline.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\ComponentManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\EntityManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\PipelineManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\SystemManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\TransformManager.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\Script.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Core\TypeID.h">
-      <Filter>ソース ファイル\CoreEngine\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Library\SimpleMath\SimpleMath.h">
       <Filter>ライブラリファイル\SimpleMath</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Core_Editor.h">
-      <Filter>ソース ファイル\CoreEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Core\EditorWindow.h">
-      <Filter>ソース ファイル\CoreEditor\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Window\InspectorWindow.h">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Window\HierarchyWindow.h">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Window\ProjectWindow.h">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Window\ConsoleWindow.h">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Window\GameWindow.h">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Window\SceneWindow.h">
-      <Filter>ソース ファイル\CoreEditor\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Core\EditorWindowManager.h">
-      <Filter>ソース ファイル\CoreEditor\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Platform\D3D11_Editor.h">
-      <Filter>ソース ファイル\CoreEditor\Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CoreEditor\Platform\D3D12_Editor.h">
-      <Filter>ソース ファイル\CoreEditor\Platform</Filter>
     </ClInclude>
     <ClInclude Include="Library\ImGui\imconfig.h">
       <Filter>ライブラリファイル\ImGui</Filter>
@@ -583,49 +364,251 @@
     <ClInclude Include="Library\ImGui\imstb_truetype.h">
       <Filter>ライブラリファイル\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreRenderer\D3D12\D3D12_DescriptorPool.h">
-      <Filter>ソース ファイル\CoreRenderer\D3D12</Filter>
+    <ClInclude Include="Code\Engine\Core\Engine.h">
+      <Filter>ソース ファイル\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Factory\ComponentFactory.h">
-      <Filter>ソース ファイル\CoreEngine\Factory</Filter>
+    <ClInclude Include="Code\Engine\Core\Object.h">
+      <Filter>ソース ファイル\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Factory\ResourceFactory.h">
-      <Filter>ソース ファイル\CoreEngine\Factory</Filter>
+    <ClInclude Include="Code\Engine\Core\TypeHash.h">
+      <Filter>ソース ファイル\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Factory\PipelineFactory.h">
-      <Filter>ソース ファイル\CoreEngine\Factory</Filter>
+    <ClInclude Include="Code\Engine\Editor\Core\Editor.h">
+      <Filter>ソース ファイル\Engine\Editor\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Factory\SystemFactory.h">
-      <Filter>ソース ファイル\CoreEngine\Factory</Filter>
+    <ClInclude Include="Code\Engine\Editor\Core\EditorWindow.h">
+      <Filter>ソース ファイル\Engine\Editor\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\System\TransformSystm.h">
-      <Filter>ソース ファイル\CoreEngine\System</Filter>
+    <ClInclude Include="Code\Engine\Editor\Core\EditorWindowManager.h">
+      <Filter>ソース ファイル\Engine\Editor\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Component\MeshRenderer.h">
-      <Filter>ソース ファイル\CoreEngine\Component</Filter>
+    <ClInclude Include="Code\Engine\Editor\D3D11\D3D11_Editor.h">
+      <Filter>ソース ファイル\Engine\Editor\D3D11</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Resource\Mesh.h">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClInclude Include="Code\Engine\Editor\D3D12\D3D12_Editor.h">
+      <Filter>ソース ファイル\Engine\Editor\D3D12</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Resource\Material.h">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClInclude Include="Code\Engine\Editor\Window\ConsoleWindow.h">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Resource\GraphicsShader.h">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClInclude Include="Code\Engine\Editor\Window\GameWindow.h">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Resource\Texture.h">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClInclude Include="Code\Engine\Editor\Window\HierarchyWindow.h">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Resource\ComputeShader.h">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClInclude Include="Code\Engine\Editor\Window\InspectorWindow.h">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClInclude>
-    <ClInclude Include="Code\CoreEngine\Resource\Animation.h">
-      <Filter>ソース ファイル\CoreEngine\Resource</Filter>
+    <ClInclude Include="Code\Engine\Editor\Window\ProjectWindow.h">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Code\CoreSystem\Window\Win\Win_Resource.rc">
-      <Filter>ソース ファイル\CoreSystem\Window\Win</Filter>
-    </ResourceCompile>
+    <ClInclude Include="Code\Engine\Editor\Window\SceneWindow.h">
+      <Filter>ソース ファイル\Engine\Editor\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Window\Core\Window.h">
+      <Filter>ソース ファイル\Engine\Window\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Window\Win\Win_Window.h">
+      <Filter>ソース ファイル\Engine\Window\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Window\Win\Win_Resource.h">
+      <Filter>ソース ファイル\Engine\Window\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\Core\Core_CommandList.h">
+      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\Core\Core_CommonState.h">
+      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\Core\Core_Device.h">
+      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\Core\Core_Renderer.h">
+      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_CommandList.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_CommonState.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_Defines.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_Device.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_Renderer.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_CommandList.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_CommonState.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_Device.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_Renderer.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_Defines.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_Buffer.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_DepthStencil.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_Geometry.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_Light.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_Material.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_Mesh.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_RenderBuffer.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_RenderTarget.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_Shader.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_ShaderResource.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_SubResource.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Core_Texture.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Resource.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\ResourceManager.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_Buffer.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_DepthStencil.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_Material.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_RenderBuffer.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_RenderTarget.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_Shader.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_Texture.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_Buffer.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_DepthStencil.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_DescriptorPool.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_Material.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_RenderBuffer.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_RenderTarget.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_Shader.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_Texture.h">
+      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Component\MeshRenderer.h">
+      <Filter>ソース ファイル\Engine\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\Component.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\ComponentManager.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\Entity.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\EntityManager.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\Pipeline.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\PipelineManager.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\Scene.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\SceneManager.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\Script.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\System.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\SystemManager.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\Transform.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Core\TransformManager.h">
+      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Factory\ComponentFactory.h">
+      <Filter>ソース ファイル\Engine\Runtime\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Factory\PipelineFactory.h">
+      <Filter>ソース ファイル\Engine\Runtime\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\Factory\SystemFactory.h">
+      <Filter>ソース ファイル\Engine\Runtime\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Runtime\System\TransformSystm.h">
+      <Filter>ソース ファイル\Engine\Runtime\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Utils\Util_Hash.h">
+      <Filter>ソース ファイル\Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Utils\Util_Mathf.h">
+      <Filter>ソース ファイル\Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Utils\Util_Singleton.h">
+      <Filter>ソース ファイル\Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Utils\Util_String.h">
+      <Filter>ソース ファイル\Engine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

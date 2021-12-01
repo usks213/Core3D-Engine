@@ -1,0 +1,35 @@
+/*****************************************************************//**
+ * \file   HierarchyWindow.h
+ * \brief  ヒエラルキーウィンドウ
+ *
+ * \author USAMI KOSHI
+ * \date   2021/11/23
+ *********************************************************************/
+#ifndef _HIERARCHY_WINDOW_
+#define _HIERARCHY_WINDOW_
+
+#include <CoreEditor/Core/EditorWindow.h>
+#include <CoreEngine\Core_Engine.h>
+
+class HierarchyWindow final : public EditorWindow
+{
+	DECLARE_TYPE_INFO(HierarchyWindow);
+public:
+	/// @brief コンストラクタ
+	explicit HierarchyWindow() noexcept;
+
+	/// @brief デストラクタ
+	~HierarchyWindow() noexcept = default;
+
+	/// @brief GUI表示コールバック
+	void OnGUI() final override;
+
+private:
+
+	void DispEntity(TransformManager* pTransformManager, const TransformID& parentID);
+
+};
+
+
+#endif // !_HIERARCHY_WINDOW_
+
