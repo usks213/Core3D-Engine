@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Window.h
+ * \file   Window.h
  * \brief  ウィンドウクラス
  * 
  * \author USAMI KOSHI
@@ -11,14 +11,14 @@
 
 #include <Utils/Util_String.h>
 
-namespace core
+namespace Core
 {
 	// 前定義
-	class CoreEngine;
+	class Engine;
 
-	/// @class CoreWindow
+	/// @class Window
 	/// @brief コアウィンドウクラス
-	class CoreWindow
+	class Window
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -29,46 +29,46 @@ namespace core
 		/// @param windowName[in] ウィンドウ名
 		/// @param windowWidth[in] ウィンドウの幅
 		/// @param windowHeight[in] ウィンドウの高さ
-		explicit CoreWindow(util::String windowName, std::uint32_t windowWidth, std::uint32_t windowHeight);
+		explicit Window(Util::String windowName, std::uint32_t windowWidth, std::uint32_t windowHeight);
 
 		/// @brief デストラクタ
-		virtual ~CoreWindow() noexcept = default;
+		virtual ~Window() noexcept = default;
 
 		/// @brief 終了処理
 		virtual void finalize() = 0;
 
 		/// @brief ウィンドウ名取得
 		/// @return ウィンドウ名
-		[[nodiscard]] util::String getWindowName() const noexcept { return m_windowName; }
+		[[nodiscard]] Util::String GetWindowName() const noexcept { return m_windowName; }
 
 		/// @brief ウィンドウの幅取得
 		/// @return ウィンドウの幅(整数)
-		[[nodiscard]] int getWindowWidth() const noexcept { return m_windowWidth; }
+		[[nodiscard]] int GetWindowWidth() const noexcept { return m_windowWidth; }
 
 		/// @brief ウィンドウの高さ取得
 		/// @return ウィンドウの高さ(整数)
-		[[nodiscard]] int getWindowHeight() const noexcept { return m_windowHeight; }
+		[[nodiscard]] int GetWindowHeight() const noexcept { return m_windowHeight; }
 
 		/// @brief エンジンの取得
 		/// @return エンジンのポインタ
-		CoreEngine* getCoreEngine() const noexcept { return m_pCoreEngine; }
+		Engine* GetEngine() const noexcept { return m_pCoreEngine; }
 
 		/// @brief エンジンの設定
 		/// @param pCoreEngine エンジンのポインタ
-		void setCoreEngine(CoreEngine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
+		void SetEngine(Engine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
 
 		/// @brief コピーコンストラクタ削除
-		CoreWindow(const CoreWindow&) = delete;
+		Window(const Window&) = delete;
 		/// @brief ムーブコンストラクタ削除
-		CoreWindow(CoreWindow&&) = delete;
+		Window(Window&&) = delete;
 
 	protected:
 		//------------------------------------------------------------------------------
 		// protected variables
 		//------------------------------------------------------------------------------
 
-		CoreEngine*		m_pCoreEngine;			///< エンジンのポインタ
-		util::String		m_windowName;		///< ウィンドウ名
+		Engine*		m_pCoreEngine;			///< エンジンのポインタ
+		Util::String		m_windowName;		///< ウィンドウ名
 		int				m_windowWidth;		///< ウィンドウの幅
 		int				m_windowHeight;		///< ウィンドウの高さ
 	};

@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Buffer.h
+ * \file   GPUBuffer.h
  * \brief  バッファ
  * 
  * \author USAMI KOSHI
@@ -8,7 +8,7 @@
 #ifndef _CORE_BUFFER_
 #define _CORE_BUFFER_
 
-#include "Core_CommonState.h"
+#include <Renderer\Core\CommonState.h>
 #include <numeric>
 #include <string>
 #include <vector>
@@ -21,32 +21,32 @@
 #endif
 
 
-namespace core
+namespace Core
 {
 	/// @brief バッファID
-	enum class BufferID : std::uint32_t {};
+	enum class GPUBufferID : std::uint32_t {};
 	/// @brief 存在しないバッファID
-	constexpr BufferID NONE_BUFFER_ID = std::numeric_limits<BufferID>::max();
+	constexpr GPUBufferID NONE_BUFFER_ID = std::numeric_limits<GPUBufferID>::max();
 
-	/// @struct BufferData
+	/// @struct GPUBufferData
 	/// @brief バッファ初期化データ
-	struct BufferData
+	struct GPUBufferData
 	{
 		const void* pInitData = nullptr;
 		std::size_t size = 0;
 	};
 
 	/// @brief UAVフラグ
-	enum class BufferUAVFlag : std::uint8_t
+	enum class GPUBufferUAVFlag : std::uint8_t
 	{
 		RAW,			///< バイトアドレス
 		APPEND,		///< スタック操作
 		COUNTER,		///< カウンター追加
 	};
 
-	/// @struct BufferDesc
+	/// @struct GPUBufferDesc
 	/// @brief バッファDesc
-	struct BufferDesc
+	struct GPUBufferDesc
 	{
 		std::string		name;
 		std::uint32_t	count			= 0;
@@ -55,12 +55,12 @@ namespace core
 		std::uint32_t	bindFlags		= 0 | BindFlags::UNKNOWN;
 		std::uint32_t	cpuAccessFlags	= 0 | CPUAccessFlags::NONE;
 		std::uint32_t	miscFlags		= 0 | MiscFlags::UNKNONE;
-		BufferUAVFlag	uavFlag			= BufferUAVFlag::RAW;
+		GPUBufferUAVFlag	uavFlag			= GPUBufferUAVFlag::RAW;
 	};
 
-	/// @class CoreBuffer
+	/// @class GPUBuffer
 	/// @brief バッファ
-	class CoreBuffer
+	class GPUBuffer
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -70,14 +70,14 @@ namespace core
 		/// @brief コンストラクタ
 		/// @param id バッファID
 		/// @param desc バッファDesc
-		CoreBuffer(const BufferID& id, const BufferDesc& desc) :
+		GPUBuffer(const GPUBufferID& id, const GPUBufferDesc& desc) :
 			m_id(id), m_desc(desc), m_type(BufferType::MAX),
 			m_isUpdate(true), m_aData()
 		{
 		}
 
 		/// @brief デストラクタ
-		virtual ~CoreBuffer() noexcept = default;
+		virtual ~GPUBuffer() noexcept = default;
 
 		/// @brief バッファ更新
 		/// @param pData 更新データ
@@ -102,8 +102,8 @@ namespace core
 			MAX,
 		};
 
-		BufferID						m_id;		///< バッファID
-		BufferDesc					m_desc;		///< バッファDesc
+		GPUBufferID						m_id;		///< バッファID
+		GPUBufferDesc					m_desc;		///< バッファDesc
 		BufferType					m_type;		///< バッファタイプ
 
 		bool							m_isUpdate;	///< バッファ更新フラグ

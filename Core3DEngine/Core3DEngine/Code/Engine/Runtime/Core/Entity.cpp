@@ -12,6 +12,7 @@
 
 #include "ImGui\imgui.h"
 
+using namespace Core;
 
  /// @brief アクティブ指定
  /// @param isActive フラグ

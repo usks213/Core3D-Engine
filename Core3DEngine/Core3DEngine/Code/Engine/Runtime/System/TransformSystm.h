@@ -10,28 +10,30 @@
 
 #include "../Core/System.h"
 
-class TransformSystem final : public System
+namespace Core
 {
-public:
-	DECLARE_SYSTEM_INFO(TransformSystem);
-public:
-	/// @brief コンストラクタ
-	/// @param pSystemManafer システムマネージャー
-	explicit TransformSystem(SystemManager* pSystemManafer);
+	class TransformSystem final : public System
+	{
+	public:
+		DECLARE_SYSTEM_INFO(TransformSystem);
+	public:
+		/// @brief コンストラクタ
+		/// @param pSystemManafer システムマネージャー
+		explicit TransformSystem(SystemManager* pSystemManafer);
 
-	/// @brief デストラクタ
-	~TransformSystem() noexcept = default;
+		/// @brief デストラクタ
+		~TransformSystem() noexcept = default;
 
-	/// @brief 更新
-	void OnUpdate() override;
+		/// @brief 更新
+		void OnUpdate() override;
 
-	/// @brief ギズモ表示
-	void OnGizmo() override;
+		/// @brief ギズモ表示
+		void OnGizmo() override;
 
-private:
+	private:
 
-};
-
+	};
+}
 
 #endif // !_TRANSFORM_SYSTEM_
 

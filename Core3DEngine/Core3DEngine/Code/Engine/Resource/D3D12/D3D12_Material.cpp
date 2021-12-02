@@ -8,12 +8,12 @@
 
 #include "D3D12_Material.h"
 #include "D3D12_Shader.h"
-using namespace d3d12;
+using namespace Core::D3D12;
 
 
 namespace
 {
-	constexpr D3D12_SHADER_VISIBILITY SHADER_VISIBILITYS[static_cast<size_t>(core::ShaderStage::CS)] = {
+	constexpr D3D12_SHADER_VISIBILITY SHADER_VISIBILITYS[static_cast<size_t>(Core::ShaderStage::CS)] = {
 		D3D12_SHADER_VISIBILITY_VERTEX,
 		D3D12_SHADER_VISIBILITY_HULL,
 		D3D12_SHADER_VISIBILITY_DOMAIN,
@@ -27,12 +27,12 @@ namespace
 /// @param id マテリアルID
 /// @param name マテリアル名
 /// @param shader シェーダ
-D3D12Material::D3D12Material(ID3D12Device* device, const core::MaterialID& id,
-	const std::string& name, core::CoreShader& shader) :
-	core::CoreMaterial(id,name,shader)
+D3D12Material::D3D12Material(ID3D12Device* device, const Core::MaterialID& id,
+	const std::string& name, Core::CoreShader& shader) :
+	Core::CoreMaterial(id,name,shader)
 {
 	// コンスタントバッファの確保(GPU)
-	for (core::ShaderStage stage = core::ShaderStage::VS; stage < core::ShaderStage::CS; ++stage)
+	for (Core::ShaderStage stage = Core::ShaderStage::VS; stage < Core::ShaderStage::CS; ++stage)
 	{
 		auto stageIndex = static_cast<size_t>(stage);
 		if (m_cbufferData[stageIndex].size() <= 0)

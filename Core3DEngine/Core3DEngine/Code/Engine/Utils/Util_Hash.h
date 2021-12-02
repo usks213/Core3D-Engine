@@ -14,7 +14,7 @@
  /// @brief 型の文字列
 #define TYPE_STRING(T) #T
 
-namespace util
+namespace Util
 {
     /// @brief 文字列のハッシュ値
     constexpr std::uint32_t stringHash(std::string_view string)

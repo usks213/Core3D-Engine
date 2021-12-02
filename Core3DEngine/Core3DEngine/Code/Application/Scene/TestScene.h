@@ -8,40 +8,42 @@
 #ifndef _TEST_SCENE_
 #define _TEST_SCENE_
 
-#include <CoreEngine/Core/Scene.h>
+#include <Runtime/Core/Scene.h>
 
-class TestScene :public Scene
+namespace Core
 {
-public:
-	//------------------------------------------------------------------------------
-	// public methods
-	//------------------------------------------------------------------------------
-
-	/// @brief コンストラクタ
-	/// @param pSceneManager シーンマネージャー
-	explicit TestScene(SceneManager* pSceneManager) :
-		Scene(pSceneManager)
+	class TestScene :public Scene
 	{
-	}
-	/// @brief デストラクタ
-	virtual ~TestScene() noexcept = default;
+	public:
+		//------------------------------------------------------------------------------
+		// public methods
+		//------------------------------------------------------------------------------
+
+		/// @brief コンストラクタ
+		/// @param pSceneManager シーンマネージャー
+		explicit TestScene(SceneManager* pSceneManager) :
+			Scene(pSceneManager)
+		{
+		}
+		/// @brief デストラクタ
+		virtual ~TestScene() noexcept = default;
 
 
-	/// @brief スタート
-	void Start() override;
+		/// @brief スタート
+		void Start() override;
 
-	/// @brief システムの更新
-	void Update() override;
+		/// @brief システムの更新
+		void Update() override;
 
-	/// @brief パイプラインの描画
-	void Render() override;
+		/// @brief パイプラインの描画
+		void Render() override;
 
-	/// @brief エンド
-	void End() override;
+		/// @brief エンド
+		void End() override;
 
-private:
+	private:
 
-};
-
+	};
+}
 
 #endif // !_TEST_SCENE_

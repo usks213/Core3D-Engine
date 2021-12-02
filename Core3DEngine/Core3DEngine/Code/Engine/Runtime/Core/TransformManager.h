@@ -11,67 +11,69 @@
 #include "Transform.h"
 #include <unordered_map>
 
-class Scene;
-
-class TransformManager final
+namespace Core
 {
-	friend class Transform;
-public:
+	class Scene;
 
-	/// @brief コンストラクタ
-	/// @param pScene シーンポインタ
-	explicit TransformManager(Scene* pScene) noexcept :
-		m_pScene(pScene)
+	class TransformManager final
 	{
-	}
+		friend class Transform;
+	public:
 
-	/// @brief デストラクタ
-	~TransformManager() noexcept = default;
+		/// @brief コンストラクタ
+		/// @param pScene シーンポインタ
+		explicit TransformManager(Scene* pScene) noexcept :
+			m_pScene(pScene)
+		{
+		}
 
-	Transform* CreateTransform(const EntityID& entityID, bool bActive, bool bStatic, 
-		const TransformID& parentID = NONE_TRANSFORM_ID);
+		/// @brief デストラクタ
+		~TransformManager() noexcept = default;
 
-	void DestroyTransform(const TransformID& transformID);
+		Transform* CreateTransform(const EntityID& entityID, bool bActive, bool bStatic,
+			const TransformID& parentID = NONE_TRANSFORM_ID);
 
-	Transform* FindTransform(const TransformID& transformID);
+		void DestroyTransform(const TransformID& transformID);
 
-	void CreateRelation(const TransformID& transformID, const TransformID& parentID);
+		Transform* FindTransform(const TransformID& transformID);
 
-	void DestroyRelation(const TransformID& transformID, const TransformID& parentID);
+		void CreateRelation(const TransformID& transformID, const TransformID& parentID);
 
-	void UpdateAllMatrix(bool isStaticUpdate);
+		void DestroyRelation(const TransformID& transformID, const TransformID& parentID);
 
-	void UpdateChildMatrix(Transform* pTransform, const Matrix& parentMatrix, const Vector3& parentScale, const bool isParentDirty = false);
+		void UpdateAllMatrix(bool isStaticUpdate);
 
-	/// @brief ルートトランスフォームを取得
-	std::vector<TransformID>& GetRootTransforms() { return m_rootTransforms; }
+		void UpdateChildMatrix(Transform* pTransform, const Matrix& parentMatrix, const Vector3& parentScale, const bool isParentDirty = false);
 
-private:
+		/// @brief ルートトランスフォームを取得
+		std::vector<TransformID>& GetRootTransforms() { return m_rootTransforms; }
 
-	void RegisterRoot(const TransformID& transformID);
+	private:
 
-	void RemoveRoot(const TransformID& transformID);
+		void RegisterRoot(const TransformID& transformID);
 
-	/// @brief 開始位置から親の関係を探索し、一致した値を返す
-	/// @param pBegin 開始位置
-	/// @param pFind 検索対象
-	/// @return 一致した値 or nullptr
-	Transform* FindParentRelation(Transform* pBegin, Transform* pFind);
+		void RemoveRoot(const TransformID& transformID);
 
-private:
-	/// @brief vectorIndex
-	using Index = std::size_t;
+		/// @brief 開始位置から親の関係を探索し、一致した値を返す
+		/// @param pBegin 開始位置
+		/// @param pFind 検索対象
+		/// @return 一致した値 or nullptr
+		Transform* FindParentRelation(Transform* pBegin, Transform* pFind);
 
-	/// @brief 所属シーン
-	Scene* m_pScene;
+	private:
+		/// @brief vectorIndex
+		using Index = std::size_t;
 
-	/// @brief ルートトランスフォームリスト
-	std::vector<TransformID>				m_rootTransforms;
-	/// @brief ルートトランスフォーム検索テーブル
-	std::unordered_map<TransformID, Index>	m_rootTransformTable;
+		/// @brief 所属シーン
+		Scene* m_pScene;
 
-};
+		/// @brief ルートトランスフォームリスト
+		std::vector<TransformID>				m_rootTransforms;
+		/// @brief ルートトランスフォーム検索テーブル
+		std::unordered_map<TransformID, Index>	m_rootTransformTable;
 
+	};
+}
 
 #endif // !_TRANSFORM_MANAGER_
 

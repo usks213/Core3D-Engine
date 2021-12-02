@@ -1,17 +1,17 @@
 /*****************************************************************//**
- * \file   Core_Engine.h
+ * \file   Engine.h
  * \brief  エンジンクラス
  *
  * \author USAMI KOSHI
  * \date   2021/10/01
  *********************************************************************/
 
-#include "Core_Engine.h"
-using namespace core;
+#include "Engine.h"
+using namespace Core;
 
 
 /// @brief コンストラクタ
-CoreEngine::CoreEngine()
+Engine::Engine()
 	: m_pWindow(nullptr), m_pRenderer(nullptr),
 	m_nCurrentFPS(0), m_nFrameCount(0), m_deltaTime(0), m_fixedDeltaTime(0)
 {
@@ -23,7 +23,7 @@ CoreEngine::CoreEngine()
 /// @param pWindow 
 /// @param pRenderer 
 /// @return 成功か
-bool CoreEngine::initialize()
+bool Engine::initialize()
 {
 	// シーンマネージャーの生成
 	m_pSceneManager = std::make_unique<SceneManager>(this);
@@ -38,7 +38,7 @@ bool CoreEngine::initialize()
 }
 
 /// @brief 更新
-void CoreEngine::tick()
+void Engine::tick()
 {
 	// タイマー更新
 	m_CurrentTime = std::chrono::system_clock::now();
@@ -95,7 +95,7 @@ void CoreEngine::tick()
 }
 
 /// @brief 終了処理
-void CoreEngine::finalize()
+void Engine::finalize()
 {
 	// エディターの終了処理
 	m_pEditor->finalize();

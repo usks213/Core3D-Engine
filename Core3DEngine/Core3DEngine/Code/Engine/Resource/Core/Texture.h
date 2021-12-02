@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Texture.h
+ * \file   Texture.h
  * \brief  テクスチャ
  * 
  * \author USAMI KOSHI
@@ -10,9 +10,9 @@
 
 #include <cstdint>
 #include <string>
-#include "Core_CommonState.h"
+#include <Renderer\Core\CommonState.h>
 
-namespace core
+namespace Core
 {
 	/// @brief テクスチャID
 	enum class TextureID : std::uint32_t {};

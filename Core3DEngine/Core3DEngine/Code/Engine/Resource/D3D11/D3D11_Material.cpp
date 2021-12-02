@@ -7,16 +7,16 @@
  *********************************************************************/
 
 #include "D3D11_Material.h"
-using namespace d3d11;
+using namespace Core::D3D11;
 
 /// @brief コンストラクタ
 /// @param device デバイス
 /// @param id マテリアルID
 /// @param name マテリアル名
 /// @param shader シェーダ
-D3D11Material::D3D11Material(ID3D11Device1* device, const core::MaterialID& id,
-	const std::string& name, const core::CoreShader& shader) :
-	core::CoreMaterial(id,name,shader)
+D3D11Material::D3D11Material(ID3D11Device1* device, const Core::MaterialID& id,
+	const std::string& name, const Core::CoreShader& shader) :
+	Core::CoreMaterial(id,name,shader)
 {
 	// コンスタントバッファの初期化
 	D3D11_BUFFER_DESC d3dDesc = {};
@@ -33,7 +33,7 @@ D3D11Material::D3D11Material(ID3D11Device1* device, const core::MaterialID& id,
 	D3D11_SUBRESOURCE_DATA initData = {};
 
 	// コンスタントバッファの確保(GPU)
-	for (core::ShaderStage stage = core::ShaderStage::VS; stage < core::ShaderStage::MAX; ++stage)
+	for (Core::ShaderStage stage = Core::ShaderStage::VS; stage < Core::ShaderStage::MAX; ++stage)
 	{
 		//--- CBuffer確保
 		auto stageIndex = static_cast<size_t>(stage);

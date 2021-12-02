@@ -7,15 +7,16 @@
  *********************************************************************/
 
 #include "D3D12_DepthStencil.h"
-#include "D3D12_CommonState.h"
-using namespace d3d12;
+#include <Renderer\D3D12\D3D12_CommonState.h>
+
+using namespace Core::D3D12;
 
 /// @brief コンストラクタ
 /// @param device デバイス
 /// @param id デプスステンシルID
 /// @param d3dTex d3dテクスチャ
-D3D12DepthStencil::D3D12DepthStencil(ID3D12Device* device, const core::DepthStencilID& id, D3D12Texture& d3dTex) :
-	core::CoreDepthStencil(id, d3dTex),
+D3D12DepthStencil::D3D12DepthStencil(ID3D12Device* device, const Core::DepthStencilID& id, D3D12Texture& d3dTex) :
+	Core::CoreDepthStencil(id, d3dTex),
 	m_pHeapDSV(nullptr)
 {
 	//深度のためのデスクリプタヒープ作成
@@ -27,7 +28,7 @@ D3D12DepthStencil::D3D12DepthStencil(ID3D12Device* device, const core::DepthSten
 
 	//深度ビュー作成
 	D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
-	dsvDesc.Format = d3d12::getTypeLessToDSVFormat(d3dTex.m_desc.format); //デプス値に32bit使用
+	dsvDesc.Format = Core::D3D12::getTypeLessToDSVFormat(d3dTex.m_desc.format); //デプス値に32bit使用
 	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;//2Dテクスチャ
 	dsvDesc.Flags = D3D12_DSV_FLAG_NONE;//フラグは特になし
 

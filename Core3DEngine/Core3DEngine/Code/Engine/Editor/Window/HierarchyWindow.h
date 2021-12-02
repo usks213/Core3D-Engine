@@ -8,27 +8,30 @@
 #ifndef _HIERARCHY_WINDOW_
 #define _HIERARCHY_WINDOW_
 
-#include <CoreEditor/Core/EditorWindow.h>
-#include <CoreEngine\Core_Engine.h>
+#include <Editor/Core/EditorWindow.h>
+#include <Core\Engine.h>
 
-class HierarchyWindow final : public EditorWindow
+namespace Core
 {
-	DECLARE_TYPE_INFO(HierarchyWindow);
-public:
-	/// @brief コンストラクタ
-	explicit HierarchyWindow() noexcept;
+	class HierarchyWindow final : public EditorWindow
+	{
+		DECLARE_TYPE_INFO(HierarchyWindow);
+	public:
+		/// @brief コンストラクタ
+		explicit HierarchyWindow() noexcept;
 
-	/// @brief デストラクタ
-	~HierarchyWindow() noexcept = default;
+		/// @brief デストラクタ
+		~HierarchyWindow() noexcept = default;
 
-	/// @brief GUI表示コールバック
-	void OnGUI() final override;
+		/// @brief GUI表示コールバック
+		void OnGUI() final override;
 
-private:
+	private:
 
-	void DispEntity(TransformManager* pTransformManager, const TransformID& parentID);
+		void DispEntity(TransformManager* pTransformManager, const TransformID& parentID);
 
-};
+	};
+}
 
 
 #endif // !_HIERARCHY_WINDOW_

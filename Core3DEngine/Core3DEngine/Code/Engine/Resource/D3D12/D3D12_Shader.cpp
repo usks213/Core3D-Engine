@@ -14,8 +14,8 @@
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dxguid.lib")
 
-using namespace core;
-using namespace d3d12;
+using namespace Core;
+using namespace Core::D3D12;
 
 namespace {
 	/// @brief シェーダファイルパス
@@ -35,7 +35,7 @@ namespace {
 		"cs_5_1",
 	};
 
-	constexpr D3D12_SHADER_VISIBILITY SHADER_VISIBILITYS[static_cast<size_t>(core::ShaderStage::CS)] = {
+	constexpr D3D12_SHADER_VISIBILITY SHADER_VISIBILITYS[static_cast<size_t>(Core::ShaderStage::CS)] = {
 		D3D12_SHADER_VISIBILITY_VERTEX,
 		D3D12_SHADER_VISIBILITY_HULL,
 		D3D12_SHADER_VISIBILITY_DOMAIN,
@@ -47,8 +47,8 @@ namespace {
 /// @brief  コンストラクタ
 /// @param device デバイス
 /// @param desc シェーダ情報
-D3D12Shader::D3D12Shader(D3D12Device* device, core::ShaderDesc desc, const core::ShaderID& id) :
-	core::CoreShader(desc, id),
+D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core::ShaderID& id) :
+	Core::CoreShader(desc, id),
 	m_pShaderBlob({nullptr,}),
 	m_inputElementDesc()
 {
@@ -60,13 +60,13 @@ D3D12Shader::D3D12Shader(D3D12Device* device, core::ShaderDesc desc, const core:
 	// コンパイルしたシェーダデータ
 	auto& blobs = m_pShaderBlob;
 	// シェーダリフレクション
-	std::vector<ComPtr<ID3D12ShaderReflection>>	reflections(static_cast<size_t>(core::ShaderStage::MAX));
+	std::vector<ComPtr<ID3D12ShaderReflection>>	reflections(static_cast<size_t>(Core::ShaderStage::MAX));
 	// シェーダ情報一時格納用
 	D3D12_SHADER_DESC							shaderDesc = {};
 
 
 	// シェーダステージ数だけコンパイルを試す
-	for (auto stage = core::ShaderStage::VS; stage < core::ShaderStage::MAX; ++stage)
+	for (auto stage = Core::ShaderStage::VS; stage < Core::ShaderStage::MAX; ++stage)
 	{
 		// ステージがない場合はスキップ
 		if (!hasStaderStage(desc.m_stages, stage)) continue;
@@ -116,10 +116,10 @@ D3D12Shader::D3D12Shader(D3D12Device* device, core::ShaderDesc desc, const core:
 	}
 
 	// 頂点シェーダがある場合はインプットレイアウトを作成
-	auto& vsReflection = reflections[static_cast<size_t>(core::ShaderStage::VS)];
+	auto& vsReflection = reflections[static_cast<size_t>(Core::ShaderStage::VS)];
 	if (vsReflection)
 	{
-		auto& vsBlob = blobs[static_cast<size_t>(core::ShaderStage::VS)];
+		auto& vsBlob = blobs[static_cast<size_t>(Core::ShaderStage::VS)];
 		vsReflection->GetDesc(&shaderDesc);
 		std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayouts(shaderDesc.InputParameters);
 
@@ -270,8 +270,8 @@ D3D12Shader::D3D12Shader(D3D12Device* device, core::ShaderDesc desc, const core:
 	}
 
 	// 入力バインドデータの作成
-	D3D12_SHADER_BUFFER_DESC shaderBufferDesc = {};
-	for (auto stage = core::ShaderStage::VS; stage < core::ShaderStage::MAX; ++stage)
+	D3D12_SHADER_BUFFER_DESC shaderGPUBufferDesc = {};
+	for (auto stage = Core::ShaderStage::VS; stage < Core::ShaderStage::MAX; ++stage)
 	{
 		const auto& stageIndex = static_cast<size_t>(stage);
 		const auto& reflection = reflections[stageIndex];
@@ -354,10 +354,10 @@ D3D12Shader::D3D12Shader(D3D12Device* device, core::ShaderDesc desc, const core:
 		for (std::uint32_t cbIdx = 0; cbIdx < shaderDesc.ConstantBuffers; ++cbIdx)
 		{
 			auto* constantBuffer = reflection->GetConstantBufferByIndex(cbIdx);
-			constantBuffer->GetDesc(&shaderBufferDesc);
+			constantBuffer->GetDesc(&shaderGPUBufferDesc);
 
 			// 共通の定数バッファはスキップ
-			std::string cbName(shaderBufferDesc.Name);
+			std::string cbName(shaderGPUBufferDesc.Name);
 			auto type = static_cast<std::size_t>(BindType::CBV);
 			auto itr = m_staticBindData[stageIndex][type].find(cbName);
 			// 静的データならスキップ
@@ -368,12 +368,12 @@ D3D12Shader::D3D12Shader(D3D12Device* device, core::ShaderDesc desc, const core:
 			}
 
 			// レイアウト生成
-			CBufferLayout cbLayout(cbIdx - slotOffset, shaderBufferDesc.Name, shaderBufferDesc.Size);
-			cbLayout.variables.resize(shaderBufferDesc.Variables);
+			CBufferLayout cbLayout(cbIdx - slotOffset, shaderGPUBufferDesc.Name, shaderGPUBufferDesc.Size);
+			cbLayout.variables.resize(shaderGPUBufferDesc.Variables);
 
 			// CB変数のレイアウト作成
 			D3D12_SHADER_VARIABLE_DESC varDesc;
-			for (std::uint32_t v = 0; v < shaderBufferDesc.Variables; ++v)
+			for (std::uint32_t v = 0; v < shaderGPUBufferDesc.Variables; ++v)
 			{
 				// 変数情報取得
 				auto* variable = constantBuffer->GetVariableByIndex(v);
@@ -414,7 +414,7 @@ void D3D12Shader::CreateRootSignature(D3D12Device* device)
 	std::vector<D3D12_STATIC_SAMPLER_DESC>		aSamplers;
 
 	// 動的バインド
-	for (core::ShaderStage stage = core::ShaderStage::VS; stage < core::ShaderStage::CS; ++stage)
+	for (Core::ShaderStage stage = Core::ShaderStage::VS; stage < Core::ShaderStage::CS; ++stage)
 	{
 		auto stageIndex = static_cast<size_t>(stage);
 
@@ -515,7 +515,7 @@ void D3D12Shader::CreateRootSignature(D3D12Device* device)
 		}
 	}
 	// 静的バインド
-	for (core::ShaderStage stage = core::ShaderStage::VS; stage < core::ShaderStage::CS; ++stage)
+	for (Core::ShaderStage stage = Core::ShaderStage::VS; stage < Core::ShaderStage::CS; ++stage)
 	{
 		auto stageIndex = static_cast<size_t>(stage);
 
@@ -563,7 +563,7 @@ void D3D12Shader::CreateRootSignature(D3D12Device* device)
 					case static_cast<size_t>(BindType::SAMPLER) :
 					{
 						aSamplers.push_back(device->m_staticSamplers[
-							static_cast<size_t>(core::SamplerState::LINEAR_WRAP)]);
+							static_cast<size_t>(Core::SamplerState::LINEAR_WRAP)]);
 						break;
 					}
 					// t

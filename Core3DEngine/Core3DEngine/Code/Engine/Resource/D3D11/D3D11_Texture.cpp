@@ -7,8 +7,9 @@
  *********************************************************************/
 
 #include "D3D11_Texture.h"
-#include "D3D11_CommonState.h"
-using namespace d3d11;
+#include <Renderer\D3D11\D3D11_CommonState.h>
+
+using namespace Core::D3D11;
 
 
 //------------------------------------------------------------------------------
@@ -35,8 +36,8 @@ namespace
 /// @brief コンストラクタ(ファイル読み込み)
 /// @param id テクスチャID
 /// @param filepath ファイルパス
-D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id, const std::string& filepath) :
-	core::CoreTexture(id, filepath),
+D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const Core::TextureID& id, const std::string& filepath) :
+	Core::CoreTexture(id, filepath),
 	m_tex(nullptr),
 	m_srv(nullptr),
     m_uav(nullptr)
@@ -47,9 +48,9 @@ D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id, co
 /// @brief コンストラクタ(Descから生成)
 /// @param id テクスチャID
 /// @param desc テクスチャDesc
-D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id, 
-    core::TextureDesc& desc, const core::TextureData* pData) :
-	core::CoreTexture(id, desc),
+D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const Core::TextureID& id, 
+    Core::TextureDesc& desc, const Core::TextureData* pData) :
+	Core::CoreTexture(id, desc),
 	m_tex(nullptr),
 	m_srv(nullptr),
     m_uav(nullptr)
@@ -71,9 +72,9 @@ D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id,
 
     // ミップマップ自動生成指定
     if (desc.mipLevels == 0 && 
-        desc.bindFlags & core::BindFlags::RENDER_TARGET && 
-        desc.bindFlags & core::BindFlags::SHADER_RESOURCE && 
-        desc.miscFlags & core::MiscFlags::GENERATE_MIPS 
+        desc.bindFlags & Core::BindFlags::RENDER_TARGET && 
+        desc.bindFlags & Core::BindFlags::SHADER_RESOURCE && 
+        desc.miscFlags & Core::MiscFlags::GENERATE_MIPS 
         )
     {
         d3d11Desc.MipLevels = desc.mipLevels = numMipmapLevels(desc.width, desc.height);
@@ -85,7 +86,7 @@ D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id,
             // 生成不可
             return;
         }
-        if (desc.usage == core::Usage::STATIC) {
+        if (desc.usage == Core::Usage::STATIC) {
             // エラー 初期値なし、書き換え不可
             return;
         }
@@ -102,11 +103,11 @@ D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id,
     }
 
     // ビューの作成
-    if (desc.bindFlags & core::BindFlags::SHADER_RESOURCE)
+    if (desc.bindFlags & Core::BindFlags::SHADER_RESOURCE)
     {
         // シェーダーリソースビュー
         D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-        srvDesc.Format = d3d11::getTypeLessToSRVFormat(desc.format);
+        srvDesc.Format = Core::D3D11::getTypeLessToSRVFormat(desc.format);
         srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
         srvDesc.Texture2D.MipLevels = d3d11Desc.MipLevels;
         srvDesc.Texture2D.MostDetailedMip = 0;
@@ -115,7 +116,7 @@ D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id,
 
         CHECK_FAILED(pDevice->CreateShaderResourceView(m_tex.Get(), &srvDesc, m_srv.GetAddressOf()));
     }
-    if (desc.bindFlags & core::BindFlags::UNORDERED_ACCESS)
+    if (desc.bindFlags & Core::BindFlags::UNORDERED_ACCESS)
     {
         // 順不同アクセスビュー
         D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};

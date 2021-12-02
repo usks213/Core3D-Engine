@@ -8,16 +8,16 @@
 #ifndef _D3D12_RENDERER_
 #define _D3D12_RENDERER_
 
-#include <CoreRenderer\Core\Core_Renderer.h>
+#include <Renderer\Core\Renderer.h>
 #include "D3D12_Device.h"
 #include "D3D12_CommandList.h"
 
-namespace d3d12
+namespace Core::D3D12
 {
 	class D3D12Device;
 	class D3D12CommandList;
 
-	class D3D12Renderer final : public core::CoreRenderer
+	class D3D12Renderer final : public Renderer
 	{
 		friend class D3D12Device;
 		friend class D3D12CommandList;
@@ -48,14 +48,14 @@ namespace d3d12
 
 		/// @brief デバイスの取得
 		/// @return デバイスのポインタ
-		core::CoreDevice* getDevice() override
+		Core::Device* getDevice() override
 		{
 			return &m_device;
 		}
 
 		/// @brief コマンドリストの取得
 		/// @return コマンドリストのポインタ 
-		core::CoreCommandList* getCommandList() override;
+		Core::CommandList* getCommandList() override;
 
 		/// @brief D3D12デバイスの取得
 		/// @return D3D12デバイスポインタ
@@ -84,30 +84,30 @@ namespace d3d12
 		std::vector<std::unique_ptr<D3D12CommandList>>	m_cmdLists[BACK_BUFFER_COUNT];			///< コマンドリスト配列
 		std::uint32_t								m_useCmdListCnt[BACK_BUFFER_COUNT];	///< 使用されているコマンドリスト数
 
-		// d3d12 system param
+		// Core::D3D12 system param
 		ComPtr<ID3D12Device>				m_pD3DDevice;
 		ComPtr<IDXGIFactory6>				m_pDXGIFactory;
 		ComPtr<IDXGISwapChain4>			m_pSwapChain;
 
-		// d3d12 fence param
+		// Core::D3D12 fence param
 		ComPtr<ID3D12Fence>				m_pFence;
 		UINT64							m_nFenceVal;
 
-		// d3d12 command param
+		// Core::D3D12 command param
 		ComPtr<ID3D12CommandQueue>		m_pCmdQueue;
 
-		// d3d12 rtv param
+		// Core::D3D12 rtv param
 		ComPtr<ID3D12DescriptorHeap>		m_pBackBufferHeap;
 		ComPtr<ID3D12Resource>			m_pBackBuffer[BACK_BUFFER_COUNT];
 		D3D12_RESOURCE_STATES				m_eBackBufferSate[BACK_BUFFER_COUNT];
 		UINT								m_nBackBufferSize;
 
-		// d3d12 dsv param
+		// Core::D3D12 dsv param
 		ComPtr<ID3D12DescriptorHeap>		m_pDepthStencilHeap;
 		ComPtr<ID3D12Resource>			m_pDepthStencil;
 
 #ifdef _DEBUG
-		// d3d12 debug
+		// Core::D3D12 debug
 		ComPtr<ID3D12Debug>					m_pDebugLater;
 #endif // _DEBUG
 

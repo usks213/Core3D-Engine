@@ -8,15 +8,15 @@
 #ifndef _D3D12_RENDER_TARGET_
 #define _D3D12_RENDER_TARGET_
 
-#include <CoreRenderer/Core/Core_RenderTarget.h>
+#include <Resource/Core/RenderTarget.h>
 #include "D3D12_Texture.h"
 
 
-namespace d3d12
+namespace Core::D3D12
 {
 	/// @class D3D12RenderTarget
 	/// @brief DirectX12レンダーターゲット
-	class D3D12RenderTarget final : public core::CoreRenderTarget
+	class D3D12RenderTarget final : public Core::CoreRenderTarget
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ namespace d3d12
 		/// @param device デバイス
 		/// @param id レンダーターゲットID
 		/// @param d3dTex d3dテクスチャ
-		explicit D3D12RenderTarget(ID3D12Device* device, const core::RenderTargetID& id, D3D12Texture& d3dTex);
+		explicit D3D12RenderTarget(ID3D12Device* device, const Core::RenderTargetID& id, D3D12Texture& d3dTex);
 
 		/// @brief デストラクタ
 		~D3D12RenderTarget() noexcept = default;

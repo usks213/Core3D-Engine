@@ -8,7 +8,7 @@
 #ifndef _UTIL_SINGLETON_
 #define _UTIL_SINGLETON_
 
-namespace util
+namespace Util
 {
     ///@class UtilSingleton
     ///@brief テンプレートシングルトン

@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Renderer.cpp
+ * \file   Renderer.cpp
  * \brief  レンダラークラス
  * 
  * \author USAMI KOSHI

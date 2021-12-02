@@ -18,14 +18,8 @@
     <Filter Include="ソース ファイル\App\Scene">
       <UniqueIdentifier>{65948329-30ac-4231-b257-0f6a697245ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ライブラリファイル\ImGui">
-      <UniqueIdentifier>{fc169d21-c771-4f7b-b5c7-7fa49ef27822}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ライブラリファイル\DirectXTex">
       <UniqueIdentifier>{8dbd5fcb-c009-440e-aab0-35b506015180}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ライブラリファイル\SimpleMath">
-      <UniqueIdentifier>{313cff93-bb8a-4862-b84c-7e5aab42035d}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Engine">
       <UniqueIdentifier>{908a31bd-90a4-4124-8eb3-846bd4804d6b}</UniqueIdentifier>
@@ -135,6 +129,21 @@
     <Filter Include="ソース ファイル\Engine\Runtime\Pipeline">
       <UniqueIdentifier>{b100ff62-40fa-4283-9700-c4c105b1614b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Engine\Main">
+      <UniqueIdentifier>{eea154d1-8f8b-4978-887a-dca06fe2b788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Main\Core">
+      <UniqueIdentifier>{179a6a59-c1b6-4819-92ff-955e5ffd33a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Main\Win">
+      <UniqueIdentifier>{2ca49e9d-0420-4448-9a07-dba6c093a5d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ライブラリファイル\ImGui">
+      <UniqueIdentifier>{f4017104-92be-4753-b409-9e3c66910ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ライブラリファイル\SimpleMath">
+      <UniqueIdentifier>{0d003d89-5ba9-4b76-bacf-ad2fc0f34b4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Application\StartUp.cpp">
@@ -142,33 +151,6 @@
     </ClCompile>
     <ClCompile Include="Code\Application\Scene\TestScene.cpp">
       <Filter>ソース ファイル\App\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\SimpleMath\SimpleMath.cpp">
-      <Filter>ライブラリファイル\SimpleMath</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_demo.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_draw.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_impl_dx11.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_impl_dx12.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_impl_win32.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_tables.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_widgets.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\Core\Engine.cpp">
       <Filter>ソース ファイル\Engine\Core</Filter>
@@ -203,10 +185,10 @@
     <ClCompile Include="Code\Engine\Window\Win\Win_Window.cpp">
       <Filter>ソース ファイル\Engine\Window\Win</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\Core\Core_Device.cpp">
+    <ClCompile Include="Code\Engine\Renderer\Core\Device.cpp">
       <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\Core\Core_Renderer.cpp">
+    <ClCompile Include="Code\Engine\Renderer\Core\Renderer.cpp">
       <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_CommandList.cpp">
@@ -239,19 +221,19 @@
     <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_Defines.cpp">
       <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\Core\Core_Geometry.cpp">
+    <ClCompile Include="Code\Engine\Resource\Core\Geometry.cpp">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\Core\Core_Material.cpp">
+    <ClCompile Include="Code\Engine\Resource\Core\Material.cpp">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\Core\Core_Shader.cpp">
+    <ClCompile Include="Code\Engine\Resource\Core\Shader.cpp">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\Resource\Core\ResourceManager.cpp">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_Buffer.cpp">
+    <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_GPUBuffer.cpp">
       <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_DepthStencil.cpp">
@@ -272,13 +254,10 @@
     <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_Texture.cpp">
       <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_Buffer.cpp">
+    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_GPUBuffer.cpp">
       <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_DepthStencil.cpp">
-      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_DescriptorPool.cpp">
       <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_Material.cpp">
@@ -329,40 +308,43 @@
     <ClCompile Include="Code\Engine\Utils\Util_Mathf.cpp">
       <Filter>ソース ファイル\Engine\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_DescriptorPool.cpp">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Main\Win\Win_Main.cpp">
+      <Filter>ソース ファイル\Engine\Main\Win</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_demo.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_draw.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_impl_dx11.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_impl_dx12.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_impl_win32.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_tables.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ImGui\imgui_widgets.cpp">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\SimpleMath\SimpleMath.cpp">
+      <Filter>ライブラリファイル\SimpleMath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h">
       <Filter>ソース ファイル\App\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\SimpleMath\SimpleMath.h">
-      <Filter>ライブラリファイル\SimpleMath</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imconfig.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui_impl_dx11.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui_impl_dx12.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui_impl_win32.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui_internal.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imstb_rectpack.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imstb_textedit.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imstb_truetype.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Core\Engine.h">
       <Filter>ソース ファイル\Engine\Core</Filter>
@@ -415,16 +397,16 @@
     <ClInclude Include="Code\Engine\Window\Win\Win_Resource.h">
       <Filter>ソース ファイル\Engine\Window\Win</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\Core\Core_CommandList.h">
+    <ClInclude Include="Code\Engine\Renderer\Core\CommandList.h">
       <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\Core\Core_CommonState.h">
+    <ClInclude Include="Code\Engine\Renderer\Core\CommonState.h">
       <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\Core\Core_Device.h">
+    <ClInclude Include="Code\Engine\Renderer\Core\Device.h">
       <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\Core\Core_Renderer.h">
+    <ClInclude Include="Code\Engine\Renderer\Core\Renderer.h">
       <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_CommandList.h">
@@ -457,40 +439,40 @@
     <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_Defines.h">
       <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_Buffer.h">
+    <ClInclude Include="Code\Engine\Resource\Core\GPUBuffer.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_DepthStencil.h">
+    <ClInclude Include="Code\Engine\Resource\Core\DepthStencil.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_Geometry.h">
+    <ClInclude Include="Code\Engine\Resource\Core\Geometry.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_Light.h">
+    <ClInclude Include="Code\Engine\Resource\Core\Light.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_Material.h">
+    <ClInclude Include="Code\Engine\Resource\Core\Material.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_Mesh.h">
+    <ClInclude Include="Code\Engine\Resource\Core\Mesh.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_RenderBuffer.h">
+    <ClInclude Include="Code\Engine\Resource\Core\RenderBuffer.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_RenderTarget.h">
+    <ClInclude Include="Code\Engine\Resource\Core\RenderTarget.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_Shader.h">
+    <ClInclude Include="Code\Engine\Resource\Core\Shader.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_ShaderResource.h">
+    <ClInclude Include="Code\Engine\Resource\Core\ShaderResource.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_SubResource.h">
+    <ClInclude Include="Code\Engine\Resource\Core\SubResource.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Core_Texture.h">
+    <ClInclude Include="Code\Engine\Resource\Core\Texture.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Resource\Core\Resource.h">
@@ -499,7 +481,7 @@
     <ClInclude Include="Code\Engine\Resource\Core\ResourceManager.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_Buffer.h">
+    <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_GPUBuffer.h">
       <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_DepthStencil.h">
@@ -520,13 +502,10 @@
     <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_Texture.h">
       <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_Buffer.h">
+    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_GPUBuffer.h">
       <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_DepthStencil.h">
-      <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_DescriptorPool.h">
       <Filter>ソース ファイル\Engine\Resource\D3D12</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Resource\D3D12\D3D12_Material.h">
@@ -610,5 +589,49 @@
     <ClInclude Include="Code\Engine\Utils\Util_String.h">
       <Filter>ソース ファイル\Engine\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_DescriptorPool.h">
+      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Core\TypeID.h">
+      <Filter>ソース ファイル\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Main\Core\Main.h">
+      <Filter>ソース ファイル\Engine\Main\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imconfig.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui_impl_dx11.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui_impl_dx12.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui_impl_win32.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imgui_internal.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imstb_rectpack.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imstb_textedit.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ImGui\imstb_truetype.h">
+      <Filter>ライブラリファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\SimpleMath\SimpleMath.h">
+      <Filter>ライブラリファイル\SimpleMath</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Library\SimpleMath\SimpleMath.inl">
+      <Filter>ライブラリファイル\SimpleMath</Filter>
+    </None>
   </ItemGroup>
 </Project>

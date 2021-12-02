@@ -8,14 +8,14 @@
 #ifndef _D3D11_TEXTURE_
 #define _D3D11_TEXTURE_
 
-#include <CoreRenderer/Core/Core_Texture.h>
-#include "D3D11_Defines.h"
+#include <Resource/Core/Texture.h>
+#include <Renderer\D3D11\D3D11_Defines.h>
 
-namespace d3d11
+namespace Core::D3D11
 {
 	/// @class D3D11Texture
 	/// @brief DirectX11テクスチャ
-	class D3D11Texture final : public core::CoreTexture
+	class D3D11Texture final : public Core::CoreTexture
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -25,13 +25,13 @@ namespace d3d11
 		/// @brief コンストラクタ(ファイル読み込み)
 		/// @param id テクスチャID
 		/// @param filepath ファイルパス
-		explicit D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id, const std::string& filepath);
+		explicit D3D11Texture(ID3D11Device1* pDevice, const Core::TextureID& id, const std::string& filepath);
 
 		/// @brief コンストラクタ(Descから生成)
 		/// @param id テクスチャID
 		/// @param desc テクスチャDesc
-		explicit D3D11Texture(ID3D11Device1* pDevice, const core::TextureID& id, core::TextureDesc& desc,
-			const core::TextureData* pData = nullptr);
+		explicit D3D11Texture(ID3D11Device1* pDevice, const Core::TextureID& id, Core::TextureDesc& desc,
+			const Core::TextureData* pData = nullptr);
 
 		/// @brief デストラクタ
 		~D3D11Texture() noexcept = default;

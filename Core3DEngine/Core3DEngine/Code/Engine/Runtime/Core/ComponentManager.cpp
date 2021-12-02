@@ -7,6 +7,8 @@
  *********************************************************************/
 #include "ComponentManager.h"
 
+using namespace Core;
+
  /// @brief コンポーネントを削除リストに登録
  /// @param typeID コンポーネントタイプID
  /// @param componentID コンポーネントID
@@ -144,7 +146,7 @@ ComponentID ComponentManager::CreateComponentID(const TypeID& typeID)
 void ComponentManager::RegisterCreateList(Component* pComponent)
 {
 	// 生成リスト格納
-	m_createList[pComponent->GetTypeID()].push_back(pComponent->GetComponentID());
+	m_CreateList[pComponent->GetTypeID()].push_back(pComponent->GetComponentID());
 	// 生成時コールバック
 	pComponent->OnCreate();
 }

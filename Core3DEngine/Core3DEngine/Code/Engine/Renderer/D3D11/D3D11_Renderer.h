@@ -9,18 +9,18 @@
 #ifndef _D3D11_RENDERER_
 #define _D3D11_RENDERER_
 
-#include <CoreRenderer/Core/Core_Renderer.h>
-#include <CoreRenderer/D3D11/D3D11_Device.h>
-#include <CoreRenderer/D3D11/D3D11_CommandList.h>
+#include <Renderer/Core/Renderer.h>
+#include <Renderer/D3D11/D3D11_Device.h>
+#include <Renderer/D3D11/D3D11_CommandList.h>
 
-namespace d3d11
+namespace Core::D3D11
 {
 	class D3D11Device;
 	class D3D11CommandList;
 
 	/// @brief D3D11レンダラー
 	/// @class D3D11Renderer
-	class D3D11Renderer final : public core::CoreRenderer
+	class D3D11Renderer final : public Renderer
 	{
 		friend class D3D11Device;
 		friend class D3D11CommandList;
@@ -51,14 +51,14 @@ namespace d3d11
 
 		/// @brief デバイスの取得
 		/// @return デバイスのポインタ
-		core::CoreDevice* getDevice() override
+		Core::Device* getDevice() override
 		{
 			return &m_device;
 		}
 
 		/// @brief コマンドリストの取得
 		/// @return コマンドリストのポインタ 
-		core::CoreCommandList* getCommandList() override;
+		Core::CommandList* getCommandList() override;
 
 		/// @brief コピーコンストラクタ削除
 		D3D11Renderer(const D3D11Renderer&) = delete;
@@ -87,7 +87,7 @@ namespace d3d11
 
 		/// @brief デバイスとコマンドリストの生成
 		/// @return HRESULT
-		HRESULT createDiveceAndContext(HWND hWnd);
+		HRESULT CreateDiveceAndContext(HWND hWnd);
 
 
 	public:

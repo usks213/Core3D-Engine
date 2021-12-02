@@ -9,14 +9,14 @@
 #ifndef _WIN_WINDOW_
 #define _WIN_WINDOW_
 
-#include "../Core/Core_Window.h"
+#include "../Core/Window.h"
 #include <Windows.h>
 
-namespace win
+namespace Core::Win
 {
 	/// @class WinWindow
 	/// @brief ウィンドウズのウィンドウクラス
-	class WinWindow final : public core::CoreWindow
+	class WinWindow final : public Core::Window
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ namespace win
 		/// @param windowName[in] ウィンドウ名
 		/// @param windowWidth[in] ウィンドウの幅
 		/// @param windowHeight[in] ウィンドウの高さ
-		explicit WinWindow(util::String windowName, UINT windowWidth, UINT windowHeight);
+		explicit WinWindow(Util::String windowName, UINT windowWidth, UINT windowHeight);
 
 		/// @brief デストラクタ
 		~WinWindow() noexcept = default;
@@ -38,14 +38,14 @@ namespace win
 		/// @param nCmdShow 
 		/// @param lpfnWndProc ウィンドウプロシージャ関数のポインタ
 		/// @return 初期化: 成功 true | 失敗 false
-		bool initialize(HINSTANCE& hInstance, util::String className, int nCmdShow, WNDPROC lpfnWndProc);
+		bool initialize(HINSTANCE& hInstance, Util::String className, int nCmdShow, WNDPROC lpfnWndProc);
 
 		/// @brief 終了処理
 		void finalize() override;
 
 		/// @brief ウィンドウハンドル取得
 		/// @return ウィンドウハンドル
-		HWND getWindowHandle() { return m_hWnd; }
+		HWND GetWindowHandle() { return m_hWnd; }
 
 		/// @brief コピーコンストラクタ削除
 		WinWindow(const WinWindow&) = delete;
@@ -59,7 +59,7 @@ namespace win
 
 		HINSTANCE		m_hInstance;		///< インスタンスハンドル
 		HWND				m_hWnd;			///< ウィンドウハンドル
-		util::String		m_className;		///< クラス名
+		Util::String		m_className;		///< クラス名
 		int				m_nCmdShow;		///< フルスクリーン切り替えで使うかも？
 	};
 

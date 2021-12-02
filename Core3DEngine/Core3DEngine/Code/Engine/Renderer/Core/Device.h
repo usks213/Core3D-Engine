@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Device.h
+ * \file   Device.h
  * \brief  デバイスクラス
  * 
  * \author USAMI KOSHI
@@ -8,56 +8,54 @@
 #ifndef _CORE_RENDER_DEVICE_
 #define _CORE_RENDER_DEVICE_
 
-#include "Core_Buffer.h"
-#include "Core_DepthStencil.h"
-#include "Core_Material.h"
-#include "Core_Mesh.h"
-#include "Core_RenderBuffer.h"
-#include "Core_RenderTarget.h"
-#include "Core_Shader.h"
-#include "Core_Texture.h"
+#include <Resource\Core\GPUBuffer.h>
+#include <Resource\Core\Material.h>
+#include <Resource\Core\RenderBuffer.h>
+#include <Resource\Core\RenderTarget.h>
+#include <Resource\Core\DepthStencil.h>
+#include <Resource\Core\ShaderResource.h>
 
 
-namespace core
+namespace Core
 {
-	/// @class CoreDevice
+	/// @class Device
 	/// @brief デバイス
-	class CoreDevice
+	class Device
 	{
-		friend class CoreRenderer;
-		friend class CoreCommandList;
+		friend class Renderer;
+		friend class CommandList;
 	public:
 		//------------------------------------------------------------------------------
 		// public methods
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		explicit CoreDevice();
+		explicit Device();
 
 		/// @brief デストラクタ
-		virtual ~CoreDevice() noexcept = default;
+		virtual ~Device() noexcept = default;
 
 		//----- リソース生成 -----
 
-		virtual BufferID			createBuffer(BufferDesc& desc, const BufferData* pData = nullptr)	= 0;
-		virtual DepthStencilID	createDepthStencil(TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0)	 = 0;
-		virtual MaterialID		createMaterial(std::string name, ShaderID& shaderID)				= 0;
-		virtual MeshID			createMesh(std::string name)										= 0;
-		virtual RenderBufferID	createRenderBuffer(ShaderID& shaderID, MeshID& meshID)				= 0;
-		virtual RenderTargetID	createRenderTarget(TextureDesc& desc, const Color& color = Color())	= 0;
-		virtual ShaderID			createShader(ShaderDesc& desc)										= 0;
-		virtual TextureID			createTexture(std::string filePath)								= 0;
-		virtual TextureID			createTexture(TextureDesc& desc, const TextureData* pData = nullptr)	= 0;
+		virtual GPUBufferID			CreateBuffer(GPUBufferDesc& desc, const GPUBufferData* pData = nullptr)	= 0;
+		virtual DepthStencilID	CreateDepthStencil(TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0)	 = 0;
+		virtual MaterialID		CreateMaterial(std::string name, ShaderID& shaderID)				= 0;
+		virtual MeshID			CreateMesh(std::string name)										= 0;
+		virtual RenderBufferID	CreateRenderBuffer(ShaderID& shaderID, MeshID& meshID)				= 0;
+		virtual RenderTargetID	CreateRenderTarget(TextureDesc& desc, const Color& color = Color())	= 0;
+		virtual ShaderID			CreateShader(ShaderDesc& desc)										= 0;
+		virtual TextureID			CreateTexture(std::string filePath)								= 0;
+		virtual TextureID			CreateTexture(TextureDesc& desc, const TextureData* pData = nullptr)	= 0;
 
 		//----- リソース取得 -----
 
-		CoreBuffer*			getBuffer(const BufferID& id) noexcept;
+		GPUBuffer*			getBuffer(const GPUBufferID& id) noexcept;
 		CoreDepthStencil*		getDepthStencil(const DepthStencilID& id) noexcept;
 		CoreMaterial*		getMaterial(const MaterialID& id) noexcept;
 		CoreMesh*			getMesh(const MeshID& id) noexcept;
-		CoreRenderBuffer*		getRenderBuffer(const RenderBufferID& id) noexcept;
-		CoreRenderTarget*		getRenderTarget(const RenderTargetID& id) noexcept;
-		CoreShader*			getShader(const ShaderID& id) noexcept;
+		CoreRenderBuffer*		GetRenderBuffer(const RenderBufferID& id) noexcept;
+		CoreRenderTarget*		GetRenderTarget(const RenderTargetID& id) noexcept;
+		CoreShader*			GetShader(const ShaderID& id) noexcept;
 		CoreTexture*			getTexture(const TextureID& id) noexcept;
 
 	protected:
@@ -68,7 +66,7 @@ namespace core
 		SampleDesc		m_sampleDesc;	///< サンプリング情報
 
 		//----- リソースプール -----
-		std::unordered_map<BufferID,		std::unique_ptr<CoreBuffer>>			m_bufferPool;
+		std::unordered_map<GPUBufferID,		std::unique_ptr<GPUBuffer>>			m_bufferPool;
 		std::unordered_map<DepthStencilID,	std::unique_ptr<CoreDepthStencil>>		m_depthStencilPool;
 		std::unordered_map<MaterialID,		std::unique_ptr<CoreMaterial>>			m_materialPool;
 		std::unordered_map<MeshID,		std::unique_ptr<CoreMesh>>			m_meshPool;

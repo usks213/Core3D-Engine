@@ -8,12 +8,12 @@
 #ifndef _D3D12_EDITOR_
 #define _D3D12_EDITOR_
 
-#include <CoreEditor/Core_Editor.h>
-#include <CoreRenderer\D3D12\D3D12_Device.h>
+#include <Editor/Core/Editor.h>
+#include <Renderer\D3D12\D3D12_Device.h>
 
-namespace d3d12
+namespace Core::D3D12
 {
-	class D3D12Editor final : public core::CoreEditor
+	class D3D12Editor final : public Core::Editor
 	{
 	public:
 
@@ -41,7 +41,7 @@ namespace d3d12
 
 		/// @brief 描画
 		/// @param cmdList コマンドリスト
-		void Render(core::CoreCommandList* cmdList) override;
+		void Render(Core::CommandList* cmdList) override;
 
 	private:
 

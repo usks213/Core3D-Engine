@@ -8,15 +8,15 @@
 #ifndef _D3D11_RENDER_TARGET_
 #define _D3D11_RENDER_TARGET_
 
-#include <CoreRenderer/Core/Core_RenderTarget.h>
+#include <Resource/Core/RenderTarget.h>
 #include "D3D11_Texture.h"
 
 
-namespace d3d11
+namespace Core::D3D11
 {
 	/// @class D3D11RenderTarget
 	/// @brief DirectX11レンダーターゲット
-	class D3D11RenderTarget final : public core::CoreRenderTarget
+	class D3D11RenderTarget final : public Core::CoreRenderTarget
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ namespace d3d11
 		/// @param device デバイス
 		/// @param id レンダーターゲットID
 		/// @param d3dTex d3dテクスチャ
-		explicit D3D11RenderTarget(ID3D11Device1* device, const core::RenderTargetID& id, D3D11Texture& d3dTex);
+		explicit D3D11RenderTarget(ID3D11Device1* device, const Core::RenderTargetID& id, D3D11Texture& d3dTex);
 
 		/// @brief デストラクタ
 		~D3D11RenderTarget() noexcept = default;

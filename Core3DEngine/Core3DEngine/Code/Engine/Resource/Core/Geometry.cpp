@@ -6,7 +6,7 @@
  * \date   2021/07/03
  *********************************************************************/
 
-#include "Core_Geometry.h"
+#include "Geometry.h"
 
 struct VERTEX_3D 
 {
@@ -16,7 +16,7 @@ struct VERTEX_3D
 	Vector2 tex;		// テクスチャ座標
 };
 
-void Geometry::Quad(core::CoreMesh& out)
+void Geometry::Quad(Core::CoreMesh& out)
 {
 	const float	SIZE_X = (0.5f); // 立方体のサイズ(X方向)
 	const float	SIZE_Y = (0.5f); // 立方体のサイズ(Y方向)
@@ -25,7 +25,7 @@ void Geometry::Quad(core::CoreMesh& out)
 	const std::uint32_t QUAD_VERTEX = (4);
 
 	// プリミティブ設定
-	out.m_topology = core::PrimitiveTopology::TRIANGLE_STRIP;
+	out.m_topology = Core::PrimitiveTopology::TRIANGLE_STRIP;
 
 	VERTEX_3D	vertexWk[QUAD_VERTEX];	// 頂点情報格納ワーク
 
@@ -72,7 +72,7 @@ void Geometry::Quad(core::CoreMesh& out)
 	out.m_indexCount = 0;
 }
 
-void Geometry::Plane(core::CoreMesh& out, int split, float size, float texSize)
+void Geometry::Plane(Core::CoreMesh& out, int split, float size, float texSize)
 {
 	int nNumBlockX = split;
 	int nNumBlockZ = split;
@@ -82,7 +82,7 @@ void Geometry::Plane(core::CoreMesh& out, int split, float size, float texSize)
 	float fTexSizeZ = texSize;
 
 	// プリミティブ種別設定
-	out.m_topology = core::PrimitiveTopology::TRIANGLE_STRIP;
+	out.m_topology = Core::PrimitiveTopology::TRIANGLE_STRIP;
 	// 頂点数の設定
 	out.m_vertexCount = (nNumBlockX + 1) * (nNumBlockZ + 1);
 	// インデックス数の設定(縮退ポリゴン用を考慮する)
@@ -149,7 +149,7 @@ void Geometry::Plane(core::CoreMesh& out, int split, float size, float texSize)
 	delete[] pIndexWk;
 }
 
-void Geometry::Cube(core::CoreMesh& out)
+void Geometry::Cube(Core::CoreMesh& out)
 {
 	const float	SIZE_X = (0.5f); // 立方体のサイズ(X方向)
 	const float	SIZE_Y = (0.5f); // 立方体のサイズ(Y方向)
@@ -159,7 +159,7 @@ void Geometry::Cube(core::CoreMesh& out)
 	const std::uint32_t CUBE_INDEX = (36);
 
 	// プリミティブ設定
-	out.m_topology = core::PrimitiveTopology::TRIANGLE_LIST;
+	out.m_topology = Core::PrimitiveTopology::TRIANGLE_LIST;
 
 	VERTEX_3D	vertexWk[CUBE_VERTEX];	// 頂点情報格納ワーク
 	std::uint32_t			indexWk[CUBE_INDEX];	// インデックス格納ワーク
@@ -274,13 +274,13 @@ void Geometry::Cube(core::CoreMesh& out)
 	}
 }
 
-void Geometry::Sphere(core::CoreMesh& out, int nSplit, float fSize, float fTexSize)
+void Geometry::Sphere(Core::CoreMesh& out, int nSplit, float fSize, float fTexSize)
 {
 	float nNumBlockX = nSplit;
 	float nNumBlockY = nSplit;
 
 	// プリミティブ種別設定
-	out.m_topology = core::PrimitiveTopology::TRIANGLE_STRIP;
+	out.m_topology = Core::PrimitiveTopology::TRIANGLE_STRIP;
 	// 頂点数の設定
 	std::uint32_t nNumVertex = (nNumBlockX + 1) * (nNumBlockY + 1);
 	// インデックス数の設定(縮退ポリゴン用を考慮する)
@@ -369,10 +369,10 @@ void Geometry::Sphere(core::CoreMesh& out, int nSplit, float fSize, float fTexSi
 	delete[] pIndexWk;
 }
 
-void Geometry::SkyDome(core::CoreMesh& out, int nSegment, float fTexSplit)
+void Geometry::SkyDome(Core::CoreMesh& out, int nSegment, float fTexSplit)
 {
 	// プリミティブ種別設定
-	out.m_topology = core::PrimitiveTopology::TRIANGLE_LIST;
+	out.m_topology = Core::PrimitiveTopology::TRIANGLE_LIST;
 	float fScale = 0.5f;
 
 	//頂点バッファ作成

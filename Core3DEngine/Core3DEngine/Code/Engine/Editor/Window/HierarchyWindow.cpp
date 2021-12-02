@@ -7,6 +7,8 @@
  *********************************************************************/
 #include "HierarchyWindow.h"
 
+using namespace Core;
+
 
  /// @brief コンストラクタ
 HierarchyWindow::HierarchyWindow() noexcept
@@ -23,7 +25,7 @@ HierarchyWindow::HierarchyWindow() noexcept
 void HierarchyWindow::OnGUI()
 {
 	// 現在シーンの取得
-	auto* pSceneMgr = GetEditorWindowManager()->GetCoreEditor()->getCoreEngine()->getSceneManager();
+	auto* pSceneMgr = GetEditorWindowManager()->GetEditor()->GetEngine()->GetSceneManager();
 	auto* pScene = pSceneMgr->GetCurrentScene();
 	if (pScene == nullptr) return;
 	auto* pTransformManager = pScene->GetTransformManager();

@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   D3D12_Buffer.h
+ * \file   D3D12_GPUBuffer.h
  * \brief  DirectX12Buffer
  * 
  * \author USAMI KOSHI
@@ -8,14 +8,14 @@
 #ifndef _D3D12_Buffer_
 #define _D3D12_Buffer_
 
-#include <CoreRenderer/Core/Core_Buffer.h>
-#include <CoreRenderer/D3D12/D3D12_Defines.h>
+#include <Resource/Core/GPUBuffer.h>
+#include <Renderer/D3D12/D3D12_Defines.h>
 
-namespace d3d12
+namespace Core::D3D12
 {
-	/// @class D3D12Buffer
+	/// @class D3D12GPUBuffer
 	/// @brief DirectX12バッファ-
-	class D3D12Buffer final : public core::CoreBuffer
+	class D3D12GPUBuffer final : public Core::GPUBuffer
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,11 +27,11 @@ namespace d3d12
 		/// @param id バッファID
 		/// @param desc バッファDesc
 		/// @param data 初期化データ
-		explicit D3D12Buffer(ID3D12Device* device, const core::BufferID& id, 
-			const core::BufferDesc& desc, const core::BufferData* pData = nullptr);
+		explicit D3D12GPUBuffer(ID3D12Device* device, const Core::GPUBufferID& id, 
+			const Core::GPUBufferDesc& desc, const Core::GPUBufferData* pData = nullptr);
 
 		/// @brief デストラクタ
-		~D3D12Buffer() noexcept = default;
+		~D3D12GPUBuffer() noexcept = default;
 
 	public:
 		//------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
  * \date   2021/11/28
  *********************************************************************/
 #include "D3D12_DescriptorPool.h"
-using namespace d3d12;
+using namespace Core::D3D12;
 
 
  /// @brief コンストラクタ

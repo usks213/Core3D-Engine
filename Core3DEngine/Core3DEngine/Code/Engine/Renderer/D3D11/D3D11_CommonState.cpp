@@ -7,18 +7,18 @@
  *********************************************************************/
 
 #include "D3D11_CommonState.h"
-using namespace d3d11;
+using namespace Core::D3D11;
 
 
 /// @brief D3D11のリソース使用識別取得
 /// @param usage リソース使用識別
 /// @return D3D11リソース使用識別
-D3D11_USAGE d3d11::getD3D11Usage(core::Usage usage) {
+D3D11_USAGE Core::D3D11::getD3D11Usage(Core::Usage usage) {
 	switch (usage) {
-	case core::Usage::STATIC:  return D3D11_USAGE_IMMUTABLE;
-	case core::Usage::DEFAULT: return D3D11_USAGE_DEFAULT;
-	case core::Usage::DYNAMIC: return D3D11_USAGE_DYNAMIC;
-	case core::Usage::STAGING: return D3D11_USAGE_STAGING;
+	case Core::Usage::STATIC:  return D3D11_USAGE_IMMUTABLE;
+	case Core::Usage::DEFAULT: return D3D11_USAGE_DEFAULT;
+	case Core::Usage::DYNAMIC: return D3D11_USAGE_DYNAMIC;
+	case Core::Usage::STAGING: return D3D11_USAGE_STAGING;
 	default:             return D3D11_USAGE_DEFAULT;
 	}
 }
@@ -26,17 +26,17 @@ D3D11_USAGE d3d11::getD3D11Usage(core::Usage usage) {
 /// @brief D3D11のバインドフラグ取得
 /// @param flags バインドフラグ
 /// @return 符号なし整数型バインドフラグ
-UINT32 d3d11::getD3D11BindFlags(UINT flags) {
+UINT32 Core::D3D11::getD3D11BindFlags(UINT flags) {
 	UINT32 d3d11BindFlags = 0;
 
-	d3d11BindFlags = d3d11BindFlags | ((flags & core::BindFlags::VERTEX_BUFFER) ? D3D11_BIND_VERTEX_BUFFER : 0);
-	d3d11BindFlags = d3d11BindFlags | ((flags & core::BindFlags::INDEX_BUFFER) ? D3D11_BIND_INDEX_BUFFER : 0);
-	d3d11BindFlags = d3d11BindFlags | ((flags & core::BindFlags::CONSTANT_BUFFER) ? D3D11_BIND_CONSTANT_BUFFER : 0);
-	d3d11BindFlags = d3d11BindFlags | ((flags & core::BindFlags::SHADER_RESOURCE) ? D3D11_BIND_SHADER_RESOURCE : 0);
-	d3d11BindFlags = d3d11BindFlags | ((flags & core::BindFlags::STREAM_OUTPUT) ? D3D11_BIND_STREAM_OUTPUT : 0);
-	d3d11BindFlags = d3d11BindFlags | ((flags & core::BindFlags::RENDER_TARGET) ? D3D11_BIND_RENDER_TARGET : 0);
-	d3d11BindFlags = d3d11BindFlags | ((flags & core::BindFlags::DEPTH_STENCIL) ? D3D11_BIND_DEPTH_STENCIL : 0);
-	d3d11BindFlags = d3d11BindFlags | ((flags & core::BindFlags::UNORDERED_ACCESS) ? D3D11_BIND_UNORDERED_ACCESS : 0);
+	d3d11BindFlags = d3d11BindFlags | ((flags & Core::BindFlags::VERTEX_BUFFER) ? D3D11_BIND_VERTEX_BUFFER : 0);
+	d3d11BindFlags = d3d11BindFlags | ((flags & Core::BindFlags::INDEX_BUFFER) ? D3D11_BIND_INDEX_BUFFER : 0);
+	d3d11BindFlags = d3d11BindFlags | ((flags & Core::BindFlags::CONSTANT_BUFFER) ? D3D11_BIND_CONSTANT_BUFFER : 0);
+	d3d11BindFlags = d3d11BindFlags | ((flags & Core::BindFlags::SHADER_RESOURCE) ? D3D11_BIND_SHADER_RESOURCE : 0);
+	d3d11BindFlags = d3d11BindFlags | ((flags & Core::BindFlags::STREAM_OUTPUT) ? D3D11_BIND_STREAM_OUTPUT : 0);
+	d3d11BindFlags = d3d11BindFlags | ((flags & Core::BindFlags::RENDER_TARGET) ? D3D11_BIND_RENDER_TARGET : 0);
+	d3d11BindFlags = d3d11BindFlags | ((flags & Core::BindFlags::DEPTH_STENCIL) ? D3D11_BIND_DEPTH_STENCIL : 0);
+	d3d11BindFlags = d3d11BindFlags | ((flags & Core::BindFlags::UNORDERED_ACCESS) ? D3D11_BIND_UNORDERED_ACCESS : 0);
 
 	return d3d11BindFlags;
 }
@@ -44,11 +44,11 @@ UINT32 d3d11::getD3D11BindFlags(UINT flags) {
 /// @brief D3D11のCPUアクセスフラグ取得
 /// @param flags CPUアクセスフラグ
 /// @return 符号なし整数型CPUアクセスフラグ
-UINT32 d3d11::getD3D11CPUAccessFlags(UINT flags) {
+UINT32 Core::D3D11::getD3D11CPUAccessFlags(UINT flags) {
 	UINT32 d3d11CPUAccessFlags = 0;
 
-	d3d11CPUAccessFlags |= (flags & core::CPUAccessFlags::READ) ? D3D11_CPU_ACCESS_READ : 0;
-	d3d11CPUAccessFlags |= (flags & core::CPUAccessFlags::WRITE) ? D3D11_CPU_ACCESS_WRITE : 0;
+	d3d11CPUAccessFlags |= (flags & Core::CPUAccessFlags::READ) ? D3D11_CPU_ACCESS_READ : 0;
+	d3d11CPUAccessFlags |= (flags & Core::CPUAccessFlags::WRITE) ? D3D11_CPU_ACCESS_WRITE : 0;
 
 	return d3d11CPUAccessFlags;
 }
@@ -56,19 +56,19 @@ UINT32 d3d11::getD3D11CPUAccessFlags(UINT flags) {
 /// @brief D3D11のバッファフラグ取得
 /// @param flags バッファフラグ
 /// @return 符号なし整数型バッファフラグ
-UINT32 d3d11::getD3D11MiscFlags(UINT flags) {
+UINT32 Core::D3D11::getD3D11MiscFlags(UINT flags) {
 	UINT32 d3d11MiscFlags = 0;
 
-	d3d11MiscFlags |= (flags & core::MiscFlags::GENERATE_MIPS) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::TEXTURECUBE) ? D3D11_RESOURCE_MISC_TEXTURECUBE : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::DRAWINDIRECT_ARGS) ? D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::BUFFER_ALLOW_RAW_VIEWS) ? D3D11_RESOURCE_MISC_BUFFER_ALLOW_RAW_VIEWS : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::BUFFER_STRUCTURED) ? D3D11_RESOURCE_MISC_BUFFER_STRUCTURED : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::RESOURCE_CLAMP) ? D3D11_RESOURCE_MISC_RESOURCE_CLAMP : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::BUFFER_STRUCTURED) ? D3D11_RESOURCE_MISC_BUFFER_STRUCTURED : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::SHARED_KEYEDMUTEX) ? D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::TILE_POOL) ? D3D11_RESOURCE_MISC_TILE_POOL : 0;
-	d3d11MiscFlags |= (flags & core::MiscFlags::TILED) ? D3D11_RESOURCE_MISC_TILED : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::GENERATE_MIPS) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::TEXTURECUBE) ? D3D11_RESOURCE_MISC_TEXTURECUBE : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::DRAWINDIRECT_ARGS) ? D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::BUFFER_ALLOW_RAW_VIEWS) ? D3D11_RESOURCE_MISC_BUFFER_ALLOW_RAW_VIEWS : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::BUFFER_STRUCTURED) ? D3D11_RESOURCE_MISC_BUFFER_STRUCTURED : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::RESOURCE_CLAMP) ? D3D11_RESOURCE_MISC_RESOURCE_CLAMP : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::BUFFER_STRUCTURED) ? D3D11_RESOURCE_MISC_BUFFER_STRUCTURED : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::SHARED_KEYEDMUTEX) ? D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::TILE_POOL) ? D3D11_RESOURCE_MISC_TILE_POOL : 0;
+	d3d11MiscFlags |= (flags & Core::MiscFlags::TILED) ? D3D11_RESOURCE_MISC_TILED : 0;
 
 	return d3d11MiscFlags;
 }
@@ -76,8 +76,8 @@ UINT32 d3d11::getD3D11MiscFlags(UINT flags) {
 /// @brief D3D11のプリミティブトポロジー取得
 /// @param topology プリミティブトポロジー
 /// @return D3D11プリミティブトポロジー
-D3D11_PRIMITIVE_TOPOLOGY d3d11::getD3D11PrimitiveTopology(core::PrimitiveTopology topology) {
-	static D3D11_PRIMITIVE_TOPOLOGY d3dTopologies[static_cast<size_t>(core::PrimitiveTopology::MAX)] = {
+D3D11_PRIMITIVE_TOPOLOGY Core::D3D11::getD3D11PrimitiveTopology(Core::PrimitiveTopology topology) {
+	static D3D11_PRIMITIVE_TOPOLOGY d3dTopologies[static_cast<size_t>(Core::PrimitiveTopology::MAX)] = {
 		D3D_PRIMITIVE_TOPOLOGY_UNDEFINED,
 		D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 		D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,
@@ -93,8 +93,8 @@ D3D11_PRIMITIVE_TOPOLOGY d3d11::getD3D11PrimitiveTopology(core::PrimitiveTopolog
 /// @brief DXGIのテクスチャフォーマット取得
 /// @param format テクスチャフォーマット
 /// @return DXGIフォーマット
-DXGI_FORMAT d3d11::getDXGIFormat(core::TextureFormat format) {
-	static DXGI_FORMAT d3dDXGIFormat[static_cast<size_t>(core::TextureFormat::MAX)] = {
+DXGI_FORMAT Core::D3D11::getDXGIFormat(Core::TextureFormat format) {
+	static DXGI_FORMAT d3dDXGIFormat[static_cast<size_t>(Core::TextureFormat::MAX)] = {
 	DXGI_FORMAT_UNKNOWN, // 不明
 
 	DXGI_FORMAT_R32G32B32A32_TYPELESS,
@@ -197,7 +197,7 @@ DXGI_FORMAT d3d11::getDXGIFormat(core::TextureFormat format) {
 /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
 /// @param format TypeLessフォーマット
 /// @return DSVフォーマット or そのまま
-DXGI_FORMAT d3d11::getTypeLessToDSVFormat(core::TextureFormat format)
+DXGI_FORMAT Core::D3D11::getTypeLessToDSVFormat(Core::TextureFormat format)
 {
 	auto f = getDXGIFormat(format);
 	if (f == DXGI_FORMAT_R32_TYPELESS)
@@ -221,7 +221,7 @@ DXGI_FORMAT d3d11::getTypeLessToDSVFormat(core::TextureFormat format)
 /// @brief TypeLessフォーマットをSRVフォーマットに変換して返す
 /// @param format TypeLessフォーマット
 /// @return SRVフォーマット or そのまま
-DXGI_FORMAT d3d11::getTypeLessToSRVFormat(core::TextureFormat format)
+DXGI_FORMAT Core::D3D11::getTypeLessToSRVFormat(Core::TextureFormat format)
 {
 	auto f = getDXGIFormat(format);
 	if (f == DXGI_FORMAT_R32_TYPELESS)

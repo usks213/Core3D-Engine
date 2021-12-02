@@ -14,6 +14,7 @@
 
 #include "ImGui\imgui.h"
 
+using namespace Core;
 
  /// @brief 親エンティティの取得
  /// @return エンティティポインタ

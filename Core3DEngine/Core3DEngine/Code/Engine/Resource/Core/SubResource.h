@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_SubResource.h
+ * \file   SubResource.h
  * \brief  サブリソース
  * 
  * \author USAMI KOSHI
@@ -10,7 +10,7 @@
 
 #include <cstdint>
 
-namespace core
+namespace Core
 {
 	/// @class SubResource
 	/// @brief サブリソース

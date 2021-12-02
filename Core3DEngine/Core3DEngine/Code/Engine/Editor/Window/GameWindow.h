@@ -8,24 +8,27 @@
 #ifndef _GAME_WINDOW_
 #define _GAME_WINDOW_
 
-#include <CoreEditor/Core/EditorWindow.h>
+#include <Editor/Core/EditorWindow.h>
 
-class GameWindow final : public EditorWindow
+namespace Core
 {
-	DECLARE_TYPE_INFO(GameWindow);
-public:
-	/// @brief コンストラクタ
-	explicit GameWindow() noexcept;
+	class GameWindow final : public EditorWindow
+	{
+		DECLARE_TYPE_INFO(GameWindow);
+	public:
+		/// @brief コンストラクタ
+		explicit GameWindow() noexcept;
 
-	/// @brief デストラクタ
-	~GameWindow() noexcept = default;
+		/// @brief デストラクタ
+		~GameWindow() noexcept = default;
 
-	/// @brief GUI表示コールバック
-	void OnGUI() final override;
+		/// @brief GUI表示コールバック
+		void OnGUI() final override;
 
-private:
+	private:
 
-};
+	};
+}
 
 #endif // !_GAME_WINDOW_
 

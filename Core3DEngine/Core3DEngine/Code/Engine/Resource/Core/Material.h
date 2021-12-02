@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Material.h
+ * \file   Material.h
  * \brief  マテリアル
  * 
  * \author USAMI KOSHI
@@ -8,13 +8,12 @@
 #ifndef _CORE_MATERIAL_
 #define _CORE_MATERIAL_
 
-#include "Core_CommonState.h"
-#include "Core_Shader.h"
-#include "Core_Texture.h"
+#include "Shader.h"
+#include "Texture.h"
 #include <Utils/Util_Mathf.h>
 
 
-namespace core
+namespace Core
 {
 	/// @brief マテリアルID
 	enum class MaterialID : std::uint32_t {};
@@ -145,7 +144,7 @@ namespace core
 		void setSampler(const char* name, const SamplerState sampler);
 
 		/// @brief サンプラ取得
-		SamplerState getSampler(const char* name);
+		SamplerState GetSampler(const char* name);
 
 		/// @brief データ取得
 		void* getData(const char* name);

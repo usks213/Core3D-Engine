@@ -10,7 +10,7 @@
 
 #include <string>
 
-namespace util
+namespace Util
 {
 #ifdef _UNICODE
 	/// @brief Unicode•¶Žš—ñŒ^

@@ -7,34 +7,34 @@
  *********************************************************************/
 
 #include "D3D12_CommonState.h"
-using namespace d3d12;
+using namespace Core::D3D12;
 
 
 /// @brief リソースフラグ取得
 /// @param flags フラグ
 /// @return D3D12リソースフラグ
-D3D12_RESOURCE_FLAGS d3d12::getD3D12ResourceFlags(UINT bindFlags)
+D3D12_RESOURCE_FLAGS Core::D3D12::getD3D12ResourceFlags(UINT bindFlags)
 {
-	if (bindFlags & core::BindFlags::RENDER_TARGET) return D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
-	else if (bindFlags & core::BindFlags::DEPTH_STENCIL) return D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
-	else if (bindFlags & core::BindFlags::UNORDERED_ACCESS) return D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
+	if (bindFlags & Core::BindFlags::RENDER_TARGET) return D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
+	else if (bindFlags & Core::BindFlags::DEPTH_STENCIL) return D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+	else if (bindFlags & Core::BindFlags::UNORDERED_ACCESS) return D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
 	else return D3D12_RESOURCE_FLAG_NONE;
 }
 
 /// @brief ヒープフラグ取得
 /// @param flags フラグ
 /// @return D3D12ヒープフラグ
-D3D12_DESCRIPTOR_HEAP_FLAGS d3d12::getD3D12HeapFlags(UINT bindFlags)
+D3D12_DESCRIPTOR_HEAP_FLAGS Core::D3D12::getD3D12HeapFlags(UINT bindFlags)
 {
-	if (bindFlags & core::BindFlags::SHADER_RESOURCE) return D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	if (bindFlags & Core::BindFlags::SHADER_RESOURCE) return D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	else return D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 }
 
 /// @brief D3D12のプリミティブトポロジー取得
 /// @param topology プリミティブトポロジー
 /// @return D3D12プリミティブトポロジー
-D3D12_PRIMITIVE_TOPOLOGY d3d12::getD3D12PrimitiveTopology(core::PrimitiveTopology topology) {
-	static D3D12_PRIMITIVE_TOPOLOGY d3dTopologies[static_cast<size_t>(core::PrimitiveTopology::MAX)] = {
+D3D12_PRIMITIVE_TOPOLOGY Core::D3D12::getD3D12PrimitiveTopology(Core::PrimitiveTopology topology) {
+	static D3D12_PRIMITIVE_TOPOLOGY d3dTopologies[static_cast<size_t>(Core::PrimitiveTopology::MAX)] = {
 		D3D_PRIMITIVE_TOPOLOGY_UNDEFINED,
 		D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 		D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,
@@ -50,8 +50,8 @@ D3D12_PRIMITIVE_TOPOLOGY d3d12::getD3D12PrimitiveTopology(core::PrimitiveTopolog
 /// @brief DXGIのテクスチャフォーマット取得
 /// @param format テクスチャフォーマット
 /// @return DXGIフォーマット
-DXGI_FORMAT d3d12::getDXGIFormat(core::TextureFormat format) {
-	static DXGI_FORMAT d3dDXGIFormat[static_cast<size_t>(core::TextureFormat::MAX)] = {
+DXGI_FORMAT Core::D3D12::getDXGIFormat(Core::TextureFormat format) {
+	static DXGI_FORMAT d3dDXGIFormat[static_cast<size_t>(Core::TextureFormat::MAX)] = {
 	DXGI_FORMAT_UNKNOWN, // 不明
 
 	DXGI_FORMAT_R32G32B32A32_TYPELESS,
@@ -154,7 +154,7 @@ DXGI_FORMAT d3d12::getDXGIFormat(core::TextureFormat format) {
 /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
 /// @param format TypeLessフォーマット
 /// @return DSVフォーマット or そのまま
-DXGI_FORMAT d3d12::getTypeLessToDSVFormat(core::TextureFormat format)
+DXGI_FORMAT Core::D3D12::getTypeLessToDSVFormat(Core::TextureFormat format)
 {
 	auto f = getDXGIFormat(format);
 	if (f == DXGI_FORMAT_R32_TYPELESS)
@@ -178,7 +178,7 @@ DXGI_FORMAT d3d12::getTypeLessToDSVFormat(core::TextureFormat format)
 /// @brief TypeLessフォーマットをSRVフォーマットに変換して返す
 /// @param format TypeLessフォーマット
 /// @return SRVフォーマット or そのまま
-DXGI_FORMAT d3d12::getTypeLessToSRVFormat(core::TextureFormat format)
+DXGI_FORMAT Core::D3D12::getTypeLessToSRVFormat(Core::TextureFormat format)
 {
 	auto f = getDXGIFormat(format);
 	if (f == DXGI_FORMAT_R32_TYPELESS)

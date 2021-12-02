@@ -11,7 +11,7 @@
 #include "D3D12_Defines.h"
 #include <atomic>
 
-namespace d3d12
+namespace Core::D3D12
 {
 	/// @brief DirectX12デストラクタアドレス
 	struct D3D12DescriptorHandle

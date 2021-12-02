@@ -10,6 +10,8 @@
 #include "TransformManager.h"
 #include "ImGui\imgui.h"
 
+using namespace Core;
+
 
  /// @brief インスペクター表示
 void Transform::OnInspectorGUI()

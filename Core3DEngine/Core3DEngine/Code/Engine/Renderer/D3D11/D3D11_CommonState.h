@@ -8,15 +8,15 @@
 #ifndef _D3D11_COMMON_STATE_
 #define _D3D11_COMMON_STATE_
 
-#include <CoreRenderer/Core/Core_CommonState.h>
+#include <Renderer/Core/CommonState.h>
 #include "D3D11_Defines.h"
 
-namespace d3d11
+namespace Core::D3D11
 {
     /// @brief D3D11のリソース使用識別取得
     /// @param usage リソース使用識別
     /// @return D3D11リソース使用識別
-    D3D11_USAGE getD3D11Usage(core::Usage usage);
+    D3D11_USAGE getD3D11Usage(Core::Usage usage);
 
     /// @brief D3D11のバインドフラグ取得
     /// @param flags バインドフラグ
@@ -36,22 +36,22 @@ namespace d3d11
     /// @brief D3D11のプリミティブトポロジー取得
     /// @param topology プリミティブトポロジー
     /// @return D3D11プリミティブトポロジー
-    D3D11_PRIMITIVE_TOPOLOGY getD3D11PrimitiveTopology(core::PrimitiveTopology topology);
+    D3D11_PRIMITIVE_TOPOLOGY getD3D11PrimitiveTopology(Core::PrimitiveTopology topology);
 
     /// @brief DXGIのテクスチャフォーマット取得
     /// @param format テクスチャフォーマット
     /// @return DXGIフォーマット
-    DXGI_FORMAT getDXGIFormat(core::TextureFormat format);
+    DXGI_FORMAT getDXGIFormat(Core::TextureFormat format);
 
     /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
     /// @param format TypeLessフォーマット
     /// @return DSVフォーマット or そのまま
-    DXGI_FORMAT getTypeLessToDSVFormat(core::TextureFormat format);
+    DXGI_FORMAT getTypeLessToDSVFormat(Core::TextureFormat format);
 
     /// @brief TypeLessフォーマットをSRVフォーマットに変換して返す
     /// @param format TypeLessフォーマット
     /// @return SRVフォーマット or そのまま
-    DXGI_FORMAT getTypeLessToSRVFormat(core::TextureFormat format);
+    DXGI_FORMAT getTypeLessToSRVFormat(Core::TextureFormat format);
 }
 
 #endif // !_D3D11_COMMON_STATE_

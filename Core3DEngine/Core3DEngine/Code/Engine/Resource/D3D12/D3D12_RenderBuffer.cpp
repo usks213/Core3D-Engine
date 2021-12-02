@@ -7,16 +7,16 @@
  *********************************************************************/
 
 #include "D3D12_RenderBuffer.h"
-using namespace d3d12;
+using namespace Core::D3D12;
 
 /// @brief コンストラクタ
 /// @param device デバイス
 /// @param id レンダーバッファID
 /// @param shader シェーダー
 /// @param mesh メッシュ
-D3D12RenderBuffer::D3D12RenderBuffer(ID3D12Device* device, const core::RenderBufferID id, 
-	const core::CoreShader& shader, const core::CoreMesh& mesh) :
-	core::CoreRenderBuffer(id, shader, mesh)
+D3D12RenderBuffer::D3D12RenderBuffer(ID3D12Device* device, const Core::RenderBufferID id, 
+	const Core::CoreShader& shader, const Core::CoreMesh& mesh) :
+	Core::CoreRenderBuffer(id, shader, mesh)
 {
 	// ヒーププロパテェの設定
 	D3D12_HEAP_PROPERTIES prop = {};

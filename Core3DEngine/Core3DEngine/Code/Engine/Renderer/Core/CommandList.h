@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_CommandList.h
+ * \file   CommandList.h
  * \brief  レンダーコマンドリストクラス
  *
  * \author USAMI KOSHI
@@ -9,21 +9,21 @@
 #ifndef _CORE_RENDER_CONTEXT_
 #define _CORE_RENDER_CONTEXT_
 
-#include "Core_Buffer.h"
-#include "Core_Material.h"
-#include "Core_RenderBuffer.h"
-#include "Core_RenderTarget.h"
-#include "Core_DepthStencil.h"
-#include "Core_ShaderResource.h"
+#include <Resource\Core\GPUBuffer.h>
+#include <Resource\Core\Material.h>
+#include <Resource\Core\RenderBuffer.h>
+#include <Resource\Core\RenderTarget.h>
+#include <Resource\Core\DepthStencil.h>
+#include <Resource\Core\ShaderResource.h>
 
 
-namespace core
+namespace Core
 {
-	/// @class CoreCommandList
+	/// @class CommandList
 	/// @brief レンダーコマンドリスト
-	class CoreCommandList
+	class CommandList
 	{
-		friend class CoreRenderer;
+		friend class Renderer;
 	public:
 
 		//------------------------------------------------------------------------------
@@ -31,12 +31,12 @@ namespace core
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		explicit CoreCommandList()
+		explicit CommandList()
 		{
 		}
 
 		/// @brief デストラクタ
-		virtual ~CoreCommandList() noexcept = default;
+		virtual ~CommandList() noexcept = default;
 
 
 		//----- リソース指定命令 -----
@@ -70,11 +70,11 @@ namespace core
 
 		//----- バインド命令 -----
 
-		virtual void bindGlobalBuffer(const core::ShaderID& shaderID, const std::string& bindName, const core::BufferID& bufferID) = 0;
+		virtual void bindGlobalBuffer(const Core::ShaderID& shaderID, const std::string& bindName, const Core::GPUBufferID& bufferID) = 0;
 
-		virtual void bindGlobalTexture(const core::ShaderID& shaderID, const std::string& bindName, const core::TextureID& textureID) = 0;
+		virtual void bindGlobalTexture(const Core::ShaderID& shaderID, const std::string& bindName, const Core::TextureID& textureID) = 0;
 
-		virtual void bindGlobalSampler(const core::ShaderID& shaderID, const std::string& bindName, const core::SamplerState& sampler) = 0;
+		virtual void bindGlobalSampler(const Core::ShaderID& shaderID, const std::string& bindName, const Core::SamplerState& sampler) = 0;
 
 
 		//----- 描画命令 -----

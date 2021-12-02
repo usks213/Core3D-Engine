@@ -9,17 +9,17 @@
 #ifndef _D3D11_RENDER_DEVICE_
 #define _D3D11_RENDER_DEVICE_
 
-#include <CoreRenderer/Core/Core_Device.h>
+#include <Renderer/Core/Device.h>
 #include "D3D11_CommonState.h"
 
-namespace d3d11
+namespace Core::D3D11
 {
 	// 前定義
 	class D3D11Renderer;
 
 	/// @class D3D11Device
 	/// @brief D3D11デバイス
-	class D3D11Device final : public core::CoreDevice
+	class D3D11Device final : public Core::Device
 	{
 		friend class D3D11Renderer;
 		friend class D3D11CommandList;
@@ -45,15 +45,15 @@ namespace d3d11
 
 		//----- リソース生成 -----
 
-		core::BufferID		createBuffer(core::BufferDesc& desc, const core::BufferData* pData = nullptr) override;
-		core::DepthStencilID	createDepthStencil(core::TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0) override;
-		core::MaterialID		createMaterial(std::string name, core::ShaderID& shaderID) override;
-		core::MeshID			createMesh(std::string name) override;
-		core::RenderBufferID	createRenderBuffer(core::ShaderID& shaderID, core::MeshID& meshID) override;
-		core::RenderTargetID	createRenderTarget(core::TextureDesc& desc, const Color& color = Color()) override;
-		core::ShaderID		createShader(core::ShaderDesc& desc) override;
-		core::TextureID		createTexture(std::string filePath) override;
-		core::TextureID		createTexture(core::TextureDesc& desc, const core::TextureData* pData = nullptr) override;
+		Core::GPUBufferID		CreateBuffer(Core::GPUBufferDesc& desc, const Core::GPUBufferData* pData = nullptr) override;
+		Core::DepthStencilID	CreateDepthStencil(Core::TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0) override;
+		Core::MaterialID		CreateMaterial(std::string name, Core::ShaderID& shaderID) override;
+		Core::MeshID			CreateMesh(std::string name) override;
+		Core::RenderBufferID	CreateRenderBuffer(Core::ShaderID& shaderID, Core::MeshID& meshID) override;
+		Core::RenderTargetID	CreateRenderTarget(Core::TextureDesc& desc, const Color& color = Color()) override;
+		Core::ShaderID		CreateShader(Core::ShaderDesc& desc) override;
+		Core::TextureID		CreateTexture(std::string filePath) override;
+		Core::TextureID		CreateTexture(Core::TextureDesc& desc, const Core::TextureData* pData = nullptr) override;
 
 	private:
 		//------------------------------------------------------------------------------
@@ -62,11 +62,11 @@ namespace d3d11
 
 		/// @brief スワップチェーンとバッファの生成
 		/// @return HRESULT
-		HRESULT createSwapChainAndBuffer(IDXGIFactory2* pFactory2);
+		HRESULT CreateSwapChainAndBuffer(IDXGIFactory2* pFactory2);
 
 		/// @brief 共通ステートの生成
 		/// @return HRESULT
-		HRESULT createCommonState();
+		HRESULT CreateCommonState();
 
 		//--- 更新リソース ---
 
@@ -103,10 +103,10 @@ namespace d3d11
 		UINT								m_nOutputWidth;			///< 出力サイズ(幅)
 		UINT								m_nOutputHeight;		///< 出力サイズ(高さ)
 
-		ComPtr<ID3D11RasterizerState>		m_rasterizeStates[(size_t)core::RasterizeState::MAX];		///< ラスタライザステート
-		ComPtr<ID3D11SamplerState>		m_samplerStates[(size_t)core::SamplerState::MAX];			///< サンプラステート
-		ComPtr<ID3D11BlendState>			m_blendStates[(size_t)core::BlendState::MAX];				///< ブレンドステート
-		ComPtr<ID3D11DepthStencilState>	m_depthStencilStates[(size_t)core::DepthStencilState::MAX];	///< 深度ステンシルステート
+		ComPtr<ID3D11RasterizerState>		m_rasterizeStates[(size_t)Core::RasterizeState::MAX];		///< ラスタライザステート
+		ComPtr<ID3D11SamplerState>		m_samplerStates[(size_t)Core::SamplerState::MAX];			///< サンプラステート
+		ComPtr<ID3D11BlendState>			m_blendStates[(size_t)Core::BlendState::MAX];				///< ブレンドステート
+		ComPtr<ID3D11DepthStencilState>	m_depthStencilStates[(size_t)Core::DepthStencilState::MAX];	///< 深度ステンシルステート
 
 		//--- 更新リソース ---
 		struct UpdateResourceData

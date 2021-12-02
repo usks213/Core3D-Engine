@@ -1,13 +1,13 @@
 /*****************************************************************//**
- * \file   Core_Material.h
+ * \file   Material.h
  * \brief  マテリアル
  *
  * \author USAMI KOSHI
  * \date   2021/10/05
  *********************************************************************/
 
-#include "Core_Material.h"
-using namespace core;
+#include "Material.h"
+using namespace Core;
 
  /// @brief コンストラクタ
 CoreMaterial::CoreMaterial(const MaterialID& id, const std::string& name, const CoreShader& shader) :
@@ -204,7 +204,7 @@ void CoreMaterial::setSampler(const char* name, const SamplerState sampler)
 }
 
 /// @brief サンプラ取得
-SamplerState CoreMaterial::getSampler(const char* name)
+SamplerState CoreMaterial::GetSampler(const char* name)
 {
 	// 検索
 	for (ShaderStage stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)

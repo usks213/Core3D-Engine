@@ -11,6 +11,8 @@
 #include "Transform.h"
 #include "ComponentManager.h"
 
+using namespace Core;
+
 
 Transform* TransformManager::CreateTransform(
 	const EntityID& entityID, bool bActive, bool bStatic, const TransformID& parentID)

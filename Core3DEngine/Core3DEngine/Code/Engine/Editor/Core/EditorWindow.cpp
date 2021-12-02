@@ -7,6 +7,8 @@
  *********************************************************************/
 #include "EditorWindow.h"
 
+using namespace Core;
+
  /// @brief コンストラクタ
 EditorWindow::EditorWindow() noexcept :
 	m_pManager(nullptr),

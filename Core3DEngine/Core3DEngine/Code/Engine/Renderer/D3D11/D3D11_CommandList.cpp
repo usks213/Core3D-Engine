@@ -9,18 +9,18 @@
 #include "D3D11_CommandList.h"
 #include "D3D11_Renderer.h"
 
-#include "D3D11_Buffer.h"
-#include "D3D11_RenderBuffer.h"
-#include "D3D11_Texture.h"
-#include "D3D11_RenderTarget.h"
-#include "D3D11_DepthStencil.h"
+#include "Resource/D3D11/D3D11_GPUBuffer.h"
+#include "Resource/D3D11/D3D11_RenderBuffer.h"
+#include "Resource/D3D11/D3D11_Texture.h"
+#include "Resource/D3D11/D3D11_RenderTarget.h"
+#include "Resource/D3D11/D3D11_DepthStencil.h"
 
-#include <CoreRenderer/Core/Core_SubResource.h>
+#include <Resource/Core/SubResource.h>
 
 #include <functional>
 
-using namespace core;
-using namespace d3d11;
+using namespace Core;
+using namespace Core::D3D11;
 
 
 //------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ HRESULT D3D11CommandList::initialize(D3D11Renderer* pRenderer, D3D11Device* pDev
 
 //----- リソース指定命令 -----
 
-void D3D11CommandList::setMaterial(const core::MaterialID& materialID)
+void D3D11CommandList::setMaterial(const Core::MaterialID& materialID)
 {
 	// マテリアルの取得
 	auto* d3dMat = static_cast<D3D11Material*>(m_pDevice->getMaterial(materialID));
@@ -134,12 +134,12 @@ void D3D11CommandList::setMaterial(const core::MaterialID& materialID)
 	}
 }
 
-void D3D11CommandList::setRenderBuffer(const core::RenderBufferID& renderBufferID)
+void D3D11CommandList::setRenderBuffer(const Core::RenderBufferID& renderBufferID)
 {
 	auto* cmdList = m_pDeferredContext.Get();
 
 	// データの取得
-	auto* renderBuffer = static_cast<D3D11RenderBuffer*>(m_pDevice->getRenderBuffer(renderBufferID));
+	auto* renderBuffer = static_cast<D3D11RenderBuffer*>(m_pDevice->GetRenderBuffer(renderBufferID));
 
 	// 頂点バッファをセット
 	UINT stride = static_cast<UINT>(renderBuffer->m_vertexData.size);
@@ -167,7 +167,7 @@ void D3D11CommandList::setGraphicsPipelineState(const ShaderID& shaderID, const 
 	const RasterizeState& rs, const DepthStencilState& ds)
 {
 	// シェーダーの指定
-	auto* d3dShader = static_cast<D3D11Shader*>(m_pDevice->getShader(shaderID));
+	auto* d3dShader = static_cast<D3D11Shader*>(m_pDevice->GetShader(shaderID));
 	if (d3dShader)
 	{
 		// シェーダーデータ指定
@@ -223,7 +223,7 @@ void D3D11CommandList::setRenderTarget(std::uint32_t num, const RenderTargetID r
 	rtvs.resize(num);
 	for (int i = 0; i < num; ++i)
 	{
-		auto* pRT = static_cast<D3D11RenderTarget*>(m_pDevice->getRenderTarget(rtIDs[i]));
+		auto* pRT = static_cast<D3D11RenderTarget*>(m_pDevice->GetRenderTarget(rtIDs[i]));
 		if (pRT) rtvs[i] = pRT->m_rtv.Get();
 		else rtvs[i] = nullptr;
 	}
@@ -259,10 +259,10 @@ void D3D11CommandList::setViewport(const Viewport& viewport)
 
 //----- バインド命令 -----
 
-void D3D11CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const std::string& bindName, const core::BufferID& bufferID)
+void D3D11CommandList::bindGlobalBuffer(const Core::ShaderID& shaderID, const std::string& bindName, const Core::GPUBufferID& bufferID)
 {
-	auto pShader = static_cast<D3D11Shader*>(m_pDevice->getShader(shaderID));
-	auto* pBuffer = static_cast<D3D11Buffer*>(m_pDevice->getBuffer(bufferID));
+	auto pShader = static_cast<D3D11Shader*>(m_pDevice->GetShader(shaderID));
+	auto* pBuffer = static_cast<D3D11GPUBuffer*>(m_pDevice->getBuffer(bufferID));
 	auto type = static_cast<std::size_t>(pBuffer->m_type);
 
 	// ステージごと
@@ -277,8 +277,8 @@ void D3D11CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 			// GPUバッファ更新
 			if (pBuffer->m_isUpdate)
 			{
-				if (pBuffer->m_desc.usage == core::Usage::DYNAMIC || 
-					pBuffer->m_desc.usage == core::Usage::STAGING)
+				if (pBuffer->m_desc.usage == Core::Usage::DYNAMIC || 
+					pBuffer->m_desc.usage == Core::Usage::STAGING)
 				{
 					D3D11_MAPPED_SUBRESOURCE subData = {};
 					CHECK_FAILED(m_pDeferredContext->Map(pBuffer->m_pBuffer.Get(), 0,
@@ -286,7 +286,7 @@ void D3D11CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 					std::memcpy(subData.pData, pBuffer->m_aData.data(), pBuffer->m_aData.size());
 					m_pDeferredContext->Unmap(pBuffer->m_pBuffer.Get(), 0);
 				}
-				else if(pBuffer->m_desc.usage == core::Usage::DEFAULT)
+				else if(pBuffer->m_desc.usage == Core::Usage::DEFAULT)
 				{
 					m_pDeferredContext->UpdateSubresource(pBuffer->m_pBuffer.Get(), 0, nullptr,
 						pBuffer->m_aData.data(), 0, 0);
@@ -295,17 +295,17 @@ void D3D11CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 			}
 
 			// CBV,SRV,UAV
-			if (pBuffer->m_type == CoreBuffer::BufferType::CBV)
+			if (pBuffer->m_type == GPUBuffer::BufferType::CBV)
 			{
 				setCBuffer[stageIndex](m_pDeferredContext.Get(), itr->second.slot,
 					1, pBuffer->m_pBuffer.GetAddressOf());
 			}
-			else if (pBuffer->m_type == CoreBuffer::BufferType::SRV)
+			else if (pBuffer->m_type == GPUBuffer::BufferType::SRV)
 			{
 				setShaderResource[stageIndex](m_pDeferredContext.Get(), itr->second.slot,
 					1, pBuffer->m_pSRV.GetAddressOf());
 			}
-			else if (pBuffer->m_type == CoreBuffer::BufferType::UAV)
+			else if (pBuffer->m_type == GPUBuffer::BufferType::UAV)
 			{
 				if (stage == ShaderStage::CS)
 				{
@@ -318,10 +318,10 @@ void D3D11CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 	}
 }
 
-void D3D11CommandList::bindGlobalTexture(const core::ShaderID& shaderID, const std::string& bindName, const core::TextureID& textureID)
+void D3D11CommandList::bindGlobalTexture(const Core::ShaderID& shaderID, const std::string& bindName, const Core::TextureID& textureID)
 {
 	constexpr auto type = static_cast<std::size_t>(BindType::TEXTURE);
-	auto* pShader = static_cast<D3D11Shader*>(m_pDevice->getShader(shaderID));
+	auto* pShader = static_cast<D3D11Shader*>(m_pDevice->GetShader(shaderID));
 	auto* pTexture = static_cast<D3D11Texture*>(m_pDevice->getTexture(textureID));
 
 	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
@@ -338,10 +338,10 @@ void D3D11CommandList::bindGlobalTexture(const core::ShaderID& shaderID, const s
 	}
 }
 
-void D3D11CommandList::bindGlobalSampler(const core::ShaderID& shaderID, const std::string& bindName, const core::SamplerState& sampler)
+void D3D11CommandList::bindGlobalSampler(const Core::ShaderID& shaderID, const std::string& bindName, const Core::SamplerState& sampler)
 {
 	constexpr auto type = static_cast<std::size_t>(BindType::SAMPLER);
-	auto* pShader = static_cast<D3D11Shader*>(m_pDevice->getShader(shaderID));
+	auto* pShader = static_cast<D3D11Shader*>(m_pDevice->GetShader(shaderID));
 	const auto& samplerState = m_pDevice->m_samplerStates[static_cast<size_t>(sampler)];
 
 	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
@@ -361,12 +361,12 @@ void D3D11CommandList::bindGlobalSampler(const core::ShaderID& shaderID, const s
 
 //----- 描画命令
 
-void D3D11CommandList::render(const core::RenderBufferID& renderBufferID, std::uint32_t instanceCount)
+void D3D11CommandList::render(const Core::RenderBufferID& renderBufferID, std::uint32_t instanceCount)
 {
 	auto* cmdList = m_pDeferredContext.Get();
 
 	// データの取得
-	auto* renderBuffer = static_cast<D3D11RenderBuffer*>(m_pDevice->getRenderBuffer(renderBufferID));
+	auto* renderBuffer = static_cast<D3D11RenderBuffer*>(m_pDevice->GetRenderBuffer(renderBufferID));
 
 	// ポリゴンの描画
 	if (renderBuffer->m_indexData.count > 0)
@@ -408,7 +408,7 @@ void D3D11CommandList::clearBackBuffer(const Color& color)
 void D3D11CommandList::clearRederTarget(const RenderTargetID& rtID, const Color& color)
 {
 	// レンダーターゲット取得
-	auto* pRT = static_cast<D3D11RenderTarget*>(m_pDevice->getRenderTarget(rtID));
+	auto* pRT = static_cast<D3D11RenderTarget*>(m_pDevice->GetRenderTarget(rtID));
 	if (pRT == nullptr) return;
 
 	FLOAT ColorRGBA[4];
@@ -431,7 +431,7 @@ void D3D11CommandList::clearDepthStencil(const DepthStencilID& dsID, float depth
 
 //----- コピー -----
 
-void D3D11CommandList::copyBackBuffer(const core::TextureID& sourceID)
+void D3D11CommandList::copyBackBuffer(const Core::TextureID& sourceID)
 {
 	// テクスチャ取得
 	auto* pTex = static_cast<D3D11Texture*>(m_pDevice->getTexture(sourceID));
@@ -445,7 +445,7 @@ void D3D11CommandList::copyBackBuffer(const core::TextureID& sourceID)
 	m_pDeferredContext->CopyResource(pDest, pSource);
 }
 
-void D3D11CommandList::copyTexture(const core::TextureID& destID, const core::TextureID& sourceID)
+void D3D11CommandList::copyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID)
 {
 	// テクスチャ取得
 	auto* pTexA = static_cast<D3D11Texture*>(m_pDevice->getTexture(destID));
@@ -465,12 +465,12 @@ void D3D11CommandList::copyTexture(const core::TextureID& destID, const core::Te
 // private methods 
 //------------------------------------------------------------------------------
 
-void D3D11CommandList::setCBufferResource(std::uint32_t slot, const core::BufferID& bufferID, core::ShaderStage stage)
+void D3D11CommandList::setCBufferResource(std::uint32_t slot, const Core::GPUBufferID& bufferID, Core::ShaderStage stage)
 {
 
 }
 
-void D3D11CommandList::setTextureResource(std::uint32_t slot, const core::TextureID& textureID, core::ShaderStage stage)
+void D3D11CommandList::setTextureResource(std::uint32_t slot, const Core::TextureID& textureID, Core::ShaderStage stage)
 {
 	auto stageIndex = static_cast<std::size_t>(stage);
 
@@ -488,7 +488,7 @@ void D3D11CommandList::setTextureResource(std::uint32_t slot, const core::Textur
 	}
 }
 
-void D3D11CommandList::setSamplerResource(std::uint32_t slot, core::SamplerState state, core::ShaderStage stage)
+void D3D11CommandList::setSamplerResource(std::uint32_t slot, Core::SamplerState state, Core::ShaderStage stage)
 {
 	auto stageIndex = static_cast<size_t>(stage);
 	setSamplers[stageIndex](m_pDeferredContext.Get(), slot, 1, 

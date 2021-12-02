@@ -7,8 +7,10 @@
  *********************************************************************/
 #include "InspectorWindow.h"
 
-#include <CoreEditor\Core_Editor.h>
-#include <CoreEngine\Core_Engine.h>
+#include <Editor\Core\Editor.h>
+#include <Core\Engine.h>
+
+using namespace Core;
 
  /// @brief コンストラクタ
 InspectorWindow::InspectorWindow() noexcept
@@ -25,8 +27,8 @@ InspectorWindow::InspectorWindow() noexcept
 void InspectorWindow::OnGUI()
 {
 	// 現在シーンの取得
-	auto* pEditor = GetEditorWindowManager()->GetCoreEditor();
-	auto* pSceneMgr = pEditor->getCoreEngine()->getSceneManager();
+	auto* pEditor = GetEditorWindowManager()->GetEditor();
+	auto* pSceneMgr = pEditor->GetEngine()->GetSceneManager();
 	auto* pScene = pSceneMgr->GetCurrentScene();
 	if (pScene == nullptr) return;
 

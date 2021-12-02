@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Engine.h
+ * \file   Engine.h
  * \brief  エンジンクラス
  * 
  * \author USAMI KOSHI
@@ -9,26 +9,27 @@
 #ifndef _CORE_ENGINE_
 #define _CORE_ENGINE_
 
-
 #include <memory>
 #include <chrono>
 
 #include <Utils\Util_Singleton.h>
-#include <CoreSystem\Window\Core\Core_Window.h>
-#include <CoreRenderer\Core\Core_Renderer.h>
-#include <CoreEditor\Core_Editor.h>
-#include "Core\SceneManager.h"
+#include <Window\Core\Window.h>
+#include <Renderer\Core\Renderer.h>
+#include <Editor\Core\Editor.h>
+#include <Runtime\Core\SceneManager.h>
 
+#ifdef CreateWindow
+#undef CreateWindow
+#endif // CreateWindow
 
-namespace core
+namespace Core
 {
-
-	/// @class CoreEngine
+	/// @class Engine
 	/// @brief エンジン
-	class CoreEngine final : public util::UtilSingleton<CoreEngine>
+	class Engine final : public Util::UtilSingleton<Engine>
 	{
 	private:
-		friend util::UtilSingleton<CoreEngine>;
+		friend Util::UtilSingleton<Engine>;
 
 	public:
 		//------------------------------------------------------------------------------
@@ -47,64 +48,65 @@ namespace core
 
 		/// @brief ウィンドウの生成
 		/// @tparam T ウィンドウタイプ
-		/// @tparam CoreWindow継承型のみ
+		/// @tparam Window継承型のみ
 		/// @return ウィンドウのポインタ
-		template<class T, typename = std::enable_if_t<std::is_base_of_v<CoreWindow, T>>>
-		T* createWindow(util::String windowName, int windowWidth, int windowHeight) {
+		template<class T, typename = std::enable_if_t<std::is_base_of_v<Window, T>>>
+		T* CreateWindow(Util::String windowName, std::uint32_t windowWidth, std::uint32_t windowHeight)
+		{
 			m_pWindow = std::make_unique<T>(windowName, windowWidth, windowHeight);
-			m_pWindow->setCoreEngine(this);
+			m_pWindow->SetEngine(this);
 			return static_cast<T*>(m_pWindow.get());
 		}
 
 		/// @brief レンダラーの生成
 		/// @tparam T レンダラータイプ
-		/// @tparam CoreRenderer継承型のみ
+		/// @tparam Renderer継承型のみ
 		/// @return レンダラーのポインタ
-		template<class T, typename = std::enable_if_t<std::is_base_of_v<CoreRenderer, T>>>
-		T* createRenderer() {
+		template<class T, typename = std::enable_if_t<std::is_base_of_v<Renderer, T>>>
+		T* CreateRenderer() {
 			m_pRenderer = std::make_unique<T>();
-			m_pRenderer->setCoreEngine(this);
+			m_pRenderer->SetEngine(this);
 			return static_cast<T*>(m_pRenderer.get());
 		}
 
 		/// @brief エディターの生成
 		/// @tparam T エディタータイプ
-		/// @tparam CoreEditor継承型のみ
+		/// @tparam Editor継承型のみ
 		/// @return エディターのポインタ
-		template<class T, typename = std::enable_if_t<std::is_base_of_v<CoreEditor, T>>>
-		T* createEditor() {
+		template<class T, typename = std::enable_if_t<std::is_base_of_v<Editor, T>>>
+		T* CreateEditor() {
 			m_pEditor = std::make_unique<T>();
-			m_pEditor->setCoreEngine(this);
+			m_pEditor->SetEngine(this);
 			return static_cast<T*>(m_pEditor.get());
 		}
 
 		/// @brief ウィンドウの取得
 		/// @return ウィンドウのポインタ
-		[[nodiscard]] CoreWindow* getWindow() const noexcept { return m_pWindow.get(); }
+		[[nodiscard]] Window* GetWindow() const noexcept { return m_pWindow.get(); }
 
 		/// @brief レンダラー取得
 		/// @return レンダラーのポインタ
-		[[nodiscard]] CoreRenderer* getRenderer() const noexcept { return m_pRenderer.get(); }
+		[[nodiscard]] Renderer* GetRenderer() const noexcept { return m_pRenderer.get(); }
 
 		/// @brief エディター取得
 		/// @return エディターのポインタ
-		[[nodiscard]] CoreEditor* getEditor() const noexcept { return m_pEditor.get(); }
+		[[nodiscard]] Editor* GetEditor() const noexcept { return m_pEditor.get(); }
 
 		/// @brief シーンマネージャーの取得
 		/// @return シーンマネージャーのポインタ
-		[[nodiscard]] SceneManager* getSceneManager() const noexcept { return m_pSceneManager.get(); }
+		[[nodiscard]] SceneManager* GetSceneManager() const noexcept { return m_pSceneManager.get(); }
 
 		/// @brief ウィンドウ名取得
 		/// @return ウィンドウ名
-		[[nodiscard]] util::String getWindowName() const noexcept { return m_pWindow->getWindowName(); }
+		[[nodiscard]] Util::String GetWindowName() const noexcept { return m_pWindow->GetWindowName(); }
 
 		/// @brief ウィンドウの幅取得
 		/// @return ウィンドウの幅(整数)
-		[[nodiscard]] int getWindowWidth() const noexcept { return m_pWindow->getWindowWidth(); }
+		[[nodiscard]] int GetWindowWidth() const noexcept { return m_pWindow->GetWindowWidth(); }
 
 		/// @brief ウィンドウの高さ取得
 		/// @return ウィンドウの高さ(整数)
-		[[nodiscard]] int getWindowHeight() const noexcept { return m_pWindow->getWindowHeight(); }
+		[[nodiscard]] int GetWindowHeight() const noexcept { return m_pWindow->GetWindowHeight(); }
 
 		/// @brief 現在のフレームレート取得
 		/// @return フレームレート(整数)
@@ -116,19 +118,19 @@ namespace core
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		CoreEngine();
+		Engine();
 
 		/// @brief デストラクタ
-		~CoreEngine() = default;
+		~Engine() = default;
 
 	private:
 		//------------------------------------------------------------------------------
 		// private variables
 		//------------------------------------------------------------------------------
 
-		std::unique_ptr<CoreWindow>				m_pWindow;				///< ウィンドウ
-		std::unique_ptr<CoreRenderer>			m_pRenderer;			///< レンダラー
-		std::unique_ptr<CoreEditor>				m_pEditor;				///< エディター
+		std::unique_ptr<Window>				m_pWindow;				///< ウィンドウ
+		std::unique_ptr<Renderer>			m_pRenderer;			///< レンダラー
+		std::unique_ptr<Editor>				m_pEditor;				///< エディター
 
 		std::unique_ptr<SceneManager>			m_pSceneManager;		///< シーンマネージャー
 		///< リソースマネージャー

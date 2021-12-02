@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Mesh.h
+ * \file   Mesh.h
  * \brief  メッシュクラス
  * 
  * \author USAMI KOSHI
@@ -11,10 +11,10 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
-#include "Core_CommonState.h"
+#include <Renderer\Core\CommonState.h>
 #include <Utils/Util_Mathf.h>
 
-namespace core
+namespace Core
 {
 	/// @brief メッシュID
 	enum class MeshID : std::uint32_t {};

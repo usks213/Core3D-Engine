@@ -7,21 +7,23 @@
  *********************************************************************/
 #include "EditorWindowManager.h"
 
-#include <CoreEngine\Core_Engine.h>
+#include <Engine\Core\Engine.h>
 #include "ImGui\imgui.h"
 
-#include <CoreEditor/Window/ConsoleWindow.h>
-#include <CoreEditor/Window/GameWindow.h>
-#include <CoreEditor/Window/HierarchyWindow.h>
-#include <CoreEditor/Window/InspectorWindow.h>
-#include <CoreEditor/Window/ProjectWindow.h>
-#include <CoreEditor/Window/SceneWindow.h>
+#include <Editor/Window/ConsoleWindow.h>
+#include <Editor/Window/GameWindow.h>
+#include <Editor/Window/HierarchyWindow.h>
+#include <Editor/Window/InspectorWindow.h>
+#include <Editor/Window/ProjectWindow.h>
+#include <Editor/Window/SceneWindow.h>
+
+using namespace Core;
 						
 
  /// @brief コンストラクタ
- /// @param pCoreEditor コアエディターポインタ
-EditorWindowManager::EditorWindowManager(core::CoreEditor* pCoreEditor) noexcept :
-	m_pCoreEditor(pCoreEditor)
+ /// @param pEditor コアエディターポインタ
+EditorWindowManager::EditorWindowManager(Core::Editor* pEditor) noexcept :
+	m_pEditor(pEditor)
 {
 	AddEditorWindow<GameWindow>();
 	AddEditorWindow<HierarchyWindow>();
@@ -32,8 +34,8 @@ EditorWindowManager::EditorWindowManager(core::CoreEditor* pCoreEditor) noexcept
  /// @brief ウィンドウの表示
 void EditorWindowManager::DispWindow()
 {
-	float width = static_cast<float>(GetCoreEditor()->getCoreEngine()->getWindowWidth());
-	float height = static_cast<float>(GetCoreEditor()->getCoreEngine()->getWindowHeight());
+	float width = static_cast<float>(GetEditor()->GetEngine()->GetWindowWidth());
+	float height = static_cast<float>(GetEditor()->GetEngine()->GetWindowHeight());
 
 	// overlayウィンドウの表示表示
 	static ImGuiID dockspaceID = 0;

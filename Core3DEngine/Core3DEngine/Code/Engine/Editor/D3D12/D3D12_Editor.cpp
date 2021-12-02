@@ -7,13 +7,13 @@
  *********************************************************************/
 #include "D3D12_Editor.h"
 
-#include <CoreRenderer\D3D12\D3D12_CommandList.h>
+#include <Renderer\D3D12\D3D12_CommandList.h>
 
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_impl_win32.h>
 #include <ImGui/imgui_impl_dx12.h>
 
-using namespace d3d12;
+using namespace Core::D3D12;
 
 /// @brief 初期化処理
 /// @param hWnd ウィンドウハンドル
@@ -101,7 +101,7 @@ void D3D12Editor::NewFrame()
 
 /// @brief 描画
 /// @param cmdList コマンドリスト
-void D3D12Editor::Render(core::CoreCommandList* cmdList)
+void D3D12Editor::Render(Core::CommandList* cmdList)
 {
 
 	// バックバッファ指定

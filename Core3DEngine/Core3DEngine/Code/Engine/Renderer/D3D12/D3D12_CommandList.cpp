@@ -10,18 +10,18 @@
 #include "D3D12_Renderer.h"
 #include "D3D12_Device.h"
 
-#include "D3D12_Buffer.h"
-#include "D3D12_RenderBuffer.h"
-#include "D3D12_Texture.h"
-#include "D3D12_RenderTarget.h"
-#include "D3D12_DepthStencil.h"
+#include "Resource/D3D12/D3D12_GPUBuffer.h"
+#include "Resource/D3D12/D3D12_RenderBuffer.h"
+#include "Resource/D3D12/D3D12_Texture.h"
+#include "Resource/D3D12/D3D12_RenderTarget.h"
+#include "Resource/D3D12/D3D12_DepthStencil.h"
 
-#include <CoreRenderer/Core/Core_SubResource.h>
+#include <Resource/Core/SubResource.h>
 
 #include <functional>
 
-using namespace core;
-using namespace d3d12;
+using namespace Core;
+using namespace Core::D3D12;
 
 
 //------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ HRESULT D3D12CommandList::initialize(D3D12Renderer* pRenderer, D3D12Device* pDev
 
 //----- リソース指定命令 -----
 
-void D3D12CommandList::setMaterial(const core::MaterialID& materialID)
+void D3D12CommandList::setMaterial(const Core::MaterialID& materialID)
 {
 	// マテリアルの取得
 	auto* d3dMat = static_cast<D3D12Material*>(m_pDevice->getMaterial(materialID));
@@ -130,10 +130,10 @@ void D3D12CommandList::setMaterial(const core::MaterialID& materialID)
 	}
 }
 
-void D3D12CommandList::setRenderBuffer(const core::RenderBufferID& renderBufferID)
+void D3D12CommandList::setRenderBuffer(const Core::RenderBufferID& renderBufferID)
 {
 	// データの取得
-	auto* renderBuffer = static_cast<D3D12RenderBuffer*>(m_pDevice->getRenderBuffer(renderBufferID));
+	auto* renderBuffer = static_cast<D3D12RenderBuffer*>(m_pDevice->GetRenderBuffer(renderBufferID));
 
 	// 頂点バッファをセット
 	UINT stride = static_cast<UINT>(renderBuffer->m_vertexData.size);
@@ -175,11 +175,11 @@ void D3D12CommandList::setGraphicsPipelineState(const ShaderID& shaderID, const 
 	const RasterizeState& rs, const DepthStencilState& ds)
 {
 	// シェーダーの取得
-	auto* d3d12Shader = static_cast<D3D12Shader*>(m_pDevice->getShader(shaderID));
+	auto* d3d12Shader = static_cast<D3D12Shader*>(m_pDevice->GetShader(shaderID));
 	if (d3d12Shader == nullptr) return;
 
 	// パイプラインステートの取得・指定
-	auto pipelineState = m_pDevice->createGraphicsPipelineState(*d3d12Shader, bs, rs, ds);
+	auto pipelineState = m_pDevice->CreateGraphicsPipelineState(*d3d12Shader, bs, rs, ds);
 	m_pCmdList->SetPipelineState(pipelineState);
 
 	// ルートシグネチャーのセット
@@ -213,7 +213,7 @@ void D3D12CommandList::setRenderTarget(std::uint32_t num, const RenderTargetID r
 	rtvs.resize(num);
 	for (int i = 0; i < num; ++i)
 	{
-		auto* pRT = static_cast<D3D12RenderTarget*>(m_pDevice->getRenderTarget(rtIDs[i]));
+		auto* pRT = static_cast<D3D12RenderTarget*>(m_pDevice->GetRenderTarget(rtIDs[i]));
 		if (pRT)
 		{
 			auto* pTex = static_cast<D3D12Texture*>(m_pDevice->getTexture(pRT->m_texID));
@@ -289,10 +289,10 @@ void D3D12CommandList::setViewport(const Viewport& viewport)
 
 //----- バインド命令 -----
 
-void D3D12CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const std::string& bindName, const core::BufferID& bufferID)
+void D3D12CommandList::bindGlobalBuffer(const Core::ShaderID& shaderID, const std::string& bindName, const Core::GPUBufferID& bufferID)
 {
-	auto* pShader = static_cast<D3D12Shader*>(m_pDevice->getShader(shaderID));
-	auto* pBuffer = static_cast<D3D12Buffer*>(m_pDevice->getBuffer(bufferID));
+	auto* pShader = static_cast<D3D12Shader*>(m_pDevice->GetShader(shaderID));
+	auto* pBuffer = static_cast<D3D12GPUBuffer*>(m_pDevice->getBuffer(bufferID));
 	auto type = static_cast<std::size_t>(pBuffer->m_type);
 
 	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
@@ -320,7 +320,7 @@ void D3D12CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 			// ビュー指定
 			if (stage != ShaderStage::CS)
 			{
-				if (pBuffer->m_type == CoreBuffer::BufferType::CBV)
+				if (pBuffer->m_type == GPUBuffer::BufferType::CBV)
 				{
 					// 遷移リソースバリア
 					setTrasitionResourceBarrier(pBuffer->m_pBuffer.Get(), pBuffer->m_eState,
@@ -330,7 +330,7 @@ void D3D12CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 						itr->second.rootIndex,
 						pBuffer->m_pBuffer->GetGPUVirtualAddress());
 				}
-				else if (pBuffer->m_type == CoreBuffer::BufferType::SRV)
+				else if (pBuffer->m_type == GPUBuffer::BufferType::SRV)
 				{
 					// 遷移リソースバリア
 					setTrasitionResourceBarrier(pBuffer->m_pBuffer.Get(), pBuffer->m_eState,
@@ -341,7 +341,7 @@ void D3D12CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 						itr->second.rootIndex,
 						pBuffer->m_pBuffer->GetGPUVirtualAddress());
 				}
-				else if (pBuffer->m_type == CoreBuffer::BufferType::UAV)
+				else if (pBuffer->m_type == GPUBuffer::BufferType::UAV)
 				{
 					// 遷移リソースバリア
 					setTrasitionResourceBarrier(pBuffer->m_pBuffer.Get(), pBuffer->m_eState,
@@ -354,7 +354,7 @@ void D3D12CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 			}
 			else
 			{
-				if (pBuffer->m_type == CoreBuffer::BufferType::CBV)
+				if (pBuffer->m_type == GPUBuffer::BufferType::CBV)
 				{
 					// 遷移リソースバリア
 					setTrasitionResourceBarrier(pBuffer->m_pBuffer.Get(), pBuffer->m_eState,
@@ -364,7 +364,7 @@ void D3D12CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 						itr->second.rootIndex,
 						pBuffer->m_pBuffer->GetGPUVirtualAddress());
 				}
-				else if (pBuffer->m_type == CoreBuffer::BufferType::SRV)
+				else if (pBuffer->m_type == GPUBuffer::BufferType::SRV)
 				{
 					// 遷移リソースバリア
 					setTrasitionResourceBarrier(pBuffer->m_pBuffer.Get(), pBuffer->m_eState,
@@ -374,7 +374,7 @@ void D3D12CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 						itr->second.rootIndex,
 						pBuffer->m_pBuffer->GetGPUVirtualAddress());
 				}
-				else if (pBuffer->m_type == CoreBuffer::BufferType::UAV)
+				else if (pBuffer->m_type == GPUBuffer::BufferType::UAV)
 				{
 					// 遷移リソースバリア
 					setTrasitionResourceBarrier(pBuffer->m_pBuffer.Get(), pBuffer->m_eState,
@@ -390,10 +390,10 @@ void D3D12CommandList::bindGlobalBuffer(const core::ShaderID& shaderID, const st
 	}
 }
 
-void D3D12CommandList::bindGlobalTexture(const core::ShaderID& shaderID, const std::string& bindName, const core::TextureID& textureID)
+void D3D12CommandList::bindGlobalTexture(const Core::ShaderID& shaderID, const std::string& bindName, const Core::TextureID& textureID)
 {
 	constexpr auto type = static_cast<std::size_t>(BindType::TEXTURE);
-	auto* pShader = static_cast<D3D12Shader*>(m_pDevice->getShader(shaderID));
+	auto* pShader = static_cast<D3D12Shader*>(m_pDevice->GetShader(shaderID));
 	auto* pTexture = static_cast<D3D12Texture*>(m_pDevice->getTexture(textureID));
 
 	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
@@ -420,10 +420,10 @@ void D3D12CommandList::bindGlobalTexture(const core::ShaderID& shaderID, const s
 	}
 }
 
-void D3D12CommandList::bindGlobalSampler(const core::ShaderID& shaderID, const std::string& bindName, const core::SamplerState& sampler)
+void D3D12CommandList::bindGlobalSampler(const Core::ShaderID& shaderID, const std::string& bindName, const Core::SamplerState& sampler)
 {
 	constexpr auto type = static_cast<std::size_t>(BindType::SAMPLER);
-	auto* pShader = static_cast<D3D12Shader*>(m_pDevice->getShader(shaderID));
+	auto* pShader = static_cast<D3D12Shader*>(m_pDevice->GetShader(shaderID));
 	const auto& samplerHandle = m_pDevice->m_dynamicSamplers[static_cast<size_t>(sampler)];
 
 	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
@@ -447,10 +447,10 @@ void D3D12CommandList::bindGlobalSampler(const core::ShaderID& shaderID, const s
 
 //----- 描画命令
 
-void D3D12CommandList::render(const core::RenderBufferID& renderBufferID, std::uint32_t instanceCount)
+void D3D12CommandList::render(const Core::RenderBufferID& renderBufferID, std::uint32_t instanceCount)
 {
 	// データの取得
-	auto* renderBuffer = static_cast<D3D12RenderBuffer*>(m_pDevice->getRenderBuffer(renderBufferID));
+	auto* renderBuffer = static_cast<D3D12RenderBuffer*>(m_pDevice->GetRenderBuffer(renderBufferID));
 
 	// ポリゴンの描画
 	if (renderBuffer->m_indexData.count > 0)
@@ -504,7 +504,7 @@ void D3D12CommandList::clearBackBuffer(const Color& color)
 void D3D12CommandList::clearRederTarget(const RenderTargetID& rtID, const Color& color)
 {
 	// レンダーターゲット取得
-	auto* pRT = static_cast<D3D12RenderTarget*>(m_pDevice->getRenderTarget(rtID));
+	auto* pRT = static_cast<D3D12RenderTarget*>(m_pDevice->GetRenderTarget(rtID));
 	if (pRT == nullptr) return;
 
 	// テクスチャ取得
@@ -543,7 +543,7 @@ void D3D12CommandList::clearDepthStencil(const DepthStencilID& dsID, float depth
 
 //----- コピー -----
 
-void D3D12CommandList::copyBackBuffer(const core::TextureID& sourceID)
+void D3D12CommandList::copyBackBuffer(const Core::TextureID& sourceID)
 {
 	// テクスチャ取得
 	auto* pTex = static_cast<D3D12Texture*>(m_pDevice->getTexture(sourceID));
@@ -562,7 +562,7 @@ void D3D12CommandList::copyBackBuffer(const core::TextureID& sourceID)
 	m_pCmdList->CopyResource(pDest, pSource);
 }
 
-void D3D12CommandList::copyTexture(const core::TextureID& destID, const core::TextureID& sourceID)
+void D3D12CommandList::copyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID)
 {
 	// テクスチャ取得
 	auto* pTexA = static_cast<D3D12Texture*>(m_pDevice->getTexture(destID));
@@ -587,7 +587,7 @@ void D3D12CommandList::copyTexture(const core::TextureID& destID, const core::Te
 // private methods 
 //------------------------------------------------------------------------------
 
-void D3D12CommandList::setTextureResource(core::ShaderStage stage, std::uint32_t rootIndex, const core::TextureID& textureID)
+void D3D12CommandList::setTextureResource(Core::ShaderStage stage, std::uint32_t rootIndex, const Core::TextureID& textureID)
 {
 	D3D12Texture* pD3DTex = static_cast<D3D12Texture*>(m_pDevice->getTexture(textureID));
 
@@ -611,7 +611,7 @@ void D3D12CommandList::setTextureResource(core::ShaderStage stage, std::uint32_t
 	}
 }
 
-void D3D12CommandList::setSamplerResource(core::ShaderStage stage, std::uint32_t rootIndex, core::SamplerState state)
+void D3D12CommandList::setSamplerResource(Core::ShaderStage stage, std::uint32_t rootIndex, Core::SamplerState state)
 {
 	// ヒープ指定
 	ID3D12DescriptorHeap* pHeap[] = { m_pDevice->m_pSamplerHeap.Get() };

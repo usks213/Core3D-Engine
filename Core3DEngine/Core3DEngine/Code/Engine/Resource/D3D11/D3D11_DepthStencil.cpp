@@ -7,15 +7,16 @@
  *********************************************************************/
 
 #include "D3D11_DepthStencil.h"
-#include "D3D11_CommonState.h"
-using namespace d3d11;
+#include <Renderer\D3D11\D3D11_CommonState.h>
+
+using namespace Core::D3D11;
 
 /// @brief コンストラクタ
 /// @param device デバイス
 /// @param id デプスステンシルID
 /// @param d3dTex d3dテクスチャ
-D3D11DepthStencil::D3D11DepthStencil(ID3D11Device1* device, const core::DepthStencilID& id, D3D11Texture& d3dTex) :
-	core::CoreDepthStencil(id, d3dTex),
+D3D11DepthStencil::D3D11DepthStencil(ID3D11Device1* device, const Core::DepthStencilID& id, D3D11Texture& d3dTex) :
+	Core::CoreDepthStencil(id, d3dTex),
 	m_dsv(nullptr)
 {
 	// 深度ステンシルビュー

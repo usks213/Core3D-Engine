@@ -8,14 +8,14 @@
 #ifndef _D3D12_RENDER_BUFFER_
 #define _D3D12_RENDER_BUFFER_
 
-#include <CoreRenderer/Core/Core_RenderBuffer.h>
-#include "D3D12_Defines.h"
+#include <Resource/Core/RenderBuffer.h>
+#include <Renderer\D3D12\D3D12_Defines.h>
 
-namespace d3d12
+namespace Core::D3D12
 {
 	/// @class D3D12RenderBuffer
 	/// @brief DirectX12レンダーバッファ
-	class D3D12RenderBuffer final : public core::CoreRenderBuffer
+	class D3D12RenderBuffer final : public Core::CoreRenderBuffer
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,8 +27,8 @@ namespace d3d12
 		/// @param id レンダーバッファID
 		/// @param shader シェーダー
 		/// @param mesh メッシュ
-		explicit D3D12RenderBuffer(ID3D12Device* device, const core::RenderBufferID id, 
-			const core::CoreShader& shader, const core::CoreMesh& mesh);
+		explicit D3D12RenderBuffer(ID3D12Device* device, const Core::RenderBufferID id, 
+			const Core::CoreShader& shader, const Core::CoreMesh& mesh);
 
 		/// @brief デストラクタ
 		~D3D12RenderBuffer() noexcept = default;

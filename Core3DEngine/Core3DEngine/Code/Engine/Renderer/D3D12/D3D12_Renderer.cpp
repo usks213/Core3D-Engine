@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "D3D12_Renderer.h"
-using namespace d3d12;
+using namespace Core::D3D12;
 
 
 //------------------------------------------------------------------------------
@@ -332,7 +332,7 @@ void D3D12Renderer::endFrame()
 
 /// @brief コマンドリストの取得
 /// @return コマンドリストのポインタ 
-core::CoreCommandList* D3D12Renderer::getCommandList()
+Core::CommandList* D3D12Renderer::getCommandList()
 {
 	if (m_useCmdListCnt[m_curBackBufferIndex] >= m_cmdLists[m_curBackBufferIndex].size())
 	{

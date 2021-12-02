@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   D3D11_Buffer.h
+ * \file   D3D11_GPUBuffer.h
  * \brief  DirectX11バッファー
  * 
  * \author USAMI KOSHI
@@ -8,14 +8,14 @@
 #ifndef _D3D11_Buffer_
 #define _D3D11_Buffer_
 
-#include <CoreRenderer/Core/Core_Buffer.h>
-#include <CoreRenderer/D3D11/D3D11_Defines.h>
+#include <Resource/Core/GPUBuffer.h>
+#include <Renderer/D3D11/D3D11_Defines.h>
 
-namespace d3d11
+namespace Core::D3D11
 {
-	/// @class D3D11Buffer
+	/// @class D3D11GPUBuffer
 	/// @brief DirectX11バッファ-
-	class D3D11Buffer final : public core::CoreBuffer
+	class D3D11GPUBuffer final : public GPUBuffer
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,11 +27,11 @@ namespace d3d11
 		/// @param id バッファID
 		/// @param desc バッファDesc
 		/// @param data 初期化データ
-		explicit D3D11Buffer(ID3D11Device1* device, const core::BufferID& id, 
-			const core::BufferDesc& desc, const core::BufferData* pData = nullptr);
+		explicit D3D11GPUBuffer(ID3D11Device1* device, const Core::GPUBufferID& id, 
+			const Core::GPUBufferDesc& desc, const Core::GPUBufferData* pData = nullptr);
 
 		/// @brief デストラクタ
-		~D3D11Buffer() noexcept = default;
+		~D3D11GPUBuffer() noexcept = default;
 
 	public:
 		//------------------------------------------------------------------------------

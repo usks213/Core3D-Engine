@@ -8,18 +8,19 @@
 
 #include "TestScene.h"
 
-#include <CoreEngine/Core_Engine.h>
-#include <CoreRenderer/Core/Core_Renderer.h>
-#include <CoreRenderer/Core/Core_Device.h>
-#include <CoreRenderer/Core/Core_CommandList.h>
-#include <CoreRenderer/Core/Core_Geometry.h>
+#include <Engine/Core/Engine.h>
+#include <Renderer/Core/Renderer.h>
+#include <Renderer/Core/Device.h>
+#include <Renderer/Core/CommandList.h>
+#include <Resource/Core/Geometry.h>
 
-#include <CoreEngine\Core\EntityManager.h>
-#include <CoreEngine\Core\ComponentManager.h>
-#include <CoreEngine\Core\Script.h>
+#include <Runtime\Core\EntityManager.h>
+#include <Runtime\Core\ComponentManager.h>
+#include <Runtime\Core\Script.h>
 
-#include <CoreEngine\System\TransformSystm.h>
+#include <Runtime\System\TransformSystm.h>
 
+using namespace Core;
 
 class TestScript : public Script
 {
@@ -31,42 +32,42 @@ private:
 };
 
 
-core::ShaderID			g_shaderID;
-core::MaterialID			g_matID;
-core::RenderBufferID		g_rdID;
-core::TextureID			g_texID;
+Core::ShaderID			g_shaderID;
+Core::MaterialID			g_matID;
+Core::RenderBufferID		g_rdID;
+Core::TextureID			g_texID;
 
 constexpr std::uint32_t MAX_WORLD_BUFFER = 2;
-core::BufferID			g_worldID[MAX_WORLD_BUFFER];
+Core::GPUBufferID			g_worldID[MAX_WORLD_BUFFER];
 
-core::RenderTargetID		g_rtID;
-core::DepthStencilID		g_dsID;
+Core::RenderTargetID		g_rtID;
+Core::DepthStencilID		g_dsID;
 Color					g_clearColor = Color(0.2f, 0.2f, 0.2f, 1.0f);
 
 // ライティング
 constexpr std::uint32_t	MAX_POINT_LIGHT = 6;
-core::CorePointLight		g_pointLights[MAX_POINT_LIGHT];
-core::BufferID			g_pointLightBufferID;
-core::ShaderID			g_lightShaderID;
-core::MaterialID			g_lightMatID;
-core::RenderBufferID		g_litRdID;
-core::RenderBufferID		g_litQuadID;
+Core::CorePointLight		g_pointLights[MAX_POINT_LIGHT];
+Core::GPUBufferID			g_pointLightBufferID;
+Core::ShaderID			g_lightShaderID;
+Core::MaterialID			g_lightMatID;
+Core::RenderBufferID		g_litRdID;
+Core::RenderBufferID		g_litQuadID;
 
 // ポストエフェクト用
-core::ShaderID			g_postShaderID;
-core::MaterialID			g_postMatID;
-core::RenderBufferID		g_postRdID;
+Core::ShaderID			g_postShaderID;
+Core::MaterialID			g_postMatID;
+Core::RenderBufferID		g_postRdID;
 
 constexpr int MAX_WORLD = 1000;
 
  /// @brief スタート
 void TestScene::Start()
 {
-	auto* renderer = GetSceneManager()->getEngine()->getRenderer();
+	auto* renderer = GetSceneManager()->GetEngine()->GetRenderer();
 	auto* device = renderer->getDevice();
 
-	float width = static_cast<float>(renderer->getCoreEngine()->getWindowWidth());
-	float height = static_cast<float>(renderer->getCoreEngine()->getWindowHeight());
+	float width = static_cast<float>(renderer->GetEngine()->GetWindowWidth());
+	float height = static_cast<float>(renderer->GetEngine()->GetWindowHeight());
 
 	// テクスチャマトリックス
 	Matrix texMatrix = Matrix::CreateScale(6);
@@ -74,11 +75,11 @@ void TestScene::Start()
 	texMatrix = texMatrix.Transpose();
 
 	//--- ジオメトリ ---
-	auto quadID = device->createMesh("quad");
+	auto quadID = device->CreateMesh("quad");
 	auto* pQuad = device->getMesh(quadID);
 	Geometry::Quad(*pQuad);
 
-	auto cubeMehID = device->createMesh("cube");
+	auto cubeMehID = device->CreateMesh("cube");
 	auto* pCubeMesh = device->getMesh(cubeMehID);
 	Geometry::Cube(*pCubeMesh);
 
@@ -88,7 +89,7 @@ void TestScene::Start()
 		uint32_t texHeight = 256u;
 		uint32_t texDepth = 4u;
 		std::vector<unsigned char> texArray(texWidth * texHeight * texDepth);
-		core::TextureData texData;
+		Core::TextureData texData;
 		texData.pInitData = texArray.data();
 		texData.size = texArray.size();
 
@@ -135,116 +136,116 @@ void TestScene::Start()
 			}
 		}
 
-		core::TextureDesc texDesc;
+		Core::TextureDesc texDesc;
 		texDesc.width = texWidth;
 		texDesc.height = texHeight;
 		texDesc.depth = texDepth;
 		texDesc.mipLevels = 1;
-		texDesc.bindFlags = 0 | core::BindFlags::SHADER_RESOURCE;
-		texDesc.format = core::TextureFormat::R8G8B8A8_UNORM;
+		texDesc.bindFlags = 0 | Core::BindFlags::SHADER_RESOURCE;
+		texDesc.format = Core::TextureFormat::R8G8B8A8_UNORM;
 
-		auto texID = device->createTexture(texDesc, &texData);
+		auto texID = device->CreateTexture(texDesc, &texData);
 		g_texID = texID;
 
 		// シェーダー・マテリアルの生成
-		core::ShaderDesc shaderDesc;
-		shaderDesc.m_stages = core::ShaderStageFlags::VS | core::ShaderStageFlags::PS;
+		Core::ShaderDesc shaderDesc;
+		shaderDesc.m_stages = Core::ShaderStageFlags::VS | Core::ShaderStageFlags::PS;
 
 		shaderDesc.m_name = "Unlit";
 
-		auto unlitShaderID = device->createShader(shaderDesc);
-		auto unlitMatID = device->createMaterial("Unlit", unlitShaderID);
+		auto unlitShaderID = device->CreateShader(shaderDesc);
+		auto unlitMatID = device->CreateMaterial("Unlit", unlitShaderID);
 		auto* pUnlitMat = device->getMaterial(unlitMatID);
 		pUnlitMat->setVector4("_Color", Vector4(1, 1, 1, 1));
 		pUnlitMat->setTexture("_Texture", texID);
-		pUnlitMat->setSampler("_Sampler", core::SamplerState::LINEAR_WRAP);
+		pUnlitMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
 		g_shaderID = unlitShaderID;
 		g_matID = unlitMatID;
 
 		// レンダーバッファの作成
-		g_rdID = device->createRenderBuffer(unlitShaderID, cubeMehID);
+		g_rdID = device->CreateRenderBuffer(unlitShaderID, cubeMehID);
 	}
 
 	{
 		// レンダーターゲットの生成
-		core::TextureDesc rtDesc = {};
+		Core::TextureDesc rtDesc = {};
 		rtDesc.name = "レンダーターゲット";
 		rtDesc.width = width;
 		rtDesc.height = height;
-		rtDesc.bindFlags = 0 | core::BindFlags::RENDER_TARGET | core::BindFlags::SHADER_RESOURCE;
-		rtDesc.format = core::TextureFormat::R8G8B8A8_UNORM;
-		g_rtID = device->createRenderTarget(rtDesc, g_clearColor);
+		rtDesc.bindFlags = 0 | Core::BindFlags::RENDER_TARGET | Core::BindFlags::SHADER_RESOURCE;
+		rtDesc.format = Core::TextureFormat::R8G8B8A8_UNORM;
+		g_rtID = device->CreateRenderTarget(rtDesc, g_clearColor);
 
 		// デプスステンシルの生成
 		rtDesc.name = "デプスステンシル";
-		rtDesc.bindFlags = 0 | core::BindFlags::DEPTH_STENCIL | core::BindFlags::SHADER_RESOURCE;
-		rtDesc.format = core::TextureFormat::R32_TYPELESS;
-		g_dsID = device->createDepthStencil(rtDesc);
+		rtDesc.bindFlags = 0 | Core::BindFlags::DEPTH_STENCIL | Core::BindFlags::SHADER_RESOURCE;
+		rtDesc.format = Core::TextureFormat::R32_TYPELESS;
+		g_dsID = device->CreateDepthStencil(rtDesc);
 
 		// ワールドマトリックスの作成
-		core::BufferDesc bufferDesc;
+		Core::GPUBufferDesc bufferDesc;
 		bufferDesc.name = "WorldMatrix";
 		bufferDesc.size = sizeof(Matrix);
 		bufferDesc.count = MAX_WORLD;
-		bufferDesc.bindFlags = 0 | core::BindFlags::CONSTANT_BUFFER;
-		bufferDesc.usage = core::Usage::DEFAULT;
-		bufferDesc.cpuAccessFlags = 0 | core::CPUAccessFlags::NONE;
+		bufferDesc.bindFlags = 0 | Core::BindFlags::CONSTANT_BUFFER;
+		bufferDesc.usage = Core::Usage::DEFAULT;
+		bufferDesc.cpuAccessFlags = 0 | Core::CPUAccessFlags::NONE;
 		for (std::uint32_t i = 0; i < MAX_WORLD_BUFFER; ++i)
 		{
 			bufferDesc.name = std::string("WorldMatrix") + std::to_string(i);
-			g_worldID[i] = device->createBuffer(bufferDesc);
+			g_worldID[i] = device->CreateBuffer(bufferDesc);
 		}
 	}
 
-	auto* pRT = device->getRenderTarget(g_rtID);
+	auto* pRT = device->GetRenderTarget(g_rtID);
 	//----- ポストエフェクト用
 	{
 		// シェーダー・マテリアルの生成
-		core::ShaderDesc shaderDesc;
-		shaderDesc.m_stages = core::ShaderStageFlags::VS | core::ShaderStageFlags::PS;
+		Core::ShaderDesc shaderDesc;
+		shaderDesc.m_stages = Core::ShaderStageFlags::VS | Core::ShaderStageFlags::PS;
 		shaderDesc.m_name = "Post";
 
-		g_postShaderID = device->createShader(shaderDesc);
-		g_postMatID = device->createMaterial("Post", g_postShaderID);
+		g_postShaderID = device->CreateShader(shaderDesc);
+		g_postMatID = device->CreateMaterial("Post", g_postShaderID);
 		auto* pPostMat = device->getMaterial(g_postMatID);
 		pPostMat->setVector3("_Color", Vector3(1, 1, 1));
 		pPostMat->setTexture("_RT", pRT->m_texID);
-		pPostMat->setSampler("_Sampler", core::SamplerState::LINEAR_WRAP);
+		pPostMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
 
 		// レンダーバッファの作成
-		g_postRdID = device->createRenderBuffer(g_postShaderID, quadID);
+		g_postRdID = device->CreateRenderBuffer(g_postShaderID, quadID);
 	}
 
 	//----- ライティング -----
 	{
 		// シェーダー・マテリアルの生成
-		core::ShaderDesc shaderDesc;
-		shaderDesc.m_stages = core::ShaderStageFlags::VS | core::ShaderStageFlags::PS;
+		Core::ShaderDesc shaderDesc;
+		shaderDesc.m_stages = Core::ShaderStageFlags::VS | Core::ShaderStageFlags::PS;
 		shaderDesc.m_name = "Lit";
 
-		g_lightShaderID = device->createShader(shaderDesc);
-		g_lightMatID = device->createMaterial("Lit", g_lightShaderID);
+		g_lightShaderID = device->CreateShader(shaderDesc);
+		g_lightMatID = device->CreateMaterial("Lit", g_lightShaderID);
 		auto* pMat = device->getMaterial(g_lightMatID);
 		pMat->setVector3("_Color", Vector3(1, 1, 1));
 		pMat->setUint("_PointLightNum", MAX_POINT_LIGHT);
-		pMat->setSampler("_Sampler", core::SamplerState::LINEAR_WRAP);
+		pMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
 		pMat->setTexture("_Texture", g_texID);
 		pMat->setMatrix("_mTex", texMatrix);
 
 		// ポイントライトバッファ作成
-		core::BufferDesc bufferDesc;
+		Core::GPUBufferDesc bufferDesc;
 		bufferDesc.name = "PointLights";
-		bufferDesc.size = sizeof(core::CorePointLight);
+		bufferDesc.size = sizeof(Core::CorePointLight);
 		bufferDesc.count = MAX_POINT_LIGHT;
-		bufferDesc.bindFlags = 0 | core::BindFlags::SHADER_RESOURCE;
-		bufferDesc.usage = core::Usage::DEFAULT;
-		bufferDesc.cpuAccessFlags = 0 | core::CPUAccessFlags::NONE;
-		bufferDesc.miscFlags = 0 | core::MiscFlags::BUFFER_STRUCTURED;
-		g_pointLightBufferID = device->createBuffer(bufferDesc);
+		bufferDesc.bindFlags = 0 | Core::BindFlags::SHADER_RESOURCE;
+		bufferDesc.usage = Core::Usage::DEFAULT;
+		bufferDesc.cpuAccessFlags = 0 | Core::CPUAccessFlags::NONE;
+		bufferDesc.miscFlags = 0 | Core::MiscFlags::BUFFER_STRUCTURED;
+		g_pointLightBufferID = device->CreateBuffer(bufferDesc);
 
 		// レンダーバッファの作成
-		g_litRdID = device->createRenderBuffer(g_lightShaderID, cubeMehID);
-		g_litQuadID = device->createRenderBuffer(g_lightShaderID, quadID);
+		g_litRdID = device->CreateRenderBuffer(g_lightShaderID, cubeMehID);
+		g_litQuadID = device->CreateRenderBuffer(g_lightShaderID, quadID);
 	}
 
 	// テスト
@@ -273,14 +274,14 @@ void TestScene::Update()
 /// @brief パイプラインの描画
 void TestScene::Render()
 {
-	auto* renderer = GetSceneManager()->getEngine()->getRenderer();
+	auto* renderer = GetSceneManager()->GetEngine()->GetRenderer();
 	auto* device = renderer->getDevice();
 	auto* cmdList = renderer->getCommandList();
 
-	float width = static_cast<float>(renderer->getCoreEngine()->getWindowWidth());
-	float height = static_cast<float>(renderer->getCoreEngine()->getWindowHeight());
+	float width = static_cast<float>(renderer->GetEngine()->GetWindowWidth());
+	float height = static_cast<float>(renderer->GetEngine()->GetWindowHeight());
 
-	auto* pRT = device->getRenderTarget(g_rtID);
+	auto* pRT = device->GetRenderTarget(g_rtID);
 	auto* pUnlitMat = device->getMaterial(g_matID);
 	auto* pLitMat = device->getMaterial(g_lightMatID);
 	auto* pPostMat = device->getMaterial(g_postMatID);
@@ -369,7 +370,7 @@ void TestScene::Render()
 		}
 
 
-		pPointLightBuffer->UpdateBuffer(g_pointLights, sizeof(core::CorePointLight) * MAX_POINT_LIGHT);
+		pPointLightBuffer->UpdateBuffer(g_pointLights, sizeof(Core::CorePointLight) * MAX_POINT_LIGHT);
 	}
 
 
@@ -468,7 +469,7 @@ void TestScene::Render()
 	}
 
 	// バインド解除
-	pPostMat->setTexture("_RT", core::NONE_TEXTURE_ID);
+	pPostMat->setTexture("_RT", Core::NONE_TEXTURE_ID);
 	cmdList->setMaterial(g_postMatID);
 
 	// バックバッファへコピー

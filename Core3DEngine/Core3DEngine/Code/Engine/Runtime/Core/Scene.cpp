@@ -9,8 +9,10 @@
 
 #include "SceneManager.h"
 
-#include <CoreEngine\Core_Engine.h>
-#include <CoreRenderer\Core\Core_Device.h>
+#include <Core\Engine.h>
+#include <Renderer\Core\Device.h>
+
+using namespace Core;
 
  /// @brief コンストラクタ
  /// @param pSceneManager シーンマネージャー
@@ -23,17 +25,17 @@ Scene::Scene(SceneManager* pSceneManager) noexcept :
 	m_pSystemManager = std::make_unique<SystemManager>(this);
 	//m_pPipelineManager = std::make_unique<PipelineManager>(this);
 
-	float width = static_cast<float>(pSceneManager->getEngine()->getWindowWidth());
-	float height = static_cast<float>(pSceneManager->getEngine()->getWindowHeight());
+	float width = static_cast<float>(pSceneManager->GetEngine()->GetWindowWidth());
+	float height = static_cast<float>(pSceneManager->GetEngine()->GetWindowHeight());
 
 	// シーンリザルトの作成
-	core::TextureDesc rtDesc = {};
+	Core::TextureDesc rtDesc = {};
 	rtDesc.name = "SceneResult";
 	rtDesc.width = width;
 	rtDesc.height = height;
-	rtDesc.bindFlags = 0 | core::BindFlags::RENDER_TARGET | core::BindFlags::SHADER_RESOURCE;
-	rtDesc.format = core::TextureFormat::R8G8B8A8_UNORM;
-	m_sceneResultID = pSceneManager->getEngine()->getRenderer()->getDevice()->createRenderTarget(rtDesc);
+	rtDesc.bindFlags = 0 | Core::BindFlags::RENDER_TARGET | Core::BindFlags::SHADER_RESOURCE;
+	rtDesc.format = Core::TextureFormat::R8G8B8A8_UNORM;
+	m_sceneResultID = pSceneManager->GetEngine()->GetRenderer()->getDevice()->CreateRenderTarget(rtDesc);
 }
 
 /// @brief エンティティマネージャーの取得

@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_RenderBuffer.h
+ * \file   RenderBuffer.h
  * \brief  描画バッファ(Vertex,Index)
  * 
  * \author USAMI KOSHI
@@ -8,11 +8,11 @@
 #ifndef _CORE_RENDER_BUFFER_
 #define _CORE_RENDER_BUFFER_
 
-#include "Core_Shader.h"
-#include "Core_Mesh.h"
+#include "Shader.h"
+#include "Mesh.h"
 
 
-namespace core
+namespace Core
 {
 	/// @brief レンダーバッファID
 	enum class RenderBufferID : std::uint32_t {};

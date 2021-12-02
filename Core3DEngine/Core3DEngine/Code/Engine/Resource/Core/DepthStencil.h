@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_DepthStencil.h
+ * \file   DepthStencil.h
  * \brief  デプスステンシル
  * 
  * \author USAMI KOSHI
@@ -8,9 +8,9 @@
 #ifndef _CORE_DEPTH_STENCIL_
 #define _CORE_DEPTH_STENCIL_
 
-#include "Core_Texture.h"
+#include "Texture.h"
 
-namespace core
+namespace Core
 {
 	/// @brief 深度ステンシルID
 	enum class DepthStencilID : std::uint32_t {};

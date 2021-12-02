@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Shader.h
+ * \file   Shader.h
  * \brief  シェーダー
  * 
  * \author USAMI KOSHI
@@ -16,7 +16,7 @@
 #include <memory>
 #include <array>
 
-#include "Core_CommonState.h"
+#include <Renderer\Core\CommonState.h>
 
 #ifdef min
 #undef min
@@ -25,7 +25,7 @@
 #undef max
 #endif
 
-namespace core
+namespace Core
 {
 	/// @brief シェーダーID (格納先ハッシュ値)
 	enum class ShaderID : std::uint32_t {};

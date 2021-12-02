@@ -7,8 +7,8 @@
  *********************************************************************/
 
 #include "D3D12_Texture.h"
-#include "D3D12_CommonState.h"
-using namespace d3d12;
+#include <Renderer\D3D12\D3D12_CommonState.h>
+using namespace Core::D3D12;
 
 
 //------------------------------------------------------------------------------
@@ -36,8 +36,8 @@ namespace
 /// @param id テクスチャID
 /// @param filepath ファイルパス
 D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescriptorPool,
-    const core::TextureID& id, const std::string& filepath) :
-	core::CoreTexture(id, filepath),
+    const Core::TextureID& id, const std::string& filepath) :
+	Core::CoreTexture(id, filepath),
     //m_pTexHeap(nullptr),
     m_pTex(nullptr)
 {
@@ -48,9 +48,9 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
 /// @param id テクスチャID
 /// @param desc テクスチャDesc
 D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescriptorPool,
-    const core::TextureID& id, core::TextureDesc& desc, 
-    const core::TextureData* pData, const D3D12_CLEAR_VALUE* pClear) :
-	core::CoreTexture(id, desc),
+    const Core::TextureID& id, Core::TextureDesc& desc, 
+    const Core::TextureData* pData, const D3D12_CLEAR_VALUE* pClear) :
+	Core::CoreTexture(id, desc),
 	//m_pTexHeap(nullptr),
 	m_pTex(nullptr),
     m_eState(D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE)
@@ -59,7 +59,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
 
     // リソース
     D3D12_RESOURCE_DESC resDesc = {};
-    resDesc.Format = d3d12::getDXGIFormat(desc.format);
+    resDesc.Format = Core::D3D12::getDXGIFormat(desc.format);
     resDesc.Width = desc.width;
     resDesc.Height = desc.height;
     resDesc.DepthOrArraySize = desc.arraySize;
@@ -67,7 +67,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
     resDesc.MipLevels = 1;//desc.mipLevels;
     resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
     resDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
-    resDesc.Flags = d3d12::getD3D12ResourceFlags(desc.bindFlags);
+    resDesc.Flags = Core::D3D12::getD3D12ResourceFlags(desc.bindFlags);
 
     // リソースステート
     if (resDesc.Flags == D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL)
@@ -90,7 +90,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
             // 生成不可
             return;
         }
-        //if (desc.usage == core::Usage::STATIC) {
+        //if (desc.usage == Core::Usage::STATIC) {
         //    // エラー 初期値なし、書き換え不可
         //    return;
         //}
@@ -143,7 +143,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
 
     //// ヒープ生成
     //D3D12_DESCRIPTOR_HEAP_DESC descHeapDesc = {};
-    //descHeapDesc.Flags = d3d12::getD3D12HeapFlags(desc.bindFlags);//シェーダから見えるように
+    //descHeapDesc.Flags = Core::D3D12::getD3D12HeapFlags(desc.bindFlags);//シェーダから見えるように
     //descHeapDesc.NodeMask = 0;//マスクは0
     //descHeapDesc.NumDescriptors = 1;//ビューは今のところ１つだけ
     //descHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;//シェーダリソースビュー(および定数、UAVも)
@@ -154,7 +154,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
 
 
     // シェーダーリソース
-    if (desc.bindFlags & core::BindFlags::SHADER_RESOURCE)
+    if (desc.bindFlags & Core::BindFlags::SHADER_RESOURCE)
     {
         //通常テクスチャビュー作成
         D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
@@ -173,7 +173,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
     }
 
     // 順不同アクセスビュー
-    if (desc.bindFlags & core::BindFlags::UNORDERED_ACCESS)
+    if (desc.bindFlags & Core::BindFlags::UNORDERED_ACCESS)
     {
         // 順不同アクセスビューの作成
         D3D12_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};

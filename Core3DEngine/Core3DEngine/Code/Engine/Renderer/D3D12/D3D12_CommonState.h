@@ -8,10 +8,10 @@
 #ifndef _D3D12_COMMON_STATE_
 #define _D3D12_COMMON_STATE_
 
-#include <CoreRenderer/Core/Core_CommonState.h>
+#include <Renderer/Core/CommonState.h>
 #include "D3D12_Defines.h"
 
-namespace d3d12
+namespace Core::D3D12
 {
     /// @brief リソースフラグ取得
     /// @param flags フラグ
@@ -26,22 +26,22 @@ namespace d3d12
     /// @brief D3D12のプリミティブトポロジー取得
     /// @param topology プリミティブトポロジー
     /// @return D3D12プリミティブトポロジー
-    D3D12_PRIMITIVE_TOPOLOGY getD3D12PrimitiveTopology(core::PrimitiveTopology topology);
+    D3D12_PRIMITIVE_TOPOLOGY getD3D12PrimitiveTopology(Core::PrimitiveTopology topology);
 
     /// @brief DXGIのテクスチャフォーマット取得
     /// @param format テクスチャフォーマット
     /// @return DXGIフォーマット
-    DXGI_FORMAT getDXGIFormat(core::TextureFormat format);
+    DXGI_FORMAT getDXGIFormat(Core::TextureFormat format);
 
     /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
     /// @param format TypeLessフォーマット
     /// @return DSVフォーマット or そのまま
-    DXGI_FORMAT getTypeLessToDSVFormat(core::TextureFormat format);
+    DXGI_FORMAT getTypeLessToDSVFormat(Core::TextureFormat format);
 
     /// @brief TypeLessフォーマットをSRVフォーマットに変換して返す
     /// @param format TypeLessフォーマット
     /// @return SRVフォーマット or そのまま
-    DXGI_FORMAT getTypeLessToSRVFormat(core::TextureFormat format);
+    DXGI_FORMAT getTypeLessToSRVFormat(Core::TextureFormat format);
 }
 
 #endif // !_D3D12_COMMON_STATE_

@@ -10,9 +10,11 @@
 
 #include <Utils/Util_Hash.h>
 
-using TypeHash = std::uint32_t;
+namespace Core
+{
+	using TypeHash = std::uint32_t;
 
- /// @brief Œ^î•ñ•t‰Á
+	/// @brief Œ^î•ñ•t‰Á
 #define DECLARE_TYPE_INFO(T) 									\
 public:															\
 	static constexpr std::string_view GetTypeString() noexcept	\
@@ -21,10 +23,9 @@ public:															\
 	}															\
 	static constexpr TypeHash GetTypeHash() noexcept			\
 	{															\
-		return util::stringHash(#T);							\
+		return Util::stringHash(#T);							\
 	}															\
 	void _dumyFunction() = delete
-
-
+}
 
 #endif // !_CORE_TYPEID_

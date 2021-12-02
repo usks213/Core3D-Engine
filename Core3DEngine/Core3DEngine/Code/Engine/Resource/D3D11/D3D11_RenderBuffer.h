@@ -8,14 +8,14 @@
 #ifndef _D3D11_RENDER_BUFFER_
 #define _D3D11_RENDER_BUFFER_
 
-#include <CoreRenderer/Core/Core_RenderBuffer.h>
-#include "D3D11_Defines.h"
+#include <Resource/Core/RenderBuffer.h>
+#include <Renderer\D3D11\D3D11_Defines.h>
 
-namespace d3d11
+namespace Core::D3D11
 {
 	/// @class D3D11RenderBuffer
 	/// @brief DirectX11レンダーバッファ
-	class D3D11RenderBuffer final : public core::CoreRenderBuffer
+	class D3D11RenderBuffer final : public Core::CoreRenderBuffer
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,8 +27,8 @@ namespace d3d11
 		/// @param id レンダーバッファID
 		/// @param shader シェーダー
 		/// @param mesh メッシュ
-		explicit D3D11RenderBuffer(ID3D11Device1* device, const core::RenderBufferID id, 
-			const core::CoreShader& shader, const core::CoreMesh& mesh);
+		explicit D3D11RenderBuffer(ID3D11Device1* device, const Core::RenderBufferID id, 
+			const Core::CoreShader& shader, const Core::CoreMesh& mesh);
 
 		/// @brief デストラクタ
 		~D3D11RenderBuffer() noexcept = default;

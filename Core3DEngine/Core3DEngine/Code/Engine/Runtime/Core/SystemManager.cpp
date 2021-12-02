@@ -7,6 +7,8 @@
  *********************************************************************/
 #include "SystemManager.h"
 
+using namespace Core;
+
  /// @brief コンストラクタ
  /// @param pScene シーンポインタ
 SystemManager::SystemManager(Scene* pScene) :

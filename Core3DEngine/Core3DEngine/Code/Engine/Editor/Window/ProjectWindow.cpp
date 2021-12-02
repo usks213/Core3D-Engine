@@ -7,8 +7,11 @@
  *********************************************************************/
 #include "ProjectWindow.h"
 
-#include <CoreEditor\Core_Editor.h>
-#include <CoreEngine\Core_Engine.h>
+#include <Core\Engine.h>
+#include <Editor\Core\Editor.h>
+
+using namespace Core;
+
 
  /// @brief コンストラクタ
 ProjectWindow::ProjectWindow() noexcept
@@ -25,8 +28,8 @@ ProjectWindow::ProjectWindow() noexcept
 void ProjectWindow::OnGUI()
 {
 	// 現在シーンの取得
-	auto* pEditor = GetEditorWindowManager()->GetCoreEditor();
-	auto* pSceneMgr = pEditor->getCoreEngine()->getSceneManager();
+	auto* pEditor = GetEditorWindowManager()->GetEditor();
+	auto* pSceneMgr = pEditor->GetEngine()->GetSceneManager();
 	auto* pScene = pSceneMgr->GetCurrentScene();
 	if (pScene == nullptr) return;
 

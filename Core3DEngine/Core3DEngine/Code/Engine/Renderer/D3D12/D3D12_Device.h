@@ -9,14 +9,14 @@
 #ifndef _D3D12_RENDER_DEVICE_
 #define _D3D12_RENDER_DEVICE_
 
-#include <CoreRenderer/Core/Core_Device.h>
+#include <Renderer/Core/Device.h>
 #include "D3D12_CommonState.h"
 #include "D3D12_DescriptorPool.h"
 #include <tuple>
 #include <map>
 
 
-namespace d3d12
+namespace Core::D3D12
 {
 	// 前定義
 	class D3D12Renderer;
@@ -26,7 +26,7 @@ namespace d3d12
 
 	/// @class D3D12Device
 	/// @brief D3D12デバイス
-	class D3D12Device final : public core::CoreDevice
+	class D3D12Device final : public Core::Device
 	{
 		friend class D3D12Renderer;
 		friend class D3D12CommandList;
@@ -53,15 +53,15 @@ namespace d3d12
 
 		//----- リソース生成 -----
 
-		core::BufferID		createBuffer(core::BufferDesc& desc, const core::BufferData* pData = nullptr) override;
-		core::DepthStencilID	createDepthStencil(core::TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0) override;
-		core::MaterialID		createMaterial(std::string name, core::ShaderID& shaderID) override;
-		core::MeshID			createMesh(std::string name) override;
-		core::RenderBufferID	createRenderBuffer(core::ShaderID& shaderID, core::MeshID& meshID) override;
-		core::RenderTargetID	createRenderTarget(core::TextureDesc& desc, const Color& color = Color()) override;
-		core::ShaderID		createShader(core::ShaderDesc& desc) override;
-		core::TextureID		createTexture(std::string filePath) override;
-		core::TextureID		createTexture(core::TextureDesc& desc, const core::TextureData* pData = nullptr) override;
+		Core::GPUBufferID		CreateBuffer(Core::GPUBufferDesc& desc, const Core::GPUBufferData* pData = nullptr) override;
+		Core::DepthStencilID	CreateDepthStencil(Core::TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0) override;
+		Core::MaterialID		CreateMaterial(std::string name, Core::ShaderID& shaderID) override;
+		Core::MeshID			CreateMesh(std::string name) override;
+		Core::RenderBufferID	CreateRenderBuffer(Core::ShaderID& shaderID, Core::MeshID& meshID) override;
+		Core::RenderTargetID	CreateRenderTarget(Core::TextureDesc& desc, const Color& color = Color()) override;
+		Core::ShaderID		CreateShader(Core::ShaderDesc& desc) override;
+		Core::TextureID		CreateTexture(std::string filePath) override;
+		Core::TextureID		CreateTexture(Core::TextureDesc& desc, const Core::TextureData* pData = nullptr) override;
 
 		//----- Native DirectX12 -----
 
@@ -77,20 +77,20 @@ namespace d3d12
 
 		/// @brief 共通ステートの生成
 		/// @return HRESULT
-		HRESULT createCommonState();
+		HRESULT CreateCommonState();
 
 		/// @brief D3D12テクスチャ生成(クリア値あり)
 		/// @param desc テクスチャDesc
 		/// @param pClear クリアデータ
 		/// @return D3D12テクスチャポインタ
-		D3D12Texture* createD3D12Texture(core::TextureDesc& desc, D3D12_CLEAR_VALUE* pClear);
+		D3D12Texture* CreateD3D12Texture(Core::TextureDesc& desc, D3D12_CLEAR_VALUE* pClear);
 
 		/// @brief パイプラインステート生成
 		/// @param d3d12Shader シェーダー
 		/// @param d3d12Mat マテリアル
 		/// @return パイプラインステート
-		ID3D12PipelineState* createGraphicsPipelineState(D3D12Shader& d3d12Shader, const core::BlendState& bs,
-			const core::RasterizeState& rs, const core::DepthStencilState& ds);
+		ID3D12PipelineState* CreateGraphicsPipelineState(D3D12Shader& d3d12Shader, const Core::BlendState& bs,
+			const Core::RasterizeState& rs, const Core::DepthStencilState& ds);
 
 
 		//--- 更新リソース ---
@@ -129,17 +129,17 @@ namespace d3d12
 		UINT									m_nOutputHeight;		///< 出力サイズ(高さ)
 
 		// ステート
-		D3D12_RASTERIZER_DESC              	m_rasterizeStates[(size_t)core::RasterizeState::MAX];		///< ラスタライザステート
-		D3D12_BLEND_DESC                   	m_blendStates[(size_t)core::BlendState::MAX];				///< ブレンドステート
-		D3D12_DEPTH_STENCIL_DESC           	m_depthStencilStates[(size_t)core::DepthStencilState::MAX];	///< 深度ステンシルステート
+		D3D12_RASTERIZER_DESC              	m_rasterizeStates[(size_t)Core::RasterizeState::MAX];		///< ラスタライザステート
+		D3D12_BLEND_DESC                   	m_blendStates[(size_t)Core::BlendState::MAX];				///< ブレンドステート
+		D3D12_DEPTH_STENCIL_DESC           	m_depthStencilStates[(size_t)Core::DepthStencilState::MAX];	///< 深度ステンシルステート
 
 		// サンプラー
-		D3D12_STATIC_SAMPLER_DESC 			m_staticSamplers[(size_t)core::SamplerState::MAX];			///< 静的サンプラステート
-		D3D12_GPU_DESCRIPTOR_HANDLE			m_dynamicSamplers[(size_t)core::SamplerState::MAX];			///< ダイナックサンプラー
+		D3D12_STATIC_SAMPLER_DESC 			m_staticSamplers[(size_t)Core::SamplerState::MAX];			///< 静的サンプラステート
+		D3D12_GPU_DESCRIPTOR_HANDLE			m_dynamicSamplers[(size_t)Core::SamplerState::MAX];			///< ダイナックサンプラー
 		ComPtr<ID3D12DescriptorHeap>			m_pSamplerHeap;											///< サンプラーヒープ
 
 		// グラフィクスパイプラインステート
-		using GraphicsPipelineStateID = std::tuple<core::ShaderID, core::BlendState, core::RasterizeState, core::DepthStencilState>;
+		using GraphicsPipelineStateID = std::tuple<Core::ShaderID, Core::BlendState, Core::RasterizeState, Core::DepthStencilState>;
 		std::map<GraphicsPipelineStateID, ComPtr<ID3D12PipelineState>>	m_pGraphicsPipelineState;
 
 		//--- 更新リソース ---

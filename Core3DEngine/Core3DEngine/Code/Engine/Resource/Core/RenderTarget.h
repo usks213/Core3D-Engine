@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_RenderTarget.h
+ * \file   RenderTarget.h
  * \brief  レンダーターゲット
  * 
  * \author USAMI KOSHI
@@ -8,9 +8,9 @@
 #ifndef _CORE_RENDER_TARGET_
 #define _CORE_RENDER_TARGET_
 
-#include "Core_Texture.h"
+#include "Texture.h"
 
-namespace core
+namespace Core
 {
 	/// @brief レンダーターゲットID
 	enum class RenderTargetID : std::uint32_t {};
@@ -29,7 +29,7 @@ namespace core
 		/// @brief コンストラクタ
 		/// @param id レンダーターゲットID
 		/// @param texture テクスチャ
-		explicit CoreRenderTarget(const RenderTargetID& id, core::CoreTexture& texture) :
+		explicit CoreRenderTarget(const RenderTargetID& id, Core::CoreTexture& texture) :
 			m_id(id), m_name(texture.m_desc.name), m_texID(texture.m_id)
 		{
 		}

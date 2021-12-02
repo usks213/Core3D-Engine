@@ -8,15 +8,14 @@
 #ifndef _D3D12_TEXTURE_
 #define _D3D12_TEXTURE_
 
-#include <CoreRenderer/Core/Core_Texture.h>
-#include "D3D12_Defines.h"
-#include "D3D12_DescriptorPool.h"
+#include <Resource/Core/Texture.h>
+#include <Renderer\D3D12\D3D12_DescriptorPool.h>
 
-namespace d3d12
+namespace Core::D3D12
 {
 	/// @class D3D12Texture
 	/// @brief DirectX12テクスチャ
-	class D3D12Texture final : public core::CoreTexture
+	class D3D12Texture final : public Core::CoreTexture
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,14 +26,14 @@ namespace d3d12
 		/// @param id テクスチャID
 		/// @param filepath ファイルパス
 		explicit D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescriptorPool, 
-			const core::TextureID& id, const std::string& filepath);
+			const Core::TextureID& id, const std::string& filepath);
 
 		/// @brief コンストラクタ(Descから生成)
 		/// @param id テクスチャID
 		/// @param desc テクスチャDesc
 		explicit D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescriptorPool,
-			const core::TextureID& id, core::TextureDesc& desc,
-			const core::TextureData* pData = nullptr, const D3D12_CLEAR_VALUE* pClear = nullptr);
+			const Core::TextureID& id, Core::TextureDesc& desc,
+			const Core::TextureData* pData = nullptr, const D3D12_CLEAR_VALUE* pClear = nullptr);
 
 		/// @brief デストラクタ
 		~D3D12Texture() noexcept = default;

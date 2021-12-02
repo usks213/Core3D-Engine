@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_ShaderResource.h
+ * \file   ShaderResource.h
  * \brief  シェーダーリソース情報
  * 
  * \author USAMI KOSHI
@@ -8,7 +8,7 @@
 #ifndef _CORE_SHADER_RESOURCE_
 #define _CORE_SHADER_RESOURCE_
 
-#include "Core_Light.h"
+#include "Light.h"
 #include <string_view>
 
 #define SHADER_ENUM_SLOT_OP(EnumType, MIN, MAX)		\
@@ -35,7 +35,7 @@ EnumType operator++(EnumType& value, int) {	\
 	}												\
 }													
 
-namespace core
+namespace Core
 { 
 	namespace SHADER 
 	{

@@ -7,16 +7,16 @@
  *********************************************************************/
 
 #include "D3D11_RenderBuffer.h"
-using namespace d3d11;
+using namespace Core::D3D11;
 
 /// @brief コンストラクタ
 /// @param device デバイス
 /// @param id レンダーバッファID
 /// @param shader シェーダー
 /// @param mesh メッシュ
-D3D11RenderBuffer::D3D11RenderBuffer(ID3D11Device1* device, const core::RenderBufferID id, 
-	const core::CoreShader& shader, const core::CoreMesh& mesh) :
-	core::CoreRenderBuffer(id, shader, mesh)
+D3D11RenderBuffer::D3D11RenderBuffer(ID3D11Device1* device, const Core::RenderBufferID id, 
+	const Core::CoreShader& shader, const Core::CoreMesh& mesh) :
+	Core::CoreRenderBuffer(id, shader, mesh)
 {
 	D3D11_BUFFER_DESC desc = {};
 	desc.Usage = D3D11_USAGE_IMMUTABLE;

@@ -19,7 +19,7 @@ public:																\
 	}																\
 	static constexpr TypeHash GetScriptTypeHash()					\
 	{																\
-		return static_cast<TypeHash>(util::stringHash(#T));			\
+		return static_cast<TypeHash>(Util::stringHash(#T));			\
 	}																\
 [[nodiscard]] ScriptTypeID GetScriptTypeID() noexcept override {	\
 	return static_cast<ScriptTypeID>(GetScriptTypeHash());			\
@@ -30,57 +30,59 @@ public:																\
 using T##ID = ComponentID
 
 
-/// @brief スクリプトクラス
-class Script : public Component
+namespace Core
 {
-	friend class Entity;
-public:
-	/// @brief オブジェクト情報
-	DECLARE_OBJECT_INFO(Script);
-public:
-
-	/// @brief コンストラクタ
-	explicit Script() noexcept :
-		Component()
+	/// @brief スクリプトクラス
+	class Script : public Component
 	{
-	}
+		friend class Entity;
+	public:
+		/// @brief オブジェクト情報
+		DECLARE_OBJECT_INFO(Script);
+	public:
 
-	/// @brief デストラクタ
-	virtual ~Script() noexcept = default;
+		/// @brief コンストラクタ
+		explicit Script() noexcept :
+			Component()
+		{
+		}
 
-	/// @brief スクリプトタイプの取得
-	[[nodiscard]] virtual ScriptTypeID GetScriptTypeID() noexcept = 0;
+		/// @brief デストラクタ
+		virtual ~Script() noexcept = default;
 
-	/// @brief スクリプト名の取得
-	[[nodiscard]] virtual std::string_view GetScriptName() noexcept = 0;
+		/// @brief スクリプトタイプの取得
+		[[nodiscard]] virtual ScriptTypeID GetScriptTypeID() noexcept = 0;
 
-private:
+		/// @brief スクリプト名の取得
+		[[nodiscard]] virtual std::string_view GetScriptName() noexcept = 0;
 
-	/// @brief コンポーネント名の取得(スクリプト継承先も)
-	/// @return コンポーネント名
-	std::string_view GetComponentName() noexcept override
-	{
-		return GetScriptName();
-	}
+	private:
 
-public:
-	//--- コールバック関数
+		/// @brief コンポーネント名の取得(スクリプト継承先も)
+		/// @return コンポーネント名
+		std::string_view GetComponentName() noexcept override
+		{
+			return GetScriptName();
+		}
 
-	virtual void OnCreate() override {}		///< 生成リスト格納時
-	virtual void OnDestroy() override {}	///< 削除リスト格納時
+	public:
+		//--- コールバック関数
 
-	virtual void OnEnable() override {}		///< 有効時
-	virtual void OnDisable() override {}	///< 無効時
+		virtual void OnCreate() override {}		///< 生成リスト格納時
+		virtual void OnDestroy() override {}	///< 削除リスト格納時
 
-	virtual void OnStart() override {}		///< 初回更新前に一度
+		virtual void OnEnable() override {}		///< 有効時
+		virtual void OnDisable() override {}	///< 無効時
 
-	/// @brief インスペクター表示
-	virtual void OnInspectorGUI() override {}
+		virtual void OnStart() override {}		///< 初回更新前に一度
 
-private:
+		/// @brief インスペクター表示
+		virtual void OnInspectorGUI() override {}
 
-};
+	private:
 
+	};
+}
 
 
 #endif // !_SCRIPT_

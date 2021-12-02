@@ -14,6 +14,7 @@
 #include "Transform.h"
 #include "TransformManager.h"
 
+using namespace Core;
 
  /// @brief エンティティの生成
  /// @param name エンティティ名

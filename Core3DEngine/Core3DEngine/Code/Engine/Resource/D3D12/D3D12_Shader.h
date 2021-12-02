@@ -8,16 +8,15 @@
 #ifndef _D3D12_SHADER_
 #define _D3D12_SHADER_
 
-#include <CoreRenderer/Core/Core_Shader.h>
-#include "D3D12_Device.h"
-#include "D3D12_Defines.h"
+#include <Resource/Core/Shader.h>
+#include <Renderer\D3D12\D3D12_Device.h>
 #include <d3d12shader.h>
 
-namespace d3d12
+namespace Core::D3D12
 {
 	/// @class D3D12Shader
 	/// @brief DirectX11シェーダ
-	class D3D12Shader final : public core::CoreShader
+	class D3D12Shader final : public Core::CoreShader
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -28,7 +27,7 @@ namespace d3d12
 		/// @param device デバイス
 		/// @param desc シェーダ情報
 		explicit D3D12Shader(D3D12Device* device, 
-			core::ShaderDesc desc, const core::ShaderID& id);
+			Core::ShaderDesc desc, const Core::ShaderID& id);
 
 		/// @brief デストラクタ
 		~D3D12Shader() noexcept = default;
@@ -40,7 +39,7 @@ namespace d3d12
 
 		/// @brief シェーダデータ
 		std::array < ComPtr<ID3DBlob>, 
-			static_cast<std::size_t>(core::ShaderStage::MAX)>	m_pShaderBlob;
+			static_cast<std::size_t>(Core::ShaderStage::MAX)>	m_pShaderBlob;
 
 		/// @brief 入力レイアウト
 		std::vector<D3D12_INPUT_ELEMENT_DESC>					m_inputElementDesc;

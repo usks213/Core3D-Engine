@@ -8,14 +8,14 @@
 #ifndef _D3D11_DEPTH_STENCIL_
 #define _D3D11_DEPTH_STENCIL_
 
-#include <CoreRenderer/Core/Core_DepthStencil.h>
+#include <Resource/Core/DepthStencil.h>
 #include "D3D11_Texture.h"
 
-namespace d3d11
+namespace Core::D3D11
 {
 	/// @class D3D11DepthStencil
 	/// @brief DreictX11深度ステンシル
-	class D3D11DepthStencil final : public core::CoreDepthStencil
+	class D3D11DepthStencil final : public Core::CoreDepthStencil
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ namespace d3d11
 		/// @param device デバイス
 		/// @param id デプスステンシルID
 		/// @param d3dTex d3dテクスチャ
-		explicit D3D11DepthStencil(ID3D11Device1* device, const core::DepthStencilID& id, D3D11Texture& d3dTex);
+		explicit D3D11DepthStencil(ID3D11Device1* device, const Core::DepthStencilID& id, D3D11Texture& d3dTex);
 
 		/// @brief デストラクタ
 		~D3D11DepthStencil() noexcept = default;

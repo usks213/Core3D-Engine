@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Editor.h
+ * \file   Editor.h
  * \brief  コアエディター
  *
  * \author USAMI KOSHI
@@ -8,27 +8,27 @@
 #ifndef _CORE_EDITOR_
 #define _CORE_EDITOR_
 
-#include "Core/EditorWindowManager.h"
+#include "EditorWindowManager.h"
 
-namespace core
+namespace Core
 {
-	class CoreEngine;
-	class CoreCommandList;
+	class Engine;
+	class CommandList;
 
 	/// @brief コアエディタークラス
-	class CoreEditor
+	class Editor
 	{
 	public:
 		/// @brief コンストラクタ
 		/// @param pEngine エンジンポインタ
-		explicit CoreEditor() noexcept :
+		explicit Editor() noexcept :
 			m_pCoreEngine(nullptr)
 		{
 			m_pEditorWindowManager = std::make_unique<EditorWindowManager>(this);
 		}
 
 		/// @brief デストラクタ
-		virtual ~CoreEditor() noexcept = default;
+		virtual ~Editor() noexcept = default;
 
 		/// @brief 更新処理
 		void DispEditor()
@@ -45,17 +45,17 @@ namespace core
 
 		/// @brief 描画
 		/// @param cmdList コマンドリスト
-		virtual void Render(CoreCommandList* cmdList) = 0;
+		virtual void Render(CommandList* cmdList) = 0;
 
 		//--- ゲッター ---
 
 		/// @brief エンジンの取得
 		/// @return エンジンのポインタ
-		CoreEngine* getCoreEngine() const noexcept { return m_pCoreEngine; }
+		Engine* GetEngine() const noexcept { return m_pCoreEngine; }
 
 		/// @brief エンジンの設定
 		/// @param pCoreEngine エンジンのポインタ
-		void setCoreEngine(CoreEngine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
+		void SetEngine(Engine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
 
 		/// @brief エディターウィンドウマネージャー取得
 		/// @return エディターウィンドウマネージャーポインタ
@@ -66,7 +66,7 @@ namespace core
 
 	private:
 		/// @brief エンジンポインタ
-		CoreEngine* m_pCoreEngine;
+		Engine* m_pCoreEngine;
 
 		/// @brief エディターウィンドウマネージャー
 		std::unique_ptr<EditorWindowManager> m_pEditorWindowManager;

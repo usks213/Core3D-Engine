@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Light.h
+ * \file   Light.h
  * \brief  ライト情報
  * 
  * \author USAMI KOSHI
@@ -10,7 +10,7 @@
 
 #include <Utils/Util_Mathf.h>
 
-namespace core
+namespace Core
 {
 	/// @brief ディレクショナルライト
 	struct CoreDirectionalLight

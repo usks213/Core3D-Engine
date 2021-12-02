@@ -1,21 +1,21 @@
 /*****************************************************************//**
- * \file   D3D12_Buffer.h
+ * \file   D3D12_GPUBuffer.h
  * \brief  DirectX12Buffer
  *
  * \author USAMI KOSHI
  * \date   2021/10/20
  *********************************************************************/
 
-#include "D3D12_Buffer.h"
-using namespace d3d12;
+#include "D3D12_GPUBuffer.h"
+using namespace Core::D3D12;
 
  /// @brief コンストラクタ
  /// @param device デバイス
  /// @param id バッファID
  /// @param desc バッファDesc
  /// @param data 初期化データ
-D3D12Buffer::D3D12Buffer(ID3D12Device* device, const core::BufferID& id, const core::BufferDesc& desc, const core::BufferData* pData) :
-	core::CoreBuffer(id, desc),
+D3D12GPUBuffer::D3D12GPUBuffer(ID3D12Device* device, const Core::GPUBufferID& id, const Core::GPUBufferDesc& desc, const Core::GPUBufferData* pData) :
+	Core::GPUBuffer(id, desc),
 	m_pHeap(nullptr),
 	m_pBuffer(nullptr),
 	m_eState(D3D12_RESOURCE_STATE_GENERIC_READ)
@@ -50,7 +50,7 @@ D3D12Buffer::D3D12Buffer(ID3D12Device* device, const core::BufferID& id, const c
 
 	// CBufferの場合は256アライメント
 	auto width = desc.size * desc.count;
-	if (desc.bindFlags & core::BindFlags::CONSTANT_BUFFER)
+	if (desc.bindFlags & Core::BindFlags::CONSTANT_BUFFER)
 	{
 		const UINT64 MAX_SIZE = 256;
 		d3dDesc.Width = (width / MAX_SIZE + 1) * MAX_SIZE;
@@ -91,7 +91,7 @@ D3D12Buffer::D3D12Buffer(ID3D12Device* device, const core::BufferID& id, const c
 	}
 
 	// ビューの作成
-	if (desc.bindFlags & core::BindFlags::CONSTANT_BUFFER)
+	if (desc.bindFlags & Core::BindFlags::CONSTANT_BUFFER)
 	{
 		// 定数バッファビューの作成
 		m_type = BufferType::CBV;
@@ -100,7 +100,7 @@ D3D12Buffer::D3D12Buffer(ID3D12Device* device, const core::BufferID& id, const c
 		cbvDesc.SizeInBytes = d3dDesc.Width;
 		device->CreateConstantBufferView(&cbvDesc, m_pHeap->GetCPUDescriptorHandleForHeapStart());
 	}
-	if (desc.bindFlags & core::BindFlags::SHADER_RESOURCE)
+	if (desc.bindFlags & Core::BindFlags::SHADER_RESOURCE)
 	{
 		// シェーダーリソースビューの作成
 		m_type = BufferType::SRV;
@@ -111,19 +111,19 @@ D3D12Buffer::D3D12Buffer(ID3D12Device* device, const core::BufferID& id, const c
 
 		srvDesc.Buffer.FirstElement = 0;
 		srvDesc.Buffer.NumElements = desc.count;
-		if (desc.miscFlags & core::MiscFlags::BUFFER_STRUCTURED)
+		if (desc.miscFlags & Core::MiscFlags::BUFFER_STRUCTURED)
 		{
 			srvDesc.Buffer.StructureByteStride = desc.size;
 			srvDesc.Buffer.Flags = D3D12_BUFFER_SRV_FLAG_NONE;
 		}
-		else if (desc.miscFlags & core::MiscFlags::BUFFER_ALLOW_RAW_VIEWS)
+		else if (desc.miscFlags & Core::MiscFlags::BUFFER_ALLOW_RAW_VIEWS)
 		{
 			srvDesc.Buffer.Flags = D3D12_BUFFER_SRV_FLAG_RAW;
 		}
 		device->CreateShaderResourceView(m_pBuffer.Get() ,&srvDesc, 
 			m_pHeap->GetCPUDescriptorHandleForHeapStart());
 	}
-	if (desc.bindFlags & core::BindFlags::UNORDERED_ACCESS)
+	if (desc.bindFlags & Core::BindFlags::UNORDERED_ACCESS)
 	{
 		// 順不同アクセスビューの作成
 		m_type = BufferType::UAV;
@@ -133,18 +133,18 @@ D3D12Buffer::D3D12Buffer(ID3D12Device* device, const core::BufferID& id, const c
 
 		uavDesc.Buffer.FirstElement = 0;
 		uavDesc.Buffer.NumElements = desc.count;
-		if (desc.miscFlags & core::MiscFlags::BUFFER_STRUCTURED)
+		if (desc.miscFlags & Core::MiscFlags::BUFFER_STRUCTURED)
 		{
 			uavDesc.Buffer.StructureByteStride = desc.size;
 			uavDesc.Buffer.Flags = D3D12_BUFFER_UAV_FLAG_NONE;
 			// UAVカウンター
-			if(desc.uavFlag == core::BufferUAVFlag::COUNTER)
+			if(desc.uavFlag == Core::GPUBufferUAVFlag::COUNTER)
 			{
 				uavDesc.Buffer.CounterOffsetInBytes = 0; // よくわからない…
 			}
 		}
-		else if (desc.miscFlags & core::MiscFlags::BUFFER_ALLOW_RAW_VIEWS && 
-				desc.uavFlag == core::BufferUAVFlag::RAW)
+		else if (desc.miscFlags & Core::MiscFlags::BUFFER_ALLOW_RAW_VIEWS && 
+				desc.uavFlag == Core::GPUBufferUAVFlag::RAW)
 		{
 			uavDesc.Format = DXGI_FORMAT_R32_TYPELESS;
 			uavDesc.Buffer.Flags = D3D12_BUFFER_UAV_FLAG_RAW;

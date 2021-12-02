@@ -9,7 +9,7 @@
 #include "D3D11_Renderer.h"
 #include <vector>
 
-using namespace d3d11;
+using namespace Core::D3D11;
 
 
 /// @brief コンストラクタ
@@ -35,7 +35,7 @@ HRESULT D3D11Renderer::initialize(HWND hWnd, UINT width, UINT height)
 	HRESULT hr = S_OK;
 
 	// デバイスとコマンドリストの作成
-	CHECK_FAILED(hr = createDiveceAndContext(hWnd));
+	CHECK_FAILED(hr = CreateDiveceAndContext(hWnd));
 
 	// デバイスの初期化
 	CHECK_FAILED(hr = m_device.initialize(m_d3dDevice.Get(), 
@@ -101,7 +101,7 @@ void D3D11Renderer::endFrame()
 
 /// @brief コマンドリストの取得
 /// @return コマンドリストのポインタ 
-core::CoreCommandList* D3D11Renderer::getCommandList()
+Core::CommandList* D3D11Renderer::getCommandList()
 {
 	if (m_useCmdListCnt[m_curBackBufferIndex] >= m_cmdLists[m_curBackBufferIndex].size())
 	{
@@ -129,7 +129,7 @@ void D3D11Renderer::SetD3D11BackBuffer()
 
 /// @brief デバイスとコマンドリストの生成
 /// @return HRESULT
-HRESULT D3D11Renderer::createDiveceAndContext(HWND hWnd)
+HRESULT D3D11Renderer::CreateDiveceAndContext(HWND hWnd)
 {
 	HRESULT hr = S_OK;
 

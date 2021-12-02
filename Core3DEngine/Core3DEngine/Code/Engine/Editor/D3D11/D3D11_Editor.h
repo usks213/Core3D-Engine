@@ -8,12 +8,12 @@
 #ifndef _D3D11_EDITOR_
 #define _D3D11_EDITOR_
 
-#include <CoreEditor/Core_Editor.h>
-#include <CoreRenderer/D3D11/D3D11_Defines.h>
+#include <Editor/Core/Editor.h>
+#include <Renderer/D3D11/D3D11_Defines.h>
 
-namespace d3d11
+namespace Core::D3D11
 {
-	class D3D11Editor final : public core::CoreEditor
+	class D3D11Editor final : public Core::Editor
 	{
 	public:
 
@@ -41,7 +41,7 @@ namespace d3d11
 
 		/// @brief 描画
 		/// @param cmdList コマンドリスト
-		void Render(core::CoreCommandList* cmdList) override;
+		void Render(Core::CommandList* cmdList) override;
 
 	private:
 

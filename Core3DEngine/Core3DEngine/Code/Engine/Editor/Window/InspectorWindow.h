@@ -8,24 +8,27 @@
 #ifndef _INSPECTOR_WINDOW_
 #define _INSPECTOR_WINDOW_
 
-#include <CoreEditor/Core/EditorWindow.h>
+#include <Editor/Core/EditorWindow.h>
 
-class InspectorWindow final : public EditorWindow
+namespace Core
 {
-	DECLARE_TYPE_INFO(InspectorWindow);
-public:
-	/// @brief コンストラクタ
-	explicit InspectorWindow() noexcept;
+	class InspectorWindow final : public EditorWindow
+	{
+		DECLARE_TYPE_INFO(InspectorWindow);
+	public:
+		/// @brief コンストラクタ
+		explicit InspectorWindow() noexcept;
 
-	/// @brief デストラクタ
-	~InspectorWindow() noexcept = default;
+		/// @brief デストラクタ
+		~InspectorWindow() noexcept = default;
 
-	/// @brief GUI表示コールバック
-	void OnGUI() final override;
+		/// @brief GUI表示コールバック
+		void OnGUI() final override;
 
-private:
+	private:
 
-};
+	};
+}
 
 #endif // !_INSPECTOR_WINDOW_
 

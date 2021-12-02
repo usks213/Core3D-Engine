@@ -12,7 +12,7 @@
 // インクルード
 #include <Windows.h>
 #include <tchar.h>
-#include "../Core_Main.h"
+#include "../Core/Main.h"
 
 //-------- ライブラリのリンク
 #pragma comment(lib, "imm32")

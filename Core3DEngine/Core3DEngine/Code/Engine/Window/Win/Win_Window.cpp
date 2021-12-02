@@ -10,15 +10,15 @@
 #include "Win_Resource.h"
 #include <tchar.h>
 
-using namespace win;
+using namespace Core::Win;
 
 
 /// @brief コンストラクタ
 /// @param windowName[in] ウィンドウ名
 /// @param windowWidth[in] ウィンドウの幅
 /// @param windowHeight[in] ウィンドウの高さ
-WinWindow::WinWindow(util::String windowName, UINT windowWidth, UINT windowHeight) :
-	CoreWindow(windowName, windowWidth, windowHeight),
+WinWindow::WinWindow(Util::String windowName, UINT windowWidth, UINT windowHeight) :
+	Window(windowName, windowWidth, windowHeight),
 	m_hInstance(NULL), m_hWnd(NULL), m_nCmdShow(NULL)
 {
 }
@@ -29,7 +29,7 @@ WinWindow::WinWindow(util::String windowName, UINT windowWidth, UINT windowHeigh
 /// @param nCmdShow 
 /// @param lpfnWndProc ウィンドウプロシージャ関数のポインタ
 /// @return ウィンドウ生成 成功 ture, 不成功 false
-bool WinWindow::initialize(HINSTANCE& hInstance, util::String className, int nCmdShow, WNDPROC lpfnWndProc)
+bool WinWindow::initialize(HINSTANCE& hInstance, Util::String className, int nCmdShow, WNDPROC lpfnWndProc)
 {
 	// ウィンドウEx構造体
 	WNDCLASSEX wcex = {

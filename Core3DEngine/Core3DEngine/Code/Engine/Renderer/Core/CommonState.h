@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_CommonState.h
+ * \file   CommonState.h
  * \brief  共通ステイト
  * 
  * \author USAMI KOSHI
@@ -10,7 +10,7 @@
 
 #include <cstdint>
 
-namespace core
+namespace Core
 {
 	/// @enum RasterizeState
 	/// @brief ラスタライザステート

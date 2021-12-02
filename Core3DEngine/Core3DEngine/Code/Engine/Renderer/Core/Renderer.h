@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Core_Renderer.h
+ * \file   Renderer.h
  * \brief  レンダラークラス
  * 
  * \author USAMI KOSHI
@@ -11,16 +11,16 @@
 
 #include <memory>
 
-namespace core
+namespace Core
 {
 	// 前宣言
-	class CoreEngine;
-	class CoreDevice;
-	class CoreCommandList;
+	class Engine;
+	class Device;
+	class CommandList;
 
 	/// @brief レンダラーのベースクラス
-	/// @class CoreRenderer
-	class CoreRenderer
+	/// @class Renderer
+	class Renderer
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -28,13 +28,13 @@ namespace core
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		explicit CoreRenderer() :
+		explicit Renderer() :
 			m_pCoreEngine(nullptr)
 		{
 		}
 
 		/// @brief デストラクタ
-		virtual ~CoreRenderer() noexcept = default;
+		virtual ~Renderer() noexcept = default;
 
 		/// @brief 終了処理
 		virtual void finalize() = 0;
@@ -47,31 +47,31 @@ namespace core
 
 		/// @brief エンジンの取得
 		/// @return エンジンのポインタ
-		CoreEngine* getCoreEngine() const noexcept { return m_pCoreEngine; }
+		Engine* GetEngine() const noexcept { return m_pCoreEngine; }
 
 		/// @brief エンジンの設定
 		/// @param pCoreEngine エンジンのポインタ
-		void setCoreEngine(CoreEngine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
+		void SetEngine(Engine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
 
 		/// @brief デバイスの取得
 		/// @return デバイスのポインタ
-		virtual CoreDevice* getDevice() = 0;
+		virtual Device* getDevice() = 0;
 
 		/// @brief コマンドリストの取得
 		/// @return コマンドリストのポインタ
-		virtual CoreCommandList* getCommandList() = 0;
+		virtual CommandList* getCommandList() = 0;
 
 		/// @brief コピーコンストラクタ削除
-		CoreRenderer(const CoreRenderer&) = delete;
+		Renderer(const Renderer&) = delete;
 		/// @brief ムーブコンストラクタ削除
-		CoreRenderer(CoreRenderer&&) = delete;
+		Renderer(Renderer&&) = delete;
 
 	protected:
 		//------------------------------------------------------------------------------
 		// protected variables
 		//------------------------------------------------------------------------------
 
-		CoreEngine* m_pCoreEngine;	///< エンジンのポインタ
+		Engine* m_pCoreEngine;	///< エンジンのポインタ
 
 		///< デバイスクラス
 

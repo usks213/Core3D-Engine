@@ -10,6 +10,8 @@
 #include "../Core/SystemManager.h"
 #include "../Core/Scene.h"
 
+using namespace Core;
+
  /// @brief コンストラクタ
  /// @param pSystemManafer システムマネージャー
 TransformSystem::TransformSystem(SystemManager* pSystemManafer) :

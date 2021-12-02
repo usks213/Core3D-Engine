@@ -7,14 +7,14 @@
  *********************************************************************/
 #include "D3D11_Editor.h"
 
-#include <CoreRenderer\D3D11\D3D11_Renderer.h>
-#include <CoreRenderer\D3D11\D3D11_CommandList.h>
+#include <Renderer\D3D11\D3D11_Renderer.h>
+#include <Renderer\D3D11\D3D11_CommandList.h>
 
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_impl_win32.h>
 #include <ImGui/imgui_impl_dx11.h>
 
-using namespace d3d11;
+using namespace Core::D3D11;
 
 /// @brief 初期化処理
 /// @param hWnd ウィンドウハンドル
@@ -89,7 +89,7 @@ void D3D11Editor::NewFrame()
 
 /// @brief 描画
 /// @param cmdList コマンドリスト
-void D3D11Editor::Render(core::CoreCommandList* cmdList)
+void D3D11Editor::Render(Core::CommandList* cmdList)
 {
 	// バックバッファに変更
 	static_cast<D3D11CommandList*>(cmdList)->GetD3D11Renderer()->SetD3D11BackBuffer();
