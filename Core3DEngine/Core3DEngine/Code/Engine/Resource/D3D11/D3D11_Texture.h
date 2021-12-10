@@ -9,13 +9,13 @@
 #define _D3D11_TEXTURE_
 
 #include <Resource/Core/Texture.h>
-#include <Renderer\D3D11\D3D11_Defines.h>
+#include <RHI\D3D11\D3D11_Defines.h>
 
 namespace Core::D3D11
 {
 	/// @class D3D11Texture
 	/// @brief DirectX11テクスチャ
-	class D3D11Texture final : public Core::CoreTexture
+	class D3D11Texture final : public Core::Texture
 	{
 	public:
 		//------------------------------------------------------------------------------

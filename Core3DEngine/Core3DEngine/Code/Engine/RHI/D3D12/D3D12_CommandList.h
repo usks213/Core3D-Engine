@@ -9,7 +9,7 @@
 #ifndef _D3D12_RENDER_CONTEXT_
 #define _D3D12_RENDER_CONTEXT_
 
-#include <Renderer/Core/CommandList.h>
+#include <RHI/Core/CommandList.h>
 #include <Resource\D3D12\D3D12_Shader.h>
 #include <Resource\D3D12\D3D12_Material.h>
 

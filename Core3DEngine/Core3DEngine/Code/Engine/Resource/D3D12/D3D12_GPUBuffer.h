@@ -9,7 +9,7 @@
 #define _D3D12_Buffer_
 
 #include <Resource/Core/GPUBuffer.h>
-#include <Renderer/D3D12/D3D12_Defines.h>
+#include <RHI/D3D12/D3D12_Defines.h>
 
 namespace Core::D3D12
 {

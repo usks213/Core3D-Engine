@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Device.h
+ * \file   RHI_Device.h
  * \brief  デバイスクラス
  * 
  * \author USAMI KOSHI
@@ -16,13 +16,13 @@
 #include <Resource\Core\ShaderResource.h>
 
 
-namespace Core
+namespace Core::RHI
 {
 	/// @class Device
 	/// @brief デバイス
 	class Device
 	{
-		friend class Renderer;
+		friend class RHI;
 		friend class CommandList;
 	public:
 		//------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ namespace Core
 		CoreRenderBuffer*		GetRenderBuffer(const RenderBufferID& id) noexcept;
 		CoreRenderTarget*		GetRenderTarget(const RenderTargetID& id) noexcept;
 		CoreShader*			GetShader(const ShaderID& id) noexcept;
-		CoreTexture*			getTexture(const TextureID& id) noexcept;
+		Texture*			getTexture(const TextureID& id) noexcept;
 
 	protected:
 		//------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ namespace Core
 		std::unordered_map<RenderBufferID,	std::unique_ptr<CoreRenderBuffer>>		m_renderBufferPool;
 		std::unordered_map<RenderTargetID,	std::unique_ptr<CoreRenderTarget>>		m_renderTargetPool;
 		std::unordered_map<ShaderID,		std::unique_ptr<CoreShader>>			m_shaderPool;
-		std::unordered_map<TextureID,		std::unique_ptr<CoreTexture>>			m_texturePool;
+		std::unordered_map<TextureID,		std::unique_ptr<Texture>>			m_texturePool;
 
 	private:
 

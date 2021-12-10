@@ -9,9 +9,9 @@
 #include "TestScene.h"
 
 #include <Engine/Core/Engine.h>
-#include <Renderer/Core/Renderer.h>
-#include <Renderer/Core/Device.h>
-#include <Renderer/Core/CommandList.h>
+#include <RHI/Core/RHI.h>
+#include <RHI/Core/Device.h>
+#include <RHI/Core/CommandList.h>
 #include <Resource/Core/Geometry.h>
 
 #include <Runtime\Core\EntityManager.h>

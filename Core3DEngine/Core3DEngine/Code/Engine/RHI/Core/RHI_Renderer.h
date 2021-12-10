@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Renderer.h
+ * \file   RHI_Renderer.h
  * \brief  レンダラークラス
  * 
  * \author USAMI KOSHI
@@ -11,7 +11,7 @@
 
 #include <memory>
 
-namespace Core
+namespace Core::RHI
 {
 	// 前宣言
 	class Engine;
@@ -19,8 +19,8 @@ namespace Core
 	class CommandList;
 
 	/// @brief レンダラーのベースクラス
-	/// @class Renderer
-	class Renderer
+	/// @class RHI
+	class RHI
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -28,13 +28,13 @@ namespace Core
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		explicit Renderer() :
+		explicit RHI() :
 			m_pCoreEngine(nullptr)
 		{
 		}
 
 		/// @brief デストラクタ
-		virtual ~Renderer() noexcept = default;
+		virtual ~RHI() noexcept = default;
 
 		/// @brief 終了処理
 		virtual void finalize() = 0;
@@ -62,9 +62,9 @@ namespace Core
 		virtual CommandList* getCommandList() = 0;
 
 		/// @brief コピーコンストラクタ削除
-		Renderer(const Renderer&) = delete;
+		RHI(const RHI&) = delete;
 		/// @brief ムーブコンストラクタ削除
-		Renderer(Renderer&&) = delete;
+		RHI(RHI&&) = delete;
 
 	protected:
 		//------------------------------------------------------------------------------

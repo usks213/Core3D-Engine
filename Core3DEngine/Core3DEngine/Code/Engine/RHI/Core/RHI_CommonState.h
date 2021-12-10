@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   CommonState.h
+ * \file   RHI_CommonState.h
  * \brief  共通ステイト
  * 
  * \author USAMI KOSHI
@@ -10,7 +10,7 @@
 
 #include <cstdint>
 
-namespace Core
+namespace Core::RHI
 {
 	/// @enum RasterizeState
 	/// @brief ラスタライザステート
@@ -80,19 +80,6 @@ namespace Core
 		LINE_STRIP,							///< ラインストリップ
 		TRIANGLE_CONTROL_POINT_PATCHLIST,	///< トライアングルコントロールポイントパッチリスト
 		MAX,								///< プリミティブトポロジの数
-	};
-
-	//----- Bind -----
-
-	/// @brief シェーダーバインド種別
-	enum class BindType : std::uint8_t
-	{
-		CBV,
-		SRV,
-		UAV,
-		TEXTURE,
-		SAMPLER,
-		MAX,
 	};
 
 	//----- Buffer -----
@@ -206,7 +193,7 @@ namespace Core
 		return lhs | static_cast<std::uint32_t>(rhs);
 	}
 
-	//----- CoreTexture -----
+	//----- Texture -----
 
 	/// @enum TextureFormat
 	/// @brief テクスチャフォーマット

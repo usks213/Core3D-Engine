@@ -9,7 +9,7 @@
 #ifndef _D3D12_RENDER_DEVICE_
 #define _D3D12_RENDER_DEVICE_
 
-#include <Renderer/Core/Device.h>
+#include <RHI/Core/Device.h>
 #include "D3D12_CommonState.h"
 #include "D3D12_DescriptorPool.h"
 #include <tuple>

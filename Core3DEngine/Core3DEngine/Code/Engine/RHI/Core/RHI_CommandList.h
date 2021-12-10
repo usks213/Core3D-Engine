@@ -1,13 +1,13 @@
 /*****************************************************************//**
- * \file   CommandList.h
+ * \file   RHI_CommandList.h
  * \brief  レンダーコマンドリストクラス
  *
  * \author USAMI KOSHI
  * \date   2021/10/04
  *********************************************************************/
 
-#ifndef _CORE_RENDER_CONTEXT_
-#define _CORE_RENDER_CONTEXT_
+#ifndef _RHI_RENDER_CONTEXT_
+#define _RHI_RENDER_CONTEXT_
 
 #include <Resource\Core\GPUBuffer.h>
 #include <Resource\Core\Material.h>
@@ -17,13 +17,13 @@
 #include <Resource\Core\ShaderResource.h>
 
 
-namespace Core
+namespace Core::RHI
 {
 	/// @class CommandList
 	/// @brief レンダーコマンドリスト
 	class CommandList
 	{
-		friend class Renderer;
+		friend class RHI;
 	public:
 
 		//------------------------------------------------------------------------------
@@ -118,4 +118,4 @@ namespace Core
 	};
 }
 
-#endif // !_CORE_RENDER_CONTEXT_
+#endif // !_RHI_RENDER_CONTEXT_

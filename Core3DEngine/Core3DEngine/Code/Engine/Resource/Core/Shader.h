@@ -16,7 +16,7 @@
 #include <memory>
 #include <array>
 
-#include <Renderer\Core\CommonState.h>
+#include <RHI\Core\CommonState.h>
 
 #ifdef min
 #undef min

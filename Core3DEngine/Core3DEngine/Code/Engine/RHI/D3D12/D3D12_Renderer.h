@@ -8,7 +8,7 @@
 #ifndef _D3D12_RENDERER_
 #define _D3D12_RENDERER_
 
-#include <Renderer\Core\Renderer.h>
+#include <RHI\Core\RHI.h>
 #include "D3D12_Device.h"
 #include "D3D12_CommandList.h"
 
@@ -17,7 +17,7 @@ namespace Core::D3D12
 	class D3D12Device;
 	class D3D12CommandList;
 
-	class D3D12Renderer final : public Renderer
+	class D3D12Renderer final : public RHI
 	{
 		friend class D3D12Device;
 		friend class D3D12CommandList;

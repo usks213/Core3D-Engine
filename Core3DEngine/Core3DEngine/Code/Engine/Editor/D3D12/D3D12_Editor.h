@@ -9,7 +9,7 @@
 #define _D3D12_EDITOR_
 
 #include <Editor/Core/Editor.h>
-#include <Renderer\D3D12\D3D12_Device.h>
+#include <RHI\D3D12\D3D12_Device.h>
 
 namespace Core::D3D12
 {

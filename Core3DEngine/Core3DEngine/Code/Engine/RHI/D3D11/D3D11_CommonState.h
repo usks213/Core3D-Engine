@@ -8,7 +8,7 @@
 #ifndef _D3D11_COMMON_STATE_
 #define _D3D11_COMMON_STATE_
 
-#include <Renderer/Core/CommonState.h>
+#include <RHI/Core/RHI_CommonState.h>
 #include "D3D11_Defines.h"
 
 namespace Core::D3D11

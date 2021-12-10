@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   GPUBuffer.h
+ * \file   RHI_GPUBuffer.h
  * \brief  バッファ
  * 
  * \author USAMI KOSHI
@@ -8,7 +8,7 @@
 #ifndef _CORE_BUFFER_
 #define _CORE_BUFFER_
 
-#include <RHI\Core\CommonState.h>
+#include "RHI_CommonState.h"
 #include <numeric>
 #include <string>
 #include <vector>
@@ -21,13 +21,8 @@
 #endif
 
 
-namespace Core
+namespace Core::RHI
 {
-	/// @brief バッファID
-	enum class GPUBufferID : std::uint32_t {};
-	/// @brief 存在しないバッファID
-	constexpr GPUBufferID NONE_BUFFER_ID = std::numeric_limits<GPUBufferID>::max();
-
 	/// @struct GPUBufferData
 	/// @brief バッファ初期化データ
 	struct GPUBufferData
@@ -70,8 +65,8 @@ namespace Core
 		/// @brief コンストラクタ
 		/// @param id バッファID
 		/// @param desc バッファDesc
-		GPUBuffer(const GPUBufferID& id, const GPUBufferDesc& desc) :
-			m_id(id), m_desc(desc), m_type(BufferType::MAX),
+		GPUBuffer(const GPUBufferDesc& desc) :
+			m_desc(desc), m_type(BufferType::MAX),
 			m_isUpdate(true), m_aData()
 		{
 		}
@@ -96,18 +91,19 @@ namespace Core
 		/// @brief バッファタイプ
 		enum class BufferType : std::uint8_t
 		{
+			VBV,
+			IBV,
 			CBV,
 			SRV,
 			UAV,
 			MAX,
 		};
 
-		GPUBufferID						m_id;		///< バッファID
-		GPUBufferDesc					m_desc;		///< バッファDesc
+		GPUBufferDesc				m_desc;		///< バッファDesc
 		BufferType					m_type;		///< バッファタイプ
 
-		bool							m_isUpdate;	///< バッファ更新フラグ
-		std::vector<std::byte>		m_aData;		///< CPU側のデータ
+		bool						m_isUpdate;	///< バッファ更新フラグ
+		std::vector<std::byte>		m_aData;	///< CPU側のデータ
 
 	};
 }

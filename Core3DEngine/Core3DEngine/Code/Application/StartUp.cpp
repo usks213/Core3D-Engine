@@ -10,8 +10,8 @@
 #include <Main\Core\Main.h>
 #include <Engine\Core\Engine.h>
 #include <Window\Win\Win_Window.h>
-#include <Renderer\D3D11\D3D11_Renderer.h>
-#include <Renderer\D3D12\D3D12_Renderer.h>
+#include <RHI\D3D11\D3D11_Renderer.h>
+#include <RHI\D3D12\D3D12_Renderer.h>
 
 #include <Editor\D3D11\D3D11_Editor.h>
 #include <Editor\D3D12\D3D12_Editor.h>

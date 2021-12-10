@@ -8,7 +8,7 @@
 #ifndef _D3D12_COMMON_STATE_
 #define _D3D12_COMMON_STATE_
 
-#include <Renderer/Core/CommonState.h>
+#include <RHI/Core/CommonState.h>
 #include "D3D12_Defines.h"
 
 namespace Core::D3D12

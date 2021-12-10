@@ -9,7 +9,7 @@
 #ifndef _D3D11_RENDER_DEVICE_
 #define _D3D11_RENDER_DEVICE_
 
-#include <Renderer/Core/Device.h>
+#include <RHI/Core/Device.h>
 #include "D3D11_CommonState.h"
 
 namespace Core::D3D11

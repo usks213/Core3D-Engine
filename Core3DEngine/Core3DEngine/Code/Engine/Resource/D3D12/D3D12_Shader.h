@@ -9,7 +9,7 @@
 #define _D3D12_SHADER_
 
 #include <Resource/Core/Shader.h>
-#include <Renderer\D3D12\D3D12_Device.h>
+#include <RHI\D3D12\D3D12_Device.h>
 #include <d3d12shader.h>
 
 namespace Core::D3D12

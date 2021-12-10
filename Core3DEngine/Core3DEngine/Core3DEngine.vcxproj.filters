@@ -33,20 +33,11 @@
     <Filter Include="ソース ファイル\Engine\Resource">
       <UniqueIdentifier>{609d81c1-33ec-4d92-89df-c637151007d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Engine\Renderer">
-      <UniqueIdentifier>{63a0352a-e2a9-49e6-983a-1a53a2f44d87}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Engine\Runtime\Component">
       <UniqueIdentifier>{08e6f6a3-80bc-41ef-bec8-3b10390c27c0}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Engine\Runtime\System">
       <UniqueIdentifier>{fe1a72dc-dccc-4cd0-aa6e-b346d8e24dda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Engine\Renderer\D3D11">
-      <UniqueIdentifier>{af0cae24-023a-4232-a9bc-832cdc8a9f86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Engine\Renderer\D3D12">
-      <UniqueIdentifier>{cca21136-2e1a-4fcc-a7f0-cbfebf858657}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Engine\Editor\Core">
       <UniqueIdentifier>{18efbe2b-78c6-46cb-8ecc-0b23326b130a}</UniqueIdentifier>
@@ -68,9 +59,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Engine\Runtime\Core">
       <UniqueIdentifier>{0903154d-3f5e-4889-9f96-7356d96f7674}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Engine\Renderer\Core">
-      <UniqueIdentifier>{c4eb4fb0-9531-4d61-a988-a768bc350e73}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Engine\Resource\Core">
       <UniqueIdentifier>{11bbbad0-657e-48dd-9ac6-6fc497c490fa}</UniqueIdentifier>
@@ -144,6 +132,18 @@
     <Filter Include="ライブラリファイル\SimpleMath">
       <UniqueIdentifier>{0d003d89-5ba9-4b76-bacf-ad2fc0f34b4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Engine\RHI">
+      <UniqueIdentifier>{63a0352a-e2a9-49e6-983a-1a53a2f44d87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\RHI\Core">
+      <UniqueIdentifier>{d4486ff0-bd6f-4236-bf29-f42d65f03bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\RHI\D3D11">
+      <UniqueIdentifier>{6ea6e3e6-0a7a-4052-8209-b21849fc2206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\RHI\D3D12">
+      <UniqueIdentifier>{25fdd25a-1ff4-4db9-8306-d22d0fbc32e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Application\StartUp.cpp">
@@ -184,42 +184,6 @@
     </ClCompile>
     <ClCompile Include="Code\Engine\Window\Win\Win_Window.cpp">
       <Filter>ソース ファイル\Engine\Window\Win</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\Core\Device.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\Core\Renderer.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_CommandList.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_CommonState.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_Defines.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_Device.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D11\D3D11_Renderer.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_CommandList.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_CommonState.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_Device.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_Renderer.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_Defines.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\Resource\Core\Geometry.cpp">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
@@ -308,9 +272,6 @@
     <ClCompile Include="Code\Engine\Utils\Util_Mathf.cpp">
       <Filter>ソース ファイル\Engine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Renderer\D3D12\D3D12_DescriptorPool.cpp">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Engine\Main\Win\Win_Main.cpp">
       <Filter>ソース ファイル\Engine\Main\Win</Filter>
     </ClCompile>
@@ -340,6 +301,54 @@
     </ClCompile>
     <ClCompile Include="Library\SimpleMath\SimpleMath.cpp">
       <Filter>ライブラリファイル\SimpleMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\Core\RHI_Device.cpp">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\Core\RHI_Renderer.cpp">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_CommandList.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_CommonState.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_Defines.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_Device.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_Renderer.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D12\D3D12_CommandList.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D12\D3D12_CommonState.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D12\D3D12_Defines.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D12\D3D12_DescriptorPool.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D12\D3D12_Device.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\D3D12\D3D12_Renderer.cpp">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\Core\RHI_Shader.cpp">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\Core\RHI_ConstantBuffer.cpp">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\RHI\Core\RHI_ShaderUtil.cpp">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -396,48 +405,6 @@
     </ClInclude>
     <ClInclude Include="Code\Engine\Window\Win\Win_Resource.h">
       <Filter>ソース ファイル\Engine\Window\Win</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\Core\CommandList.h">
-      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\Core\CommonState.h">
-      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\Core\Device.h">
-      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\Core\Renderer.h">
-      <Filter>ソース ファイル\Engine\Renderer\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_CommandList.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_CommonState.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_Defines.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_Device.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D11\D3D11_Renderer.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_CommandList.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_CommonState.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_Device.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_Renderer.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_Defines.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Resource\Core\GPUBuffer.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
@@ -589,9 +556,6 @@
     <ClInclude Include="Code\Engine\Utils\Util_String.h">
       <Filter>ソース ファイル\Engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Renderer\D3D12\D3D12_DescriptorPool.h">
-      <Filter>ソース ファイル\Engine\Renderer\D3D12</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Engine\Core\TypeID.h">
       <Filter>ソース ファイル\Engine\Core</Filter>
     </ClInclude>
@@ -627,6 +591,81 @@
     </ClInclude>
     <ClInclude Include="Library\SimpleMath\SimpleMath.h">
       <Filter>ライブラリファイル\SimpleMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_CommandList.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_CommonState.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_Device.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_Renderer.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D11\D3D11_CommandList.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D11\D3D11_CommonState.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D11\D3D11_Defines.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D11\D3D11_Device.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D11\D3D11_Renderer.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_CommandList.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_CommonState.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_Defines.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_DescriptorPool.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_Device.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_Renderer.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_DepthStencil.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_GPUBuffer.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_RenderTarget.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_Shader.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_Texture.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_ShaderResourceTable.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_RenderBuffer.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_ShaderInputLayout.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_ConstantBuffer.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_ShaderUtil.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

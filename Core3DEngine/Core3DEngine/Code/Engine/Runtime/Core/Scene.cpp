@@ -10,7 +10,7 @@
 #include "SceneManager.h"
 
 #include <Core\Engine.h>
-#include <Renderer\Core\Device.h>
+#include <RHI\Core\Device.h>
 
 using namespace Core;
 

@@ -7,8 +7,8 @@
  *********************************************************************/
 #include "D3D11_Editor.h"
 
-#include <Renderer\D3D11\D3D11_Renderer.h>
-#include <Renderer\D3D11\D3D11_CommandList.h>
+#include <RHI\D3D11\D3D11_Renderer.h>
+#include <RHI\D3D11\D3D11_CommandList.h>
 
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_impl_win32.h>

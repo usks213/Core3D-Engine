@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "D3D11_Texture.h"
-#include <Renderer\D3D11\D3D11_CommonState.h>
+#include <RHI\D3D11\D3D11_CommonState.h>
 
 using namespace Core::D3D11;
 
@@ -37,7 +37,7 @@ namespace
 /// @param id テクスチャID
 /// @param filepath ファイルパス
 D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const Core::TextureID& id, const std::string& filepath) :
-	Core::CoreTexture(id, filepath),
+	Core::Texture(id, filepath),
 	m_tex(nullptr),
 	m_srv(nullptr),
     m_uav(nullptr)
@@ -50,7 +50,7 @@ D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const Core::TextureID& id, co
 /// @param desc テクスチャDesc
 D3D11Texture::D3D11Texture(ID3D11Device1* pDevice, const Core::TextureID& id, 
     Core::TextureDesc& desc, const Core::TextureData* pData) :
-	Core::CoreTexture(id, desc),
+	Core::Texture(id, desc),
 	m_tex(nullptr),
 	m_srv(nullptr),
     m_uav(nullptr)

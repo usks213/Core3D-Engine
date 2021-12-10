@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "D3D12_Texture.h"
-#include <Renderer\D3D12\D3D12_CommonState.h>
+#include <RHI\D3D12\D3D12_CommonState.h>
 using namespace Core::D3D12;
 
 
@@ -37,7 +37,7 @@ namespace
 /// @param filepath ファイルパス
 D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescriptorPool,
     const Core::TextureID& id, const std::string& filepath) :
-	Core::CoreTexture(id, filepath),
+	Core::Texture(id, filepath),
     //m_pTexHeap(nullptr),
     m_pTex(nullptr)
 {
@@ -50,7 +50,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
 D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescriptorPool,
     const Core::TextureID& id, Core::TextureDesc& desc, 
     const Core::TextureData* pData, const D3D12_CLEAR_VALUE* pClear) :
-	Core::CoreTexture(id, desc),
+	Core::Texture(id, desc),
 	//m_pTexHeap(nullptr),
 	m_pTex(nullptr),
     m_eState(D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE)

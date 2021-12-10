@@ -11,7 +11,7 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
-#include <Renderer\Core\CommonState.h>
+#include <RHI\Core\CommonState.h>
 #include <Utils/Util_Mathf.h>
 
 namespace Core

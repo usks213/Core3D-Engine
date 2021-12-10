@@ -9,13 +9,13 @@
 #define _D3D12_TEXTURE_
 
 #include <Resource/Core/Texture.h>
-#include <Renderer\D3D12\D3D12_DescriptorPool.h>
+#include <RHI\D3D12\D3D12_DescriptorPool.h>
 
 namespace Core::D3D12
 {
 	/// @class D3D12Texture
 	/// @brief DirectX12テクスチャ
-	class D3D12Texture final : public Core::CoreTexture
+	class D3D12Texture final : public Core::Texture
 	{
 	public:
 		//------------------------------------------------------------------------------

@@ -7,7 +7,7 @@
  *********************************************************************/
 #include "D3D12_Editor.h"
 
-#include <Renderer\D3D12\D3D12_CommandList.h>
+#include <RHI\D3D12\D3D12_CommandList.h>
 
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_impl_win32.h>

@@ -9,7 +9,7 @@
 
 #include <Core\Engine.h>
 #include <Editor\Core\Editor.h>
-#include <Renderer\Core\Device.h>
+#include <RHI\Core\Device.h>
 
 using namespace Core;
 

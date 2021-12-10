@@ -14,7 +14,7 @@
 
 #include <Utils\Util_Singleton.h>
 #include <Window\Core\Window.h>
-#include <Renderer\Core\Renderer.h>
+#include <RHI\Core\RHI.h>
 #include <Editor\Core\Editor.h>
 #include <Runtime\Core\SceneManager.h>
 
@@ -60,9 +60,9 @@ namespace Core
 
 		/// @brief レンダラーの生成
 		/// @tparam T レンダラータイプ
-		/// @tparam Renderer継承型のみ
+		/// @tparam RHI継承型のみ
 		/// @return レンダラーのポインタ
-		template<class T, typename = std::enable_if_t<std::is_base_of_v<Renderer, T>>>
+		template<class T, typename = std::enable_if_t<std::is_base_of_v<RHI, T>>>
 		T* CreateRenderer() {
 			m_pRenderer = std::make_unique<T>();
 			m_pRenderer->SetEngine(this);
@@ -86,7 +86,7 @@ namespace Core
 
 		/// @brief レンダラー取得
 		/// @return レンダラーのポインタ
-		[[nodiscard]] Renderer* GetRenderer() const noexcept { return m_pRenderer.get(); }
+		[[nodiscard]] RHI* GetRenderer() const noexcept { return m_pRenderer.get(); }
 
 		/// @brief エディター取得
 		/// @return エディターのポインタ
@@ -129,7 +129,7 @@ namespace Core
 		//------------------------------------------------------------------------------
 
 		std::unique_ptr<Window>				m_pWindow;				///< ウィンドウ
-		std::unique_ptr<Renderer>			m_pRenderer;			///< レンダラー
+		std::unique_ptr<RHI>			m_pRenderer;			///< レンダラー
 		std::unique_ptr<Editor>				m_pEditor;				///< エディター
 
 		std::unique_ptr<SceneManager>			m_pSceneManager;		///< シーンマネージャー

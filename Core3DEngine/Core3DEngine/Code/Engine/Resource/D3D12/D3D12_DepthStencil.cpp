@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "D3D12_DepthStencil.h"
-#include <Renderer\D3D12\D3D12_CommonState.h>
+#include <RHI\D3D12\D3D12_CommonState.h>
 
 using namespace Core::D3D12;
 

@@ -9,12 +9,12 @@
 #ifndef _D3D11_RENDER_CONTEXT_
 #define _D3D11_RENDER_CONTEXT_
 
-#include <Renderer/Core/CommandList.h>
+#include <RHI/Core/RHI_CommandList.h>
 #include <Resource/D3D11/D3D11_Shader.h>
 #include <Resource/D3D11/D3D11_Material.h>
 
 
-namespace Core::D3D11
+namespace Core::RHI::D3D11
 {
 	// ‘O’è‹`
 	class D3D11Renderer;

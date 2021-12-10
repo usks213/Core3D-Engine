@@ -1,13 +1,13 @@
 /*****************************************************************//**
- * \file   Device.h
+ * \file   RHI_Device.h
  * \brief  デバイスクラス
  *
  * \author USAMI KOSHI
  * \date   2021/10/06
  *********************************************************************/
 
-#include "Device.h"
-using namespace Core;
+#include "RHI_Device.h"
+using namespace Core::RHI;
 
 //------------------------------------------------------------------------------
 // public methods
@@ -70,7 +70,7 @@ CoreShader* Device::GetShader(const ShaderID& id) noexcept
 
 	return itr->second.get();
 }
-CoreTexture* Device::getTexture(const TextureID& id) noexcept
+Texture* Device::getTexture(const TextureID& id) noexcept
 {
 	const auto& itr = m_texturePool.find(id);
 	if (m_texturePool.end() == itr) return nullptr;

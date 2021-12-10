@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "D3D11_DepthStencil.h"
-#include <Renderer\D3D11\D3D11_CommonState.h>
+#include <RHI\D3D11\D3D11_CommonState.h>
 
 using namespace Core::D3D11;
 

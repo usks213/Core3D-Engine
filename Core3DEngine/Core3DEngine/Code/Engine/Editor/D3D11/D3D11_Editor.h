@@ -9,7 +9,7 @@
 #define _D3D11_EDITOR_
 
 #include <Editor/Core/Editor.h>
-#include <Renderer/D3D11/D3D11_Defines.h>
+#include <RHI/D3D11/D3D11_Defines.h>
 
 namespace Core::D3D11
 {

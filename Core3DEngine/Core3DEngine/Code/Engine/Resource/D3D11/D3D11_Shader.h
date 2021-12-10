@@ -9,7 +9,7 @@
 #define _D3D11_SHADER_
 
 #include <Resource/Core/Shader.h>
-#include <Renderer\D3D11\D3D11_Defines.h>
+#include <RHI\D3D11\D3D11_Defines.h>
 #include <d3d11shader.h>
 
 namespace Core::D3D11

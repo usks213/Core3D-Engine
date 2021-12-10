@@ -9,9 +9,9 @@
 #ifndef _D3D11_RENDERER_
 #define _D3D11_RENDERER_
 
-#include <Renderer/Core/Renderer.h>
-#include <Renderer/D3D11/D3D11_Device.h>
-#include <Renderer/D3D11/D3D11_CommandList.h>
+#include <RHI/Core/RHI.h>
+#include <RHI/D3D11/D3D11_Device.h>
+#include <RHI/D3D11/D3D11_CommandList.h>
 
 namespace Core::D3D11
 {
@@ -20,7 +20,7 @@ namespace Core::D3D11
 
 	/// @brief D3D11ƒŒƒ“ƒ_ƒ‰[
 	/// @class D3D11Renderer
-	class D3D11Renderer final : public Renderer
+	class D3D11Renderer final : public RHI
 	{
 		friend class D3D11Device;
 		friend class D3D11CommandList;
