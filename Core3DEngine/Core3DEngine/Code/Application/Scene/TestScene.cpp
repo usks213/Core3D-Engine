@@ -149,7 +149,7 @@ void TestScene::Start()
 
 		// シェーダー・マテリアルの生成
 		Core::ShaderDesc shaderDesc;
-		shaderDesc.m_stages = Core::ShaderStageFlags::VS | Core::ShaderStageFlags::PS;
+		shaderDesc.m_stages = Core::GraphicsShaderStageFlags::VS | Core::GraphicsShaderStageFlags::PS;
 
 		shaderDesc.m_name = "Unlit";
 
@@ -202,7 +202,7 @@ void TestScene::Start()
 	{
 		// シェーダー・マテリアルの生成
 		Core::ShaderDesc shaderDesc;
-		shaderDesc.m_stages = Core::ShaderStageFlags::VS | Core::ShaderStageFlags::PS;
+		shaderDesc.m_stages = Core::GraphicsShaderStageFlags::VS | Core::GraphicsShaderStageFlags::PS;
 		shaderDesc.m_name = "Post";
 
 		g_postShaderID = device->CreateShader(shaderDesc);
@@ -220,7 +220,7 @@ void TestScene::Start()
 	{
 		// シェーダー・マテリアルの生成
 		Core::ShaderDesc shaderDesc;
-		shaderDesc.m_stages = Core::ShaderStageFlags::VS | Core::ShaderStageFlags::PS;
+		shaderDesc.m_stages = Core::GraphicsShaderStageFlags::VS | Core::GraphicsShaderStageFlags::PS;
 		shaderDesc.m_name = "Lit";
 
 		g_lightShaderID = device->CreateShader(shaderDesc);

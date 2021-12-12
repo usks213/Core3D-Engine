@@ -21,22 +21,15 @@ namespace Core::RHI
 		// public methods
 		//------------------------------------------------------------------------------
 
-		/// @brief コンストラクタ(ファイル読み込み)
-		/// @param id テクスチャID
-		/// @param filepath ファイルパス
-		explicit RenderTarget(const std::string& filepath) :
-			Texture(filepath)
-		{}
-
-		/// @brief コンストラクタ(Descから生成)
-		/// @param id テクスチャID
-		/// @param desc テクスチャDesc
-		explicit RenderTarget(TextureDesc& desc, const TextureData* pData = nullptr) :
-			Texture(desc, pData)
-		{}
+		/// @brief コンストラクタ
+		RenderTarget() {}
 
 		/// @brief デストラクタ
 		virtual ~RenderTarget() noexcept = default;
+
+		/// @brief レンダーターゲットビューの取得
+		/// @return 汎用ポインタ
+		virtual void* GetRTV() = 0;
 
 	public:
 		//------------------------------------------------------------------------------

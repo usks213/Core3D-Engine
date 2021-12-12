@@ -549,7 +549,7 @@ ID3D12PipelineState* D3D12Device::CreateGraphicsPipelineState(D3D12Shader& d3d12
 		// 各シェーダー
 		D3D12_SHADER_BYTECODE* shaderByteCode[5] = 
 		{ &gpipeline.VS, &gpipeline.HS, &gpipeline.DS, &gpipeline.GS, &gpipeline.PS };
-		for (int i = 0; i < static_cast<int>(ShaderStage::CS); ++i)
+		for (int i = 0; i < static_cast<int>(GraphicsShaderStage::CS); ++i)
 		{
 			if (d3d12Shader.m_pShaderBlob[i] != nullptr)
 			{

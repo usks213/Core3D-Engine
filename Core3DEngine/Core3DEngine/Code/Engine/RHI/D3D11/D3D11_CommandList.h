@@ -10,8 +10,7 @@
 #define _D3D11_RENDER_CONTEXT_
 
 #include <RHI/Core/RHI_CommandList.h>
-#include <Resource/D3D11/D3D11_Shader.h>
-#include <Resource/D3D11/D3D11_Material.h>
+#include <RHI/D3D11/D3D11_Shader.h>
 
 
 namespace Core::RHI::D3D11
@@ -112,11 +111,11 @@ namespace Core::RHI::D3D11
 		// private methods 
 		//------------------------------------------------------------------------------
 
-		void setCBufferResource(std::uint32_t slot, const Core::GPUBufferID& bufferID, Core::ShaderStage stage);
+		void setCBufferResource(std::uint32_t slot, const Core::GPUBufferID& bufferID, Core::GraphicsShaderStage stage);
 
-		void setTextureResource(std::uint32_t slot, const Core::TextureID& textureID, Core::ShaderStage stage);
+		void setTextureResource(std::uint32_t slot, const Core::TextureID& textureID, Core::GraphicsShaderStage stage);
 
-		void setSamplerResource(std::uint32_t slot, Core::SamplerState state, Core::ShaderStage stage);
+		void setSamplerResource(std::uint32_t slot, Core::SamplerState state, Core::GraphicsShaderStage stage);
 
 	private:
 		//------------------------------------------------------------------------------

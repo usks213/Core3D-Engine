@@ -49,21 +49,11 @@ namespace Core::RHI
 		// public methods
 		//------------------------------------------------------------------------------
 
-		/// @brief コンストラクタ(ファイル読み込み)
-		/// @param id テクスチャID
-		/// @param filepath ファイルパス
-		explicit Texture(const std::string& filepath)
-		{}
-
-		/// @brief コンストラクタ(Descから生成)
-		/// @param id テクスチャID
-		/// @param desc テクスチャDesc
-		explicit Texture(TextureDesc& desc, const TextureData* pData = nullptr)
-		{}
+		/// @brief コンストラクタ
+		Texture() : m_desc() {}
 
 		/// @brief デストラクタ
 		virtual ~Texture() noexcept = default;
-
 
 		/// @brief リソースポインタの取得
 		/// @return リソース型
@@ -77,11 +67,12 @@ namespace Core::RHI
 		/// @return UAV型
 		virtual void* GetUAV() = 0;
 
-	public:
+	protected:
 		//------------------------------------------------------------------------------
-		// public variables
+		// protected variables
 		//------------------------------------------------------------------------------
 
+		TextureDesc		m_desc;		///< テクスチャDesc
 	};
 }
 

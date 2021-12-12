@@ -29,7 +29,7 @@ using namespace Core::D3D11;
 namespace {
 	// CBuffer
 	static std::function<void(ID3D11DeviceContext1*, UINT, UINT, ID3D11Buffer* const*)>
-		setCBuffer[static_cast<std::size_t>(ShaderStage::MAX)] = {
+		setCBuffer[static_cast<std::size_t>(GraphicsShaderStage::MAX)] = {
 		&ID3D11DeviceContext1::VSSetConstantBuffers,
 		&ID3D11DeviceContext1::GSSetConstantBuffers,
 		&ID3D11DeviceContext1::DSSetConstantBuffers,
@@ -38,7 +38,7 @@ namespace {
 		&ID3D11DeviceContext1::CSSetConstantBuffers, };
 	// SRV
 	static std::function<void(ID3D11DeviceContext1*, UINT, UINT, ID3D11ShaderResourceView* const*)>
-		setShaderResource[static_cast<std::size_t>(ShaderStage::MAX)] = {
+		setShaderResource[static_cast<std::size_t>(GraphicsShaderStage::MAX)] = {
 		&ID3D11DeviceContext1::VSSetShaderResources,
 		&ID3D11DeviceContext1::GSSetShaderResources,
 		&ID3D11DeviceContext1::DSSetShaderResources,
@@ -47,7 +47,7 @@ namespace {
 		&ID3D11DeviceContext1::CSSetShaderResources, };
 	// Sampler
 	static std::function<void(ID3D11DeviceContext1*, UINT, UINT, ID3D11SamplerState* const*)>
-		setSamplers[static_cast<std::size_t>(ShaderStage::MAX)] = {
+		setSamplers[static_cast<std::size_t>(GraphicsShaderStage::MAX)] = {
 		&ID3D11DeviceContext1::VSSetSamplers,
 		&ID3D11DeviceContext1::GSSetSamplers,
 		&ID3D11DeviceContext1::DSSetSamplers,
@@ -102,7 +102,7 @@ void D3D11CommandList::setMaterial(const Core::MaterialID& materialID)
 
 	// マテリアルリソース指定・更新
 		// ステージごと
-	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		auto stageIndex = static_cast<std::size_t>(stage);
 
@@ -266,7 +266,7 @@ void D3D11CommandList::bindGlobalBuffer(const Core::ShaderID& shaderID, const st
 	auto type = static_cast<std::size_t>(pBuffer->m_type);
 
 	// ステージごと
-	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		if (!hasStaderStage(pShader->m_desc.m_stages, stage)) continue;
 		auto stageIndex = static_cast<std::size_t>(stage);
@@ -307,7 +307,7 @@ void D3D11CommandList::bindGlobalBuffer(const Core::ShaderID& shaderID, const st
 			}
 			else if (pBuffer->m_type == GPUBuffer::BufferType::UAV)
 			{
-				if (stage == ShaderStage::CS)
+				if (stage == GraphicsShaderStage::CS)
 				{
 					m_pDeferredContext->CSGetUnorderedAccessViews(itr->second.slot,
 						1, pBuffer->m_pUAV.GetAddressOf());
@@ -324,7 +324,7 @@ void D3D11CommandList::bindGlobalTexture(const Core::ShaderID& shaderID, const s
 	auto* pShader = static_cast<D3D11Shader*>(m_pDevice->GetShader(shaderID));
 	auto* pTexture = static_cast<D3D11Texture*>(m_pDevice->getTexture(textureID));
 
-	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		if (!hasStaderStage(pShader->m_desc.m_stages, stage)) continue;
 		auto stageIndex = static_cast<std::size_t>(stage);
@@ -344,7 +344,7 @@ void D3D11CommandList::bindGlobalSampler(const Core::ShaderID& shaderID, const s
 	auto* pShader = static_cast<D3D11Shader*>(m_pDevice->GetShader(shaderID));
 	const auto& samplerState = m_pDevice->m_samplerStates[static_cast<size_t>(sampler)];
 
-	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		if (!hasStaderStage(pShader->m_desc.m_stages, stage)) continue;
 		auto stageIndex = static_cast<std::size_t>(stage);
@@ -465,12 +465,12 @@ void D3D11CommandList::copyTexture(const Core::TextureID& destID, const Core::Te
 // private methods 
 //------------------------------------------------------------------------------
 
-void D3D11CommandList::setCBufferResource(std::uint32_t slot, const Core::GPUBufferID& bufferID, Core::ShaderStage stage)
+void D3D11CommandList::setCBufferResource(std::uint32_t slot, const Core::GPUBufferID& bufferID, Core::GraphicsShaderStage stage)
 {
 
 }
 
-void D3D11CommandList::setTextureResource(std::uint32_t slot, const Core::TextureID& textureID, Core::ShaderStage stage)
+void D3D11CommandList::setTextureResource(std::uint32_t slot, const Core::TextureID& textureID, Core::GraphicsShaderStage stage)
 {
 	auto stageIndex = static_cast<std::size_t>(stage);
 
@@ -488,7 +488,7 @@ void D3D11CommandList::setTextureResource(std::uint32_t slot, const Core::Textur
 	}
 }
 
-void D3D11CommandList::setSamplerResource(std::uint32_t slot, Core::SamplerState state, Core::ShaderStage stage)
+void D3D11CommandList::setSamplerResource(std::uint32_t slot, Core::SamplerState state, Core::GraphicsShaderStage stage)
 {
 	auto stageIndex = static_cast<size_t>(stage);
 	setSamplers[stageIndex](m_pDeferredContext.Get(), slot, 1, 

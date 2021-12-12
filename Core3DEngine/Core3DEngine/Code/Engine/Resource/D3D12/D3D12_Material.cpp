@@ -13,7 +13,7 @@ using namespace Core::D3D12;
 
 namespace
 {
-	constexpr D3D12_SHADER_VISIBILITY SHADER_VISIBILITYS[static_cast<size_t>(Core::ShaderStage::CS)] = {
+	constexpr D3D12_SHADER_VISIBILITY SHADER_VISIBILITYS[static_cast<size_t>(Core::GraphicsShaderStage::CS)] = {
 		D3D12_SHADER_VISIBILITY_VERTEX,
 		D3D12_SHADER_VISIBILITY_HULL,
 		D3D12_SHADER_VISIBILITY_DOMAIN,
@@ -32,7 +32,7 @@ D3D12Material::D3D12Material(ID3D12Device* device, const Core::MaterialID& id,
 	Core::CoreMaterial(id,name,shader)
 {
 	// コンスタントバッファの確保(GPU)
-	for (Core::ShaderStage stage = Core::ShaderStage::VS; stage < Core::ShaderStage::CS; ++stage)
+	for (Core::GraphicsShaderStage stage = Core::GraphicsShaderStage::VS; stage < Core::GraphicsShaderStage::CS; ++stage)
 	{
 		auto stageIndex = static_cast<size_t>(stage);
 		if (m_cbufferData[stageIndex].size() <= 0)

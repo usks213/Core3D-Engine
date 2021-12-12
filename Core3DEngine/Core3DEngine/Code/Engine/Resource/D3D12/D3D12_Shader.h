@@ -39,7 +39,7 @@ namespace Core::D3D12
 
 		/// @brief シェーダデータ
 		std::array < ComPtr<ID3DBlob>, 
-			static_cast<std::size_t>(Core::ShaderStage::MAX)>	m_pShaderBlob;
+			static_cast<std::size_t>(Core::GraphicsShaderStage::MAX)>	m_pShaderBlob;
 
 		/// @brief 入力レイアウト
 		std::vector<D3D12_INPUT_ELEMENT_DESC>					m_inputElementDesc;

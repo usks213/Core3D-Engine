@@ -1,22 +1,22 @@
 /*****************************************************************//**
- * \file   D3D11_Shader.h
- * \brief  DirectX11シェーダー
+ * \file   D3D11_GraphicsShader.h
+ * \brief  DirectX11グラフィックスシェーダー
  * 
  * \author USAMI KOSHI
  * \date   2021/10/05
  *********************************************************************/
-#ifndef _D3D11_SHADER_
-#define _D3D11_SHADER_
+#ifndef _D3D11_GRAPHICS_SHADER_
+#define _D3D11_GRAPHICS_SHADER_
 
-#include <Resource/Core/Shader.h>
-#include <RHI\D3D11\D3D11_Defines.h>
+#include <RHI/Core/RHI_GraphicsShader.h>
+#include "D3D11_Defines.h"
 #include <d3d11shader.h>
 
-namespace Core::D3D11
+namespace Core::RHI::D3D11
 {
-	/// @class D3D11Shader
+	/// @class D3D11GraphicsShader
 	/// @brief DirectX11シェーダ
-	class D3D11Shader final : public Core::CoreShader
+	class D3D11GraphicsShader final : public GraphicsShader
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -26,11 +26,10 @@ namespace Core::D3D11
 		/// @brief  コンストラクタ
 		/// @param device デバイス
 		/// @param desc シェーダ情報
-		explicit D3D11Shader(ID3D11Device1* device, 
-			Core::ShaderDesc desc, const Core::ShaderID& id);
+		explicit D3D11GraphicsShader(ID3D11Device1* device, const GraphicsShaderDesc& desc);
 
 		/// @brief デストラクタ
-		~D3D11Shader() noexcept = default;
+		~D3D11GraphicsShader() noexcept = default;
 
 	public:
 		//------------------------------------------------------------------------------
@@ -45,9 +44,8 @@ namespace Core::D3D11
 				ID3D11DomainShader* ds;
 				ID3D11HullShader* hs;
 				ID3D11PixelShader* ps;
-				ID3D11ComputeShader* cs;
 			};
-			ID3D11DeviceChild* shaders[static_cast<size_t>(Core::GraphicsShaderStage::MAX)];
+			ID3D11DeviceChild* shaders[static_cast<size_t>(GraphicsShaderStage::MAX)];
 		};
 		/// @brief 入力レイアウト
 		ComPtr<ID3D11InputLayout>				m_inputLayout;
@@ -61,7 +59,7 @@ namespace Core::D3D11
 		/// @param device デバイス
 		/// @param stage シェーダステージ
 		/// @param blob コンパイルデータ
-		void CreateShaderObjct(ID3D11Device1* device, const Core::GraphicsShaderStage& stage, ComPtr<ID3DBlob>& blob);
+		void CreateGraphicsShaderObjct(ID3D11Device1* device, const GraphicsShaderStage& stage, ComPtr<ID3DBlob>& blob);
 
 	private:
 		//------------------------------------------------------------------------------
@@ -69,9 +67,9 @@ namespace Core::D3D11
 		//------------------------------------------------------------------------------
 
 		/// @brief シェーダのスマートポインタ(解放用)
-		std::vector<ComPtr<ID3D11DeviceChild>>	m_comShaders;
+		std::vector<ComPtr<ID3D11DeviceChild>>	m_comGraphicsShaders;
 
 	};
 }
 
-#endif // !_D3D11_SHADER_
+#endif // !_D3D11_GRAPHICS_SHADER_

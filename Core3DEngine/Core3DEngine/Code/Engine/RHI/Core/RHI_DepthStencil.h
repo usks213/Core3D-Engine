@@ -21,22 +21,15 @@ namespace Core::RHI
 		// public methods
 		//------------------------------------------------------------------------------
 
-		/// @brief コンストラクタ(ファイル読み込み)
-		/// @param id テクスチャID
-		/// @param filepath ファイルパス
-		explicit DepthStencil(const std::string& filepath) :
-			Texture(filepath)
-		{}
-
-		/// @brief コンストラクタ(Descから生成)
-		/// @param id テクスチャID
-		/// @param desc テクスチャDesc
-		explicit DepthStencil(TextureDesc& desc, const TextureData* pData = nullptr) : 
-			Texture(desc, pData)
-		{}
+		/// @brief コンストラクタ
+		DepthStencil() {}
 
 		/// @brief デストラクタ
 		virtual ~DepthStencil() noexcept = default;
+
+		/// @brief デプスステンシルビューの取得
+		/// @return 汎用ポインタ
+		virtual void* GetDSV() = 0;
 
 	public:
 		//------------------------------------------------------------------------------

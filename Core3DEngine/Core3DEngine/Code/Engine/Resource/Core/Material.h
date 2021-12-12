@@ -85,13 +85,13 @@ namespace Core
 
 		/// @brief 全ステージ、スロット分のCBufferデータ
 		std::array<std::unordered_map<std::uint32_t, CBuffer>,
-			static_cast<size_t>(ShaderStage::MAX)>	m_cbufferData;
+			static_cast<size_t>(GraphicsShaderStage::MAX)>	m_cbufferData;
 		/// @brief 全ステージ、スロットのバインドするテクスチャ
 		std::array<std::unordered_map<std::uint32_t, TextureData>,
-			static_cast<size_t>(ShaderStage::MAX)>	m_textureData;
+			static_cast<size_t>(GraphicsShaderStage::MAX)>	m_textureData;
 		/// @brief 全ステージ、スロット分のサンプラステート
 		std::array<std::unordered_map<std::uint32_t, SamplerData>,
-			static_cast<size_t>(ShaderStage::MAX)>	m_samplerData;
+			static_cast<size_t>(GraphicsShaderStage::MAX)>	m_samplerData;
 
 		/// @brief CBuffer変数データ
 		std::unordered_map<std::string, CoreShader::CBufferVariable> m_cbufferVariable;

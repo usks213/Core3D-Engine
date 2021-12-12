@@ -10,50 +10,50 @@
 namespace Core::RHI
 {
 	/// @brief ループ用インクリメント
-	ShaderStage operator++(ShaderStage& value) {
+	GraphicsShaderStage operator++(GraphicsShaderStage& value) {
 		int result = static_cast<int>(value) + 1;
-		if (result > static_cast<int>(ShaderStage::MAX)) {
-			value = ShaderStage::VS;
-			return ShaderStage::VS;
+		if (result > static_cast<int>(GraphicsShaderStage::MAX)) {
+			value = GraphicsShaderStage::VS;
+			return GraphicsShaderStage::VS;
 		}
 		else {
-			value = static_cast<ShaderStage>(result);
+			value = static_cast<GraphicsShaderStage>(result);
 			return value;
 		}
 	}
 	/// @brief ループ用インクリメント
-	ShaderStage operator++(ShaderStage& value, int) {
+	GraphicsShaderStage operator++(GraphicsShaderStage& value, int) {
 		int result = static_cast<int>(value) + 1;
-		if (result > static_cast<int>(ShaderStage::MAX)) {
-			value = ShaderStage::VS;
-			return ShaderStage::VS;
+		if (result > static_cast<int>(GraphicsShaderStage::MAX)) {
+			value = GraphicsShaderStage::VS;
+			return GraphicsShaderStage::VS;
 		}
 		else {
-			value = static_cast<ShaderStage>(result);
-			return static_cast<ShaderStage>(result);
+			value = static_cast<GraphicsShaderStage>(result);
+			return static_cast<GraphicsShaderStage>(result);
 		}
 	}
 	/// @brief シェーダーステージフラグ用論理和
-	std::uint32_t operator|(const ShaderStageFlags& l, const ShaderStageFlags& r) {
+	std::uint32_t operator|(const GraphicsShaderStageFlags& l, const GraphicsShaderStageFlags& r) {
 		return static_cast<std::uint32_t>(l) | static_cast<std::uint32_t>(r);
 	}
 	/// @brief シェーダーステージフラグ用論理和
-	std::uint32_t operator|(const std::uint32_t& l, const ShaderStageFlags& r) {
+	std::uint32_t operator|(const std::uint32_t& l, const GraphicsShaderStageFlags& r) {
 		return l | static_cast<std::uint32_t>(r);
 	}
 
 	/// @brief 
 	/// @param shaderStage 
 	/// @return 
-	constexpr ShaderStageFlags ConvertShaderStage2Flags(const ShaderStage& shaderStage) {
+	constexpr GraphicsShaderStageFlags ConvertGraphicsShaderStage2Flags(const GraphicsShaderStage& shaderStage) {
 		switch (shaderStage) {
-		case ShaderStage::VS: return ShaderStageFlags::VS;
-		case ShaderStage::GS: return ShaderStageFlags::GS;
-		case ShaderStage::DS: return ShaderStageFlags::DS;
-		case ShaderStage::HS: return ShaderStageFlags::HS;
-		case ShaderStage::PS: return ShaderStageFlags::PS;
-		case ShaderStage::CS: return ShaderStageFlags::CS;
-		default:			   return ShaderStageFlags::NONE;
+		case GraphicsShaderStage::VS: return GraphicsShaderStageFlags::VS;
+		case GraphicsShaderStage::GS: return GraphicsShaderStageFlags::GS;
+		case GraphicsShaderStage::DS: return GraphicsShaderStageFlags::DS;
+		case GraphicsShaderStage::HS: return GraphicsShaderStageFlags::HS;
+		case GraphicsShaderStage::PS: return GraphicsShaderStageFlags::PS;
+		case GraphicsShaderStage::CS: return GraphicsShaderStageFlags::CS;
+		default:			   return GraphicsShaderStageFlags::NONE;
 		}
 	}
 	/// @brief シェーダーステージがフラグに含まれているか
@@ -61,7 +61,7 @@ namespace Core::RHI
 	/// @param shaderStageFlags シェーダーステージフラグ
 	/// @param shaderStage シェーダーステージ
 	/// @return 含まれているならTRUE
-	bool hasStaderStage(const std::uint32_t& shaderStageFlags, const ShaderStage& shaderStage) {
-		return shaderStageFlags & static_cast<std::uint32_t>(ConvertShaderStage2Flags(shaderStage));
+	bool hasStaderStage(const std::uint32_t& shaderStageFlags, const GraphicsShaderStage& shaderStage) {
+		return shaderStageFlags & static_cast<std::uint32_t>(ConvertGraphicsShaderStage2Flags(shaderStage));
 	}
 }

@@ -85,7 +85,7 @@ void D3D12CommandList::setMaterial(const Core::MaterialID& materialID)
 
 	// ステージごと
 	UINT rootIndex = 0;
-	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		auto stageIndex = static_cast<std::size_t>(stage);
 
@@ -295,7 +295,7 @@ void D3D12CommandList::bindGlobalBuffer(const Core::ShaderID& shaderID, const st
 	auto* pBuffer = static_cast<D3D12GPUBuffer*>(m_pDevice->getBuffer(bufferID));
 	auto type = static_cast<std::size_t>(pBuffer->m_type);
 
-	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		if (!hasStaderStage(pShader->m_desc.m_stages, stage)) continue;
 		auto stageIndex = static_cast<std::size_t>(stage);
@@ -318,7 +318,7 @@ void D3D12CommandList::bindGlobalBuffer(const Core::ShaderID& shaderID, const st
 			// ヒープ指定
 			m_pCmdList->SetDescriptorHeaps(1, pBuffer->m_pHeap.GetAddressOf());
 			// ビュー指定
-			if (stage != ShaderStage::CS)
+			if (stage != GraphicsShaderStage::CS)
 			{
 				if (pBuffer->m_type == GPUBuffer::BufferType::CBV)
 				{
@@ -334,7 +334,7 @@ void D3D12CommandList::bindGlobalBuffer(const Core::ShaderID& shaderID, const st
 				{
 					// 遷移リソースバリア
 					setTrasitionResourceBarrier(pBuffer->m_pBuffer.Get(), pBuffer->m_eState,
-						stage == ShaderStage::PS ? D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE : 
+						stage == GraphicsShaderStage::PS ? D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE : 
 						D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
 					// ビュー指定
 					m_pCmdList->SetGraphicsRootShaderResourceView(
@@ -396,7 +396,7 @@ void D3D12CommandList::bindGlobalTexture(const Core::ShaderID& shaderID, const s
 	auto* pShader = static_cast<D3D12Shader*>(m_pDevice->GetShader(shaderID));
 	auto* pTexture = static_cast<D3D12Texture*>(m_pDevice->getTexture(textureID));
 
-	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		if (!hasStaderStage(pShader->m_desc.m_stages, stage)) continue;
 		auto stageIndex = static_cast<std::size_t>(stage);
@@ -406,7 +406,7 @@ void D3D12CommandList::bindGlobalTexture(const Core::ShaderID& shaderID, const s
 		{
 			// 遷移リソースバリア
 			setTrasitionResourceBarrier(pTexture->m_pTex.Get(), pTexture->m_eState,
-				stage == ShaderStage::PS ? D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE :
+				stage == GraphicsShaderStage::PS ? D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE :
 				D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
 			// ヒープ指定
 			ID3D12DescriptorHeap* pHeap[] = { m_pDevice->m_pTexturePool->GetDescriptorHeap() };
@@ -426,7 +426,7 @@ void D3D12CommandList::bindGlobalSampler(const Core::ShaderID& shaderID, const s
 	auto* pShader = static_cast<D3D12Shader*>(m_pDevice->GetShader(shaderID));
 	const auto& samplerHandle = m_pDevice->m_dynamicSamplers[static_cast<size_t>(sampler)];
 
-	for (auto stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		if (!hasStaderStage(pShader->m_desc.m_stages, stage)) continue;
 		auto stageIndex = static_cast<std::size_t>(stage);
@@ -587,7 +587,7 @@ void D3D12CommandList::copyTexture(const Core::TextureID& destID, const Core::Te
 // private methods 
 //------------------------------------------------------------------------------
 
-void D3D12CommandList::setTextureResource(Core::ShaderStage stage, std::uint32_t rootIndex, const Core::TextureID& textureID)
+void D3D12CommandList::setTextureResource(Core::GraphicsShaderStage stage, std::uint32_t rootIndex, const Core::TextureID& textureID)
 {
 	D3D12Texture* pD3DTex = static_cast<D3D12Texture*>(m_pDevice->getTexture(textureID));
 
@@ -595,7 +595,7 @@ void D3D12CommandList::setTextureResource(Core::ShaderStage stage, std::uint32_t
 	{
 		// 遷移リソースバリア
 		setTrasitionResourceBarrier(pD3DTex->m_pTex.Get(), pD3DTex->m_eState,
-			stage == ShaderStage::PS ? D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE :
+			stage == GraphicsShaderStage::PS ? D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE :
 			D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
 		// ヒープ指定
 		ID3D12DescriptorHeap* pHeap[] = { m_pDevice->m_pTexturePool->GetDescriptorHeap() };
@@ -611,7 +611,7 @@ void D3D12CommandList::setTextureResource(Core::ShaderStage stage, std::uint32_t
 	}
 }
 
-void D3D12CommandList::setSamplerResource(Core::ShaderStage stage, std::uint32_t rootIndex, Core::SamplerState state)
+void D3D12CommandList::setSamplerResource(Core::GraphicsShaderStage stage, std::uint32_t rootIndex, Core::SamplerState state)
 {
 	// ヒープ指定
 	ID3D12DescriptorHeap* pHeap[] = { m_pDevice->m_pSamplerHeap.Get() };

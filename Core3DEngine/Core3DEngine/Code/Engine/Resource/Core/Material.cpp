@@ -22,7 +22,7 @@ CoreMaterial::CoreMaterial(const MaterialID& id, const std::string& name, const 
 	m_cbufferCount(0)
 {
 	// シェーダからマテリアルデータを生成
-	for (ShaderStage stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		//--- CBuffer確保
 		auto stageIndex = static_cast<size_t>(stage);
@@ -91,7 +91,7 @@ void CoreMaterial::setData(const char* name, const void* data)
 	}
 
 	//// 検索
-	//for (ShaderStage stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	//for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	//{
 	//	auto stageIndex = static_cast<size_t>(stage);
 	//	for (const auto& cbLayout : m_pShader->m_cbufferLayouts[stageIndex])
@@ -129,7 +129,7 @@ void* CoreMaterial::getData(const char* name)
 	return nullptr;
 
 	//// 検索
-	//for (ShaderStage stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	//for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	//{
 	//	auto stageIndex = static_cast<size_t>(stage);
 	//	for (const auto& cbLayout : m_pShader->m_cbufferLayouts[stageIndex])
@@ -154,7 +154,7 @@ void* CoreMaterial::getData(const char* name)
 void CoreMaterial::setTexture(const char* name, const TextureID textureID)
 {
 	// 検索
-	for (ShaderStage stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		auto stageIndex = static_cast<size_t>(stage);
 		for (auto& texData : m_textureData[stageIndex])
@@ -172,7 +172,7 @@ void CoreMaterial::setTexture(const char* name, const TextureID textureID)
 TextureID CoreMaterial::getTexture(const char* name)
 {
 	// 検索
-	for (ShaderStage stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		auto stageIndex = static_cast<size_t>(stage);
 		for (const auto& texData : m_textureData[stageIndex])
@@ -189,7 +189,7 @@ TextureID CoreMaterial::getTexture(const char* name)
 void CoreMaterial::setSampler(const char* name, const SamplerState sampler)
 {
 	// 検索
-	for (ShaderStage stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		auto stageIndex = static_cast<size_t>(stage);
 		for (auto& samData : m_samplerData[stageIndex])
@@ -207,7 +207,7 @@ void CoreMaterial::setSampler(const char* name, const SamplerState sampler)
 SamplerState CoreMaterial::GetSampler(const char* name)
 {
 	// 検索
-	for (ShaderStage stage = ShaderStage::VS; stage < ShaderStage::MAX; ++stage)
+	for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		auto stageIndex = static_cast<size_t>(stage);
 		for (auto& samData : m_samplerData[stageIndex])

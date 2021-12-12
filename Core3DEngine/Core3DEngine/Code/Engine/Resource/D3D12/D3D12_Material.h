@@ -41,11 +41,11 @@ namespace Core::D3D12
 
 		/// @brief 全ステージ、スロット分のヒープ領域
 		std::array<ComPtr<ID3D12DescriptorHeap>, 
-			static_cast<size_t>(Core::ShaderStage::MAX)>	m_pCBufferHeap;
+			static_cast<size_t>(Core::GraphicsShaderStage::MAX)>	m_pCBufferHeap;
 
 		/// @brief 全ステージ、スロット分のCBufferリソースポインタ
 		std::array<std::unordered_map<std::uint32_t, ComPtr<ID3D12Resource>>,
-			static_cast<size_t>(Core::ShaderStage::MAX)>	m_d3dCbuffer;
+			static_cast<size_t>(Core::GraphicsShaderStage::MAX)>	m_d3dCbuffer;
 
 	};
 }

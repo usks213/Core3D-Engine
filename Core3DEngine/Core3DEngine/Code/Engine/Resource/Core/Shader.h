@@ -73,9 +73,9 @@ namespace Core
 	}
 
 
-	/// @enum ShaderStage
+	/// @enum GraphicsShaderStage
 	/// @brief シェーダーステージ
-	enum class ShaderStage : std::uint32_t
+	enum class GraphicsShaderStage : std::uint32_t
 	{
 		VS,		///< 頂点シェーダー
 		HS,		///< ハルシェーダー
@@ -86,9 +86,9 @@ namespace Core
 		MAX,		///< シェーダーステージ数
 	};
 
-	/// @enum ShaderStageFlags
+	/// @enum GraphicsShaderStageFlags
 	/// @brief シェーダーステージフラグ
-	enum class ShaderStageFlags : std::uint32_t
+	enum class GraphicsShaderStageFlags : std::uint32_t
 	{
 		NONE = 0,
 		VS = 1 << 1,
@@ -102,24 +102,24 @@ namespace Core
 	};
 
 	/// @brief ループ用インクリメント
-	ShaderStage operator++(ShaderStage& value);
+	GraphicsShaderStage operator++(GraphicsShaderStage& value);
 	/// @brief ループ用インクリメント
-	ShaderStage operator++(ShaderStage& value, int);
+	GraphicsShaderStage operator++(GraphicsShaderStage& value, int);
 	/// @brief シェーダーステージフラグ用論理和
-	std::uint32_t operator|(const ShaderStageFlags& l, const ShaderStageFlags& r);
+	std::uint32_t operator|(const GraphicsShaderStageFlags& l, const GraphicsShaderStageFlags& r);
 	/// @brief シェーダーステージフラグ用論理和
-	std::uint32_t operator|(const std::uint32_t& l, const ShaderStageFlags& r);
+	std::uint32_t operator|(const std::uint32_t& l, const GraphicsShaderStageFlags& r);
 
 	/// @brief 
 	/// @param shaderStage 
 	/// @return 
-	constexpr ShaderStageFlags ConvertShaderStage2Flags(const ShaderStage& shaderStage);
+	constexpr GraphicsShaderStageFlags ConvertGraphicsShaderStage2Flags(const GraphicsShaderStage& shaderStage);
 	/// @brief シェーダーステージがフラグに含まれているか
 	/// @details FlagsとANDを取る
 	/// @param shaderStageFlags シェーダーステージフラグ
 	/// @param shaderStage シェーダーステージ
 	/// @return 含まれているならTRUE
-	bool hasStaderStage(const std::uint32_t& shaderStageFlags, const ShaderStage& shaderStage);
+	bool hasStaderStage(const std::uint32_t& shaderStageFlags, const GraphicsShaderStage& shaderStage);
 
 
 	/// @brief シェーダー生成用構造体
@@ -192,14 +192,14 @@ namespace Core
 		};
 		/// @brief 全ステージのCBufferレイアウト
 		std::array<std::unordered_map<std::uint32_t, CBufferLayout>,
-			static_cast<size_t>(ShaderStage::MAX)> m_cbufferLayouts;
+			static_cast<size_t>(GraphicsShaderStage::MAX)> m_cbufferLayouts;
 		/// @brief CBuffer変数のデフォルト値(初期化子付き値)
 		std::unordered_map<std::string, std::unique_ptr<std::byte[]>> m_cbufferDefaults;
 
 		/// @brief シェーダーリソースバインド情報
 		struct ShaderBindData
 		{
-			ShaderStage			stage;
+			GraphicsShaderStage			stage;
 			BindType				type;
 			std::string			name;
 			std::uint32_t		slot;
@@ -211,11 +211,11 @@ namespace Core
 
 		/// @brief 動的バインド情報
 		std::unordered_map<std::string, ShaderBindData> m_dynamicBindData
-			[static_cast<size_t>(ShaderStage::MAX)][static_cast<size_t>(BindType::MAX)];
+			[static_cast<size_t>(GraphicsShaderStage::MAX)][static_cast<size_t>(BindType::MAX)];
 
 		/// @brief 静的バインド情報
 		std::unordered_map<std::string, ShaderBindData> m_staticBindData
-			[static_cast<size_t>(ShaderStage::MAX)][static_cast<size_t>(BindType::MAX)];
+			[static_cast<size_t>(GraphicsShaderStage::MAX)][static_cast<size_t>(BindType::MAX)];
 
 	public:
 		//------------------------------------------------------------------------------

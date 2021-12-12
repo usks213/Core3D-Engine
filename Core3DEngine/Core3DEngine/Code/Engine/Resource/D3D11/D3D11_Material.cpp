@@ -33,7 +33,7 @@ D3D11Material::D3D11Material(ID3D11Device1* device, const Core::MaterialID& id,
 	D3D11_SUBRESOURCE_DATA initData = {};
 
 	// コンスタントバッファの確保(GPU)
-	for (Core::ShaderStage stage = Core::ShaderStage::VS; stage < Core::ShaderStage::MAX; ++stage)
+	for (Core::GraphicsShaderStage stage = Core::GraphicsShaderStage::VS; stage < Core::GraphicsShaderStage::MAX; ++stage)
 	{
 		//--- CBuffer確保
 		auto stageIndex = static_cast<size_t>(stage);

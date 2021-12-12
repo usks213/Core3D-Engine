@@ -1,12 +1,12 @@
 /*****************************************************************//**
- * \file   RHI_Shader.h
- * \brief  シェーダー
+ * \file   RHI_GraphicsShader.h
+ * \brief  グラフィックスシェーダー
  * 
  * \author USAMI KOSHI
  * \date   2021/10/05
  *********************************************************************/
-#ifndef _CORE_SHADER_
-#define _CORE_SHADER_
+#ifndef _RHI_GRAPHICS_SHADER_
+#define _RHI_GRAPHICS_SHADER_
 
 #include <limits>
 #include <string>
@@ -14,6 +14,10 @@
 #include <unordered_map>
 #include <memory>
 #include <array>
+
+#include "RHI_ShaderCBufferLayout.h"
+#include "RHI_ShaderInputLayout.h"
+#include "RHI_ShaderResourceLayout.h"
 
 #ifdef min
 #undef min
@@ -25,16 +29,16 @@
 namespace Core::RHI
 {
 	/// @brief シェーダー生成用構造体
-	struct ShaderDesc
+	struct GraphicsShaderDesc
 	{
 		std::uint32_t	m_stages;	// シェーダーステージフラグ
 		std::string		m_name;		// シェーダー名
 		// シェーダマクロ
 	};
 
-	/// @class Shader
+	/// @class GraphicsShader
 	/// @brief シェーダ
-	class Shader
+	class GraphicsShader
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -42,15 +46,13 @@ namespace Core::RHI
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		explicit Shader(ShaderDesc shaderDesc) :
+		explicit GraphicsShader(GraphicsShaderDesc shaderDesc) :
 			m_desc(shaderDesc)
 		{
 		}
 
 		/// @brief デストラクタ
-		virtual ~Shader() noexcept = default;
-
-	public:
+		virtual ~GraphicsShader() noexcept = default;
 
 
 	public:
@@ -58,17 +60,24 @@ namespace Core::RHI
 		// public variables
 		//------------------------------------------------------------------------------
 
-		/// @brief シェーダー生成情報
-		ShaderDesc  m_desc;
-		/// @brief マクロのハッシュ値
-
 	protected:
 		//------------------------------------------------------------------------------
 		// protected variables
 		//------------------------------------------------------------------------------
 
+		/// @brief シェーダー生成情報
+		GraphicsShaderDesc  m_desc;
+		/// @brief シェーダーマクロのハッシュ値
+
+
+		/// @brief インプットレイアウト
+		ShaderInputLayout								m_inputLayout;
+		/// @brief リソーステーブル
+		ShaderResourceLayout							m_tableLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
+		/// @brief CBufferレイアウト
+		std::unordered_map<Slot, ShaderCBufferLayout>	m_cbufferLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
 
 	};
 }
 
-#endif // !_CORE_SHADER_
+#endif // !_RHI_GRAPHICS_SHADER_

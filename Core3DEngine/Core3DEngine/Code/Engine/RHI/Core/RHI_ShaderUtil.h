@@ -78,23 +78,42 @@ namespace Core::RHI
 		SHADER_MACRO_NAME(FLAG_FOG);
 	}
 
-
 	/// @enum ShaderStage
 	/// @brief シェーダーステージ
 	enum class ShaderStage : std::uint32_t
 	{
+		//--- グラフィックスシェーダー ---
 		VS,		///< 頂点シェーダー
 		HS,		///< ハルシェーダー
 		DS,		///< ドメインシェーダー
 		GS,		///< ジオメトリシェーダー
 		PS,		///< ピクセルシェーダー
+
+		//--- コンピュートシェーダー ---
 		CS,		///< コンピュートシェーダー
+
+		//--- レイトレーシングシェーダー ---
+
+
 		MAX,		///< シェーダーステージ数
 	};
 
-	/// @enum ShaderStageFlags
-	/// @brief シェーダーステージフラグ
-	enum class ShaderStageFlags : std::uint32_t
+
+	/// @enum GraphicsShaderStage
+	/// @brief グラフィックスシェーダーステージ
+	enum class GraphicsShaderStage : std::uint32_t
+	{
+		VS = static_cast<std::uint32_t>(ShaderStage::VS),		///< 頂点シェーダー
+		HS = static_cast<std::uint32_t>(ShaderStage::HS),		///< ハルシェーダー
+		DS = static_cast<std::uint32_t>(ShaderStage::DS),		///< ドメインシェーダー
+		GS = static_cast<std::uint32_t>(ShaderStage::GS),		///< ジオメトリシェーダー
+		PS = static_cast<std::uint32_t>(ShaderStage::PS),		///< ピクセルシェーダー
+		MAX,		///< シェーダーステージ数
+	};
+
+	/// @enum GraphicsShaderStageFlags
+	/// @brief グラフィックスシェーダーステージフラグ
+	enum class GraphicsShaderStageFlags : std::uint32_t
 	{
 		NONE = 0,
 		VS = 1 << 1,
@@ -102,30 +121,29 @@ namespace Core::RHI
 		DS = 1 << 3,
 		GS = 1 << 4,
 		PS = 1 << 5,
-		CS = 1 << 6,
 		MAX = std::numeric_limits<std::uint32_t>::max(),
 		ALL = MAX,
 	};
 
 	/// @brief ループ用インクリメント
-	ShaderStage operator++(ShaderStage& value);
+	GraphicsShaderStage operator++(GraphicsShaderStage& value);
 	/// @brief ループ用インクリメント
-	ShaderStage operator++(ShaderStage& value, int);
+	GraphicsShaderStage operator++(GraphicsShaderStage& value, int);
 	/// @brief シェーダーステージフラグ用論理和
-	std::uint32_t operator|(const ShaderStageFlags& l, const ShaderStageFlags& r);
+	std::uint32_t operator|(const GraphicsShaderStageFlags& l, const GraphicsShaderStageFlags& r);
 	/// @brief シェーダーステージフラグ用論理和
-	std::uint32_t operator|(const std::uint32_t& l, const ShaderStageFlags& r);
+	std::uint32_t operator|(const std::uint32_t& l, const GraphicsShaderStageFlags& r);
 
 	/// @brief 
 	/// @param shaderStage 
 	/// @return 
-	constexpr ShaderStageFlags ConvertShaderStage2Flags(const ShaderStage& shaderStage);
+	constexpr GraphicsShaderStageFlags ConvertGraphicsShaderStage2Flags(const GraphicsShaderStage& shaderStage);
 	/// @brief シェーダーステージがフラグに含まれているか
 	/// @details FlagsとANDを取る
 	/// @param shaderStageFlags シェーダーステージフラグ
 	/// @param shaderStage シェーダーステージ
 	/// @return 含まれているならTRUE
-	bool hasStaderStage(const std::uint32_t& shaderStageFlags, const ShaderStage& shaderStage);
+	bool hasStaderStage(const std::uint32_t& shaderStageFlags, const GraphicsShaderStage& shaderStage);
 
 }
 

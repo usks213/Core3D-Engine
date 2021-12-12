@@ -35,9 +35,25 @@ namespace Core::RHI
 				formatWidth(0) {}
 		};
 
-	private:
+		/// @brief 変数の追加
+		/// @param var 入力レイアウトの変数
+		void AddVariable(const InputLayoutVariable& var)
+		{
+			m_inputLayoutVariableList.push_back(var);
+		}
+
+		/// @brief 入力レイアウトの変数リストを取得
+		/// @return 変数リスト
+		std::vector<InputLayoutVariable>& GetVariableList() 
+		{
+			return m_inputLayoutVariableList; 
+		}
+
+	protected:
+
 		/// @brief 入力レイアウト情報リスト
 		std::vector<InputLayoutVariable> m_inputLayoutVariableList;
+
 	};
 
 }

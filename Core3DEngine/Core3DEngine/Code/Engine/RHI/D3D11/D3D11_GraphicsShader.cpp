@@ -1,12 +1,13 @@
 /*****************************************************************//**
- * \file   D3D12_Shader.h
- * \brief  DirectX12シェーダークラス
+ * \file   D3D11_GraphicsShader.h
+ * \brief  DirectX11グラフィックスシェーダー
  *
  * \author USAMI KOSHI
- * \date   2021/10/11
+ * \date   2021/10/05
  *********************************************************************/
+#include "D3D11_GraphicsShader.h"
+#include "D3D11_CommonState.h"
 
-#include "D3D12_Shader.h"
 #include <d3dcompiler.h>
 #include <fstream>
 #include <iostream>
@@ -14,8 +15,7 @@
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dxguid.lib")
 
-using namespace Core;
-using namespace Core::D3D12;
+using namespace Core::RHI::D3D11;
 
 namespace {
 	/// @brief シェーダファイルパス
@@ -27,52 +27,49 @@ namespace {
 	};
 	/// @brief HLSLバージョン
 	const char* HLSL_VERS[] = {
-		"vs_5_1",
-		"gs_5_1",
-		"ds_5_1",
-		"hs_5_1",
-		"ps_5_1",
-		"cs_5_1",
-	};
-
-	constexpr D3D12_SHADER_VISIBILITY SHADER_VISIBILITYS[static_cast<size_t>(Core::GraphicsShaderStage::CS)] = {
-		D3D12_SHADER_VISIBILITY_VERTEX,
-		D3D12_SHADER_VISIBILITY_HULL,
-		D3D12_SHADER_VISIBILITY_DOMAIN,
-		D3D12_SHADER_VISIBILITY_GEOMETRY,
-		D3D12_SHADER_VISIBILITY_PIXEL,
+		"vs_5_0",
+		"gs_5_0",
+		"ds_5_0",
+		"hs_5_0",
+		"ps_5_0",
+		"cs_5_0",
 	};
 }
 
 /// @brief  コンストラクタ
 /// @param device デバイス
 /// @param desc シェーダ情報
-D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core::ShaderID& id) :
-	Core::CoreShader(desc, id),
-	m_pShaderBlob({nullptr,}),
-	m_inputElementDesc()
+D3D11GraphicsShader::D3D11GraphicsShader(ID3D11Device1* device, const GraphicsShaderDesc& desc) :
+	GraphicsShader(desc),
+	m_comGraphicsShaders(static_cast<size_t>(GraphicsShaderStage::MAX)),
+	m_inputLayout(),
+	vs(nullptr),
+	gs(nullptr),
+	ds(nullptr),
+	hs(nullptr),
+	ps(nullptr)
 {
 	// 初期化
-	for (auto& shader : m_pShaderBlob) {
+	for (auto* shader : shaders) {
 		shader = nullptr;
 	}
 
 	// コンパイルしたシェーダデータ
-	auto& blobs = m_pShaderBlob;
+	std::vector<ComPtr<ID3DBlob>>				blobs(static_cast<size_t>(GraphicsShaderStage::MAX));
 	// シェーダリフレクション
-	std::vector<ComPtr<ID3D12ShaderReflection>>	reflections(static_cast<size_t>(Core::GraphicsShaderStage::MAX));
+	std::vector<ComPtr<ID3D11ShaderReflection>>	reflections(static_cast<size_t>(GraphicsShaderStage::MAX));
 	// シェーダ情報一時格納用
-	D3D12_SHADER_DESC							shaderDesc = {};
+	D3D11_SHADER_DESC							shaderDesc = {};
 
 
 	// シェーダステージ数だけコンパイルを試す
-	for (auto stage = Core::GraphicsShaderStage::VS; stage < Core::GraphicsShaderStage::MAX; ++stage)
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		// ステージがない場合はスキップ
 		if (!hasStaderStage(desc.m_stages, stage)) continue;
 
 		ComPtr<ID3DBlob>& blob = blobs[static_cast<size_t>(stage)];
-		ComPtr<ID3D12ShaderReflection>& reflection = reflections[static_cast<size_t>(stage)];
+		ComPtr<ID3D11ShaderReflection>& reflection = reflections[static_cast<size_t>(stage)];
 
 		// パス
 		std::string filepath = SHADER_FILE_PATH + desc.m_name + "_" + 
@@ -91,7 +88,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 				D3D_COMPILE_STANDARD_FILE_INCLUDE,
 				SHADER_TYPES[static_cast<size_t>(stage)],
 				HLSL_VERS[static_cast<size_t>(stage)],
-				D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, //D3DCOMPILE_ENABLE_STRICTNESS,
+				D3DCOMPILE_ENABLE_STRICTNESS,
 				0,
 				blob.GetAddressOf(),
 				&d3dError));
@@ -101,10 +98,13 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 			// 読み込み成功
 			if (blob)
 			{
+				// シェーダオブジェクト生成
+				CreateShaderObjct(device, stage, blob);
+
 				// シェーダリフレクション取得
 				void** ppBuffer = reinterpret_cast<void**>(reflection.GetAddressOf());
 				CHECK_FAILED(D3DReflect(blob->GetBufferPointer(), blob->GetBufferSize(),
-					IID_ID3D12ShaderReflection, ppBuffer));
+					IID_ID3D11ShaderReflection, ppBuffer));
 			}
 
 		}
@@ -116,28 +116,28 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 	}
 
 	// 頂点シェーダがある場合はインプットレイアウトを作成
-	auto& vsReflection = reflections[static_cast<size_t>(Core::GraphicsShaderStage::VS)];
+	auto& vsReflection = reflections[static_cast<size_t>(GraphicsShaderStage::VS)];
 	if (vsReflection)
 	{
-		auto& vsBlob = blobs[static_cast<size_t>(Core::GraphicsShaderStage::VS)];
+		auto& vsBlob = blobs[static_cast<size_t>(GraphicsShaderStage::VS)];
 		vsReflection->GetDesc(&shaderDesc);
-		std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayouts(shaderDesc.InputParameters);
+		std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayouts(shaderDesc.InputParameters);
 
 		// 入力レイアウト数分
 		m_inputLayoutVariableList.resize(shaderDesc.InputParameters);
 		for (UINT i = 0; i < shaderDesc.InputParameters; ++i)
 		{
-			D3D12_SIGNATURE_PARAMETER_DESC signature;
+			D3D11_SIGNATURE_PARAMETER_DESC signature;
 			vsReflection->GetInputParameterDesc(i, &signature);
 
 			// インプットレイアウト要素
-			D3D12_INPUT_ELEMENT_DESC inputDesc = {};
+			D3D11_INPUT_ELEMENT_DESC inputDesc;
 			inputDesc.SemanticName = signature.SemanticName;
 			inputDesc.SemanticIndex = signature.SemanticIndex;
 			//inputDesc.Format = 後..
 			inputDesc.InputSlot = 0;
-			inputDesc.AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
-			inputDesc.InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA;
+			inputDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+			inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 			inputDesc.InstanceDataStepRate = 0;
 
 			// 入力レイアウト情報
@@ -146,8 +146,8 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 			m_inputLayoutVariableList[i].semanticIndex = inputDesc.SemanticIndex;
 			if (i > 0)
 			{
-				m_inputLayoutVariableList[i].offset = m_inputLayoutVariableList[i - 1].arrayNum * 
-					m_inputLayoutVariableList[i - 1].formatWidth +	m_inputLayoutVariableList[i - 1].offset;
+				m_inputLayoutVariableList[i].offset = m_inputLayoutVariableList[i - 1].arrayNum *
+					m_inputLayoutVariableList[i - 1].formatWidth + m_inputLayoutVariableList[i - 1].offset;
 			}
 
 			// ビットマスクでフォーマットを分ける
@@ -156,7 +156,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 				switch (signature.MinPrecision)
 				{
 				case D3D_MIN_PRECISION_DEFAULT:
-					switch (signature.ComponentType) 
+					switch (signature.ComponentType)
 					{
 					case D3D_REGISTER_COMPONENT_UINT32: inputDesc.Format = DXGI_FORMAT_R32_UINT;  break;
 					case D3D_REGISTER_COMPONENT_SINT32: inputDesc.Format = DXGI_FORMAT_R32_SINT;  break;
@@ -167,7 +167,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 				case D3D_MIN_PRECISION_FLOAT_16:
 					m_inputLayoutVariableList[i].formatWidth = sizeof(short);
 					inputDesc.Format = DXGI_FORMAT_R16_FLOAT; break;
-				case D3D_MIN_PRECISION_SINT_16 :
+				case D3D_MIN_PRECISION_SINT_16:
 					m_inputLayoutVariableList[i].formatWidth = sizeof(short);
 					inputDesc.Format = DXGI_FORMAT_R16_SINT; break;
 				case D3D_MIN_PRECISION_UINT_16:
@@ -179,7 +179,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 				}
 				m_inputLayoutVariableList[i].arrayNum = 1U;
 			}
-			else if (signature.Mask <= 0x03) 
+			else if (signature.Mask <= 0x03)
 			{
 				switch (signature.MinPrecision)
 				{
@@ -229,7 +229,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 				}
 				m_inputLayoutVariableList[i].arrayNum = 3U;
 			}
-			else if (signature.Mask <= 0x0F) 
+			else if (signature.Mask <= 0x0F)
 			{
 				switch (signature.MinPrecision)
 				{
@@ -262,16 +262,20 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 			inputLayouts[i] = inputDesc;
 		}
 
-		// 入力レイアウト情報格納
+		// 入力レイアウト情報作成
 		if (!inputLayouts.empty()){
-
-			m_inputElementDesc = inputLayouts;
+			CHECK_FAILED(device->CreateInputLayout(
+				inputLayouts.data(),
+				shaderDesc.InputParameters,
+				vsBlob->GetBufferPointer(),
+				vsBlob->GetBufferSize(),
+				m_inputLayout.GetAddressOf()));
 		}
 	}
 
 	// 入力バインドデータの作成
-	D3D12_SHADER_BUFFER_DESC shaderGPUBufferDesc = {};
-	for (auto stage = Core::GraphicsShaderStage::VS; stage < Core::GraphicsShaderStage::MAX; ++stage)
+	D3D11_SHADER_BUFFER_DESC shaderGPUBufferDesc = {};
+	for (auto stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
 	{
 		const auto& stageIndex = static_cast<size_t>(stage);
 		const auto& reflection = reflections[stageIndex];
@@ -283,7 +287,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 		for (std::uint32_t i = 0; i < shaderDesc.BoundResources; ++i)
 		{
 			// バインド情報取得
-			D3D12_SHADER_INPUT_BIND_DESC bindDesc;
+			D3D11_SHADER_INPUT_BIND_DESC bindDesc;
 			reflection->GetResourceBindingDesc(i, &bindDesc);
 
 			BindType bindType = BindType::MAX;
@@ -291,11 +295,11 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 			// バインドタイプで分ける
 			switch (bindDesc.Type)
 			{
-				// b
+			// b
 			case D3D_SIT_CBUFFER:
 				bindType = BindType::CBV;
 				break;
-				// u
+			// u
 			case D3D_SIT_UAV_RWTYPED:
 			case D3D_SIT_UAV_RWSTRUCTURED:
 			case D3D_SIT_UAV_RWBYTEADDRESS:
@@ -304,17 +308,17 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 			case D3D_SIT_UAV_RWSTRUCTURED_WITH_COUNTER:
 				bindType = BindType::UAV;
 				break;
-				// t
+			// t
 			case D3D_SIT_TBUFFER:
 			case D3D_SIT_STRUCTURED:
 			case D3D_SIT_BYTEADDRESS:
 				bindType = BindType::SRV;
 				break;
-				// t
+			// t
 			case D3D_SIT_TEXTURE:
 				bindType = BindType::TEXTURE;
 				break;
-				// s
+			// s
 			case D3D_SIT_SAMPLER:
 				bindType = BindType::SAMPLER;
 				break;
@@ -332,7 +336,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 				data.stage = stage;
 				data.name = bindDesc.Name;
 				data.slot = bindDesc.BindPoint;
-				data.space = bindDesc.Space;
+				data.space = 0;
 				data.type = bindType;
 				m_dynamicBindData[stageIndex][type][bindDesc.Name] = data;
 			}
@@ -342,7 +346,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 				data.stage = stage;
 				data.name = bindDesc.Name;
 				data.slot = bindDesc.BindPoint;
-				data.space = bindDesc.Space;
+				data.space = 0;
 				data.type = bindType;
 				m_staticBindData[stageIndex][type][bindDesc.Name] = data;
 			}
@@ -372,7 +376,7 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 			cbLayout.variables.resize(shaderGPUBufferDesc.Variables);
 
 			// CB変数のレイアウト作成
-			D3D12_SHADER_VARIABLE_DESC varDesc;
+			D3D11_SHADER_VARIABLE_DESC varDesc;
 			for (std::uint32_t v = 0; v < shaderGPUBufferDesc.Variables; ++v)
 			{
 				// 変数情報取得
@@ -397,227 +401,97 @@ D3D12Shader::D3D12Shader(D3D12Device* device, Core::ShaderDesc desc, const Core:
 			m_cbufferLayouts[stageIndex].emplace(cbIdx - slotOffset, cbLayout);
 		}
 	}
-
-	// ルートシグネチャーの作成
-	CreateRootSignature(device);
-
 }
 
-
-/// @brief ルートシグネチャーの生成
-void D3D12Shader::CreateRootSignature(D3D12Device* device)
+/// @brief シェーダオブジェクト生成
+/// @param device デバイス
+/// @param stage シェーダステージ
+/// @param blob コンパイルデータ
+void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const GraphicsShaderStage& stage, ComPtr<ID3DBlob>& blob)
 {
-	// 全ディスクリプタレンジ・パラメータ
-	std::vector<D3D12_DESCRIPTOR_RANGE>		aRanges;
-	aRanges.reserve(100);
-	std::vector<D3D12_ROOT_PARAMETER>			aParameters;
-	std::vector<D3D12_STATIC_SAMPLER_DESC>		aSamplers;
+	// com参照
+	auto& shader = m_comShaders[static_cast<size_t>(stage)];
 
-	// 動的バインド
-	for (Core::GraphicsShaderStage stage = Core::GraphicsShaderStage::VS; stage < Core::GraphicsShaderStage::CS; ++stage)
+	// シェーダ種別生成
+	switch (stage)
 	{
-		auto stageIndex = static_cast<size_t>(stage);
-
-		for (size_t type = 0; type < static_cast<size_t>(BindType::MAX); ++type)
-		{
-			// 動的
-			int cnt = 0;
-			for (auto& bindData : m_dynamicBindData[stageIndex][type])
-			{
-				// ルートパラメータインデックス
-				bindData.second.rootIndex = aParameters.size();
-
-				// バインドタイプでパラメータ作成
-				switch (type)
-				{
-					// b
-					case static_cast<size_t>(BindType::CBV) :
-					{
-						if (cnt++ > 0) continue;
-						D3D12_DESCRIPTOR_RANGE range = {};
-						range.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_CBV;
-						range.NumDescriptors = m_dynamicBindData[stageIndex][type].size();
-						range.BaseShaderRegister = 0;
-						range.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
-						aRanges.push_back(range);
-
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-						param.DescriptorTable.pDescriptorRanges = &aRanges.back();
-						param.DescriptorTable.NumDescriptorRanges = 1;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-						break;
-					}
-					// t
-					case static_cast<size_t>(BindType::TEXTURE) :
-					{
-						D3D12_DESCRIPTOR_RANGE range = {};
-						range.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-						range.NumDescriptors = 1;
-						range.BaseShaderRegister = bindData.second.slot;
-						range.RegisterSpace = bindData.second.space;
-						range.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
-						aRanges.push_back(range);
-
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-						param.DescriptorTable.pDescriptorRanges = &aRanges.back();
-						param.DescriptorTable.NumDescriptorRanges = 1;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-						break;
-					}
-					// s
-					case static_cast<size_t>(BindType::SAMPLER) :
-					{
-						D3D12_DESCRIPTOR_RANGE range = {};
-						range.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER;
-						range.NumDescriptors = 1;
-						range.BaseShaderRegister = bindData.second.slot;
-						range.RegisterSpace = bindData.second.space;
-						range.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
-						aRanges.push_back(range);
-
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-						param.DescriptorTable.pDescriptorRanges = &aRanges.back();
-						param.DescriptorTable.NumDescriptorRanges = 1;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-
-						break;
-					}
-					// t
-					case static_cast<size_t>(BindType::SRV) :
-					{
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_SRV;
-						param.Descriptor.ShaderRegister = bindData.second.slot;
-						param.Descriptor.RegisterSpace = bindData.second.space;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-						break;
-					}
-					// u
-					case static_cast<size_t>(BindType::UAV) :
-					{
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_UAV;
-						param.Descriptor.ShaderRegister = bindData.second.slot;
-						param.Descriptor.RegisterSpace = bindData.second.space;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-						break;
-					}
-				}
-			}
-		}
+	case GraphicsShaderStage::VS:
+	{
+		ID3D11VertexShader* d3d11Shader;
+		CHECK_FAILED(device->CreateVertexShader(blob->GetBufferPointer(), 
+			blob->GetBufferSize(), nullptr, &d3d11Shader));
+		// インターフェース生成(参照カウント増加)
+		d3d11Shader->QueryInterface(__uuidof(ID3D11DeviceChild), 
+			reinterpret_cast<void**>(static_cast<ID3D11DeviceChild**>(&shader)));
+		// 参照カウントを減らす
+		d3d11Shader->Release();
+		vs = d3d11Shader;
 	}
-	// 静的バインド
-	for (Core::GraphicsShaderStage stage = Core::GraphicsShaderStage::VS; stage < Core::GraphicsShaderStage::CS; ++stage)
+		break;
+	case GraphicsShaderStage::GS:
 	{
-		auto stageIndex = static_cast<size_t>(stage);
-
-		for (size_t type = 0; type < static_cast<size_t>(BindType::MAX); ++type)
-		{
-			// 静的
-			for (auto& bindData : m_staticBindData[stageIndex][type])
-			{
-				// ルートパラメータインデックス
-				bindData.second.rootIndex = aParameters.size();
-
-				switch (type)
-				{
-					// b
-					case static_cast<size_t>(BindType::CBV) :
-					{
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
-						param.Descriptor.ShaderRegister = bindData.second.slot;
-						param.Descriptor.RegisterSpace = bindData.second.space;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-						break;
-					}
-					// t
-					case static_cast<size_t>(BindType::TEXTURE) :
-					{
-						D3D12_DESCRIPTOR_RANGE range = {};
-						range.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-						range.NumDescriptors = 1;
-						range.BaseShaderRegister = bindData.second.slot;
-						range.RegisterSpace = bindData.second.space;
-						range.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
-						aRanges.push_back(range);
-
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-						param.DescriptorTable.pDescriptorRanges = &aRanges.back();
-						param.DescriptorTable.NumDescriptorRanges = 1;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-						break;
-					}
-					// s
-					case static_cast<size_t>(BindType::SAMPLER) :
-					{
-						aSamplers.push_back(device->m_staticSamplers[
-							static_cast<size_t>(Core::SamplerState::LINEAR_WRAP)]);
-						break;
-					}
-					// t
-					case static_cast<size_t>(BindType::SRV) :
-					{
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_SRV;
-						param.Descriptor.ShaderRegister = bindData.second.slot;
-						param.Descriptor.RegisterSpace = bindData.second.space;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-						break;
-					}
-					// u
-					case static_cast<size_t>(BindType::UAV) :
-					{
-						D3D12_ROOT_PARAMETER param = {};
-						param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_UAV;
-						param.Descriptor.ShaderRegister = bindData.second.slot;
-						param.Descriptor.RegisterSpace = bindData.second.space;
-						param.ShaderVisibility = SHADER_VISIBILITYS[stageIndex];
-						aParameters.push_back(param);
-						break;
-					}
-				}
-			}
-		}
+		ID3D11GeometryShader* d3d11Shader;
+		CHECK_FAILED(device->CreateGeometryShader(blob->GetBufferPointer(),
+			blob->GetBufferSize(), nullptr, &d3d11Shader));
+		// インターフェース生成(参照カウント増加)
+		d3d11Shader->QueryInterface(__uuidof(ID3D11DeviceChild),
+			reinterpret_cast<void**>(static_cast<ID3D11DeviceChild**>(&shader)));
+		// 参照カウントを減らす
+		d3d11Shader->Release();
+		gs = d3d11Shader;
 	}
-
-	// ルートシグネチャーの生成
-	D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc = {};
-	rootSignatureDesc.NumParameters = aParameters.size();
-	rootSignatureDesc.pParameters = aParameters.data();
-	rootSignatureDesc.NumStaticSamplers = aSamplers.size();
-	rootSignatureDesc.pStaticSamplers = aSamplers.data();
-	rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-
-	ID3DBlob* rootSigBlob = nullptr;
-	ID3DBlob* errorBlob = nullptr;
-	(D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, &errorBlob));
-	std::string errstr;
-	if (rootSigBlob)
+		break;
+	case GraphicsShaderStage::DS:
 	{
-		CHECK_FAILED(device->m_pD3DDevice->CreateRootSignature(0, rootSigBlob->GetBufferPointer(), rootSigBlob->GetBufferSize(),
-			IID_PPV_ARGS(m_pRootSignature.ReleaseAndGetAddressOf())));
-		rootSigBlob->Release();
+		ID3D11DomainShader* d3d11Shader;
+		CHECK_FAILED(device->CreateDomainShader(blob->GetBufferPointer(),
+			blob->GetBufferSize(), nullptr, &d3d11Shader));
+		// インターフェース生成(参照カウント増加)
+		d3d11Shader->QueryInterface(__uuidof(ID3D11DeviceChild),
+			reinterpret_cast<void**>(static_cast<ID3D11DeviceChild**>(&shader)));
+		// 参照カウントを減らす
+		d3d11Shader->Release();
+		ds = d3d11Shader;
 	}
-	else
+		break;
+	case GraphicsShaderStage::HS:
 	{
-		errstr.resize(errorBlob->GetBufferSize());
-		std::copy_n((char*)errorBlob->GetBufferPointer(), errorBlob->GetBufferSize(), errstr.begin());
-		errstr += "\n";
-		OutputDebugStringA(errstr.c_str());
-		errorBlob->Release();
-		throw std::exception(errstr.c_str());
+		ID3D11HullShader* d3d11Shader;
+		CHECK_FAILED(device->CreateHullShader(blob->GetBufferPointer(),
+			blob->GetBufferSize(), nullptr, &d3d11Shader));
+		// インターフェース生成(参照カウント増加)
+		d3d11Shader->QueryInterface(__uuidof(ID3D11DeviceChild),
+			reinterpret_cast<void**>(static_cast<ID3D11DeviceChild**>(&shader)));
+		// 参照カウントを減らす
+		d3d11Shader->Release();
+		hs = d3d11Shader;
+	}
+		break;
+	case GraphicsShaderStage::PS:
+	{
+		ID3D11PixelShader* d3d11Shader;
+		CHECK_FAILED(device->CreatePixelShader(blob->GetBufferPointer(),
+			blob->GetBufferSize(), nullptr, &d3d11Shader));
+		// インターフェース生成(参照カウント増加)
+		d3d11Shader->QueryInterface(__uuidof(ID3D11DeviceChild),
+			reinterpret_cast<void**>(static_cast<ID3D11DeviceChild**>(&shader)));
+		// 参照カウントを減らす
+		d3d11Shader->Release();
+		ps = d3d11Shader;
+	}
+		break;
+	case GraphicsShaderStage::CS:
+	{
+		ID3D11ComputeShader* d3d11Shader;
+		CHECK_FAILED(device->CreateComputeShader(blob->GetBufferPointer(),
+			blob->GetBufferSize(), nullptr, &d3d11Shader));
+		// インターフェース生成(参照カウント増加)
+		d3d11Shader->QueryInterface(__uuidof(ID3D11DeviceChild),
+			reinterpret_cast<void**>(static_cast<ID3D11DeviceChild**>(&shader)));
+		// 参照カウントを減らす
+		d3d11Shader->Release();
+		cs = d3d11Shader;
+	}
+		break;
 	}
 }

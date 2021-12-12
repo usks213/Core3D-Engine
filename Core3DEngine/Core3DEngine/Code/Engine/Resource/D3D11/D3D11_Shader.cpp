@@ -43,7 +43,7 @@ namespace {
 /// @param desc シェーダ情報
 D3D11Shader::D3D11Shader(ID3D11Device1* device, Core::ShaderDesc desc, const Core::ShaderID& id) :
 	Core::CoreShader(desc, id),
-	m_comShaders(static_cast<size_t>(Core::ShaderStage::MAX)),
+	m_comShaders(static_cast<size_t>(Core::GraphicsShaderStage::MAX)),
 	m_inputLayout(),
 	vs(nullptr),
 	gs(nullptr),
@@ -58,15 +58,15 @@ D3D11Shader::D3D11Shader(ID3D11Device1* device, Core::ShaderDesc desc, const Cor
 	}
 
 	// コンパイルしたシェーダデータ
-	std::vector<ComPtr<ID3DBlob>>				blobs(static_cast<size_t>(Core::ShaderStage::MAX));
+	std::vector<ComPtr<ID3DBlob>>				blobs(static_cast<size_t>(Core::GraphicsShaderStage::MAX));
 	// シェーダリフレクション
-	std::vector<ComPtr<ID3D11ShaderReflection>>	reflections(static_cast<size_t>(Core::ShaderStage::MAX));
+	std::vector<ComPtr<ID3D11ShaderReflection>>	reflections(static_cast<size_t>(Core::GraphicsShaderStage::MAX));
 	// シェーダ情報一時格納用
 	D3D11_SHADER_DESC							shaderDesc = {};
 
 
 	// シェーダステージ数だけコンパイルを試す
-	for (auto stage = Core::ShaderStage::VS; stage < Core::ShaderStage::MAX; ++stage)
+	for (auto stage = Core::GraphicsShaderStage::VS; stage < Core::GraphicsShaderStage::MAX; ++stage)
 	{
 		// ステージがない場合はスキップ
 		if (!hasStaderStage(desc.m_stages, stage)) continue;
@@ -119,10 +119,10 @@ D3D11Shader::D3D11Shader(ID3D11Device1* device, Core::ShaderDesc desc, const Cor
 	}
 
 	// 頂点シェーダがある場合はインプットレイアウトを作成
-	auto& vsReflection = reflections[static_cast<size_t>(Core::ShaderStage::VS)];
+	auto& vsReflection = reflections[static_cast<size_t>(Core::GraphicsShaderStage::VS)];
 	if (vsReflection)
 	{
-		auto& vsBlob = blobs[static_cast<size_t>(Core::ShaderStage::VS)];
+		auto& vsBlob = blobs[static_cast<size_t>(Core::GraphicsShaderStage::VS)];
 		vsReflection->GetDesc(&shaderDesc);
 		std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayouts(shaderDesc.InputParameters);
 
@@ -278,7 +278,7 @@ D3D11Shader::D3D11Shader(ID3D11Device1* device, Core::ShaderDesc desc, const Cor
 
 	// 入力バインドデータの作成
 	D3D11_SHADER_BUFFER_DESC shaderGPUBufferDesc = {};
-	for (auto stage = Core::ShaderStage::VS; stage < Core::ShaderStage::MAX; ++stage)
+	for (auto stage = Core::GraphicsShaderStage::VS; stage < Core::GraphicsShaderStage::MAX; ++stage)
 	{
 		const auto& stageIndex = static_cast<size_t>(stage);
 		const auto& reflection = reflections[stageIndex];
@@ -410,7 +410,7 @@ D3D11Shader::D3D11Shader(ID3D11Device1* device, Core::ShaderDesc desc, const Cor
 /// @param device デバイス
 /// @param stage シェーダステージ
 /// @param blob コンパイルデータ
-void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const Core::ShaderStage& stage, ComPtr<ID3DBlob>& blob)
+void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const Core::GraphicsShaderStage& stage, ComPtr<ID3DBlob>& blob)
 {
 	// com参照
 	auto& shader = m_comShaders[static_cast<size_t>(stage)];
@@ -418,7 +418,7 @@ void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const Core::ShaderSta
 	// シェーダ種別生成
 	switch (stage)
 	{
-	case Core::ShaderStage::VS:
+	case Core::GraphicsShaderStage::VS:
 	{
 		ID3D11VertexShader* d3d11Shader;
 		CHECK_FAILED(device->CreateVertexShader(blob->GetBufferPointer(), 
@@ -431,7 +431,7 @@ void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const Core::ShaderSta
 		vs = d3d11Shader;
 	}
 		break;
-	case Core::ShaderStage::GS:
+	case Core::GraphicsShaderStage::GS:
 	{
 		ID3D11GeometryShader* d3d11Shader;
 		CHECK_FAILED(device->CreateGeometryShader(blob->GetBufferPointer(),
@@ -444,7 +444,7 @@ void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const Core::ShaderSta
 		gs = d3d11Shader;
 	}
 		break;
-	case Core::ShaderStage::DS:
+	case Core::GraphicsShaderStage::DS:
 	{
 		ID3D11DomainShader* d3d11Shader;
 		CHECK_FAILED(device->CreateDomainShader(blob->GetBufferPointer(),
@@ -457,7 +457,7 @@ void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const Core::ShaderSta
 		ds = d3d11Shader;
 	}
 		break;
-	case Core::ShaderStage::HS:
+	case Core::GraphicsShaderStage::HS:
 	{
 		ID3D11HullShader* d3d11Shader;
 		CHECK_FAILED(device->CreateHullShader(blob->GetBufferPointer(),
@@ -470,7 +470,7 @@ void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const Core::ShaderSta
 		hs = d3d11Shader;
 	}
 		break;
-	case Core::ShaderStage::PS:
+	case Core::GraphicsShaderStage::PS:
 	{
 		ID3D11PixelShader* d3d11Shader;
 		CHECK_FAILED(device->CreatePixelShader(blob->GetBufferPointer(),
@@ -483,7 +483,7 @@ void D3D11Shader::CreateShaderObjct(ID3D11Device1* device, const Core::ShaderSta
 		ps = d3d11Shader;
 	}
 		break;
-	case Core::ShaderStage::CS:
+	case Core::GraphicsShaderStage::CS:
 	{
 		ID3D11ComputeShader* d3d11Shader;
 		CHECK_FAILED(device->CreateComputeShader(blob->GetBufferPointer(),
