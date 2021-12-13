@@ -32,7 +32,7 @@ namespace Core::RHI
 		/// @param name 名前
 		/// @param size サイズ
 		ShaderCBufferLayout(const std::uint32_t& slot, const std::string& name, const std::size_t& size) :
-			m_slot(slot), m_name(name), m_size(size), m_variables() 
+			m_slot(slot), m_name(name), m_size(size), m_variables(size)
 		{}
 
 		/// @brief デストラクタ
@@ -45,14 +45,14 @@ namespace Core::RHI
 			//std::string		name;			///< 変数名
 			std::size_t		size	= 0;		///< 型サイズ
 			std::size_t		offset	= 0;		///< 変数オフセット
-			std::uint8_t	stage	= 0;		///< ステージ
+			//std::uint8_t	stage	= 0;		///< ステージ
 			std::uint8_t	slot	= 0;		///< スロット
 			std::vector<std::byte> defaultVal;	///< デフォルト値
 		};
 
-	private:
+public:
 		//------------------------------------------------------------------------------
-		// private variabes
+		// public variabes
 		//------------------------------------------------------------------------------
 
 		std::string						m_name;			///< cbuffer宣言名

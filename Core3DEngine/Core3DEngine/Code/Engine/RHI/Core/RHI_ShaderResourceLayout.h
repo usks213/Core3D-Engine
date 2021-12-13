@@ -31,8 +31,7 @@ namespace Core::RHI
 			RootIndex	rootIndex	= 0;
 		};
 
-	private:
-
+	public:
 		//--- シェーダーリソースバインド情報(ディスクリプタ) ---
 
 		/// @brief ローカルリソースバインド情報

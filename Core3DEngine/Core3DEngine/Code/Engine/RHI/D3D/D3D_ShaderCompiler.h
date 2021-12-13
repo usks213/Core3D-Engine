@@ -15,7 +15,9 @@
 
 #include <d3dcompiler.h>
 
-#include <d3d12.h>
+#ifndef __d3d12_h__
+#include <d3d11.h>
+#endif // !__d3d12_h__
 
 namespace Core::RHI::D3D
 {
@@ -23,10 +25,18 @@ namespace Core::RHI::D3D
 	{
 	public:
 
+		/// @brief シェーダーファイルのコンパイル
+		/// @param filepath ファイルパス
+		/// @param stage シェーダーステージ
+		/// @param pOut シェーダーバイナリの出力先(out)
+		/// @return 成功 TRUE / 失敗 FALSE
 		bool CompileFromFile(std::string_view filepath, ShaderStage stage, ID3DBlob* pOut);
 
-		bool GetReflection(ID3DBlob* pBlob, void** ppRefletor);
-
+		/// @brief シェーダーリフレクション取得
+		/// @param pBlob シェーダーバイナリ(in)
+		/// @param pRefletor リフレクション格納先(out)
+		/// @return 成功 TRUE / 失敗 FALSE
+		bool GetReflection(ID3DBlob* pBlob, void* pRefletor);
 
 		/// @brief インプットレイアウト作成
 		/// @param pReflection リフレクションデータ
@@ -36,7 +46,7 @@ namespace Core::RHI::D3D
 		bool CreateInputLayout(void* pReflection, 
 #ifdef __d3d12_h__
 			std::vector<D3D12_INPUT_ELEMENT_DESC>& elementList, 
-#elif __d3d11_h__
+#else __d3d11_h__
 			std::vector<D3D11_INPUT_ELEMENT_DESC>& elementList,
 #endif // __d3d12.h_
 			ShaderInputLayout& inputLayout);
