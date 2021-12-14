@@ -703,6 +703,9 @@
     <ClInclude Include="Code\Engine\RHI\D3D\D3D_ShaderCompiler.h">
       <Filter>ソース ファイル\Engine\RHI\D3D</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\D3D\D3D_Defines.h">
+      <Filter>ソース ファイル\Engine\RHI\D3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\SimpleMath\SimpleMath.inl">

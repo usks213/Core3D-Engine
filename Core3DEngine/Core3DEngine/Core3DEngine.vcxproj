@@ -169,6 +169,7 @@
     <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_DescriptorPool.h" />
     <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_Device.h" />
     <ClInclude Include="Code\Engine\RHI\D3D12\D3D12_Renderer.h" />
+    <ClInclude Include="Code\Engine\RHI\D3D\D3D_Defines.h" />
     <ClInclude Include="Code\Engine\RHI\D3D\D3D_ShaderCompiler.h" />
     <ClInclude Include="Code\Engine\Runtime\Component\MeshRenderer.h" />
     <ClInclude Include="Code\Engine\Runtime\Core\Component.h" />

@@ -10,7 +10,7 @@
 
 #include <RHI/Core/RHI_GraphicsShader.h>
 #include "D3D11_Defines.h"
-#include <d3d11shader.h>
+
 
 namespace Core::RHI::D3D11
 {
@@ -48,7 +48,7 @@ namespace Core::RHI::D3D11
 			ID3D11DeviceChild* shaders[static_cast<size_t>(GraphicsShaderStage::MAX)];
 		};
 		/// @brief 入力レイアウト
-		ComPtr<ID3D11InputLayout>				m_inputLayout;
+		ComPtr<ID3D11InputLayout>				m_pInputLayout;
 
 	private:
 		//------------------------------------------------------------------------------

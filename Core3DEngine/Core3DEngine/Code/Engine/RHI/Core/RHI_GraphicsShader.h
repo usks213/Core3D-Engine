@@ -73,7 +73,7 @@ namespace Core::RHI
 		/// @brief インプットレイアウト
 		ShaderInputLayout								m_inputLayout;
 		/// @brief リソーステーブル
-		ShaderResourceLayout							m_tableLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
+		ShaderResourceLayout							m_resourceLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
 		/// @brief CBufferレイアウト
 		std::unordered_map<Slot, ShaderCBufferLayout>	m_cbufferLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
 
