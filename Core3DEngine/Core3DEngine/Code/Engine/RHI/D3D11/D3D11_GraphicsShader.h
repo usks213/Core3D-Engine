@@ -59,7 +59,7 @@ namespace Core::RHI::D3D11
 		/// @param device デバイス
 		/// @param stage シェーダステージ
 		/// @param blob コンパイルデータ
-		void CreateGraphicsShaderObjct(ID3D11Device1* device, const GraphicsShaderStage& stage, ComPtr<ID3DBlob>& blob);
+		void CreateShaderObjct(ID3D11Device1* device, const GraphicsShaderStage& stage, ComPtr<ID3DBlob>& blob);
 
 	private:
 		//------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ namespace Core::RHI::D3D11
 		//------------------------------------------------------------------------------
 
 		/// @brief シェーダのスマートポインタ(解放用)
-		std::vector<ComPtr<ID3D11DeviceChild>>	m_comGraphicsShaders;
+		std::vector<ComPtr<ID3D11DeviceChild>>	m_comShaders;
 
 	};
 }

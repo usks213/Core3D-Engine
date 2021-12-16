@@ -29,7 +29,7 @@ namespace {
 /// @param desc シェーダ情報
 D3D11GraphicsShader::D3D11GraphicsShader(ID3D11Device1* device, const GraphicsShaderDesc& desc) :
 	GraphicsShader(desc),
-	m_comGraphicsShaders(static_cast<size_t>(GraphicsShaderStage::MAX)),
+	m_comShaders(static_cast<size_t>(GraphicsShaderStage::MAX)),
 	m_pInputLayout(),
 	vs(nullptr),
 	gs(nullptr),
@@ -65,11 +65,13 @@ D3D11GraphicsShader::D3D11GraphicsShader(ID3D11Device1* device, const GraphicsSh
 		// シェーダーコンパイル
 		if (D3DShaderCompiler::CompileFromFile(filepath, (ShaderStage)stage, blob.Get()))
 		{
-
+			// 成功
+			CreateShaderObjct(device, stage, blob);
 		}
 		else
 		{
 			// 失敗
+			// エラーメッセージ
 		}
 	}
 
@@ -203,19 +205,6 @@ void D3D11GraphicsShader::CreateShaderObjct(ID3D11Device1* device, const Graphic
 		// 参照カウントを減らす
 		d3d11Shader->Release();
 		ps = d3d11Shader;
-	}
-		break;
-	case GraphicsShaderStage::CS:
-	{
-		ID3D11ComputeShader* d3d11Shader;
-		CHECK_FAILED(device->CreateComputeShader(blob->GetBufferPointer(),
-			blob->GetBufferSize(), nullptr, &d3d11Shader));
-		// インターフェース生成(参照カウント増加)
-		d3d11Shader->QueryInterface(__uuidof(ID3D11DeviceChild),
-			reinterpret_cast<void**>(static_cast<ID3D11DeviceChild**>(&shader)));
-		// 参照カウントを減らす
-		d3d11Shader->Release();
-		cs = d3d11Shader;
 	}
 		break;
 	}
