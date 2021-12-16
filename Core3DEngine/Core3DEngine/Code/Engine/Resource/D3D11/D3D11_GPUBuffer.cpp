@@ -22,10 +22,10 @@ D3D11GPUBuffer::D3D11GPUBuffer(ID3D11Device1* device, const Core::GPUBufferID& i
 	// バッファの初期化
 	D3D11_BUFFER_DESC d3dDesc = {};
 	d3dDesc.ByteWidth = desc.size * desc.count;//Max:D3D11_REQ_CONSTANT_BUFFER_ELEMENT_COUNT
-	d3dDesc.Usage = Core::D3D11::getD3D11Usage(desc.usage);
-	d3dDesc.BindFlags = Core::D3D11::getD3D11BindFlags(desc.bindFlags);
-	d3dDesc.CPUAccessFlags = Core::D3D11::getD3D11CPUAccessFlags(desc.cpuAccessFlags);
-	d3dDesc.MiscFlags = Core::D3D11::getD3D11MiscFlags(desc.miscFlags);
+	d3dDesc.Usage = Core::D3D11::GetD3D11Usage(desc.usage);
+	d3dDesc.BindFlags = Core::D3D11::GetD3D11BindFlags(desc.bindFlags);
+	d3dDesc.CPUAccessFlags = Core::D3D11::GetD3D11CPUAccessFlags(desc.cpuAccessFlags);
+	d3dDesc.MiscFlags = Core::D3D11::GetD3D11MiscFlags(desc.miscFlags);
 
 	// CPUデータ作成
 	m_aData.resize(d3dDesc.ByteWidth);

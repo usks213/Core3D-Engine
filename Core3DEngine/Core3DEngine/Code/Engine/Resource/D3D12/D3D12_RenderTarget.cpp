@@ -27,7 +27,7 @@ D3D12RenderTarget::D3D12RenderTarget(ID3D12Device* device, const Core::RenderTar
 	CHECK_FAILED(device->CreateDescriptorHeap(&desc, IID_PPV_ARGS(m_pHeapRTV.ReleaseAndGetAddressOf())));
 
 	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc = {};
-	rtvDesc.Format = Core::D3D12::getDXGIFormat(d3dTex.m_desc.format);
+	rtvDesc.Format = Core::D3D12::GetDXGIFormat(d3dTex.m_desc.format);
 	rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;	// MSAA off
 
 	// MSAA

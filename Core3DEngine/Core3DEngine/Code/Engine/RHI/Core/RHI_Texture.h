@@ -5,8 +5,8 @@
  * \author USAMI KOSHI
  * \date   2021/10/05
  *********************************************************************/
-#ifndef _CORE_TEXTURE_
-#define _CORE_TEXTURE_
+#ifndef _RHI_TEXTURE_
+#define _RHI_TEXTURE_
 
 #include <cstdint>
 #include <string>
@@ -55,6 +55,10 @@ namespace Core::RHI
 		/// @brief デストラクタ
 		virtual ~Texture() noexcept = default;
 
+		/// @brief テクスチャ情報取得
+		/// @return テクスチャDesc
+		TextureDesc GetDesc() { return m_desc; }
+
 		/// @brief リソースポインタの取得
 		/// @return リソース型
 		virtual void* GetResource() = 0;
@@ -76,4 +80,4 @@ namespace Core::RHI
 	};
 }
 
-#endif // !_CORE_TEXTURE_
+#endif // !_RHI_TEXTURE_

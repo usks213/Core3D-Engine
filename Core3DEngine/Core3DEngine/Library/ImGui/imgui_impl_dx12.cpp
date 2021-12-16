@@ -88,7 +88,7 @@ struct ImGui_ImplDX12_FrameContext
 {
     ID3D12CommandAllocator*         CommandAllocator;
     ID3D12Resource*                 RenderTarget;
-    D3D12_CPU_DESCRIPTOR_HANDLE     RenderTargetCpuDescriptors;
+    D3D12_CPU_DESCRIPTOR_HANDLE     RenderTarGetCpuDescriptors;
 };
 
 // Helper structure we store in the void* RendererUserData field of each ImGuiViewport to easily retrieve our backend data.
@@ -926,7 +926,7 @@ static void ImGui_ImplDX12_CreateWindow(ImGuiViewport* viewport)
         D3D12_CPU_DESCRIPTOR_HANDLE rtv_handle = vd->RtvDescHeap->GetCPUDescriptorHandleForHeapStart();
         for (UINT i = 0; i < bd->numFramesInFlight; i++)
         {
-            vd->FrameCtx[i].RenderTargetCpuDescriptors = rtv_handle;
+            vd->FrameCtx[i].RenderTarGetCpuDescriptors = rtv_handle;
             rtv_handle.ptr += rtv_descriptor_size;
         }
 
@@ -935,7 +935,7 @@ static void ImGui_ImplDX12_CreateWindow(ImGuiViewport* viewport)
         {
             IM_ASSERT(vd->FrameCtx[i].RenderTarget == NULL);
             vd->SwapChain->GetBuffer(i, IID_PPV_ARGS(&back_buffer));
-            bd->pd3dDevice->CreateRenderTargetView(back_buffer, NULL, vd->FrameCtx[i].RenderTargetCpuDescriptors);
+            bd->pd3dDevice->CreateRenderTargetView(back_buffer, NULL, vd->FrameCtx[i].RenderTarGetCpuDescriptors);
             vd->FrameCtx[i].RenderTarget = back_buffer;
         }
     }
@@ -1002,7 +1002,7 @@ static void ImGui_ImplDX12_SetWindowSize(ImGuiViewport* viewport, ImVec2 size)
         for (UINT i = 0; i < bd->numFramesInFlight; i++)
         {
             vd->SwapChain->GetBuffer(i, IID_PPV_ARGS(&back_buffer));
-            bd->pd3dDevice->CreateRenderTargetView(back_buffer, NULL, vd->FrameCtx[i].RenderTargetCpuDescriptors);
+            bd->pd3dDevice->CreateRenderTargetView(back_buffer, NULL, vd->FrameCtx[i].RenderTarGetCpuDescriptors);
             vd->FrameCtx[i].RenderTarget = back_buffer;
         }
     }
@@ -1031,9 +1031,9 @@ static void ImGui_ImplDX12_RenderWindow(ImGuiViewport* viewport, void*)
     frame_context->CommandAllocator->Reset();
     cmd_list->Reset(frame_context->CommandAllocator, NULL);
     cmd_list->ResourceBarrier(1, &barrier);
-    cmd_list->OMSetRenderTargets(1, &vd->FrameCtx[back_buffer_idx].RenderTargetCpuDescriptors, FALSE, NULL);
+    cmd_list->OMSetRenderTargets(1, &vd->FrameCtx[back_buffer_idx].RenderTarGetCpuDescriptors, FALSE, NULL);
     if (!(viewport->Flags & ImGuiViewportFlags_NoRendererClear))
-        cmd_list->ClearRenderTargetView(vd->FrameCtx[back_buffer_idx].RenderTargetCpuDescriptors, (float*)&clear_color, 0, NULL);
+        cmd_list->ClearRenderTargetView(vd->FrameCtx[back_buffer_idx].RenderTarGetCpuDescriptors, (float*)&clear_color, 0, NULL);
     cmd_list->SetDescriptorHeaps(1, &bd->pd3dSrvDescHeap);
 
     ImGui_ImplDX12_RenderDrawData(viewport->DrawData, cmd_list);

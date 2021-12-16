@@ -32,7 +32,7 @@ void GameWindow::OnGUI()
 	auto* pSceneMgr = pEditor->GetEngine()->GetSceneManager();
 	auto* pScene = pSceneMgr->GetCurrentScene();
 	if (pScene == nullptr) return;
-	auto* pDevice = pEditor->GetEngine()->GetRenderer()->getDevice();
+	auto* pDevice = pEditor->GetEngine()->GetRenderer()->GetDevice();
 
 	// ƒQ[ƒ€‚Ì•`‰æŒ‹‰Ê‚ð•\Ž¦
 	auto resultID = pScene->GetSceneResult();

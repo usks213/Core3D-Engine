@@ -13,7 +13,7 @@ using namespace Core::D3D12;
 /// @brief リソースフラグ取得
 /// @param flags フラグ
 /// @return D3D12リソースフラグ
-D3D12_RESOURCE_FLAGS Core::D3D12::getD3D12ResourceFlags(UINT bindFlags)
+D3D12_RESOURCE_FLAGS Core::D3D12::GetD3D12ResourceFlags(UINT bindFlags)
 {
 	if (bindFlags & Core::BindFlags::RENDER_TARGET) return D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
 	else if (bindFlags & Core::BindFlags::DEPTH_STENCIL) return D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
@@ -24,7 +24,7 @@ D3D12_RESOURCE_FLAGS Core::D3D12::getD3D12ResourceFlags(UINT bindFlags)
 /// @brief ヒープフラグ取得
 /// @param flags フラグ
 /// @return D3D12ヒープフラグ
-D3D12_DESCRIPTOR_HEAP_FLAGS Core::D3D12::getD3D12HeapFlags(UINT bindFlags)
+D3D12_DESCRIPTOR_HEAP_FLAGS Core::D3D12::GetD3D12HeapFlags(UINT bindFlags)
 {
 	if (bindFlags & Core::BindFlags::SHADER_RESOURCE) return D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	else return D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
@@ -33,7 +33,7 @@ D3D12_DESCRIPTOR_HEAP_FLAGS Core::D3D12::getD3D12HeapFlags(UINT bindFlags)
 /// @brief D3D12のプリミティブトポロジー取得
 /// @param topology プリミティブトポロジー
 /// @return D3D12プリミティブトポロジー
-D3D12_PRIMITIVE_TOPOLOGY Core::D3D12::getD3D12PrimitiveTopology(Core::PrimitiveTopology topology) {
+D3D12_PRIMITIVE_TOPOLOGY Core::D3D12::GetD3D12PrimitiveTopology(Core::PrimitiveTopology topology) {
 	static D3D12_PRIMITIVE_TOPOLOGY d3dTopologies[static_cast<size_t>(Core::PrimitiveTopology::MAX)] = {
 		D3D_PRIMITIVE_TOPOLOGY_UNDEFINED,
 		D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
@@ -50,7 +50,7 @@ D3D12_PRIMITIVE_TOPOLOGY Core::D3D12::getD3D12PrimitiveTopology(Core::PrimitiveT
 /// @brief DXGIのテクスチャフォーマット取得
 /// @param format テクスチャフォーマット
 /// @return DXGIフォーマット
-DXGI_FORMAT Core::D3D12::getDXGIFormat(Core::TextureFormat format) {
+DXGI_FORMAT Core::D3D12::GetDXGIFormat(Core::TextureFormat format) {
 	static DXGI_FORMAT d3dDXGIFormat[static_cast<size_t>(Core::TextureFormat::MAX)] = {
 	DXGI_FORMAT_UNKNOWN, // 不明
 
@@ -156,7 +156,7 @@ DXGI_FORMAT Core::D3D12::getDXGIFormat(Core::TextureFormat format) {
 /// @return DSVフォーマット or そのまま
 DXGI_FORMAT Core::D3D12::getTypeLessToDSVFormat(Core::TextureFormat format)
 {
-	auto f = getDXGIFormat(format);
+	auto f = GetDXGIFormat(format);
 	if (f == DXGI_FORMAT_R32_TYPELESS)
 	{
 		return DXGI_FORMAT_D32_FLOAT;
@@ -171,7 +171,7 @@ DXGI_FORMAT Core::D3D12::getTypeLessToDSVFormat(Core::TextureFormat format)
 	}
 	else
 	{
-		return getDXGIFormat(format);
+		return GetDXGIFormat(format);
 	}
 }
 
@@ -180,13 +180,13 @@ DXGI_FORMAT Core::D3D12::getTypeLessToDSVFormat(Core::TextureFormat format)
 /// @return SRVフォーマット or そのまま
 DXGI_FORMAT Core::D3D12::getTypeLessToSRVFormat(Core::TextureFormat format)
 {
-	auto f = getDXGIFormat(format);
+	auto f = GetDXGIFormat(format);
 	if (f == DXGI_FORMAT_R32_TYPELESS)
 	{
 		return DXGI_FORMAT_R32_FLOAT;
 	}
 	else
 	{
-		return getDXGIFormat(format);
+		return GetDXGIFormat(format);
 	}
 }

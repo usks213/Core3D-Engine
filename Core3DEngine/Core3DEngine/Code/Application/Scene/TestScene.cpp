@@ -64,7 +64,7 @@ constexpr int MAX_WORLD = 1000;
 void TestScene::Start()
 {
 	auto* renderer = GetSceneManager()->GetEngine()->GetRenderer();
-	auto* device = renderer->getDevice();
+	auto* device = renderer->GetDevice();
 
 	float width = static_cast<float>(renderer->GetEngine()->GetWindowWidth());
 	float height = static_cast<float>(renderer->GetEngine()->GetWindowHeight());
@@ -275,8 +275,8 @@ void TestScene::Update()
 void TestScene::Render()
 {
 	auto* renderer = GetSceneManager()->GetEngine()->GetRenderer();
-	auto* device = renderer->getDevice();
-	auto* cmdList = renderer->getCommandList();
+	auto* device = renderer->GetDevice();
+	auto* cmdList = renderer->GetCommandList();
 
 	float width = static_cast<float>(renderer->GetEngine()->GetWindowWidth());
 	float height = static_cast<float>(renderer->GetEngine()->GetWindowHeight());

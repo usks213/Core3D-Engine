@@ -28,7 +28,7 @@ GPUBuffer* Device::getBuffer(const GPUBufferID& id) noexcept
 
 	return itr->second.get();
 }
-CoreDepthStencil* Device::getDepthStencil(const DepthStencilID& id) noexcept
+CoreDepthStencil* Device::GetDepthStencil(const DepthStencilID& id) noexcept
 {
 	const auto& itr = m_depthStencilPool.find(id);
 	if (m_depthStencilPool.end() == itr) return nullptr;

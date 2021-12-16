@@ -35,7 +35,7 @@ Scene::Scene(SceneManager* pSceneManager) noexcept :
 	rtDesc.height = height;
 	rtDesc.bindFlags = 0 | Core::BindFlags::RENDER_TARGET | Core::BindFlags::SHADER_RESOURCE;
 	rtDesc.format = Core::TextureFormat::R8G8B8A8_UNORM;
-	m_sceneResultID = pSceneManager->GetEngine()->GetRenderer()->getDevice()->CreateRenderTarget(rtDesc);
+	m_sceneResultID = pSceneManager->GetEngine()->GetRenderer()->GetDevice()->CreateRenderTarget(rtDesc);
 }
 
 /// @brief エンティティマネージャーの取得

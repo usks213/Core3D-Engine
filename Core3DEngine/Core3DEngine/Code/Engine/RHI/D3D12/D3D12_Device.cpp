@@ -180,7 +180,7 @@ Core::RenderTargetID D3D12Device::CreateRenderTarget(Core::TextureDesc& desc, co
 	// クリアデータ
 	D3D12_CLEAR_VALUE rtvClearValue = {};
 	std::memcpy(rtvClearValue.Color, &color, sizeof(Color));
-	rtvClearValue.Format = Core::D3D12::getDXGIFormat(desc.format);
+	rtvClearValue.Format = Core::D3D12::GetDXGIFormat(desc.format);
 
 	// テクスチャ生成
 	auto pTex = CreateD3D12Texture(desc, &rtvClearValue);

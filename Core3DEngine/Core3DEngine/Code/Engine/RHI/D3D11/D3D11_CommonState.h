@@ -16,32 +16,32 @@ namespace Core::RHI::D3D11
     /// @brief D3D11のリソース使用識別取得
     /// @param usage リソース使用識別
     /// @return D3D11リソース使用識別
-    D3D11_USAGE getD3D11Usage(Usage usage);
+    D3D11_USAGE GetD3D11Usage(Usage usage);
 
     /// @brief D3D11のバインドフラグ取得
     /// @param flags バインドフラグ
     /// @return 符号なし整数型バインドフラグ
-    UINT32 getD3D11BindFlags(UINT flags);
+    UINT32 GetD3D11BindFlags(UINT flags);
 
     /// @brief D3D11のCPUアクセスフラグ取得
     /// @param flags CPUアクセスフラグ
     /// @return 符号なし整数型CPUアクセスフラグ
-    UINT32 getD3D11CPUAccessFlags(UINT flags);
+    UINT32 GetD3D11CPUAccessFlags(UINT flags);
 
     /// @brief D3D11のバッファフラグ取得
     /// @param flags バッファフラグ
     /// @return 符号なし整数型バッファフラグ
-    UINT32 getD3D11MiscFlags(UINT flags);
+    UINT32 GetD3D11MiscFlags(UINT flags);
 
     /// @brief D3D11のプリミティブトポロジー取得
     /// @param topology プリミティブトポロジー
     /// @return D3D11プリミティブトポロジー
-    D3D11_PRIMITIVE_TOPOLOGY getD3D11PrimitiveTopology(PrimitiveTopology topology);
+    D3D11_PRIMITIVE_TOPOLOGY GetD3D11PrimitiveTopology(PrimitiveTopology topology);
 
     /// @brief DXGIのテクスチャフォーマット取得
     /// @param format テクスチャフォーマット
     /// @return DXGIフォーマット
-    DXGI_FORMAT getDXGIFormat(TextureFormat format);
+    DXGI_FORMAT GetDXGIFormat(TextureFormat format);
 
     /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
     /// @param format TypeLessフォーマット

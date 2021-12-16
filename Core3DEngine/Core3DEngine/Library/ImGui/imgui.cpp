@@ -835,7 +835,7 @@ CODE
 
 // [Apple] OS specific includes
 #if defined(__APPLE__)
-#include <TargetConditionals.h>
+#include <TarGetConditionals.h>
 #endif
 
 // Visual Studio warnings
@@ -3078,7 +3078,7 @@ ImGuiWindow::ImGuiWindow(ImGuiContext* context, const char* name) : DrawListInst
     ViewportPos = ImVec2(FLT_MAX, FLT_MAX);
     MoveId = GetID("#MOVE");
     ScrollTarget = ImVec2(FLT_MAX, FLT_MAX);
-    ScrollTargetCenterRatio = ImVec2(0.5f, 0.5f);
+    ScrollTarGetCenterRatio = ImVec2(0.5f, 0.5f);
     AutoFitFramesX = AutoFitFramesY = -1;
     AutoPosLastDirection = ImGuiDir_None;
     SetWindowPosAllowFlags = SetWindowSizeAllowFlags = SetWindowCollapsedAllowFlags = SetWindowDockAllowFlags = ImGuiCond_Always | ImGuiCond_Once | ImGuiCond_FirstUseEver | ImGuiCond_Appearing;
@@ -6308,12 +6308,12 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
         if (g.NextWindowData.ScrollVal.x >= 0.0f)
         {
             window->ScrollTarget.x = g.NextWindowData.ScrollVal.x;
-            window->ScrollTargetCenterRatio.x = 0.0f;
+            window->ScrollTarGetCenterRatio.x = 0.0f;
         }
         if (g.NextWindowData.ScrollVal.y >= 0.0f)
         {
             window->ScrollTarget.y = g.NextWindowData.ScrollVal.y;
-            window->ScrollTargetCenterRatio.y = 0.0f;
+            window->ScrollTarGetCenterRatio.y = 0.0f;
         }
     }
     if (g.NextWindowData.Flags & ImGuiNextWindowDataFlags_HasContentSize)
@@ -8631,7 +8631,7 @@ static ImVec2 CalcNextScrollFromScrollTargetAndClamp(ImGuiWindow* window)
     if (window->ScrollTarget.x < FLT_MAX)
     {
         float decoration_total_width = window->ScrollbarSizes.x;
-        float center_x_ratio = window->ScrollTargetCenterRatio.x;
+        float center_x_ratio = window->ScrollTarGetCenterRatio.x;
         float scroll_target_x = window->ScrollTarget.x;
         if (window->ScrollTargetEdgeSnapDist.x > 0.0f)
         {
@@ -8644,7 +8644,7 @@ static ImVec2 CalcNextScrollFromScrollTargetAndClamp(ImGuiWindow* window)
     if (window->ScrollTarget.y < FLT_MAX)
     {
         float decoration_total_height = window->TitleBarHeight() + window->MenuBarHeight() + window->ScrollbarSizes.y;
-        float center_y_ratio = window->ScrollTargetCenterRatio.y;
+        float center_y_ratio = window->ScrollTarGetCenterRatio.y;
         float scroll_target_y = window->ScrollTarget.y;
         if (window->ScrollTargetEdgeSnapDist.y > 0.0f)
         {
@@ -8769,14 +8769,14 @@ float ImGui::GetScrollMaxY()
 void ImGui::SetScrollX(ImGuiWindow* window, float scroll_x)
 {
     window->ScrollTarget.x = scroll_x;
-    window->ScrollTargetCenterRatio.x = 0.0f;
+    window->ScrollTarGetCenterRatio.x = 0.0f;
     window->ScrollTargetEdgeSnapDist.x = 0.0f;
 }
 
 void ImGui::SetScrollY(ImGuiWindow* window, float scroll_y)
 {
     window->ScrollTarget.y = scroll_y;
-    window->ScrollTargetCenterRatio.y = 0.0f;
+    window->ScrollTarGetCenterRatio.y = 0.0f;
     window->ScrollTargetEdgeSnapDist.y = 0.0f;
 }
 
@@ -8806,7 +8806,7 @@ void ImGui::SetScrollFromPosX(ImGuiWindow* window, float local_x, float center_x
 {
     IM_ASSERT(center_x_ratio >= 0.0f && center_x_ratio <= 1.0f);
     window->ScrollTarget.x = IM_FLOOR(local_x + window->Scroll.x); // Convert local position to scroll offset
-    window->ScrollTargetCenterRatio.x = center_x_ratio;
+    window->ScrollTarGetCenterRatio.x = center_x_ratio;
     window->ScrollTargetEdgeSnapDist.x = 0.0f;
 }
 
@@ -8816,7 +8816,7 @@ void ImGui::SetScrollFromPosY(ImGuiWindow* window, float local_y, float center_y
     const float decoration_up_height = window->TitleBarHeight() + window->MenuBarHeight(); // FIXME: Would be nice to have a more standardized access to our scrollable/client rect;
     local_y -= decoration_up_height;
     window->ScrollTarget.y = IM_FLOOR(local_y + window->Scroll.y); // Convert local position to scroll offset
-    window->ScrollTargetCenterRatio.y = center_y_ratio;
+    window->ScrollTarGetCenterRatio.y = center_y_ratio;
     window->ScrollTargetEdgeSnapDist.y = 0.0f;
 }
 
@@ -11078,7 +11078,7 @@ bool ImGui::SetDragDropPayload(const char* type, const void* data, size_t data_s
     return (g.DragDropAcceptFrameCount == g.FrameCount) || (g.DragDropAcceptFrameCount == g.FrameCount - 1);
 }
 
-bool ImGui::BeginDragDropTargetCustom(const ImRect& bb, ImGuiID id)
+bool ImGui::BeginDragDropTarGetCustom(const ImRect& bb, ImGuiID id)
 {
     ImGuiContext& g = *GImGui;
     if (!g.DragDropActive)
@@ -11101,8 +11101,8 @@ bool ImGui::BeginDragDropTargetCustom(const ImRect& bb, ImGuiID id)
     return true;
 }
 
-// We don't use BeginDragDropTargetCustom() and duplicate its code because:
-// 1) we use LastItemRectHoveredRect which handles items that pushes a temporarily clip rectangle in their code. Calling BeginDragDropTargetCustom(LastItemRect) would not handle them.
+// We don't use BeginDragDropTarGetCustom() and duplicate its code because:
+// 1) we use LastItemRectHoveredRect which handles items that pushes a temporarily clip rectangle in their code. Calling BeginDragDropTarGetCustom(LastItemRect) would not handle them.
 // 2) and it's faster. as this code may be very frequently called, we want to early out as fast as we can.
 // Also note how the HoveredWindow test is positioned differently in both functions (in both functions we optimize for the cheapest early out case)
 bool ImGui::BeginDragDropTarget()
@@ -16229,7 +16229,7 @@ void ImGui::BeginDockableDragDropTarget(ImGuiWindow* window)
     if (!g.DragDropActive)
         return;
     //GetForegroundDrawList(window)->AddRect(window->Pos, window->Pos + window->Size, IM_COL32(255, 255, 0, 255));
-    if (!BeginDragDropTargetCustom(window->Rect(), window->ID))
+    if (!BeginDragDropTarGetCustom(window->Rect(), window->ID))
         return;
 
     // Peek into the payload before calling AcceptDragDropPayload() so we can handle overlapping dock nodes with filtering

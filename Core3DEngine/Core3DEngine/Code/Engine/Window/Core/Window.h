@@ -51,11 +51,11 @@ namespace Core
 
 		/// @brief エンジンの取得
 		/// @return エンジンのポインタ
-		Engine* GetEngine() const noexcept { return m_pCoreEngine; }
+		Engine* GetEngine() const noexcept { return m_pEngine; }
 
 		/// @brief エンジンの設定
-		/// @param pCoreEngine エンジンのポインタ
-		void SetEngine(Engine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
+		/// @param pEngine エンジンのポインタ
+		void SetEngine(Engine* pEngine) noexcept { m_pEngine = pEngine; }
 
 		/// @brief コピーコンストラクタ削除
 		Window(const Window&) = delete;
@@ -67,7 +67,7 @@ namespace Core
 		// protected variables
 		//------------------------------------------------------------------------------
 
-		Engine*		m_pCoreEngine;			///< エンジンのポインタ
+		Engine*		m_pEngine;			///< エンジンのポインタ
 		Util::String		m_windowName;		///< ウィンドウ名
 		int				m_windowWidth;		///< ウィンドウの幅
 		int				m_windowHeight;		///< ウィンドウの高さ

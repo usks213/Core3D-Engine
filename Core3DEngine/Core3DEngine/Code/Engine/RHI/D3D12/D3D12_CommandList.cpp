@@ -145,7 +145,7 @@ void D3D12CommandList::setRenderBuffer(const Core::RenderBufferID& renderBufferI
 	}
 
 	// プリミティブ指定
-	m_pCmdList->IASetPrimitiveTopology(getD3D12PrimitiveTopology(renderBuffer->m_topology));
+	m_pCmdList->IASetPrimitiveTopology(GetD3D12PrimitiveTopology(renderBuffer->m_topology));
 
 }
 
@@ -229,7 +229,7 @@ void D3D12CommandList::setRenderTarget(std::uint32_t num, const RenderTargetID r
 	}
 
 	// 現在のデプスステンシル取得
-	auto* pDS = static_cast<D3D12DepthStencil*>(m_pDevice->getDepthStencil(dsID));
+	auto* pDS = static_cast<D3D12DepthStencil*>(m_pDevice->GetDepthStencil(dsID));
 	m_curDepthStencilID = dsID;
 	if (pDS)
 	{
@@ -526,7 +526,7 @@ void D3D12CommandList::clearRederTarget(const RenderTargetID& rtID, const Color&
 void D3D12CommandList::clearDepthStencil(const DepthStencilID& dsID, float depth, std::uint8_t stencil)
 {
 	// 現在のデプスステンシル取得
-	auto* pDS = static_cast<D3D12DepthStencil*>(m_pDevice->getDepthStencil(dsID));
+	auto* pDS = static_cast<D3D12DepthStencil*>(m_pDevice->GetDepthStencil(dsID));
 	if (pDS == nullptr) return;
 
 	// テクスチャ取得

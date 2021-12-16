@@ -147,7 +147,7 @@ namespace Core
 		SamplerState GetSampler(const char* name);
 
 		/// @brief ƒf[ƒ^æ“¾
-		void* getData(const char* name);
+		void* GetData(const char* name);
 
 	protected:
 		//------------------------------------------------------------------------------

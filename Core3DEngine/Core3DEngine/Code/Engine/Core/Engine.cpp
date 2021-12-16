@@ -84,7 +84,7 @@ void Engine::tick()
 		m_pSceneManager->Render();
 		
 		// エディターの描画
-		m_pEditor->Render(m_pRenderer->getCommandList());
+		m_pEditor->Render(m_pRenderer->GetCommandList());
 
 		// フレーム終了
 		m_pRenderer->endFrame();

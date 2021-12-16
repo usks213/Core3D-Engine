@@ -22,7 +22,7 @@ namespace Core
 		/// @brief コンストラクタ
 		/// @param pEngine エンジンポインタ
 		explicit Editor() noexcept :
-			m_pCoreEngine(nullptr)
+			m_pEngine(nullptr)
 		{
 			m_pEditorWindowManager = std::make_unique<EditorWindowManager>(this);
 		}
@@ -51,11 +51,11 @@ namespace Core
 
 		/// @brief エンジンの取得
 		/// @return エンジンのポインタ
-		Engine* GetEngine() const noexcept { return m_pCoreEngine; }
+		Engine* GetEngine() const noexcept { return m_pEngine; }
 
 		/// @brief エンジンの設定
-		/// @param pCoreEngine エンジンのポインタ
-		void SetEngine(Engine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
+		/// @param pEngine エンジンのポインタ
+		void SetEngine(Engine* pEngine) noexcept { m_pEngine = pEngine; }
 
 		/// @brief エディターウィンドウマネージャー取得
 		/// @return エディターウィンドウマネージャーポインタ
@@ -66,7 +66,7 @@ namespace Core
 
 	private:
 		/// @brief エンジンポインタ
-		Engine* m_pCoreEngine;
+		Engine* m_pEngine;
 
 		/// @brief エディターウィンドウマネージャー
 		std::unique_ptr<EditorWindowManager> m_pEditorWindowManager;

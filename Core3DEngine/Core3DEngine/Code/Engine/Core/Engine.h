@@ -110,7 +110,7 @@ namespace Core
 
 		/// @brief 現在のフレームレート取得
 		/// @return フレームレート(整数)
-		[[nodiscard]] std::uint32_t getCurrentFPS() const noexcept { return m_nCurrentFPS; }
+		[[nodiscard]] std::uint32_t GetCurrentFPS() const noexcept { return m_nCurrentFPS; }
 
 	private:
 		//------------------------------------------------------------------------------

@@ -151,7 +151,7 @@ void D3D11CommandList::setRenderBuffer(const Core::RenderBufferID& renderBufferI
 	}
 
 	// プリミティブ指定
-	m_pDeferredContext->IASetPrimitiveTopology(getD3D11PrimitiveTopology(renderBuffer->m_topology));
+	m_pDeferredContext->IASetPrimitiveTopology(GetD3D11PrimitiveTopology(renderBuffer->m_topology));
 
 }
 
@@ -230,7 +230,7 @@ void D3D11CommandList::setRenderTarget(std::uint32_t num, const RenderTargetID r
 
 	// 現在のデプスステンシル取得
 	ID3D11DepthStencilView* pDSV = nullptr;
-	auto* pDS = static_cast<D3D11DepthStencil*>(m_pDevice->getDepthStencil(dsID));
+	auto* pDS = static_cast<D3D11DepthStencil*>(m_pDevice->GetDepthStencil(dsID));
 	if (pDS) pDSV = pDS->m_dsv.Get();
 	m_curDepthStencilID = dsID;
 
@@ -421,7 +421,7 @@ void D3D11CommandList::clearRederTarget(const RenderTargetID& rtID, const Color&
 void D3D11CommandList::clearDepthStencil(const DepthStencilID& dsID, float depth, std::uint8_t stencil)
 {
 	// 現在のデプスステンシル取得
-	auto* pDS = static_cast<D3D11DepthStencil*>(m_pDevice->getDepthStencil(dsID));
+	auto* pDS = static_cast<D3D11DepthStencil*>(m_pDevice->GetDepthStencil(dsID));
 	if (pDS == nullptr) return;
 
 	// クリアコマンド

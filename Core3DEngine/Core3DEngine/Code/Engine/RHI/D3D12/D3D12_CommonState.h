@@ -16,22 +16,22 @@ namespace Core::D3D12
     /// @brief リソースフラグ取得
     /// @param flags フラグ
     /// @return D3D12リソースフラグ
-    D3D12_RESOURCE_FLAGS getD3D12ResourceFlags(UINT bindFlags);
+    D3D12_RESOURCE_FLAGS GetD3D12ResourceFlags(UINT bindFlags);
 
     /// @brief ヒープフラグ取得
     /// @param flags フラグ
     /// @return D3D12ヒープフラグ
-    D3D12_DESCRIPTOR_HEAP_FLAGS getD3D12HeapFlags(UINT bindFlags);
+    D3D12_DESCRIPTOR_HEAP_FLAGS GetD3D12HeapFlags(UINT bindFlags);
 
     /// @brief D3D12のプリミティブトポロジー取得
     /// @param topology プリミティブトポロジー
     /// @return D3D12プリミティブトポロジー
-    D3D12_PRIMITIVE_TOPOLOGY getD3D12PrimitiveTopology(Core::PrimitiveTopology topology);
+    D3D12_PRIMITIVE_TOPOLOGY GetD3D12PrimitiveTopology(Core::PrimitiveTopology topology);
 
     /// @brief DXGIのテクスチャフォーマット取得
     /// @param format テクスチャフォーマット
     /// @return DXGIフォーマット
-    DXGI_FORMAT getDXGIFormat(Core::TextureFormat format);
+    DXGI_FORMAT GetDXGIFormat(Core::TextureFormat format);
 
     /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
     /// @param format TypeLessフォーマット

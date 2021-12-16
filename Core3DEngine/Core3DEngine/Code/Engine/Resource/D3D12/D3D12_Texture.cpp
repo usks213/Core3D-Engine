@@ -59,7 +59,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
 
     // リソース
     D3D12_RESOURCE_DESC resDesc = {};
-    resDesc.Format = Core::D3D12::getDXGIFormat(desc.format);
+    resDesc.Format = Core::D3D12::GetDXGIFormat(desc.format);
     resDesc.Width = desc.width;
     resDesc.Height = desc.height;
     resDesc.DepthOrArraySize = desc.arraySize;
@@ -67,7 +67,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
     resDesc.MipLevels = 1;//desc.mipLevels;
     resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
     resDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
-    resDesc.Flags = Core::D3D12::getD3D12ResourceFlags(desc.bindFlags);
+    resDesc.Flags = Core::D3D12::GetD3D12ResourceFlags(desc.bindFlags);
 
     // リソースステート
     if (resDesc.Flags == D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL)
@@ -143,7 +143,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
 
     //// ヒープ生成
     //D3D12_DESCRIPTOR_HEAP_DESC descHeapDesc = {};
-    //descHeapDesc.Flags = Core::D3D12::getD3D12HeapFlags(desc.bindFlags);//シェーダから見えるように
+    //descHeapDesc.Flags = Core::D3D12::GetD3D12HeapFlags(desc.bindFlags);//シェーダから見えるように
     //descHeapDesc.NodeMask = 0;//マスクは0
     //descHeapDesc.NumDescriptors = 1;//ビューは今のところ１つだけ
     //descHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;//シェーダリソースビュー(および定数、UAVも)

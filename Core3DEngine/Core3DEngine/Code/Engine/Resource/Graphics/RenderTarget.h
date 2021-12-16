@@ -1,42 +1,50 @@
 /*****************************************************************//**
- * \file   RHI_RenderTarget.h
+ * \file   RenderTarget.h
  * \brief  レンダーターゲット
  * 
  * \author USAMI KOSHI
- * \date   2021/10/05
+ * \date   2021/12/16
  *********************************************************************/
-#ifndef _RHI_RENDER_TARGET_
-#define _RHI_RENDER_TARGET_
+#ifndef _RENDER_TARGET_
+#define _RENDER_TARGET_
 
-#include "RHI_Texture.h"
+#include "Texture.h"
+#include <RHI\Core\RHI_RenderTarget.h>
 
-namespace Core::RHI
+namespace Core
 {
 	/// @class RenderTarget
 	/// @brief レンダーターゲット
-	class RenderTarget :public Texture
+	class RenderTarget : public Texture
 	{
+		DECLARE_RESOURCE_INFO(RenderTarget);
 	public:
 		//------------------------------------------------------------------------------
 		// public methods
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		RenderTarget() {}
+		RenderTarget() :
+			Texture()
+		{
+		}
 
 		/// @brief デストラクタ
-		virtual ~RenderTarget() noexcept = default;
+		~RenderTarget() noexcept = default;
 
-		/// @brief レンダーターゲットビューの取得
-		/// @return 汎用ポインタ
-		virtual void* GetRTV() = 0;
+		/// @brief RHIレンダーターゲット取得
+		/// @return レンダーターゲットのスマートポインタ
+		std::shared_ptr<RHI::RenderTarget> GetRHIRenderTarget()
+		{
+			return std::static_pointer_cast<RHI::RenderTarget>(m_pRHITexture);
+		}
 
-	public:
+	private:
 		//------------------------------------------------------------------------------
-		// public variables
+		// private variables
 		//------------------------------------------------------------------------------
 
 	};
 }
 
-#endif // !_RHI_RENDER_TARGET_
+#endif // !_RENDER_TARGET_

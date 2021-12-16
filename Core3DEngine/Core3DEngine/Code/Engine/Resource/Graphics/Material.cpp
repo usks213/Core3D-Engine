@@ -116,7 +116,7 @@ void CoreMaterial::setData(const char* name, const void* data)
 }
 
 /// @brief ƒf[ƒ^æ“¾
-void* CoreMaterial::getData(const char* name)
+void* CoreMaterial::GetData(const char* name)
 {
 	for (const auto& var : m_cbufferVariable)
 	{

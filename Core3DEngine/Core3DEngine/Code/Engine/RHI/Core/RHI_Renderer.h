@@ -5,9 +5,8 @@
  * \author USAMI KOSHI
  * \date   2021/10/01
  *********************************************************************/
-
-#ifndef _CORE_RENDERER_
-#define _CORE_RENDERER_
+#ifndef _RHI_RENDERER_
+#define _RHI_RENDERER_
 
 #include <memory>
 
@@ -19,8 +18,8 @@ namespace Core::RHI
 	class CommandList;
 
 	/// @brief レンダラーのベースクラス
-	/// @class RHI
-	class RHI
+	/// @class Renderer
+	class Renderer
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -28,13 +27,13 @@ namespace Core::RHI
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		explicit RHI() :
-			m_pCoreEngine(nullptr)
+		explicit Renderer() :
+			m_pEngine(nullptr)
 		{
 		}
 
 		/// @brief デストラクタ
-		virtual ~RHI() noexcept = default;
+		virtual ~Renderer() noexcept = default;
 
 		/// @brief 終了処理
 		virtual void finalize() = 0;
@@ -47,31 +46,31 @@ namespace Core::RHI
 
 		/// @brief エンジンの取得
 		/// @return エンジンのポインタ
-		Engine* GetEngine() const noexcept { return m_pCoreEngine; }
+		Engine* GetEngine() const noexcept { return m_pEngine; }
 
 		/// @brief エンジンの設定
-		/// @param pCoreEngine エンジンのポインタ
-		void SetEngine(Engine* pCoreEngine) noexcept { m_pCoreEngine = pCoreEngine; }
+		/// @param pEngine エンジンのポインタ
+		void SetEngine(Engine* pEngine) noexcept { m_pEngine = pEngine; }
 
 		/// @brief デバイスの取得
 		/// @return デバイスのポインタ
-		virtual Device* getDevice() = 0;
+		virtual Device* GetDevice() = 0;
 
 		/// @brief コマンドリストの取得
 		/// @return コマンドリストのポインタ
-		virtual CommandList* getCommandList() = 0;
+		virtual CommandList* GetCommandList() = 0;
 
 		/// @brief コピーコンストラクタ削除
-		RHI(const RHI&) = delete;
+		Renderer(const Renderer&) = delete;
 		/// @brief ムーブコンストラクタ削除
-		RHI(RHI&&) = delete;
+		Renderer(Renderer&&) = delete;
 
 	protected:
 		//------------------------------------------------------------------------------
 		// protected variables
 		//------------------------------------------------------------------------------
 
-		Engine* m_pCoreEngine;	///< エンジンのポインタ
+		Engine* m_pEngine;	///< エンジンのポインタ
 
 		///< デバイスクラス
 
@@ -80,4 +79,4 @@ namespace Core::RHI
 	};
 }
 
-#endif // !_CORE_RENDERER_
+#endif // !_RHI_RENDERER_

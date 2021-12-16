@@ -5,8 +5,8 @@
  * \author USAMI KOSHI
  * \date   2021/10/05
  *********************************************************************/
-#ifndef _CORE_DEPTH_STENCIL_
-#define _CORE_DEPTH_STENCIL_
+#ifndef _RHI_DEPTH_STENCIL_
+#define _RHI_DEPTH_STENCIL_
 
 #include "RHI_Texture.h"
 
@@ -39,4 +39,4 @@ namespace Core::RHI
 	};
 }
 
-#endif // !_CORE_DEPTH_STENCIL_
+#endif // !_RHI_DEPTH_STENCIL_

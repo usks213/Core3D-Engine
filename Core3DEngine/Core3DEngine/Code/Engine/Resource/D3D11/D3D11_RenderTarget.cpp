@@ -20,7 +20,7 @@ D3D11RenderTarget::D3D11RenderTarget(ID3D11Device1* device, const Core::RenderTa
 	m_rtv(nullptr)
 {
 	// レンダラーターゲットビュー
-	CD3D11_RENDER_TARGET_VIEW_DESC rtvDesc(D3D11_RTV_DIMENSION_TEXTURE2D, getDXGIFormat(d3dTex.m_desc.format));
+	CD3D11_RENDER_TARGET_VIEW_DESC rtvDesc(D3D11_RTV_DIMENSION_TEXTURE2D, GetDXGIFormat(d3dTex.m_desc.format));
 	if (d3dTex.m_desc.sampleDesc.isUse) rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
 	// 生成
 	CHECK_FAILED(device->CreateRenderTargetView(

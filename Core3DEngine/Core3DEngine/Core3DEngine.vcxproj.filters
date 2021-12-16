@@ -60,9 +60,6 @@
     <Filter Include="ソース ファイル\Engine\Runtime\Core">
       <UniqueIdentifier>{0903154d-3f5e-4889-9f96-7356d96f7674}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Engine\Resource\Core">
-      <UniqueIdentifier>{11bbbad0-657e-48dd-9ac6-6fc497c490fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Engine\Resource\D3D11">
       <UniqueIdentifier>{09eeb4f2-b6a4-4894-81f3-917982fd95a4}</UniqueIdentifier>
     </Filter>
@@ -147,6 +144,12 @@
     <Filter Include="ソース ファイル\Engine\RHI\D3D">
       <UniqueIdentifier>{c26f1cc5-ecd2-475e-ba8e-ccd7194b697f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Engine\Resource\Core">
+      <UniqueIdentifier>{824356ee-cde4-44ef-b4bd-2377c719ca34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Resource\Graphics">
+      <UniqueIdentifier>{9b698c81-0ffe-43f5-8e31-106e8f502c64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Application\StartUp.cpp">
@@ -187,18 +190,6 @@
     </ClCompile>
     <ClCompile Include="Code\Engine\Window\Win\Win_Window.cpp">
       <Filter>ソース ファイル\Engine\Window\Win</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\Core\Geometry.cpp">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\Core\Material.cpp">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\Core\Shader.cpp">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Resource\Core\ResourceManager.cpp">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_GPUBuffer.cpp">
       <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
@@ -308,9 +299,6 @@
     <ClCompile Include="Code\Engine\RHI\Core\RHI_Device.cpp">
       <Filter>ソース ファイル\Engine\RHI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\RHI\Core\RHI_Renderer.cpp">
-      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_CommandList.cpp">
       <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
     </ClCompile>
@@ -371,6 +359,15 @@
     <ClCompile Include="Code\Engine\RHI\D3D\D3D_ShaderCompiler.cpp">
       <Filter>ソース ファイル\Engine\RHI\D3D</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Geometry.cpp">
+      <Filter>ソース ファイル\Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Core\ResourceManager.cpp">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Graphics\Material.cpp">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h">
@@ -426,48 +423,6 @@
     </ClInclude>
     <ClInclude Include="Code\Engine\Window\Win\Win_Resource.h">
       <Filter>ソース ファイル\Engine\Window\Win</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\GPUBuffer.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\DepthStencil.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Geometry.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Light.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Material.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Mesh.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\RenderBuffer.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\RenderTarget.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Shader.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\ShaderResource.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\SubResource.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Texture.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\Resource.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\Core\ResourceManager.h">
-      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_GPUBuffer.h">
       <Filter>ソース ファイル\Engine\Resource\D3D11</Filter>
@@ -705,6 +660,51 @@
     </ClInclude>
     <ClInclude Include="Code\Engine\RHI\D3D\D3D_Defines.h">
       <Filter>ソース ファイル\Engine\RHI\D3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Geometry.h">
+      <Filter>ソース ファイル\Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Light.h">
+      <Filter>ソース ファイル\Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\ShaderResource.h">
+      <Filter>ソース ファイル\Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\SubResource.h">
+      <Filter>ソース ファイル\Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\Resource.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Core\ResourceManager.h">
+      <Filter>ソース ファイル\Engine\Resource\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Graphics\DepthStencil.h">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Graphics\Material.h">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Graphics\Mesh.h">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Graphics\RenderBuffer.h">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Graphics\RenderTarget.h">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Graphics\GraphicsShader.h">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Graphics\Texture.h">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\GPUBuffer.h">
+      <Filter>ソース ファイル\Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_SubResource.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

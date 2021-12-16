@@ -5,7 +5,6 @@
  * \author USAMI KOSHI
  * \date   2021/10/04
  *********************************************************************/
-
 #ifndef _RHI_RENDER_CONTEXT_
 #define _RHI_RENDER_CONTEXT_
 

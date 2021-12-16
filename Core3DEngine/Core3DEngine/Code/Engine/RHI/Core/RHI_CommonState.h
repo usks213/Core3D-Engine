@@ -5,8 +5,8 @@
  * \author USAMI KOSHI
  * \date   2021/10/04
  *********************************************************************/
-#ifndef _CORE_COMMON_STATE_
-#define _CORE_COMMON_STATE_
+#ifndef _RHI_COMMON_STATE_
+#define _RHI_COMMON_STATE_
 
 #include <cstdint>
 
@@ -307,4 +307,4 @@ namespace Core::RHI
 
 }
 
-#endif // !_CORE_COMMON_STATE_
+#endif // !_RHI_COMMON_STATE_

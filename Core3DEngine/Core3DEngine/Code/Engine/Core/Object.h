@@ -15,7 +15,7 @@
 namespace Core
 {
 
-	/// @brief オブジェクトの情報を付加
+/// @brief オブジェクトの情報を付加
 #define DECLARE_OBJECT_INFO(T)									\
 DECLARE_TYPE_INFO( T );											\
 [[nodiscard]] TypeID GetTypeID() noexcept override {			\
@@ -27,8 +27,14 @@ DECLARE_TYPE_INFO( T );											\
 void _dumyFunction2() = delete
 
 
+	// これを使えばIDを型で差別化できる？
+	template<class T>
+	struct RefInstanceID
+	{
+		InstanceID id;
+	};
 
-/// @brief オブジェクト
+	/// @brief オブジェクト
 	class Object
 	{
 	public:

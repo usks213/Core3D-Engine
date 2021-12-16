@@ -5,8 +5,8 @@
  * \author USAMI KOSHI
  * \date   2021/10/05
  *********************************************************************/
-#ifndef _CORE_BUFFER_
-#define _CORE_BUFFER_
+#ifndef _RHI_GPU_BUFFER_
+#define _RHI_GPU_BUFFER_
 
 #include "RHI_CommonState.h"
 #include <numeric>
@@ -108,4 +108,4 @@ namespace Core::RHI
 	};
 }
 
-#endif // !_CORE_BUFFER_
+#endif // !_RHI_GPU_BUFFER_

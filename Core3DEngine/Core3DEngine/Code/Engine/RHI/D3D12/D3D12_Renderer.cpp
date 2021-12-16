@@ -332,7 +332,7 @@ void D3D12Renderer::endFrame()
 
 /// @brief コマンドリストの取得
 /// @return コマンドリストのポインタ 
-Core::CommandList* D3D12Renderer::getCommandList()
+Core::CommandList* D3D12Renderer::GetCommandList()
 {
 	if (m_useCmdListCnt[m_curBackBufferIndex] >= m_cmdLists[m_curBackBufferIndex].size())
 	{

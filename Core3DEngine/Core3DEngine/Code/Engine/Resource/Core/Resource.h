@@ -9,6 +9,7 @@
 #define _RESOURCE_
 
 #include <Core\Object.h>
+#include <memory>
 
  /// @brief 型情報付加
 #define DECLARE_RESOURCE_INFO(T)	\
@@ -35,6 +36,16 @@ namespace Core
 		/// @return 
 		virtual ~Resource() noexcept = default;
 
+		/// @brief リソースID取得
+		/// @return リソースID
+		ResourceID GetResourceID() noexcept
+		{
+			return static_cast<ResourceID>(GetInstanceID());
+		}
+
+		/// @brief リソース名取得
+		/// @return リソース名
+		std::string_view GetName() { return m_name; }
 
 		/// @brief インスペクター表示
 		virtual void OnInspectorGUI() = 0;

@@ -5,8 +5,8 @@
  * \author USAMI KOSHI
  * \date   2021/10/05
  *********************************************************************/
-#ifndef _CORE_SUB_RESOURCE_
-#define _CORE_SUB_RESOURCE_
+#ifndef _RHI_SUB_RESOURCE_
+#define _RHI_SUB_RESOURCE_
 
 #include <cstdint>
 
@@ -31,7 +31,7 @@ namespace Core
 		virtual ~SubResource() noexcept = default;
 
 		/// @brief データ
-		void* getData() { return pData; }
+		void* GetData() { return pData; }
 		/// @brief １データのサイズ
 		std::uint32_t getByteSize() { return ByteWidth; }
 		/// @brief データ配列の幅
@@ -51,4 +51,4 @@ namespace Core
 	};
 }
 
-#endif // !_CORE_SUB_RESOURCE_
+#endif // !_RHI_SUB_RESOURCE_

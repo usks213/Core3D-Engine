@@ -51,14 +51,14 @@ namespace Core::D3D11
 
 		/// @brief デバイスの取得
 		/// @return デバイスのポインタ
-		Core::Device* getDevice() override
+		Core::Device* GetDevice() override
 		{
 			return &m_device;
 		}
 
 		/// @brief コマンドリストの取得
 		/// @return コマンドリストのポインタ 
-		Core::CommandList* getCommandList() override;
+		Core::CommandList* GetCommandList() override;
 
 		/// @brief コピーコンストラクタ削除
 		D3D11Renderer(const D3D11Renderer&) = delete;
