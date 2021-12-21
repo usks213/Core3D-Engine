@@ -73,14 +73,14 @@ HRESULT D3D12CommandList::initialize(D3D12Renderer* pRenderer, D3D12Device* pDev
 
 //----- リソース指定命令 -----
 
-void D3D12CommandList::setMaterial(const Core::MaterialID& materialID)
+void D3D12CommandList::SetMaterial(const Core::MaterialID& materialID)
 {
 	// マテリアルの取得
 	auto* d3dMat = static_cast<D3D12Material*>(m_pDevice->getMaterial(materialID));
 	if (d3dMat == nullptr) return;
 
 	// グラフィックスパイプラインステートの指定
-	setGraphicsPipelineState(d3dMat->m_shaderID, 
+	SetGraphicsPipelineState(d3dMat->m_shaderID, 
 		d3dMat->m_blendState, d3dMat->m_rasterizeState, d3dMat->m_depthStencilState);
 
 	// ステージごと
@@ -130,7 +130,7 @@ void D3D12CommandList::setMaterial(const Core::MaterialID& materialID)
 	}
 }
 
-void D3D12CommandList::setRenderBuffer(const Core::RenderBufferID& renderBufferID)
+void D3D12CommandList::SetRenderBuffer(const Core::RenderBufferID& renderBufferID)
 {
 	// データの取得
 	auto* renderBuffer = static_cast<D3D12RenderBuffer*>(m_pDevice->GetRenderBuffer(renderBufferID));
@@ -152,7 +152,7 @@ void D3D12CommandList::setRenderBuffer(const Core::RenderBufferID& renderBufferI
 
 //----- セット命令 -----
 
-void D3D12CommandList::setBackBuffer()
+void D3D12CommandList::SetBackBuffer()
 {
 	// レンダーターゲットハンドルの取得
 	UINT backBufferIndex = m_pRenderer->m_curBackBufferIndex;
@@ -171,7 +171,7 @@ void D3D12CommandList::setBackBuffer()
 	m_pCmdList->OMSetRenderTargets(1, &handlRTV, FALSE, &handlDSV);
 }
 
-void D3D12CommandList::setGraphicsPipelineState(const ShaderID& shaderID, const BlendState& bs,
+void D3D12CommandList::SetGraphicsPipelineState(const ShaderID& shaderID, const BlendState& bs,
 	const RasterizeState& rs, const DepthStencilState& ds)
 {
 	// シェーダーの取得
@@ -186,24 +186,24 @@ void D3D12CommandList::setGraphicsPipelineState(const ShaderID& shaderID, const 
 	m_pCmdList->SetGraphicsRootSignature(d3d12Shader->m_pRootSignature.Get());
 }
 
-void D3D12CommandList::setRenderTarget(const RenderTargetID& rtID)
+void D3D12CommandList::SetRenderTarget(const RenderTargetID& rtID)
 {
 	RenderTargetID rtIDs[] = { rtID };
-	setRenderTarget(1, rtIDs);
+	SetRenderTarget(1, rtIDs);
 }
 
-void D3D12CommandList::setRenderTarget(const std::uint32_t num, const RenderTargetID rtIDs[])
+void D3D12CommandList::SetRenderTarget(const std::uint32_t num, const RenderTargetID rtIDs[])
 {
-	setRenderTarget(num, rtIDs, m_curDepthStencilID);
+	SetRenderTarget(num, rtIDs, m_curDepthStencilID);
 }
 
-void D3D12CommandList::setRenderTarget(const RenderTargetID& rtID, const DepthStencilID& dsID)
+void D3D12CommandList::SetRenderTarget(const RenderTargetID& rtID, const DepthStencilID& dsID)
 {
 	RenderTargetID rtIDs[] = { rtID };
-	;	setRenderTarget(1, rtIDs, dsID);
+	;	SetRenderTarget(1, rtIDs, dsID);
 }
 
-void D3D12CommandList::setRenderTarget(std::uint32_t num, const RenderTargetID rtIDs[], const DepthStencilID& dsID)
+void D3D12CommandList::SetRenderTarget(std::uint32_t num, const RenderTargetID rtIDs[], const DepthStencilID& dsID)
 {
 	// 安全処理
 	if (num >= MAX_RENDER_TARGET || num <= 0) return;
@@ -251,7 +251,7 @@ void D3D12CommandList::setRenderTarget(std::uint32_t num, const RenderTargetID r
 	}
 }
 
-void D3D12CommandList::setViewport(const Rect& rect)
+void D3D12CommandList::SetViewport(const Rect& rect)
 {
 	// ビューポートの指定
 	D3D12_VIEWPORT d3d12View = {
@@ -268,7 +268,7 @@ void D3D12CommandList::setViewport(const Rect& rect)
 	m_pCmdList->RSSetScissorRects(1, &d3d12Rect);
 }
 
-void D3D12CommandList::setViewport(const Viewport& viewport)
+void D3D12CommandList::SetViewport(const Viewport& viewport)
 {
 	// ビューポートの指定
 	D3D12_VIEWPORT d3d12View = { viewport.left, viewport.top,
@@ -474,12 +474,12 @@ void D3D12CommandList::blit(const RenderBufferID& destID, const TextureID& sourc
 
 //----- クリア -----
 
-void D3D12CommandList::clearCommand()
+void D3D12CommandList::ClearCommand()
 {
 	// コマンドのクリア
 }
 
-void D3D12CommandList::clearBackBuffer(const Color& color)
+void D3D12CommandList::ClearBackBuffer(const Color& color)
 {
 	// レンダーターゲットハンドルの取得
 	auto handlRTV = m_pRenderer->m_pBackBufferHeap->GetCPUDescriptorHandleForHeapStart();
@@ -493,15 +493,15 @@ void D3D12CommandList::clearBackBuffer(const Color& color)
 		D3D12_RESOURCE_STATE_RENDER_TARGET);
 
 	// クリアカラー
-	FLOAT clearColor[4] = {};
-	std::memcpy(clearColor, &color, sizeof(Color));
+	FLOAT ClearColor[4] = {};
+	std::memcpy(ClearColor, &color, sizeof(Color));
 
-	m_pCmdList->ClearRenderTargetView(handlRTV, clearColor, 0, nullptr);
+	m_pCmdList->ClearRenderTargetView(handlRTV, ClearColor, 0, nullptr);
 	// デプスステンシルのクリア
 	m_pCmdList->ClearDepthStencilView(handlDSV, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 }
 
-void D3D12CommandList::clearRederTarget(const RenderTargetID& rtID, const Color& color)
+void D3D12CommandList::ClearRederTarget(const RenderTargetID& rtID, const Color& color)
 {
 	// レンダーターゲット取得
 	auto* pRT = static_cast<D3D12RenderTarget*>(m_pDevice->GetRenderTarget(rtID));
@@ -523,7 +523,7 @@ void D3D12CommandList::clearRederTarget(const RenderTargetID& rtID, const Color&
 		ColorRGBA, 0, nullptr);
 }
 
-void D3D12CommandList::clearDepthStencil(const DepthStencilID& dsID, float depth, std::uint8_t stencil)
+void D3D12CommandList::ClearDepthStencil(const DepthStencilID& dsID, float depth, std::uint8_t stencil)
 {
 	// 現在のデプスステンシル取得
 	auto* pDS = static_cast<D3D12DepthStencil*>(m_pDevice->GetDepthStencil(dsID));
@@ -543,7 +543,7 @@ void D3D12CommandList::clearDepthStencil(const DepthStencilID& dsID, float depth
 
 //----- コピー -----
 
-void D3D12CommandList::copyBackBuffer(const Core::TextureID& sourceID)
+void D3D12CommandList::CopyBackBuffer(const Core::TextureID& sourceID)
 {
 	// テクスチャ取得
 	auto* pTex = static_cast<D3D12Texture*>(m_pDevice->getTexture(sourceID));
@@ -562,7 +562,7 @@ void D3D12CommandList::copyBackBuffer(const Core::TextureID& sourceID)
 	m_pCmdList->CopyResource(pDest, pSource);
 }
 
-void D3D12CommandList::copyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID)
+void D3D12CommandList::CopyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID)
 {
 	// テクスチャ取得
 	auto* pTexA = static_cast<D3D12Texture*>(m_pDevice->getTexture(destID));

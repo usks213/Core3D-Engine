@@ -13,13 +13,6 @@
 #include <string>
 #include <vector>
 
-#ifdef min
-#undef min
-#endif
-#ifdef max
-#undef max
-#endif
-
 
 namespace Core::RHI
 {
@@ -58,6 +51,17 @@ namespace Core::RHI
 	class GPUBuffer
 	{
 	public:
+		/// @brief バッファタイプ
+		enum class BufferType : std::uint8_t
+		{
+			VBV,
+			IBV,
+			CBV,
+			SRV,
+			UAV,
+			MAX,
+		};
+	public:
 		//------------------------------------------------------------------------------
 		// public methods
 		//------------------------------------------------------------------------------
@@ -67,7 +71,7 @@ namespace Core::RHI
 		/// @param desc バッファDesc
 		GPUBuffer(const GPUBufferDesc& desc) :
 			m_desc(desc), m_type(BufferType::MAX),
-			m_isUpdate(true), m_aData()
+			m_isDirty(true), m_aData()
 		{
 		}
 
@@ -80,30 +84,39 @@ namespace Core::RHI
 		void UpdateBuffer(void* pData, std::size_t size)
 		{
 			std::memcpy(m_aData.data(), pData, size);
-			m_isUpdate = true;
+			m_isDirty = true;
 		}
 
-	public:
-		//------------------------------------------------------------------------------
-		// public variables
-		//------------------------------------------------------------------------------
+		/// @brief バッファ情報取得
+		/// @return バッファDesc
+		GPUBufferDesc GetDesc() { return m_desc; }
 
-		/// @brief バッファタイプ
-		enum class BufferType : std::uint8_t
-		{
-			VBV,
-			IBV,
-			CBV,
-			SRV,
-			UAV,
-			MAX,
-		};
+		/// @brief リソースポインタの取得
+		/// @return リソース型
+		virtual void* GetResource() = 0;
+
+		/// @brief CBVポインタの取得
+		/// @return CBV型
+		virtual void* GetCBV() = 0;
+
+		/// @brief SRVポインタの取得
+		/// @return SRV型
+		virtual void* GetSRV() = 0;
+
+		/// @brief UAVポインタの取得
+		/// @return UAV型
+		virtual void* GetUAV() = 0;
+
+	protected:
+		//------------------------------------------------------------------------------
+		// protected variables
+		//------------------------------------------------------------------------------
 
 		GPUBufferDesc				m_desc;		///< バッファDesc
 		BufferType					m_type;		///< バッファタイプ
 
-		bool						m_isUpdate;	///< バッファ更新フラグ
-		std::vector<std::byte>		m_aData;	///< CPU側のデータ
+		bool							m_isDirty;	///< バッファ更新フラグ
+		std::vector<std::byte>		m_aData;		///< CPU側のデータ
 
 	};
 }

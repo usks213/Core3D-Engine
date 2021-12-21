@@ -47,24 +47,24 @@ namespace Core::D3D12
 
 		//----- リソース指定命令 -----
 
-		void setMaterial(const Core::MaterialID& materialID) override;
+		void SetMaterial(const Core::MaterialID& materialID) override;
 
-		void setRenderBuffer(const Core::RenderBufferID& renderBufferID)  override;
+		void SetRenderBuffer(const Core::RenderBufferID& renderBufferID)  override;
 
 		//----- セット命令 -----
 
-		void setBackBuffer() override;
+		void SetBackBuffer() override;
 
-		void setGraphicsPipelineState(const Core::ShaderID& shaderID, const Core::BlendState& bs,
+		void SetGraphicsPipelineState(const Core::ShaderID& shaderID, const Core::BlendState& bs,
 			const Core::RasterizeState& rs, const Core::DepthStencilState& ds) override;
 
-		void setRenderTarget(const Core::RenderTargetID& rtID) override;
-		void setRenderTarget(const std::uint32_t num, const Core::RenderTargetID rtIDs[]) override;
-		void setRenderTarget(const Core::RenderTargetID& rtID, const Core::DepthStencilID& dsID) override;
-		void setRenderTarget(const std::uint32_t num, const Core::RenderTargetID rtIDs[], const Core::DepthStencilID& dsID) override;
+		void SetRenderTarget(const Core::RenderTargetID& rtID) override;
+		void SetRenderTarget(const std::uint32_t num, const Core::RenderTargetID rtIDs[]) override;
+		void SetRenderTarget(const Core::RenderTargetID& rtID, const Core::DepthStencilID& dsID) override;
+		void SetRenderTarget(const std::uint32_t num, const Core::RenderTargetID rtIDs[], const Core::DepthStencilID& dsID) override;
 
-		void setViewport(const Rect& rect) override;
-		void setViewport(const Viewport& viewport) override;
+		void SetViewport(const Rect& rect) override;
+		void SetViewport(const Viewport& viewport) override;
 
 		//----- ゲット命令 -----
 
@@ -89,20 +89,20 @@ namespace Core::D3D12
 
 		//----- クリア -----
 
-		void clearCommand() override;		///< コマンドのクリア
+		void ClearCommand() override;		///< コマンドのクリア
 
-		void clearBackBuffer(const Color& color) override;
+		void ClearBackBuffer(const Color& color) override;
 
-		void clearRederTarget(const Core::RenderTargetID& rtID, const Color& color) override;
+		void ClearRederTarget(const Core::RenderTargetID& rtID, const Color& color) override;
 
-		void clearDepthStencil(const Core::DepthStencilID& dsID, float depth, std::uint8_t stencil) override;
+		void ClearDepthStencil(const Core::DepthStencilID& dsID, float depth, std::uint8_t stencil) override;
 
 
 		//----- コピー -----
 
-		void copyBackBuffer(const Core::TextureID& sourceID) override;
+		void CopyBackBuffer(const Core::TextureID& sourceID) override;
 
-		void copyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID) override;
+		void CopyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID) override;
 
 
 	public:

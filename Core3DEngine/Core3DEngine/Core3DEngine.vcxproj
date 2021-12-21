@@ -49,7 +49,6 @@
     <ClCompile Include="Code\Engine\Resource\Geometry.cpp" />
     <ClCompile Include="Code\Engine\Resource\Graphics\Material.cpp" />
     <ClCompile Include="Code\Engine\RHI\Core\RHI_ShaderCBufferLayout.cpp" />
-    <ClCompile Include="Code\Engine\RHI\Core\RHI_Device.cpp" />
     <ClCompile Include="Code\Engine\RHI\Core\RHI_Shader.cpp" />
     <ClCompile Include="Code\Engine\RHI\Core\RHI_ShaderUtil.cpp" />
     <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_CommandList.cpp" />
@@ -82,15 +81,6 @@
     <ClCompile Include="Code\Engine\Utils\Util_Mathf.cpp" />
     <ClCompile Include="Code\Engine\Window\Core\Window.cpp" />
     <ClCompile Include="Code\Engine\Window\Win\Win_Window.cpp" />
-    <ClCompile Include="Library\ImGui\imgui.cpp" />
-    <ClCompile Include="Library\ImGui\imgui_demo.cpp" />
-    <ClCompile Include="Library\ImGui\imgui_draw.cpp" />
-    <ClCompile Include="Library\ImGui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="Library\ImGui\imgui_impl_dx12.cpp" />
-    <ClCompile Include="Library\ImGui\imgui_impl_win32.cpp" />
-    <ClCompile Include="Library\ImGui\imgui_tables.cpp" />
-    <ClCompile Include="Library\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="Library\SimpleMath\SimpleMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h" />
@@ -195,19 +185,6 @@
     <ClInclude Include="Code\Engine\Window\Core\Window.h" />
     <ClInclude Include="Code\Engine\Window\Win\Win_Resource.h" />
     <ClInclude Include="Code\Engine\Window\Win\Win_Window.h" />
-    <ClInclude Include="Library\ImGui\imconfig.h" />
-    <ClInclude Include="Library\ImGui\imgui.h" />
-    <ClInclude Include="Library\ImGui\imgui_impl_dx11.h" />
-    <ClInclude Include="Library\ImGui\imgui_impl_dx12.h" />
-    <ClInclude Include="Library\ImGui\imgui_impl_win32.h" />
-    <ClInclude Include="Library\ImGui\imgui_internal.h" />
-    <ClInclude Include="Library\ImGui\imstb_rectpack.h" />
-    <ClInclude Include="Library\ImGui\imstb_textedit.h" />
-    <ClInclude Include="Library\ImGui\imstb_truetype.h" />
-    <ClInclude Include="Library\SimpleMath\SimpleMath.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Library\SimpleMath\SimpleMath.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

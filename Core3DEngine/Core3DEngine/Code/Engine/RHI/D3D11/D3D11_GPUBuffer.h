@@ -8,10 +8,10 @@
 #ifndef _D3D11_Buffer_
 #define _D3D11_Buffer_
 
-#include <Resource/Core/GPUBuffer.h>
+#include <RHI/Core/RHI_GPUBuffer.h>
 #include <RHI/D3D11/D3D11_Defines.h>
 
-namespace Core::D3D11
+namespace Core::RHI::D3D11
 {
 	/// @class D3D11GPUBuffer
 	/// @brief DirectX11バッファ-
@@ -24,11 +24,9 @@ namespace Core::D3D11
 
 		/// @brief コンストラクタ
 		/// @param device デバイス
-		/// @param id バッファID
 		/// @param desc バッファDesc
 		/// @param data 初期化データ
-		explicit D3D11GPUBuffer(ID3D11Device1* device, const Core::GPUBufferID& id, 
-			const Core::GPUBufferDesc& desc, const Core::GPUBufferData* pData = nullptr);
+		explicit D3D11GPUBuffer(ID3D11Device1* device, const GPUBufferDesc& desc, const GPUBufferData* pData = nullptr);
 
 		/// @brief デストラクタ
 		~D3D11GPUBuffer() noexcept = default;

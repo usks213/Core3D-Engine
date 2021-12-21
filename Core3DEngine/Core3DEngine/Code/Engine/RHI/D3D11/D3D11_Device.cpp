@@ -7,18 +7,15 @@
  *********************************************************************/
 
 #include "D3D11_Device.h"
-#include <Utils/Util_Hash.h>
 
-#include <Resource/D3D11/D3D11_GPUBuffer.h>
-#include <Resource/D3D11/D3D11_DepthStencil.h>
-#include <Resource/D3D11/D3D11_Material.h>
-#include <Resource/D3D11/D3D11_RenderBuffer.h>
-#include <Resource/D3D11/D3D11_RenderTarget.h>
-#include <Resource/D3D11/D3D11_Shader.h>
-#include <Resource/D3D11/D3D11_Texture.h>
+#include "D3D11_DepthStencil.h"
+#include "D3D11_GPUBuffer.h"
+#include "D3D11_GraphicsShader.h"
+#include "D3D11_RenderTarget.h"
+#include "D3D11_Texture.h"
 
-using namespace Core;
-using namespace Core::D3D11;
+using namespace Core::RHI;
+using namespace Core::RHI::D3D11;
 
  //------------------------------------------------------------------------------
  // public methods
@@ -69,153 +66,42 @@ HRESULT D3D11Device::initialize(ID3D11Device1* pDevice, IDXGIFactory2* pFactory2
 
 //----- リソース生成 -----
 
-Core::GPUBufferID D3D11Device::CreateBuffer(Core::GPUBufferDesc& desc, const Core::GPUBufferData* pData)
+std::shared_ptr<DepthStencil> D3D11Device::CreateDepthStencil(TextureDesc& desc, float depth, std::uint8_t stencil)
 {
-	// IDの取得
-	GPUBufferID id = static_cast<GPUBufferID>(Util::stringHash(desc.name));
-
-	// 既に生成済み
-	const auto& itr = m_bufferPool.find(id);
-	if (m_bufferPool.end() != itr) return id;
-
-	// 新規生成
-	m_bufferPool[id] = std::make_unique<D3D11GPUBuffer>(m_pD3DDevice, id, desc, pData);
-
-	return id;
+	auto pDS = std::make_shared<D3D11DepthStencil>(m_pD3DDevice, desc);
+	return std::static_pointer_cast<DepthStencil>(pDS);
 }
-Core::DepthStencilID D3D11Device::CreateDepthStencil(Core::TextureDesc& desc, float depth, std::uint8_t stencil)
+
+std::shared_ptr<GPUBuffer> D3D11Device::CreateGPUBuffer(GPUBufferDesc& desc, const GPUBufferData* pData)
 {
-	// IDの取得
-	DepthStencilID id = static_cast<DepthStencilID>(Util::stringHash(desc.name));
-
-	// 既に生成済み
-	const auto& itr = m_depthStencilPool.find(id);
-	if (m_depthStencilPool.end() != itr) return id;
-
-	// テクスチャ生成
-	auto texID = CreateTexture(desc, nullptr);
-	auto pTex = static_cast<D3D11Texture*>(getTexture(texID));
-
-	// デプスステンシル生成
-	m_depthStencilPool[id] = std::make_unique<D3D11DepthStencil>(m_pD3DDevice, id, *pTex);
-
-	return id;
+	auto pBuffer = std::make_shared<D3D11GPUBuffer>(m_pD3DDevice, desc, pData);
+	return std::static_pointer_cast<GPUBuffer>(pBuffer);
 }
-Core::MaterialID D3D11Device::CreateMaterial(std::string name, Core::ShaderID& shaderID)
+
+std::shared_ptr<GraphicsShader> D3D11Device::CreateGraphicsShader(GraphicsShaderDesc& desc)
 {
-	// IDの取得
-	MaterialID id = static_cast<MaterialID>(Util::stringHash(name));
-
-	// 既に生成済み
-	const auto& itr = m_materialPool.find(id);
-	if (m_materialPool.end() != itr) return id;
-
-	// シェーダー取得
-	auto* shader = GetShader(shaderID);
-	if (shader == nullptr) return NONE_MATERIAL_ID;
-
-	// 新規生成
-	m_materialPool[id] = std::make_unique<D3D11Material>(
-		m_pD3DDevice, id, name, *shader);
-
-	return id;
+	auto pShader = std::make_shared<D3D11GraphicsShader>(m_pD3DDevice, desc);
+	return std::static_pointer_cast<GraphicsShader>(pShader);
 }
-Core::MeshID D3D11Device::CreateMesh(std::string name)
+
+std::shared_ptr<RenderTarget> D3D11Device::CreateRenderTarget(TextureDesc& desc, const Color& color)
 {
-	// IDの取得
-	MeshID id = static_cast<MeshID>(Util::stringHash(name));
-
-	// 既に生成済み
-	const auto& itr = m_meshPool.find(id);
-	if (m_meshPool.end() != itr) return id;
-
-	// 新規生成
-	m_meshPool[id] = std::make_unique<CoreMesh>(id, name);
-
-	return id;
+	auto pRT = std::make_shared<D3D11RenderTarget>(m_pD3DDevice, desc);
+	return std::static_pointer_cast<RenderTarget>(pRT);
 }
-Core::RenderBufferID D3D11Device::CreateRenderBuffer(Core::ShaderID& shaderID, Core::MeshID& meshID)
+
+std::shared_ptr<Texture> D3D11Device::CreateTexture(std::string filePath)
 {
-	// シェーダー取得
-	auto* shader = GetShader(shaderID);
-	if (shader == nullptr) return NONE_RENDERBUFFER_ID;
-	// メッシュ取得
-	auto* mesh = getMesh(meshID);
-	if (mesh == nullptr) return NONE_RENDERBUFFER_ID;
-	
-	// IDの生成
-	RenderBufferID id = static_cast<RenderBufferID>(
-		Util::stringHash(shader->m_desc.m_name + ":" + mesh->m_name));
-
-	// 既にある
-	const auto& itr = m_renderBufferPool.find(id);
-	if (m_renderBufferPool.end() != itr) return id;
-
-	// 新規生成
-	m_renderBufferPool[id] = std::make_unique<D3D11RenderBuffer>(
-		m_pD3DDevice, id, *shader, *mesh);
-
-	return id;
+	auto pTex = std::make_shared<D3D11Texture>();
+	pTex->CreateFormFile(m_pD3DDevice ,filePath);
+	return std::static_pointer_cast<Texture>(pTex);
 }
-Core::RenderTargetID D3D11Device::CreateRenderTarget(Core::TextureDesc& desc, const Color& color)
+
+std::shared_ptr<Texture> D3D11Device::CreateTexture(TextureDesc& desc, const TextureData* pData)
 {
-	// IDの取得
-	RenderTargetID id = static_cast<RenderTargetID>(Util::stringHash(desc.name));
-
-	// 既に生成済み
-	const auto& itr = m_renderTargetPool.find(id);
-	if (m_renderTargetPool.end() != itr) return id;
-
-	// テクスチャ生成
-	auto texID = CreateTexture(desc, nullptr);
-	auto pTex = static_cast<D3D11Texture*>(getTexture(texID));
-
-	// レンダーターゲット生成
-	m_renderTargetPool[id] = std::make_unique<D3D11RenderTarget>(m_pD3DDevice, id, *pTex);
-
-	return id;
-}
-Core::ShaderID D3D11Device::CreateShader(Core::ShaderDesc& desc)
-{
-	// IDの取得
-	ShaderID id = static_cast<ShaderID>(Util::stringHash(desc.m_name));
-
-	// 既に生成済み
-	const auto& itr = m_shaderPool.find(id);
-	if (m_shaderPool.end() != itr) return id;
-
-	// 新規生成
-	m_shaderPool[id] = std::make_unique<D3D11Shader>(m_pD3DDevice, desc, id);
-
-	return id;
-}
-Core::TextureID D3D11Device::CreateTexture(std::string filePath)
-{
-	// IDの取得
-	TextureID id = static_cast<TextureID>(Util::stringHash(filePath));
-
-	// 既に生成済み
-	const auto& itr = m_texturePool.find(id);
-	if (m_texturePool.end() != itr) return id;
-
-	// 新規生成
-	m_texturePool[id] = std::make_unique<D3D11Texture>(m_pD3DDevice, id, filePath);
-
-	return id;
-}
-Core::TextureID D3D11Device::CreateTexture(Core::TextureDesc& desc, const Core::TextureData* pData)
-{
-	// IDの取得
-	TextureID id = static_cast<TextureID>(Util::stringHash(desc.name));
-
-	// 既に生成済み
-	const auto& itr = m_texturePool.find(id);
-	if (m_texturePool.end() != itr) return id;
-
-	// 新規生成
-	m_texturePool[id] = std::make_unique<D3D11Texture>(m_pD3DDevice, id, desc, pData);
-
-	return id;
+	auto pTex = std::make_shared<D3D11Texture>();
+	pTex->CreateFromDesc(m_pD3DDevice, desc, pData);
+	return std::static_pointer_cast<Texture>(pTex);
 }
 
 

@@ -9,7 +9,7 @@
 #include "D3D11_Renderer.h"
 #include <vector>
 
-using namespace Core::D3D11;
+using namespace Core::RHI::D3D11;
 
 
 /// @brief コンストラクタ
@@ -101,7 +101,7 @@ void D3D11Renderer::endFrame()
 
 /// @brief コマンドリストの取得
 /// @return コマンドリストのポインタ 
-Core::CommandList* D3D11Renderer::GetCommandList()
+CommandList* D3D11Renderer::GetCommandList()
 {
 	if (m_useCmdListCnt[m_curBackBufferIndex] >= m_cmdLists[m_curBackBufferIndex].size())
 	{

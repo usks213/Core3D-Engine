@@ -19,15 +19,15 @@ namespace Util
     /// @brief 文字列のハッシュ値
     constexpr std::uint32_t stringHash(std::string_view string)
     {
-        auto fnvOffsetBasis = 14695981039346656037ULL;
+        auto fnvOffSetBasis = 14695981039346656037ULL;
         constexpr auto cFnvPrime = 1099511628211ULL;
 
         for (auto idx : string)
         {
-            fnvOffsetBasis ^= static_cast<std::uint32_t>(idx);
-            fnvOffsetBasis *= cFnvPrime;
+            fnvOffSetBasis ^= static_cast<std::uint32_t>(idx);
+            fnvOffSetBasis *= cFnvPrime;
         }
-        return static_cast<std::uint32_t>(fnvOffsetBasis);
+        return static_cast<std::uint32_t>(fnvOffSetBasis);
     }
 
     /// @brief 型のハッシュ値

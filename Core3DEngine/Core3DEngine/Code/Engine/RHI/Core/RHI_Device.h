@@ -29,7 +29,10 @@ namespace Core::RHI
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		explicit Device();
+		explicit Device() :
+			m_sampleDesc()
+		{
+		}
 
 		/// @brief デストラクタ
 		virtual ~Device() noexcept = default;
@@ -40,7 +43,7 @@ namespace Core::RHI
 
 		virtual std::shared_ptr<GPUBuffer> CreateGPUBuffer(GPUBufferDesc& desc, const GPUBufferData* pData = nullptr) = 0;
 
-		virtual std::shared_ptr<GraphicsShader> CreateGraphicsShader(GraphicsShader& desc) = 0;
+		virtual std::shared_ptr<GraphicsShader> CreateGraphicsShader(GraphicsShaderDesc& desc) = 0;
 
 		virtual std::shared_ptr<RenderTarget> CreateRenderTarget(TextureDesc& desc, const Color& color = Color()) = 0;
 

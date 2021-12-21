@@ -42,7 +42,7 @@ Core::GPUBufferID			g_worldID[MAX_WORLD_BUFFER];
 
 Core::RenderTargetID		g_rtID;
 Core::DepthStencilID		g_dsID;
-Color					g_clearColor = Color(0.2f, 0.2f, 0.2f, 1.0f);
+Color					g_ClearColor = Color(0.2f, 0.2f, 0.2f, 1.0f);
 
 // ライティング
 constexpr std::uint32_t	MAX_POINT_LIGHT = 6;
@@ -156,7 +156,7 @@ void TestScene::Start()
 		auto unlitShaderID = device->CreateShader(shaderDesc);
 		auto unlitMatID = device->CreateMaterial("Unlit", unlitShaderID);
 		auto* pUnlitMat = device->getMaterial(unlitMatID);
-		pUnlitMat->setVector4("_Color", Vector4(1, 1, 1, 1));
+		pUnlitMat->SetVector4("_Color", Vector4(1, 1, 1, 1));
 		pUnlitMat->setTexture("_Texture", texID);
 		pUnlitMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
 		g_shaderID = unlitShaderID;
@@ -174,7 +174,7 @@ void TestScene::Start()
 		rtDesc.height = height;
 		rtDesc.bindFlags = 0 | Core::BindFlags::RENDER_TARGET | Core::BindFlags::SHADER_RESOURCE;
 		rtDesc.format = Core::TextureFormat::R8G8B8A8_UNORM;
-		g_rtID = device->CreateRenderTarget(rtDesc, g_clearColor);
+		g_rtID = device->CreateRenderTarget(rtDesc, g_ClearColor);
 
 		// デプスステンシルの生成
 		rtDesc.name = "デプスステンシル";
@@ -208,7 +208,7 @@ void TestScene::Start()
 		g_postShaderID = device->CreateShader(shaderDesc);
 		g_postMatID = device->CreateMaterial("Post", g_postShaderID);
 		auto* pPostMat = device->getMaterial(g_postMatID);
-		pPostMat->setVector3("_Color", Vector3(1, 1, 1));
+		pPostMat->SetVector3("_Color", Vector3(1, 1, 1));
 		pPostMat->setTexture("_RT", pRT->m_texID);
 		pPostMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
 
@@ -226,11 +226,11 @@ void TestScene::Start()
 		g_lightShaderID = device->CreateShader(shaderDesc);
 		g_lightMatID = device->CreateMaterial("Lit", g_lightShaderID);
 		auto* pMat = device->getMaterial(g_lightMatID);
-		pMat->setVector3("_Color", Vector3(1, 1, 1));
+		pMat->SetVector3("_Color", Vector3(1, 1, 1));
 		pMat->setUint("_PointLightNum", MAX_POINT_LIGHT);
 		pMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
 		pMat->setTexture("_Texture", g_texID);
-		pMat->setMatrix("_mTex", texMatrix);
+		pMat->SetMatrix("_mTex", texMatrix);
 
 		// ポイントライトバッファ作成
 		Core::GPUBufferDesc bufferDesc;
@@ -342,12 +342,12 @@ void TestScene::Render()
 	}
 	pWorldBuffer0->UpdateBuffer(aWorld.data(), sizeof(Matrix) * MAX_WORLD);
 
-	pUnlitMat->setMatrix("_mView", view);
-	pUnlitMat->setMatrix("_mProj", proj);
+	pUnlitMat->SetMatrix("_mView", view);
+	pUnlitMat->SetMatrix("_mProj", proj);
 
-	pLitMat->setVector3("_ViewPos", eyepos);
-	pLitMat->setMatrix("_mView", view);
-	pLitMat->setMatrix("_mProj", proj);
+	pLitMat->SetVector3("_ViewPos", eyepos);
+	pLitMat->SetMatrix("_mView", view);
+	pLitMat->SetMatrix("_mProj", proj);
 
 	//----- ライト更新
 	{
@@ -377,22 +377,22 @@ void TestScene::Render()
 	//----- 描画
 	{
 		// レンダーターゲット指定
-		cmdList->setRenderTarget(g_rtID, g_dsID);
+		cmdList->SetRenderTarget(g_rtID, g_dsID);
 
 		// レンダーターゲットクリア
-		cmdList->clearRederTarget(g_rtID, g_clearColor);
-		cmdList->clearDepthStencil(g_dsID, 1.0f, 0);
+		cmdList->ClearRederTarget(g_rtID, g_ClearColor);
+		cmdList->ClearDepthStencil(g_dsID, 1.0f, 0);
 
 		// ビューポート指定
-		cmdList->setViewport(Viewport(0, 0, width, height));
+		cmdList->SetViewport(Viewport(0, 0, width, height));
 
 		// マテリアルの指定
-		//cmdList->setMaterial(g_matID);
-		cmdList->setMaterial(g_lightMatID);
+		//cmdList->SetMaterial(g_matID);
+		cmdList->SetMaterial(g_lightMatID);
 
 		// レンダーバッファの指定
-		//cmdList->setRenderBuffer(g_rdID);
-		cmdList->setRenderBuffer(g_litRdID);
+		//cmdList->SetRenderBuffer(g_rdID);
+		cmdList->SetRenderBuffer(g_litRdID);
 
 		// バッファ指定
 		//cmdList->bindGlobalBuffer(g_shaderID, "World", g_worldID);
@@ -421,9 +421,9 @@ void TestScene::Render()
 			pWorldBuffer1->UpdateBuffer(&world, sizeof(Matrix));
 
 			// マテリアル
-			cmdList->setMaterial(g_lightMatID);
+			cmdList->SetMaterial(g_lightMatID);
 			// レンダーバッファの指定
-			cmdList->setRenderBuffer(g_litQuadID);
+			cmdList->SetRenderBuffer(g_litQuadID);
 			// バッファ指定
 			cmdList->bindGlobalBuffer(g_lightShaderID, "World", g_worldID[1]);
 			cmdList->bindGlobalBuffer(g_lightShaderID, "_PointLights", g_pointLightBufferID);
@@ -442,38 +442,38 @@ void TestScene::Render()
 		proj = Matrix::CreateOrthographic(width, height, 1.0f, 100.0f);
 		proj = proj.Transpose();
 
-		pPostMat->setMatrix("_mWorld", world);
-		pPostMat->setMatrix("_mView", view);
-		pPostMat->setMatrix("_mProj", proj);
+		pPostMat->SetMatrix("_mWorld", world);
+		pPostMat->SetMatrix("_mView", view);
+		pPostMat->SetMatrix("_mProj", proj);
 		pPostMat->setTexture("_RT", pRT->m_texID);
 
 		// マテリアルの更新
-		pPostMat->setVector3("_Color", Vector3(1, 1, 1));
+		pPostMat->SetVector3("_Color", Vector3(1, 1, 1));
 		static float _time;
 		_time += 0.05f;
 		pPostMat->setFloat("_Time", _time);
 
 
 		// バッファバッファ指定
-		//cmdList->setBackBuffer();
-		//cmdList->clearBackBuffer(Color());
-		cmdList->setRenderTarget(m_sceneResultID);
-		cmdList->clearRederTarget(m_sceneResultID, Color());
+		//cmdList->SetBackBuffer();
+		//cmdList->ClearBackBuffer(Color());
+		cmdList->SetRenderTarget(m_sceneResultID);
+		cmdList->ClearRederTarget(m_sceneResultID, Color());
 
 		// マテリアルの指定
-		cmdList->setMaterial(g_postMatID);
+		cmdList->SetMaterial(g_postMatID);
 		// レンダーバッファの指定
-		cmdList->setRenderBuffer(g_postRdID);
+		cmdList->SetRenderBuffer(g_postRdID);
 		// 描画
 		cmdList->render(g_postRdID, 1);
 	}
 
 	// バインド解除
 	pPostMat->setTexture("_RT", Core::NONE_TEXTURE_ID);
-	cmdList->setMaterial(g_postMatID);
+	cmdList->SetMaterial(g_postMatID);
 
 	// バックバッファへコピー
-	//cmdList->copyBackBuffer(pRT->m_texID);
+	//cmdList->CopyBackBuffer(pRT->m_texID);
 
 }
 

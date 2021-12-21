@@ -8,12 +8,11 @@
 #ifndef _RHI_RENDER_CONTEXT_
 #define _RHI_RENDER_CONTEXT_
 
-#include <Resource\Core\GPUBuffer.h>
-#include <Resource\Core\Material.h>
-#include <Resource\Core\RenderBuffer.h>
-#include <Resource\Core\RenderTarget.h>
-#include <Resource\Core\DepthStencil.h>
-#include <Resource\Core\ShaderResource.h>
+#include "RHI_DepthStencil.h"
+#include "RHI_GPUBuffer.h"
+#include "RHI_GraphicsShader.h"
+#include "RHI_RenderTarget.h"
+#include "RHI_Texture.h"
 
 
 namespace Core::RHI
@@ -22,7 +21,6 @@ namespace Core::RHI
 	/// @brief レンダーコマンドリスト
 	class CommandList
 	{
-		friend class RHI;
 	public:
 
 		//------------------------------------------------------------------------------
@@ -38,73 +36,91 @@ namespace Core::RHI
 		virtual ~CommandList() noexcept = default;
 
 
-		//----- リソース指定命令 -----
+		//----- ターゲットステート命令 -----
 
-		/// @brief マテリアル指定
-		/// @param materialID マテリアルID
-		virtual void setMaterial(const MaterialID& materialID) = 0;
+		virtual void SetBackBuffer() = 0;
 
-		/// @brief レンダーバッファ指定
-		/// @param renderBufferID レンダーバッファID
-		virtual void setRenderBuffer(const RenderBufferID& renderBufferID) = 0;
+		virtual void SetRenderTarget(std::shared_ptr<RenderTarget> pRT) = 0;
+		virtual void SetRenderTarget(const std::uint32_t num, std::shared_ptr<RenderTarget> pRTs[]) = 0;
+		virtual void SetRenderTarget(std::shared_ptr<RenderTarget> pRT, std::shared_ptr<DepthStencil> pDS) = 0;
+		virtual void SetRenderTarget(const std::uint32_t num, std::shared_ptr<RenderTarget> pRTs[], std::shared_ptr<DepthStencil> pDS) = 0;
+
+		virtual void SetViewport(const Rect& rect) = 0;
+		virtual void SetViewport(const Viewport& viewport) = 0;
 
 
-		//----- セット命令 -----
+		//----- パイプラインステート命令 -----
 
-		virtual void setBackBuffer() = 0;
-
-		virtual void setGraphicsPipelineState(const ShaderID& shaderID, const BlendState& bs,
+		virtual void SetGraphicsPipelineState(std::shared_ptr<GraphicsShader> pShader, const BlendState& bs,
 			const RasterizeState& rs, const DepthStencilState& ds) = 0;
 
-		virtual void setRenderTarget(const RenderTargetID& rtID) = 0;
-		virtual void setRenderTarget(const std::uint32_t num, const RenderTargetID rtIDs[]) = 0;
-		virtual void setRenderTarget(const RenderTargetID& rtID, const DepthStencilID& dsID) = 0;
-		virtual void setRenderTarget(const std::uint32_t num, const RenderTargetID rtIDs[], const DepthStencilID& dsID) = 0;
+		virtual void SetComputePipelineState() = 0;
 
-		virtual void setViewport(const Rect& rect) = 0;
-		virtual void setViewport(const Viewport& viewport) = 0;
+		//----- リソース命令 -----
 
-		//----- ゲット命令 -----
+		virtual void SetLocalBuffer(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<GPUBuffer> pGPUBuffer) = 0;
 
+		virtual void SetLocalTexture(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<Texture> pTexture) = 0;
 
-		//----- バインド命令 -----
+		virtual void SetLocalSampler(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, SamplerState samplerState) = 0;
 
-		virtual void bindGlobalBuffer(const Core::ShaderID& shaderID, const std::string& bindName, const Core::GPUBufferID& bufferID) = 0;
+		virtual void SetGlobalBuffer(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<GPUBuffer> pGPUBuffer) = 0;
 
-		virtual void bindGlobalTexture(const Core::ShaderID& shaderID, const std::string& bindName, const Core::TextureID& textureID) = 0;
+		virtual void SetGlobalTexture(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<Texture> pTexture) = 0;
 
-		virtual void bindGlobalSampler(const Core::ShaderID& shaderID, const std::string& bindName, const Core::SamplerState& sampler) = 0;
+		virtual void SetGlobalSampler(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, SamplerState samplerState) = 0;
 
 
-		//----- 描画命令 -----
+		//----- ジオメトリーステート命令 -----
 
-		/// @brief 描画命令
-		/// @param renderBufferID レンダーバッファID
-		virtual void render(const RenderBufferID& renderBufferID, const std::uint32_t instanceCount = 1) = 0;
+		virtual void SetVertexBuffer() = 0;
 
-		/// @brief 
-		/// @param destID 対象のレンダーターゲット
-		/// @param sourceID 
-		/// @param matID 
-		virtual void blit(const RenderBufferID& destID, const TextureID& sourceID, const MaterialID& matID) = 0;
+		virtual void SetIndexBuffer() = 0;
+
+		virtual void SetPrimitiveTopology(PrimitiveTopology primitiveTopology) = 0;
 
 
-		//----- クリア -----
+		//----- 描画・実行命令 -----
 
-		virtual void clearCommand() = 0;		///< コマンドのクリア
+		virtual void DrawInstanced(std::uint32_t VertexCountPerInstance, std::uint32_t InstanceCount,
+			std::uint32_t StartVertexLocation, std::uint32_t StartInstanceLocation) = 0;
 
-		virtual void clearBackBuffer(const Color& color) = 0;
+		virtual void DrawIndexedInstanced(std::uint32_t IndexCountPerInstance, std::uint32_t InstanceCount,
+			std::uint32_t StartIndexLocation, std::int32_t  BaseVertexLocation, std::uint32_t StartInstanceLocation) = 0;
 
-		virtual void clearRederTarget(const RenderTargetID& rtID, const Color& color) = 0;
+		virtual void ExecuteIndirect() = 0;
 
-		virtual void clearDepthStencil(const DepthStencilID& dsID, float depth, std::uint8_t stencil) = 0;
+		virtual void Dispatch() = 0;
 
 
-		//----- コピー -----
+		//----- クリア命令 -----
 
-		virtual void copyBackBuffer(const TextureID& sourceID) = 0;
+		virtual void ClearCommand() = 0;		///< コマンドのクリア
 
-		virtual void copyTexture(const TextureID& destID, const TextureID& sourceID) = 0;
+		virtual void ClearBackBuffer(const Color& color) = 0;
+
+		virtual void ClearRederTarget(std::shared_ptr<RenderTarget> pRT, const Color& color) = 0;
+
+		virtual void ClearDepthStencil(std::shared_ptr<DepthStencil> pDS, float depth, std::uint8_t stencil) = 0;
+
+
+		//----- コピー命令 -----
+
+		virtual void CopyBackBuffer(std::shared_ptr<Texture> pSource) = 0;
+
+		virtual void CopyBuffer(std::shared_ptr<GPUBuffer> pDest, std::shared_ptr<GPUBuffer> pSource) = 0;
+
+		virtual void CopyTexture(std::shared_ptr<Texture> pDest, std::shared_ptr<Texture> pSource) = 0;
+
+
+		////----- アップロード命令 -----
+
+		//virtual void UpdateSubresources() = 0;
+
+		//virtual void UploadBuffer() = 0;
+
+		//virtual void UploadTexture() = 0;
+
 
 	protected:
 		//------------------------------------------------------------------------------

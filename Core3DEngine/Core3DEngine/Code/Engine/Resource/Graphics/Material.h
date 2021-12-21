@@ -108,28 +108,28 @@ namespace Core
 		void setUint(const char* name, const unsigned int& data) { setData(name, &data); }
 
 		/// @brief VectorUint2ê›íË
-		void setVectorUint2(const char* name, const VectorUint2& data) { setData(name, &data); }
+		void SetVectorUint2(const char* name, const VectorUint2& data) { setData(name, &data); }
 
 		/// @brief VectorUint3ê›íË
-		void setVectorUint3(const char* name, const VectorUint3& data) { setData(name, &data); }
+		void SetVectorUint3(const char* name, const VectorUint3& data) { setData(name, &data); }
 
 		/// @brief VectorUint4ê›íË
-		void setVectorUint4(const char* name, const VectorUint4& data) { setData(name, &data); }
+		void SetVectorUint4(const char* name, const VectorUint4& data) { setData(name, &data); }
 
 		/// @brief floatê›íË
 		void setFloat(const char* name, const float& data) { setData(name, &data); }
 
 		/// @brief Vector2ê›íË
-		void setVector2(const char* name, const Vector2& data) { setData(name, &data); }
+		void SetVector2(const char* name, const Vector2& data) { setData(name, &data); }
 
 		/// @brief Vector3ê›íË
-		void setVector3(const char* name, const Vector3& data) { setData(name, &data); }
+		void SetVector3(const char* name, const Vector3& data) { setData(name, &data); }
 
 		/// @brief Vector4ê›íË
-		void setVector4(const char* name, const Vector4& data) { setData(name, &data); }
+		void SetVector4(const char* name, const Vector4& data) { setData(name, &data); }
 
 		/// @brief Matrixê›íË
-		void setMatrix(const char* name, const Matrix& data) { setData(name, &data); }
+		void SetMatrix(const char* name, const Matrix& data) { setData(name, &data); }
 
 		/// @brief Structê›íË
 		void setStruct(const char* name, const void* data) { setData(name, &data); }

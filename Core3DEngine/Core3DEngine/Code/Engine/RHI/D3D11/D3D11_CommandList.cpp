@@ -5,7 +5,6 @@
  * \author USAMI KOSHI
  * \date   2021/10/04
  *********************************************************************/
-
 #include "D3D11_CommandList.h"
 #include "D3D11_Renderer.h"
 
@@ -15,12 +14,10 @@
 #include "Resource/D3D11/D3D11_RenderTarget.h"
 #include "Resource/D3D11/D3D11_DepthStencil.h"
 
-#include <Resource/Core/SubResource.h>
-
 #include <functional>
 
-using namespace Core;
-using namespace Core::D3D11;
+using namespace Core::RHI;
+using namespace Core::RHI::D3D11;
 
 
 //------------------------------------------------------------------------------
@@ -34,8 +31,7 @@ namespace {
 		&ID3D11DeviceContext1::GSSetConstantBuffers,
 		&ID3D11DeviceContext1::DSSetConstantBuffers,
 		&ID3D11DeviceContext1::HSSetConstantBuffers,
-		&ID3D11DeviceContext1::PSSetConstantBuffers,
-		&ID3D11DeviceContext1::CSSetConstantBuffers, };
+		&ID3D11DeviceContext1::PSSetConstantBuffers, };
 	// SRV
 	static std::function<void(ID3D11DeviceContext1*, UINT, UINT, ID3D11ShaderResourceView* const*)>
 		setShaderResource[static_cast<std::size_t>(GraphicsShaderStage::MAX)] = {
@@ -43,8 +39,7 @@ namespace {
 		&ID3D11DeviceContext1::GSSetShaderResources,
 		&ID3D11DeviceContext1::DSSetShaderResources,
 		&ID3D11DeviceContext1::HSSetShaderResources,
-		&ID3D11DeviceContext1::PSSetShaderResources,
-		&ID3D11DeviceContext1::CSSetShaderResources, };
+		&ID3D11DeviceContext1::PSSetShaderResources, };
 	// Sampler
 	static std::function<void(ID3D11DeviceContext1*, UINT, UINT, ID3D11SamplerState* const*)>
 		setSamplers[static_cast<std::size_t>(GraphicsShaderStage::MAX)] = {
@@ -52,8 +47,7 @@ namespace {
 		&ID3D11DeviceContext1::GSSetSamplers,
 		&ID3D11DeviceContext1::DSSetSamplers,
 		&ID3D11DeviceContext1::HSSetSamplers,
-		&ID3D11DeviceContext1::PSSetSamplers,
-		&ID3D11DeviceContext1::CSSetSamplers, };
+		&ID3D11DeviceContext1::PSSetSamplers, };
 }
 
 //------------------------------------------------------------------------------
@@ -65,8 +59,7 @@ D3D11CommandList::D3D11CommandList() :
 	m_pRenderer(nullptr),
 	m_pDevice(nullptr),
 	m_pDeferredContext(nullptr),
-	m_pCmdList(nullptr),
-	m_curDepthStencilID(NONE_DEPTH_STENCIL_ID)
+	m_pCmdList(nullptr)
 {
 }
 
@@ -90,14 +83,14 @@ HRESULT D3D11CommandList::initialize(D3D11Renderer* pRenderer, D3D11Device* pDev
 
 //----- リソース指定命令 -----
 
-void D3D11CommandList::setMaterial(const Core::MaterialID& materialID)
+void D3D11CommandList::SetMaterial(const Core::MaterialID& materialID)
 {
 	// マテリアルの取得
 	auto* d3dMat = static_cast<D3D11Material*>(m_pDevice->getMaterial(materialID));
 	if (d3dMat == nullptr) return;
 
 	// パイプラインステートの設定
-	setGraphicsPipelineState(d3dMat->m_shaderID, d3dMat->m_blendState, 
+	SetGraphicsPipelineState(d3dMat->m_shaderID, d3dMat->m_blendState, 
 		d3dMat->m_rasterizeState, d3dMat->m_depthStencilState);
 
 	// マテリアルリソース指定・更新
@@ -134,7 +127,7 @@ void D3D11CommandList::setMaterial(const Core::MaterialID& materialID)
 	}
 }
 
-void D3D11CommandList::setRenderBuffer(const Core::RenderBufferID& renderBufferID)
+void D3D11CommandList::SetRenderBuffer(const Core::RenderBufferID& renderBufferID)
 {
 	auto* cmdList = m_pDeferredContext.Get();
 
@@ -157,13 +150,13 @@ void D3D11CommandList::setRenderBuffer(const Core::RenderBufferID& renderBufferI
 
 //----- セット命令 -----
 
-void D3D11CommandList::setBackBuffer()
+void D3D11CommandList::SetBackBuffer()
 {
 	m_pDeferredContext->OMSetRenderTargets(1, m_pDevice->m_backBufferRTV.GetAddressOf(),
 		m_pDevice->m_depthStencilView.Get());
 }
 
-void D3D11CommandList::setGraphicsPipelineState(const ShaderID& shaderID, const BlendState& bs,
+void D3D11CommandList::SetGraphicsPipelineState(const ShaderID& shaderID, const BlendState& bs,
 	const RasterizeState& rs, const DepthStencilState& ds)
 {
 	// シェーダーの指定
@@ -196,24 +189,24 @@ void D3D11CommandList::setGraphicsPipelineState(const ShaderID& shaderID, const 
 
 }
 
-void D3D11CommandList::setRenderTarget(const RenderTargetID& rtID)
+void D3D11CommandList::SetRenderTarget(const RenderTargetID& rtID)
 {
 	RenderTargetID rtIDs[] = { rtID };
-	setRenderTarget(1, rtIDs);
+	SetRenderTarget(1, rtIDs);
 }
 
-void D3D11CommandList::setRenderTarget(const std::uint32_t num, const RenderTargetID rtIDs[])
+void D3D11CommandList::SetRenderTarget(const std::uint32_t num, const RenderTargetID rtIDs[])
 {
-	setRenderTarget(num, rtIDs, m_curDepthStencilID);
+	SetRenderTarget(num, rtIDs, m_curDepthStencilID);
 }
 
-void D3D11CommandList::setRenderTarget(const RenderTargetID& rtID, const DepthStencilID& dsID)
+void D3D11CommandList::SetRenderTarget(const RenderTargetID& rtID, const DepthStencilID& dsID)
 {
 	RenderTargetID rtIDs[] = { rtID };
-;	setRenderTarget(1, rtIDs, dsID);
+;	SetRenderTarget(1, rtIDs, dsID);
 }
 
-void D3D11CommandList::setRenderTarget(std::uint32_t num, const RenderTargetID rtIDs[], const DepthStencilID& dsID)
+void D3D11CommandList::SetRenderTarget(std::uint32_t num, const RenderTargetID rtIDs[], const DepthStencilID& dsID)
 {
 	// 安全処理
 	if (num >= MAX_RENDER_TARGET || num <= 0) return;
@@ -238,7 +231,7 @@ void D3D11CommandList::setRenderTarget(std::uint32_t num, const RenderTargetID r
 	m_pDeferredContext->OMSetRenderTargets(num, rtvs.data(), pDSV);
 }
 
-void D3D11CommandList::setViewport(const Rect& rect)
+void D3D11CommandList::SetViewport(const Rect& rect)
 {
 	D3D11_VIEWPORT d3d11View = {
 		rect.left, rect.top, rect.right, rect.bottom, 0.0f, 1.0f
@@ -246,7 +239,7 @@ void D3D11CommandList::setViewport(const Rect& rect)
 	m_pDeferredContext->RSSetViewports(1, &d3d11View);
 }
 
-void D3D11CommandList::setViewport(const Viewport& viewport)
+void D3D11CommandList::SetViewport(const Viewport& viewport)
 {
 	D3D11_VIEWPORT d3d11View = { viewport.left, viewport.top, 
 		viewport.right, viewport.bottom, viewport.minDepth, viewport.maxDepth 
@@ -390,12 +383,12 @@ void D3D11CommandList::blit(const RenderBufferID& destID, const TextureID& sourc
 
 //----- クリア -----
 
-void D3D11CommandList::clearCommand()
+void D3D11CommandList::ClearCommand()
 {
 	// コマンドのクリア
 }
 
-void D3D11CommandList::clearBackBuffer(const Color& color)
+void D3D11CommandList::ClearBackBuffer(const Color& color)
 {
 	// バッファのクリア
 	float ClearColor[4] = {};
@@ -405,7 +398,7 @@ void D3D11CommandList::clearBackBuffer(const Color& color)
 		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
-void D3D11CommandList::clearRederTarget(const RenderTargetID& rtID, const Color& color)
+void D3D11CommandList::ClearRederTarget(const RenderTargetID& rtID, const Color& color)
 {
 	// レンダーターゲット取得
 	auto* pRT = static_cast<D3D11RenderTarget*>(m_pDevice->GetRenderTarget(rtID));
@@ -418,7 +411,7 @@ void D3D11CommandList::clearRederTarget(const RenderTargetID& rtID, const Color&
 	m_pDeferredContext->ClearRenderTargetView(pRT->m_rtv.Get(), ColorRGBA);
 }
 
-void D3D11CommandList::clearDepthStencil(const DepthStencilID& dsID, float depth, std::uint8_t stencil)
+void D3D11CommandList::ClearDepthStencil(const DepthStencilID& dsID, float depth, std::uint8_t stencil)
 {
 	// 現在のデプスステンシル取得
 	auto* pDS = static_cast<D3D11DepthStencil*>(m_pDevice->GetDepthStencil(dsID));
@@ -431,7 +424,7 @@ void D3D11CommandList::clearDepthStencil(const DepthStencilID& dsID, float depth
 
 //----- コピー -----
 
-void D3D11CommandList::copyBackBuffer(const Core::TextureID& sourceID)
+void D3D11CommandList::CopyBackBuffer(const Core::TextureID& sourceID)
 {
 	// テクスチャ取得
 	auto* pTex = static_cast<D3D11Texture*>(m_pDevice->getTexture(sourceID));
@@ -445,7 +438,7 @@ void D3D11CommandList::copyBackBuffer(const Core::TextureID& sourceID)
 	m_pDeferredContext->CopyResource(pDest, pSource);
 }
 
-void D3D11CommandList::copyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID)
+void D3D11CommandList::CopyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID)
 {
 	// テクスチャ取得
 	auto* pTexA = static_cast<D3D11Texture*>(m_pDevice->getTexture(destID));

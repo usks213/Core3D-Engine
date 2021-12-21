@@ -614,7 +614,7 @@ void D3D12Shader::CreateRootSignature(D3D12Device* device)
 	else
 	{
 		errstr.resize(errorBlob->GetBufferSize());
-		std::copy_n((char*)errorBlob->GetBufferPointer(), errorBlob->GetBufferSize(), errstr.begin());
+		std::Copy_n((char*)errorBlob->GetBufferPointer(), errorBlob->GetBufferSize(), errstr.begin());
 		errstr += "\n";
 		OutputDebugStringA(errstr.c_str());
 		errorBlob->Release();

@@ -9,17 +9,18 @@
 #ifndef _D3D11_RENDER_DEVICE_
 #define _D3D11_RENDER_DEVICE_
 
-#include <RHI/Core/Device.h>
+#include <RHI/Core/RHI_Device.h>
 #include "D3D11_CommonState.h"
 
-namespace Core::D3D11
+
+namespace Core::RHI::D3D11
 {
 	// 前定義
 	class D3D11Renderer;
 
 	/// @class D3D11Device
 	/// @brief D3D11デバイス
-	class D3D11Device final : public Core::Device
+	class D3D11Device final : public Device
 	{
 		friend class D3D11Renderer;
 		friend class D3D11CommandList;
@@ -45,15 +46,17 @@ namespace Core::D3D11
 
 		//----- リソース生成 -----
 
-		Core::GPUBufferID		CreateBuffer(Core::GPUBufferDesc& desc, const Core::GPUBufferData* pData = nullptr) override;
-		Core::DepthStencilID	CreateDepthStencil(Core::TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0) override;
-		Core::MaterialID		CreateMaterial(std::string name, Core::ShaderID& shaderID) override;
-		Core::MeshID			CreateMesh(std::string name) override;
-		Core::RenderBufferID	CreateRenderBuffer(Core::ShaderID& shaderID, Core::MeshID& meshID) override;
-		Core::RenderTargetID	CreateRenderTarget(Core::TextureDesc& desc, const Color& color = Color()) override;
-		Core::ShaderID		CreateShader(Core::ShaderDesc& desc) override;
-		Core::TextureID		CreateTexture(std::string filePath) override;
-		Core::TextureID		CreateTexture(Core::TextureDesc& desc, const Core::TextureData* pData = nullptr) override;
+		std::shared_ptr<DepthStencil> CreateDepthStencil(TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0) override;
+
+		std::shared_ptr<GPUBuffer> CreateGPUBuffer(GPUBufferDesc& desc, const GPUBufferData* pData = nullptr) override;
+
+		std::shared_ptr<GraphicsShader> CreateGraphicsShader(GraphicsShaderDesc& desc) override;
+
+		std::shared_ptr<RenderTarget> CreateRenderTarget(TextureDesc& desc, const Color& color = Color()) override;
+
+		std::shared_ptr<Texture> CreateTexture(std::string filePath) override;
+
+		std::shared_ptr<Texture> CreateTexture(TextureDesc& desc, const TextureData* pData = nullptr) override;
 
 	private:
 		//------------------------------------------------------------------------------
@@ -86,27 +89,27 @@ namespace Core::D3D11
 
 		ID3D11Device1*					m_pD3DDevice;			///< デバイスポインタ
 
-		ComPtr<IDXGISwapChain1>			m_swapChain;			///< スワップチェーン
+		ComPtr<IDXGISwapChain1>			m_swapChain;				///< スワップチェーン
 
 		ComPtr<ID3D11Texture2D>			m_backBufferRT;			///< バックバッファ
-		ComPtr<ID3D11RenderTargetView>		m_backBufferRTV;		///< バックバッファビュー
+		ComPtr<ID3D11RenderTargetView>		m_backBufferRTV;			///< バックバッファビュー
 		DXGI_FORMAT						m_backBufferFormat;		///< バッファバッファフォーマット
 
 		ComPtr<ID3D11Texture2D>			m_depthStencilTexture;	///< Zバッファ
 		ComPtr<ID3D11DepthStencilView>		m_depthStencilView;		///< Zバッファビュー
-		DXGI_FORMAT						m_depthStencilFormat;	///< Zバッファフォーマット
+		DXGI_FORMAT						m_depthStencilFormat;		///< Zバッファフォーマット
 
 		HWND								m_hWnd;					///< ウィンドウハンドル
 		D3D11_VIEWPORT					m_viewport;				///< ビューポート
 
 		UINT								m_backBufferCount;		///< バックバッファ数
 		UINT								m_nOutputWidth;			///< 出力サイズ(幅)
-		UINT								m_nOutputHeight;		///< 出力サイズ(高さ)
+		UINT								m_nOutputHeight;			///< 出力サイズ(高さ)
 
-		ComPtr<ID3D11RasterizerState>		m_rasterizeStates[(size_t)Core::RasterizeState::MAX];		///< ラスタライザステート
-		ComPtr<ID3D11SamplerState>		m_samplerStates[(size_t)Core::SamplerState::MAX];			///< サンプラステート
-		ComPtr<ID3D11BlendState>			m_blendStates[(size_t)Core::BlendState::MAX];				///< ブレンドステート
-		ComPtr<ID3D11DepthStencilState>	m_depthStencilStates[(size_t)Core::DepthStencilState::MAX];	///< 深度ステンシルステート
+		ComPtr<ID3D11RasterizerState>		m_rasterizeStates[(size_t)RasterizeState::MAX];			///< ラスタライザステート
+		ComPtr<ID3D11SamplerState>		m_samplerStates[(size_t)SamplerState::MAX];				///< サンプラステート
+		ComPtr<ID3D11BlendState>			m_blendStates[(size_t)BlendState::MAX];				///< ブレンドステート
+		ComPtr<ID3D11DepthStencilState>	m_depthStencilStates[(size_t)DepthStencilState::MAX];	///< 深度ステンシルステート
 
 		//--- 更新リソース ---
 		struct UpdateResourceData

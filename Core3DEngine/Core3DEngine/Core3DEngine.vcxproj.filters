@@ -269,36 +269,6 @@
     <ClCompile Include="Code\Engine\Main\Win\Win_Main.cpp">
       <Filter>ソース ファイル\Engine\Main\Win</Filter>
     </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_demo.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_draw.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_impl_dx11.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_impl_dx12.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_impl_win32.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_tables.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\ImGui\imgui_widgets.cpp">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\SimpleMath\SimpleMath.cpp">
-      <Filter>ライブラリファイル\SimpleMath</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\RHI\Core\RHI_Device.cpp">
-      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_CommandList.cpp">
       <Filter>ソース ファイル\Engine\RHI\D3D11</Filter>
     </ClCompile>
@@ -538,36 +508,6 @@
     <ClInclude Include="Code\Engine\Main\Core\Main.h">
       <Filter>ソース ファイル\Engine\Main\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Library\ImGui\imconfig.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui_impl_dx11.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui_impl_dx12.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui_impl_win32.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imgui_internal.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imstb_rectpack.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imstb_textedit.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\ImGui\imstb_truetype.h">
-      <Filter>ライブラリファイル\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\SimpleMath\SimpleMath.h">
-      <Filter>ライブラリファイル\SimpleMath</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Engine\RHI\Core\RHI_CommandList.h">
       <Filter>ソース ファイル\Engine\RHI\Core</Filter>
     </ClInclude>
@@ -706,10 +646,5 @@
     <ClInclude Include="Code\Engine\RHI\Core\RHI_SubResource.h">
       <Filter>ソース ファイル\Engine\RHI\Core</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Library\SimpleMath\SimpleMath.inl">
-      <Filter>ライブラリファイル\SimpleMath</Filter>
-    </None>
   </ItemGroup>
 </Project>

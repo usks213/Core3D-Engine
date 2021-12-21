@@ -10,8 +10,6 @@
 #define _D3D11_RENDER_CONTEXT_
 
 #include <RHI/Core/RHI_CommandList.h>
-#include <RHI/D3D11/D3D11_Shader.h>
-
 
 namespace Core::RHI::D3D11
 {
@@ -42,69 +40,87 @@ namespace Core::RHI::D3D11
 		HRESULT initialize(D3D11Renderer* pRenderer, D3D11Device* pDevice);
 
 
-		//----- リソース指定命令 -----
+		//----- ターゲットステート命令 -----
 
-		void setMaterial(const Core::MaterialID& materialID) override;
+		void SetBackBuffer() override;
 
-		void setRenderBuffer(const Core::RenderBufferID& renderBufferID)  override;
+		void SetRenderTarget(std::shared_ptr<RenderTarget> pRT) override;
+		void SetRenderTarget(const std::uint32_t num, std::shared_ptr<RenderTarget> pRTs[]) override;
+		void SetRenderTarget(std::shared_ptr<RenderTarget> pRT, std::shared_ptr<DepthStencil> pDS) override;
+		void SetRenderTarget(const std::uint32_t num, std::shared_ptr<RenderTarget> pRTs[], std::shared_ptr<DepthStencil> pDS) override;
 
-		//----- セット命令 -----
-
-		void setBackBuffer() override;
-
-		void setGraphicsPipelineState(const Core::ShaderID& shaderID, const Core::BlendState& bs,
-			const Core::RasterizeState& rs, const Core::DepthStencilState& ds) override;
-
-		void setRenderTarget(const Core::RenderTargetID& rtID) override;
-		void setRenderTarget(const std::uint32_t num, const Core::RenderTargetID rtIDs[]) override;
-		void setRenderTarget(const Core::RenderTargetID& rtID, const Core::DepthStencilID& dsID) override;
-		void setRenderTarget(const std::uint32_t num, const Core::RenderTargetID rtIDs[], const Core::DepthStencilID& dsID) override;
-
-		void setViewport(const Rect& rect) override;
-		void setViewport(const Viewport& viewport) override;
-
-		//----- ゲット命令 -----
+		void SetViewport(const Rect& rect) override;
+		void SetViewport(const Viewport& viewport) override;
 
 
-		//----- バインド命令 -----
+		//----- パイプラインステート命令 -----
 
-		void bindGlobalBuffer(const Core::ShaderID& shaderID, const std::string& bindName, const Core::GPUBufferID& bufferID) override;
+		void SetGraphicsPipelineState(std::shared_ptr<GraphicsShader> pShader, const BlendState& bs,
+			const RasterizeState& rs, const DepthStencilState& ds) override;
 
-		void bindGlobalTexture(const Core::ShaderID& shaderID, const std::string& bindName, const Core::TextureID& textureID) override;
+		void SetComputePipelineState() override;
 
-		void bindGlobalSampler(const Core::ShaderID& shaderID, const std::string& bindName, const Core::SamplerState& sampler) override;
+		//----- リソース命令 -----
 
-		//----- 描画命令
+		void SetLocalBuffer(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<GPUBuffer> pGPUBuffer) override;
 
-		void render(const Core::RenderBufferID& renderBufferID, std::uint32_t instanceCount = 1)  override;
+		void SetLocalTexture(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<Texture> pTexture) override;
 
-		/// @brief 
-		/// @param destID 対象のレンダーターゲット
-		/// @param sourceID 
-		/// @param matID 
-		void blit(const Core::RenderBufferID& destID, const Core::TextureID& sourceID, const Core::MaterialID& matID) override;
+		void SetLocalSampler(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, SamplerState samplerState) override;
 
+		void SetGlobalBuffer(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<GPUBuffer> pGPUBuffer) override;
 
-		//----- クリア -----
+		void SetGlobalTexture(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<Texture> pTexture) override;
 
-		void clearCommand() override;		///< コマンドのクリア
-
-		void clearBackBuffer(const Color& color) override;
-
-		void clearRederTarget(const Core::RenderTargetID& rtID, const Color& color) override;
-
-		void clearDepthStencil(const Core::DepthStencilID& dsID, float depth, std::uint8_t stencil) override;
+		void SetGlobalSampler(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, SamplerState samplerState) override;
 
 
-		//----- コピー -----
+		//----- ジオメトリーステート命令 -----
 
-		void copyBackBuffer(const Core::TextureID& sourceID) override;
+		void SetVertexBuffer() override;
 
-		void copyTexture(const Core::TextureID& destID, const Core::TextureID& sourceID) override;
+		void SetIndexBuffer() override;
+
+		void SetPrimitiveTopology(PrimitiveTopology primitiveTopology) override;
+
+
+		//----- 描画・実行命令 -----
+
+		void DrawInstanced(std::uint32_t VertexCountPerInstance, std::uint32_t InstanceCount,
+			std::uint32_t StartVertexLocation, std::uint32_t StartInstanceLocation) override;
+
+		void DrawIndexedInstanced(std::uint32_t IndexCountPerInstance, std::uint32_t InstanceCount,
+			std::uint32_t StartIndexLocation, std::int32_t  BaseVertexLocation, std::uint32_t StartInstanceLocation) override;
+
+		void ExecuteIndirect() override;
+
+		void Dispatch() override;
+
+
+		//----- クリア命令 -----
+
+		void ClearCommand() override;		///< コマンドのクリア
+
+		void ClearBackBuffer(const Color& color) override;
+
+		void ClearRederTarget(std::shared_ptr<RenderTarget> pRT, const Color& color) override;
+
+		void ClearDepthStencil(std::shared_ptr<DepthStencil> pDS, float depth, std::uint8_t stencil) override;
+
+
+		//----- コピー命令 -----
+
+		void CopyBackBuffer(std::shared_ptr<Texture> pSource) override;
+
+		void CopyBuffer(std::shared_ptr<GPUBuffer> pDest, std::shared_ptr<GPUBuffer> pSource) override;
+
+		void CopyTexture(std::shared_ptr<Texture> pDest, std::shared_ptr<Texture> pSource) override;
 
 		//----- Native -----
 
 		D3D11Renderer* GetD3D11Renderer() { return m_pRenderer; }
+
+		D3D11Device* GetD3D11Device() { return m_pDevice; }
 
 	private:
 		//------------------------------------------------------------------------------
@@ -127,8 +143,6 @@ namespace Core::RHI::D3D11
 
 		ComPtr<ID3D11DeviceContext1>		m_pDeferredContext;		///< デファードコンテキスト
 		ComPtr<ID3D11CommandList>			m_pCmdList;				///< コマンドリスト
-
-		Core::DepthStencilID				m_curDepthStencilID;	///< 現在のデプスステンシル
 
 		static constexpr std::uint32_t MAX_RENDER_TARGET = 8;	///< レンダーターゲットの最大数
 

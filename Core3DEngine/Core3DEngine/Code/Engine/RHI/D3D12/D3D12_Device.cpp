@@ -629,6 +629,6 @@ void D3D12Device::ExecuteUpdateResurce()
 		updateData.pResource->Unmap(0, nullptr);
 	}
 	// リストクリア
-	m_updateResourceList.clear();
+	m_updateResourceList.Clear();
 	m_updateResourceList.shrink_to_fit();
 }

@@ -10,10 +10,15 @@
 
 #include <memory>
 
-namespace Core::RHI
+namespace Core
 {
 	// ‘OéŒ¾
 	class Engine;
+}
+
+namespace Core::RHI
+{
+	// ‘OéŒ¾
 	class Device;
 	class CommandList;
 

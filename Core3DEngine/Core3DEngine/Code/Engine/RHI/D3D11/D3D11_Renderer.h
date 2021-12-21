@@ -9,18 +9,15 @@
 #ifndef _D3D11_RENDERER_
 #define _D3D11_RENDERER_
 
-#include <RHI/Core/RHI.h>
+#include <RHI/Core/RHI_Renderer.h>
 #include <RHI/D3D11/D3D11_Device.h>
 #include <RHI/D3D11/D3D11_CommandList.h>
 
-namespace Core::D3D11
+namespace Core::RHI::D3D11
 {
-	class D3D11Device;
-	class D3D11CommandList;
-
 	/// @brief D3D11レンダラー
 	/// @class D3D11Renderer
-	class D3D11Renderer final : public RHI
+	class D3D11Renderer final : public Renderer
 	{
 		friend class D3D11Device;
 		friend class D3D11CommandList;
@@ -51,14 +48,14 @@ namespace Core::D3D11
 
 		/// @brief デバイスの取得
 		/// @return デバイスのポインタ
-		Core::Device* GetDevice() override
+		Device* GetDevice() override
 		{
 			return &m_device;
 		}
 
 		/// @brief コマンドリストの取得
 		/// @return コマンドリストのポインタ 
-		Core::CommandList* GetCommandList() override;
+		CommandList* GetCommandList() override;
 
 		/// @brief コピーコンストラクタ削除
 		D3D11Renderer(const D3D11Renderer&) = delete;
@@ -103,7 +100,7 @@ namespace Core::D3D11
 
 		D3D11Device						m_device;					///< デバイスクラス
 		
-		std::uint32_t m_curBackBufferIndex;
+		std::uint32_t					m_curBackBufferIndex;
 
 		std::vector<std::unique_ptr<D3D11CommandList>>	m_cmdLists[BACK_BUFFER_COUNT];			///< コマンドリスト配列
 		std::uint32_t								m_useCmdListCnt[BACK_BUFFER_COUNT];	///< 使用されているコマンドリスト数
