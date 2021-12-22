@@ -302,9 +302,6 @@
     <ClCompile Include="Code\Engine\RHI\D3D12\D3D12_Renderer.cpp">
       <Filter>ソース ファイル\Engine\RHI\D3D12</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\RHI\Core\RHI_Shader.cpp">
-      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Engine\RHI\Core\RHI_ShaderUtil.cpp">
       <Filter>ソース ファイル\Engine\RHI\Core</Filter>
     </ClCompile>
@@ -607,12 +604,6 @@
     <ClInclude Include="Code\Engine\Resource\Light.h">
       <Filter>ソース ファイル\Engine\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\ShaderResource.h">
-      <Filter>ソース ファイル\Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\SubResource.h">
-      <Filter>ソース ファイル\Engine\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Engine\Resource\Core\Resource.h">
       <Filter>ソース ファイル\Engine\Resource\Core</Filter>
     </ClInclude>
@@ -640,11 +631,14 @@
     <ClInclude Include="Code\Engine\Resource\Graphics\Texture.h">
       <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Resource\GPUBuffer.h">
-      <Filter>ソース ファイル\Engine\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Engine\RHI\Core\RHI_SubResource.h">
       <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\RHI\Core\RHI_Resource.h">
+      <Filter>ソース ファイル\Engine\RHI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Resource\Graphics\MeshInfo.h">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

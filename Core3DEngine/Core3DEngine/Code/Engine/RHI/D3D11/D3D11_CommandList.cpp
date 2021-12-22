@@ -341,7 +341,7 @@ void D3D11CommandList::SetVertexBuffer(std::shared_ptr<GPUBuffer> pVertexBuffer,
 void D3D11CommandList::SetIndexBuffer(std::shared_ptr<GPUBuffer> pIndexBuffer, const std::uint32_t offset)
 {
 	ID3D11Buffer* pBuffer = nullptr;
-	DXGI_FORMAT format = DXGI_FORMAT_R32_UINT;;
+	DXGI_FORMAT format = DXGI_FORMAT_UNKNOWN;
 
 	// リソース更新
 	if (pIndexBuffer)
@@ -351,12 +351,8 @@ void D3D11CommandList::SetIndexBuffer(std::shared_ptr<GPUBuffer> pIndexBuffer, c
 		// インデックスフォーマット選択
 		switch (pIndexBuffer->GetDesc().buffer.size)
 		{
-		case 1:
-			format = DXGI_FORMAT_R8_UINT;
-			break;
 		case 2:
 			format = DXGI_FORMAT_R16_UINT;
-
 			break;
 		case 4:
 			format = DXGI_FORMAT_R32_UINT;

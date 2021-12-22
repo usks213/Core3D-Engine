@@ -46,17 +46,17 @@ namespace Core::RHI::D3D11
 
 		//----- ÉäÉ\Å[ÉXê∂ê¨ -----
 
-		std::shared_ptr<DepthStencil> CreateDepthStencil(TextureDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0) override;
+		std::shared_ptr<DepthStencil> CreateDepthStencil(ResourceDesc& desc, float depth = 1.0f, std::uint8_t stencil = 0) override;
 
-		std::shared_ptr<GPUBuffer> CreateGPUBuffer(GPUBufferDesc& desc, const GPUBufferData* pData = nullptr) override;
+		std::shared_ptr<GPUBuffer> CreateGPUBuffer(ResourceDesc& desc, const ResourceData* pData = nullptr) override;
 
 		std::shared_ptr<GraphicsShader> CreateGraphicsShader(GraphicsShaderDesc& desc) override;
 
-		std::shared_ptr<RenderTarget> CreateRenderTarget(TextureDesc& desc, const Color& color = Color()) override;
+		std::shared_ptr<RenderTarget> CreateRenderTarget(ResourceDesc& desc, const Color& color = Color()) override;
 
 		std::shared_ptr<Texture> CreateTexture(std::string filePath) override;
 
-		std::shared_ptr<Texture> CreateTexture(TextureDesc& desc, const TextureData* pData = nullptr) override;
+		std::shared_ptr<Texture> CreateTexture(ResourceDesc& desc, const ResourceData* pData = nullptr) override;
 
 	private:
 		//------------------------------------------------------------------------------

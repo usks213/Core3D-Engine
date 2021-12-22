@@ -14,7 +14,7 @@
  /// @brief 型情報付加
 #define DECLARE_RESOURCE_INFO(T)	\
 DECLARE_OBJECT_INFO(T);				\
-using T##ID = ResourceID
+using ID = ResourceID
 
 namespace Core
 {
@@ -38,14 +38,14 @@ namespace Core
 
 		/// @brief リソースID取得
 		/// @return リソースID
-		ResourceID GetResourceID() noexcept
+		ResourceID GetResourceID() const noexcept
 		{
 			return static_cast<ResourceID>(GetInstanceID());
 		}
 
 		/// @brief リソース名取得
 		/// @return リソース名
-		std::string_view GetName() { return m_name; }
+		std::string_view GetName() const { return m_name; }
 
 		/// @brief インスペクター表示
 		virtual void OnInspectorGUI() = 0;

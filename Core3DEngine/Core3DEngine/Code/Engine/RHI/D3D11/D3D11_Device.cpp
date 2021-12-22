@@ -66,13 +66,13 @@ HRESULT D3D11Device::initialize(ID3D11Device1* pDevice, IDXGIFactory2* pFactory2
 
 //----- ÉäÉ\Å[ÉXê∂ê¨ -----
 
-std::shared_ptr<DepthStencil> D3D11Device::CreateDepthStencil(TextureDesc& desc, float depth, std::uint8_t stencil)
+std::shared_ptr<DepthStencil> D3D11Device::CreateDepthStencil(ResourceDesc& desc, float depth, std::uint8_t stencil)
 {
 	auto pDS = std::make_shared<D3D11DepthStencil>(m_pD3DDevice, desc);
 	return std::static_pointer_cast<DepthStencil>(pDS);
 }
 
-std::shared_ptr<GPUBuffer> D3D11Device::CreateGPUBuffer(GPUBufferDesc& desc, const GPUBufferData* pData)
+std::shared_ptr<GPUBuffer> D3D11Device::CreateGPUBuffer(ResourceDesc& desc, const ResourceData* pData)
 {
 	auto pBuffer = std::make_shared<D3D11GPUBuffer>(m_pD3DDevice, desc, pData);
 	return std::static_pointer_cast<GPUBuffer>(pBuffer);
@@ -84,7 +84,7 @@ std::shared_ptr<GraphicsShader> D3D11Device::CreateGraphicsShader(GraphicsShader
 	return std::static_pointer_cast<GraphicsShader>(pShader);
 }
 
-std::shared_ptr<RenderTarget> D3D11Device::CreateRenderTarget(TextureDesc& desc, const Color& color)
+std::shared_ptr<RenderTarget> D3D11Device::CreateRenderTarget(ResourceDesc& desc, const Color& color)
 {
 	auto pRT = std::make_shared<D3D11RenderTarget>(m_pD3DDevice, desc);
 	return std::static_pointer_cast<RenderTarget>(pRT);
@@ -97,7 +97,7 @@ std::shared_ptr<Texture> D3D11Device::CreateTexture(std::string filePath)
 	return std::static_pointer_cast<Texture>(pTex);
 }
 
-std::shared_ptr<Texture> D3D11Device::CreateTexture(TextureDesc& desc, const TextureData* pData)
+std::shared_ptr<Texture> D3D11Device::CreateTexture(ResourceDesc& desc, const ResourceData* pData)
 {
 	auto pTex = std::make_shared<D3D11Texture>();
 	pTex->CreateFromDesc(m_pD3DDevice, desc, pData);

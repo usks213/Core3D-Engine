@@ -9,6 +9,7 @@
 #include "D3D11_Renderer.h"
 #include <vector>
 
+using namespace Core::RHI;
 using namespace Core::RHI::D3D11;
 
 

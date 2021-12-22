@@ -33,7 +33,7 @@ namespace Core
 
 		/// @brief RHIグラフィックスシェーダーの取得
 		/// @return RHIグラフィックスシェーダーのスマートポインタ
-		std::shared_ptr<RHI::GraphicsShader> GetRHIGraphicsShader()
+		std::shared_ptr<RHI::GraphicsShader> GetRHIGraphicsShader() const
 		{
 			return m_pRHIGraphicsShader;
 		}

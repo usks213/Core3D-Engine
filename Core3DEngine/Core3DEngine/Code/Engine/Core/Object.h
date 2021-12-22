@@ -64,7 +64,7 @@ void _dumyFunction2() = delete
 
 		/// @brief インスタンスID取得
 		/// @return ID
-		[[nodiscard]] InstanceID GetInstanceID() noexcept { return m_instanceID; }
+		[[nodiscard]] InstanceID GetInstanceID() const noexcept { return m_instanceID; }
 
 		/// @brief インスペクター表示
 		virtual void OnInspectorGUI() = 0;
