@@ -74,7 +74,7 @@ void D3D11Renderer::beginFrame()
 	// コマンドリストのクリア
 	for (int i = 0; i < m_useCmdListCnt[m_curBackBufferIndex]; ++i)
 	{
-		CHECK_FAILED(m_cmdLists[m_curBackBufferIndex][i]->m_pCmdList.Reset());
+		m_cmdLists[m_curBackBufferIndex][i]->ClearCommand();
 	}
 	m_useCmdListCnt[m_curBackBufferIndex] = 0;
 

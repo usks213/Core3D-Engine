@@ -56,26 +56,23 @@ namespace Core::RHI
 
 		virtual void SetComputePipelineState() = 0;
 
+
 		//----- リソース命令 -----
 
-		virtual void SetLocalBuffer(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<GPUBuffer> pGPUBuffer) = 0;
+		virtual void SetConstantBuffer(ShaderStage stage, ShaderResourceLayout& resourceLayout, std::string_view name, std::shared_ptr<Resource> pResource, bool isGlobal) = 0;
 
-		virtual void SetLocalTexture(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<Texture> pTexture) = 0;
+		virtual void SetShaderResource(ShaderStage stage, ShaderResourceLayout& resourceLayout, std::string_view name, std::shared_ptr<Resource> pResource, bool isGlobal) = 0;
 
-		virtual void SetLocalSampler(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, SamplerState samplerState) = 0;
+		virtual void SetUnorderedAccess(ShaderResourceLayout& resourceLayout, std::string_view name, std::shared_ptr<Resource> pResource, bool isGlobal) = 0;
 
-		virtual void SetGlobalBuffer(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<GPUBuffer> pGPUBuffer) = 0;
-
-		virtual void SetGlobalTexture(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<Texture> pTexture) = 0;
-
-		virtual void SetGlobalSampler(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, SamplerState samplerState) = 0;
+		virtual void SetSampler(ShaderStage stage, ShaderResourceLayout& resourceLayout, std::string_view name, SamplerState samplerState, bool isGlobal) = 0;
 
 
 		//----- ジオメトリーステート命令 -----
 
-		virtual void SetVertexBuffer() = 0;
+		virtual void SetVertexBuffer(std::shared_ptr<GPUBuffer> pVertexBuffer, const std::uint32_t offset) = 0;
 
-		virtual void SetIndexBuffer() = 0;
+		virtual void SetIndexBuffer(std::shared_ptr<GPUBuffer> pIndexBuffer, const std::uint32_t offset) = 0;
 
 		virtual void SetPrimitiveTopology(PrimitiveTopology primitiveTopology) = 0;
 
@@ -106,11 +103,11 @@ namespace Core::RHI
 
 		//----- コピー命令 -----
 
-		virtual void CopyBackBuffer(std::shared_ptr<Texture> pSource) = 0;
+		virtual void CopyToBackBuffer(std::shared_ptr<Resource> pSource) = 0;
 
-		virtual void CopyBuffer(std::shared_ptr<GPUBuffer> pDest, std::shared_ptr<GPUBuffer> pSource) = 0;
+		virtual void CopyFromBackBuffer(std::shared_ptr<Resource> pDest) = 0;
 
-		virtual void CopyTexture(std::shared_ptr<Texture> pDest, std::shared_ptr<Texture> pSource) = 0;
+		virtual void CopyResource(std::shared_ptr<Resource> pDest, std::shared_ptr<Resource> pSource) = 0;
 
 
 		////----- アップロード命令 -----
@@ -126,6 +123,10 @@ namespace Core::RHI
 		//------------------------------------------------------------------------------
 		// protected variables
 		//------------------------------------------------------------------------------
+
+		std::shared_ptr<DepthStencil>					m_pCurDSV;			///< 現在のDSV
+		std::vector<std::shared_ptr<Resource>>			m_usedResourceList;	///< 使用リソースリスト
+		std::vector<std::shared_ptr<GraphicsShader>>	m_usedShaderList;	///< 使用リソースリスト
 
 
 	private:

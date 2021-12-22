@@ -6,10 +6,11 @@
  * \date   2021/10/04
  *********************************************************************/
 
-#ifndef _D3D11_RENDER_CONTEXT_
-#define _D3D11_RENDER_CONTEXT_
+#ifndef _D3D11_COMMAND_LSIT_
+#define _D3D11_COMMAND_LSIT_
 
 #include <RHI/Core/RHI_CommandList.h>
+#include "D3D11_Defines.h"
 
 namespace Core::RHI::D3D11
 {
@@ -62,24 +63,20 @@ namespace Core::RHI::D3D11
 
 		//----- リソース命令 -----
 
-		void SetLocalBuffer(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<GPUBuffer> pGPUBuffer) override;
+		void SetConstantBuffer(ShaderStage stage, ShaderResourceLayout& resourceLayout, std::string_view name, std::shared_ptr<Resource> pResource, bool isGlobal) override;
 
-		void SetLocalTexture(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<Texture> pTexture) override;
+		void SetShaderResource(ShaderStage stage, ShaderResourceLayout& resourceLayout, std::string_view name, std::shared_ptr<Resource> pResource, bool isGlobal) override;
 
-		void SetLocalSampler(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, SamplerState samplerState) override;
+		void SetUnorderedAccess(ShaderResourceLayout& resourceLayout, std::string_view name, std::shared_ptr<Resource> pResource, bool isGlobal) override;
 
-		void SetGlobalBuffer(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<GPUBuffer> pGPUBuffer) override;
+		void SetSampler(ShaderStage stage, ShaderResourceLayout& resourceLayout, std::string_view name, SamplerState samplerState, bool isGlobal) override;
 
-		void SetGlobalTexture(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, std::shared_ptr<Texture> pTexture) override;
-
-		void SetGlobalSampler(std::shared_ptr<GraphicsShader> pShader, const std::string& bindName, SamplerState samplerState) override;
-
-
+		
 		//----- ジオメトリーステート命令 -----
 
-		void SetVertexBuffer() override;
+		void SetVertexBuffer(std::shared_ptr<GPUBuffer> pVertexBuffer, const std::uint32_t offset) override;
 
-		void SetIndexBuffer() override;
+		void SetIndexBuffer(std::shared_ptr<GPUBuffer> pIndexBuffer, const std::uint32_t offset) override;
 
 		void SetPrimitiveTopology(PrimitiveTopology primitiveTopology) override;
 
@@ -110,11 +107,11 @@ namespace Core::RHI::D3D11
 
 		//----- コピー命令 -----
 
-		void CopyBackBuffer(std::shared_ptr<Texture> pSource) override;
+		void CopyToBackBuffer(std::shared_ptr<Resource> pSource) override;
 
-		void CopyBuffer(std::shared_ptr<GPUBuffer> pDest, std::shared_ptr<GPUBuffer> pSource) override;
+		void CopyFromBackBuffer(std::shared_ptr<Resource> pDest) override;
 
-		void CopyTexture(std::shared_ptr<Texture> pDest, std::shared_ptr<Texture> pSource) override;
+		void CopyResource(std::shared_ptr<Resource> pDest, std::shared_ptr<Resource> pSource) override;
 
 		//----- Native -----
 
@@ -127,11 +124,7 @@ namespace Core::RHI::D3D11
 		// private methods 
 		//------------------------------------------------------------------------------
 
-		void setCBufferResource(std::uint32_t slot, const Core::GPUBufferID& bufferID, Core::GraphicsShaderStage stage);
-
-		void setTextureResource(std::uint32_t slot, const Core::TextureID& textureID, Core::GraphicsShaderStage stage);
-
-		void setSamplerResource(std::uint32_t slot, Core::SamplerState state, Core::GraphicsShaderStage stage);
+		void UpdateSubResource(std::shared_ptr<Resource> pResource);
 
 	private:
 		//------------------------------------------------------------------------------
@@ -149,4 +142,4 @@ namespace Core::RHI::D3D11
 	};
 }
 
-#endif // !_D3D11_RENDER_CONTEXT_
+#endif // !_D3D11_COMMAND_LSIT_

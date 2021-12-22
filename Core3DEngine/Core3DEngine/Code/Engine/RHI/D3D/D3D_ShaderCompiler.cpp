@@ -380,6 +380,7 @@ bool D3DShaderCompiler::CreateResourceLayout(void* pReflection, ShaderResourceLa
 
 		// レイアウトデータ
 		ShaderResourceLayout::ShaderResoureData data = {};
+		data.type = resourceType;
 		data.slot = bindDesc.BindPoint;
 #ifdef __d3d12_h__
 		data.space = bindDesc.Space;

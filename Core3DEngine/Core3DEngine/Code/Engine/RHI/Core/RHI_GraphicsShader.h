@@ -54,6 +54,29 @@ namespace Core::RHI
 		/// @brief デストラクタ
 		virtual ~GraphicsShader() noexcept = default;
 
+		/// @brief シェーダー情報取得
+		/// @return シェーダーDescの参照
+		GraphicsShaderDesc& GetDesc() { return m_desc; }
+
+		/// @brief シェーダーインプットレイアウト情報取得
+		/// @return シェーダーインプットレイアウトの参照
+		ShaderInputLayout& GetInputLayout() { return m_inputLayout; }
+
+		/// @brief シェーダーリソースレイアウト情報取得
+		/// @param stage グラフィックスシェーダーステージ
+		/// @return シェーダーリソースレイアウトの参照
+		ShaderResourceLayout& GetResourceLayout(GraphicsShaderStage stage)
+		{
+			return m_resourceLayout[static_cast<std::size_t>(stage)];
+		}
+
+		/// @brief シェーダーCBufferレイアウトのマップ情報取得
+		/// @param stage グラフィックスシェーダーステージ
+		/// @return シェーダーCBufferレイアウトのマップの参照
+		std::unordered_map<Slot, ShaderCBufferLayout>& GetCBufferLayoutMap(GraphicsShaderStage stage)
+		{
+			return m_cbufferLayout[static_cast<std::size_t>(stage)];
+		}
 
 	public:
 		//------------------------------------------------------------------------------

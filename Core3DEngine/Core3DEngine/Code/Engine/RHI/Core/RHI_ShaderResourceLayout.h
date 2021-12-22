@@ -15,17 +15,15 @@
 
 namespace Core::RHI
 {
-	class ShaderResourceLayout
+	struct ShaderResourceLayout
 	{
 	public:
-		ShaderResourceLayout();
-		~ShaderResourceLayout();
 
 		/// @brief シェーダーリソースバインド情報
 		struct ShaderResoureData
 		{
 			//std::string			name;
-			//ShaderResourceType	type;
+			ShaderResourceType type = ShaderResourceType::MAX;
 			Slot		slot		= 0;
 			Space		space		= 0;
 			RootIndex	rootIndex	= 0;

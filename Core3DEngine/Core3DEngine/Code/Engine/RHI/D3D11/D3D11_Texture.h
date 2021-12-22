@@ -39,7 +39,7 @@ namespace Core::RHI::D3D11
 		/// @param desc テクスチャ情報
 		/// @param pData 初期化データ
 		/// @return 成功 TURE / 失敗 FALSE
-		bool CreateFromDesc(ID3D11Device1* pDevice, TextureDesc& desc, const TextureData* pData = nullptr);
+		bool CreateFromDesc(ID3D11Device1* pDevice, ResourceDesc& desc, const ResourceData* pData = nullptr);
 
 		
 		/// @brief リソースポインタの取得
@@ -54,12 +54,12 @@ namespace Core::RHI::D3D11
 		/// @return UAV型
 		void* GetUAV() override { return m_uav.Get(); }
 
-	protected:
+	public:
 		//------------------------------------------------------------------------------
 		// public variables
 		//------------------------------------------------------------------------------
 
-		ComPtr<ID3D11Texture2D>			m_tex; ///< テクスチャ
+		ComPtr<ID3D11Texture2D>				m_tex; ///< テクスチャ
 		ComPtr<ID3D11ShaderResourceView>	m_srv; ///< シェーダリソースビュー
 		ComPtr<ID3D11UnorderedAccessView>	m_uav; ///< 順不同アクセスビュー
 

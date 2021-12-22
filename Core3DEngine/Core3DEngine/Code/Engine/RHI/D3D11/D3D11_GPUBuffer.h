@@ -26,10 +26,26 @@ namespace Core::RHI::D3D11
 		/// @param device デバイス
 		/// @param desc バッファDesc
 		/// @param data 初期化データ
-		explicit D3D11GPUBuffer(ID3D11Device1* device, const GPUBufferDesc& desc, const GPUBufferData* pData = nullptr);
+		explicit D3D11GPUBuffer(ID3D11Device1* device, const ResourceDesc& desc, const ResourceData* pData = nullptr);
 
 		/// @brief デストラクタ
 		~D3D11GPUBuffer() noexcept = default;
+
+		/// @brief リソースポインタの取得
+		/// @return リソース型
+		void* GetResource() override { return m_pBuffer.Get(); }
+
+		/// @brief CBVポインタの取得
+		/// @return CBV型
+		void* GetCBV() override { return m_pBuffer.Get(); }
+
+		/// @brief SRVポインタの取得
+		/// @return SRV型
+		void* GetSRV() override { return m_pSRV.Get(); }
+
+		/// @brief UAVポインタの取得
+		/// @return UAV型
+		void* GetUAV() override { return m_pUAV.Get(); }
 
 	public:
 		//------------------------------------------------------------------------------

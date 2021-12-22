@@ -38,8 +38,6 @@ namespace
 /// @return 成功 TURE / 失敗 FALSE
 bool D3D11Texture::CreateFormFile(ID3D11Device1* pDevice, const std::string& filepath)
 {
-    // パスの格納
-    m_desc.name = filepath;
 
 }
 
@@ -47,19 +45,19 @@ bool D3D11Texture::CreateFormFile(ID3D11Device1* pDevice, const std::string& fil
 /// @param desc テクスチャ情報
 /// @param pData 初期化データ
 /// @return 成功 TURE / 失敗 FALSE
-bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, TextureDesc& desc, const TextureData* pData = nullptr)
+bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, ResourceDesc& desc, const ResourceData* pData = nullptr)
 {
     // Descコピー
     m_desc = desc;
 
     // テクスチャ
-    DXGI_SAMPLE_DESC d3d11SampleDesc = { desc.sampleDesc.count, desc.sampleDesc.quality };
+    DXGI_SAMPLE_DESC d3d11SampleDesc = { desc.texture.sampleDesc.count, desc.texture.sampleDesc.quality };
     D3D11_TEXTURE2D_DESC d3d11Desc = {
-        desc.width,
-        desc.height,
-        desc.mipLevels,
-        desc.arraySize,
-        GetDXGIFormat(desc.format),
+        desc.texture.width,
+        desc.texture.height,
+        desc.texture.mipLevels,
+        desc.texture.arraySize,
+        GetDXGIFormat(desc.texture.format),
         d3d11SampleDesc,
         GetD3D11Usage(desc.usage),
         desc.bindFlags,
@@ -68,18 +66,18 @@ bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, TextureDesc& desc, con
     };
 
     // ミップマップ自動生成指定
-    if (desc.mipLevels == 0 &&
+    if (desc.texture.mipLevels == 0 &&
         desc.bindFlags & BindFlags::RENDER_TARGET &&
         desc.bindFlags & BindFlags::SHADER_RESOURCE &&
         desc.miscFlags & MiscFlags::GENERATE_MIPS
         )
     {
-        d3d11Desc.MipLevels = desc.mipLevels = numMipmapLevels(desc.width, desc.height);
+        d3d11Desc.MipLevels = desc.texture.mipLevels = numMipmapLevels(desc.texture.width, desc.texture.height);
     }
 
     // 初期値なし
     if (pData == nullptr) {
-        if (desc.width <= 0 && desc.height <= 0) {
+        if (desc.texture.width <= 0 && desc.texture.height <= 0) {
             // 生成不可
             return;
         }
@@ -93,8 +91,8 @@ bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, TextureDesc& desc, con
     else {
         D3D11_SUBRESOURCE_DATA d3d11SubresourceData = {};
         d3d11SubresourceData.pSysMem = pData->pInitData;
-        d3d11SubresourceData.SysMemPitch = desc.width * desc.depth;
-        d3d11SubresourceData.SysMemSlicePitch = desc.width * desc.height * desc.depth;
+        d3d11SubresourceData.SysMemPitch = desc.texture.width * desc.texture.depth;
+        d3d11SubresourceData.SysMemSlicePitch = desc.texture.width * desc.texture.height * desc.texture.depth;
 
         CHECK_FAILED(pDevice->CreateTexture2D(&d3d11Desc, &d3d11SubresourceData, m_tex.GetAddressOf()));
     }
@@ -104,12 +102,12 @@ bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, TextureDesc& desc, con
     {
         // シェーダーリソースビュー
         D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-        srvDesc.Format = D3D11::getTypeLessToSRVFormat(desc.format);
+        srvDesc.Format = D3D11::getTypeLessToSRVFormat(desc.texture.format);
         srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
         srvDesc.Texture2D.MipLevels = d3d11Desc.MipLevels;
         srvDesc.Texture2D.MostDetailedMip = 0;
         // MSAA
-        if (desc.sampleDesc.isUse) srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
+        if (desc.texture.sampleDesc.isUse) srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
 
         CHECK_FAILED(pDevice->CreateShaderResourceView(m_tex.Get(), &srvDesc, m_srv.GetAddressOf()));
     }

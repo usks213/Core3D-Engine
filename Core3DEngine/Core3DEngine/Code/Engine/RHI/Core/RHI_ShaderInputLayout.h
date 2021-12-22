@@ -16,9 +16,6 @@ namespace Core::RHI
 	class ShaderInputLayout
 	{
 	public:
-		ShaderInputLayout();
-		~ShaderInputLayout();
-
 		/// @brief 入力レイアウト情報構造体
 		struct InputLayoutVariable
 		{
