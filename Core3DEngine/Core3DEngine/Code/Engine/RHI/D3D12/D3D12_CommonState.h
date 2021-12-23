@@ -36,12 +36,12 @@ namespace Core::D3D12
     /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
     /// @param format TypeLessフォーマット
     /// @return DSVフォーマット or そのまま
-    DXGI_FORMAT getTypeLessToDSVFormat(Core::TextureFormat format);
+    DXGI_FORMAT GetTypeLessToDSVFormat(Core::TextureFormat format);
 
     /// @brief TypeLessフォーマットをSRVフォーマットに変換して返す
     /// @param format TypeLessフォーマット
     /// @return SRVフォーマット or そのまま
-    DXGI_FORMAT getTypeLessToSRVFormat(Core::TextureFormat format);
+    DXGI_FORMAT GetTypeLessToSRVFormat(Core::TextureFormat format);
 }
 
 #endif // !_D3D12_COMMON_STATE_

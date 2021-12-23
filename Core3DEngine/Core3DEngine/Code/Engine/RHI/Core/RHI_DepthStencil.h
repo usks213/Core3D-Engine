@@ -14,7 +14,7 @@ namespace Core::RHI
 {
 	/// @class DepthStencil
 	/// @brief 深度ステンシル
-	class DepthStencil : public Texture
+	class DepthStencil : virtual public Texture
 	{
 	public:
 		//------------------------------------------------------------------------------

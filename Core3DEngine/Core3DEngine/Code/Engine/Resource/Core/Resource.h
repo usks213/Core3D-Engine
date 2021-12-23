@@ -13,8 +13,9 @@
 
  /// @brief 型情報付加
 #define DECLARE_RESOURCE_INFO(T)	\
-DECLARE_OBJECT_INFO(T);				\
-using ID = ResourceID
+DECLARE_OBJECT_INFO(T)				
+//enum class ID : BaseID {};			\
+//T::ID Get##T##ID() { return static_cast<T::ID>(GetResourceID()); }
 
 namespace Core
 {
@@ -36,6 +37,13 @@ namespace Core
 		/// @return 
 		virtual ~Resource() noexcept = default;
 
+		/// @brief リソースマネージャーの取得
+		/// @return リソースマネージャーポインタ
+		ResourceManager* GetResourceManager() const noexcept 
+		{
+			return m_pResourceManager; 
+		}
+
 		/// @brief リソースID取得
 		/// @return リソースID
 		ResourceID GetResourceID() const noexcept
@@ -46,6 +54,10 @@ namespace Core
 		/// @brief リソース名取得
 		/// @return リソース名
 		std::string_view GetName() const { return m_name; }
+
+		/// @brief リソース名変更
+		/// @param name リソース名
+		void SetName(const std::string& name) { m_name = name; }
 
 		/// @brief インスペクター表示
 		virtual void OnInspectorGUI() = 0;

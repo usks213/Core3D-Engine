@@ -158,7 +158,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
     {
         //通常テクスチャビュー作成
         D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-        srvDesc.Format = getTypeLessToSRVFormat(desc.format);//DXGI_FORMAT_R8G8B8A8_UNORM;//RGBA(0.0f～1.0fに正規化)
+        srvDesc.Format = GetTypeLessToSRVFormat(desc.format);//DXGI_FORMAT_R8G8B8A8_UNORM;//RGBA(0.0f～1.0fに正規化)
         srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;//後述
         srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;//2Dテクスチャ
         srvDesc.Texture2D.MipLevels = 1;//ミップマップは使用しないので1
@@ -177,7 +177,7 @@ D3D12Texture::D3D12Texture(ID3D12Device* pDevice, D3D12DescriptorPool* pDescript
     {
         // 順不同アクセスビューの作成
         D3D12_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
-        uavDesc.Format = getTypeLessToSRVFormat(desc.format);
+        uavDesc.Format = GetTypeLessToSRVFormat(desc.format);
         uavDesc.ViewDimension = D3D12_UAV_DIMENSION_TEXTURE2D;
         uavDesc.Texture2D.MipSlice = 0;     // ??
         uavDesc.Texture2D.PlaneSlice = 0;   // ??

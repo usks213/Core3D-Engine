@@ -88,10 +88,10 @@ namespace Core::RHI
 		/// @brief デストラクタ
 		virtual ~Resource() noexcept = default;
 
-		/// @brief リソース更新
+		/// @brief マップ(リソース更新)
 		/// @param pData 更新データ
 		/// @param size 更新サイズ
-		void UpdateResource(void* pData, std::size_t size)
+		void Map(void* pData, std::size_t size)
 		{
 			std::memcpy(m_aData.data(), pData, size);
 			m_isDirty = true;
@@ -99,22 +99,26 @@ namespace Core::RHI
 
 		/// @brief リソース情報取得
 		/// @return リソースDesc
-		ResourceDesc GetDesc() { return m_desc; }
+		ResourceDesc GetDesc() const { return m_desc; }
 
 		/// @brief CPUデータの取得
-		/// @return 汎用ポイント
-		void* GetData() { return m_aData.data(); }
+		/// @return バイトポインタ
+		std::byte* GetData()
+		{
+			m_isDirty = true;
+			return m_aData.data();
+		}
 
 		/// @brief CPUデータサイズの取得
 		/// @return データサイズ
-		std::size_t GetDataSize() { return m_aData.size(); }
+		std::size_t GetDataSize() const { return m_aData.size(); }
 
 		/// @brief 更新フラグ取得
 		/// @return TRUE 更新済み / FALSE 未更新
-		bool GetDirty() { return m_isDirty; }
+		bool GetDirty() const { return m_isDirty; }
 
 		/// @brief 更新フラグを元に戻す
-		void ResetDirty() { m_isDirty = false; }
+		void ReSetDirty() { m_isDirty = false; }
 
 		/// @brief リソースポインタの取得
 		/// @return リソース型

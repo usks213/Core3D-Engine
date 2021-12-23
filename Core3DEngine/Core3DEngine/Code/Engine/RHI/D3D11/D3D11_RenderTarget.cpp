@@ -16,18 +16,18 @@ using namespace Core::RHI::D3D11;
 /// @param pDevice デバイス
 /// @param desc テクスチャ情報
 /// @param pData 初期化データ
-D3D11RenderTarget::D3D11RenderTarget(ID3D11Device1* pDevice, TextureDesc& desc, const TextureData* pData) :
+D3D11RenderTarget::D3D11RenderTarget(ID3D11Device1* pDevice, ResourceDesc& desc, const ResourceData* pData) :
 	m_rtv(nullptr)
 {
 	// テクスチャの作成
-	m_tex.CreateFromDesc(pDevice, desc, pData);
+	CreateFromDesc(pDevice, desc, pData);
 
 	// レンダラーターゲットビュー
-	CD3D11_RENDER_TARGET_VIEW_DESC rtvDesc(D3D11_RTV_DIMENSION_TEXTURE2D, GetDXGIFormat(m_desc.format));
-	if (m_desc.sampleDesc.isUse) rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
+	CD3D11_RENDER_TARGET_VIEW_DESC rtvDesc(D3D11_RTV_DIMENSION_TEXTURE2D, GetDXGIFormat(m_desc.texture.format));
+	if (m_desc.texture.sampleDesc.isUse) rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
 	// 生成
 	CHECK_FAILED(pDevice->CreateRenderTargetView(
-		static_cast<ID3D11Resource*>(m_tex.GetResource()),
+		m_tex.Get(),
 		&rtvDesc,
 		m_rtv.ReleaseAndGetAddressOf())
 	);

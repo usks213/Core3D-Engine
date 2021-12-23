@@ -16,23 +16,21 @@ namespace Core
 {
 
 /// @brief オブジェクトの情報を付加
-#define DECLARE_OBJECT_INFO(T)									\
-DECLARE_TYPE_INFO( T );											\
-[[nodiscard]] TypeID GetTypeID() noexcept override {			\
-	return static_cast<TypeID>(GetTypeHash());					\
-}																\
-[[nodiscard]] std::string_view GetTypeName() noexcept override {\
-	return GetTypeString();										\
-}																\
+#define DECLARE_OBJECT_INFO(T)											\
+DECLARE_TYPE_INFO( T );													\
+[[nodiscard]] TypeID GetTypeID() const noexcept override {				\
+	return static_cast<TypeID>(GetTypeHash());							\
+}																		\
+[[nodiscard]] std::string_view GetTypeName() const noexcept override {	\
+	return GetTypeString();												\
+}																		\
+enum class ID : BaseID {};												\
+[[nodiscard]] T::ID Get##T##ID() const noexcept {						\
+	return static_cast<T::ID>(GetInstanceID());							\
+}																		\
+static constexpr T::ID NONE_ID = NONE_TYPE_ID(T::ID);					\
 void _dumyFunction2() = delete
 
-
-	// これを使えばIDを型で差別化できる？
-	template<class T>
-	struct RefInstanceID
-	{
-		InstanceID id;
-	};
 
 	/// @brief オブジェクト
 	class Object
@@ -56,11 +54,11 @@ void _dumyFunction2() = delete
 
 		/// @brief タイプID取得
 		/// @return ID
-		[[nodiscard]] virtual TypeID GetTypeID() noexcept = 0;
+		[[nodiscard]] virtual TypeID GetTypeID() const noexcept = 0;
 
 		/// @brief タイプ名取得
 		/// @return 名前
-		[[nodiscard]] virtual std::string_view GetTypeName() noexcept = 0;
+		[[nodiscard]] virtual std::string_view GetTypeName() const noexcept = 0;
 
 		/// @brief インスタンスID取得
 		/// @return ID
@@ -83,6 +81,24 @@ void _dumyFunction2() = delete
 		/// @brief インスタンスID
 		InstanceID		m_instanceID;
 
+	};
+
+	// これを使えばIDを型で差別化できる？
+
+	/// @brief オブジェクトの参照ID
+	/// @tparam T オブジェクト継承型
+	template<class T, typename std::enable_if_t<std::is_base_of_v<Object, T>>>
+	struct RefID
+	{
+		RefID() : m_id(NONE_INSTANCE_ID) {}
+		explicit RefID(const InstanceID& id) : m_id(id) {}
+		explicit RefID(const Object& object) : m_id(object.GetInstanceID()) {}
+		explicit RefID(const Object* object) : m_id(object->GetInstanceID()) {}
+
+		~RefID() noexcept = default;
+		 
+	private:
+		InstanceID m_id;
 	};
 }
 

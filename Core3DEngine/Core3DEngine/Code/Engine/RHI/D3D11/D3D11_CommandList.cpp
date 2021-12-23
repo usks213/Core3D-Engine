@@ -488,6 +488,6 @@ void D3D11CommandList::UpdateSubResource(std::shared_ptr<Resource> pResource)
 			m_pDeferredContext->UpdateSubresource(pD3DResource, 0, nullptr,
 				pResource->GetData(), 0, 0);
 		}
-		pResource->ResetDirty();
+		pResource->ReSetDirty();
 	}
 }

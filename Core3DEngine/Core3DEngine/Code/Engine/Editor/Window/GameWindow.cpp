@@ -37,6 +37,6 @@ void GameWindow::OnGUI()
 	// ƒQ[ƒ€‚Ì•`‰æŒ‹‰Ê‚ð•\Ž¦
 	auto resultID = pScene->GetSceneResult();
 	auto pResultRT = pDevice->GetRenderTarget(resultID);
-	auto pResultTex = pDevice->getTexture(pResultRT->m_texID);
+	auto pResultTex = pDevice->GetTexture(pResultRT->m_texID);
 	ImGui::Image((ImTextureID)pResultTex->GetSRV(), ImVec2(16 * 45, 9 * 45));
 }

@@ -51,7 +51,7 @@ namespace Core
 			void setNormal(const Vector3& data, const std::uint32_t& index) {
 				SetVertexData<Vector3>(RHI::SEMANTIC_NAME::NORMAL, 0, data, index);
 			}
-			void setTangent(const Vector3& data, const std::uint32_t& index) {
+			void SetTangent(const Vector3& data, const std::uint32_t& index) {
 				SetVertexData<Vector3>(RHI::SEMANTIC_NAME::TANGENT, 0, data, index);
 			}
 			void SetBinormal(const Vector3& data, const std::uint32_t& index) {
@@ -60,7 +60,7 @@ namespace Core
 			void setColor(const Vector4& data, const std::uint32_t& index) {
 				SetVertexData<Vector4>(RHI::SEMANTIC_NAME::COLOR, 0, data, index);
 			}
-			void setTexCoord(const Vector2& data, const std::uint32_t& semanticIndex,
+			void SetTexCoord(const Vector2& data, const std::uint32_t& semanticIndex,
 				const std::uint32_t& index) {
 				SetVertexData<Vector2>(RHI::SEMANTIC_NAME::TEXCOORD, semanticIndex, data, index);
 			}
@@ -144,7 +144,7 @@ namespace Core
 				}
 			if (m_vertexData.hasVertexVariable(RHI::SEMANTIC_NAME::TANGENT))
 				for (std::uint32_t i = 0; i < vertexInfo.tangents.size(); ++i) {
-					m_vertexData.setTangent(vertexInfo.tangents[i], i);
+					m_vertexData.SetTangent(vertexInfo.tangents[i], i);
 				}
 			if (m_vertexData.hasVertexVariable(RHI::SEMANTIC_NAME::BINORMAL))
 				for (std::uint32_t i = 0; i < vertexInfo.binormals.size(); ++i) {
@@ -156,11 +156,11 @@ namespace Core
 				}
 			if (m_vertexData.hasVertexVariable(RHI::SEMANTIC_NAME::TEXCOORD, 0))
 				for (std::uint32_t i = 0; i < vertexInfo.texcoord0s.size(); ++i) {
-					m_vertexData.setTexCoord(vertexInfo.texcoord0s[i], 0, i);
+					m_vertexData.SetTexCoord(vertexInfo.texcoord0s[i], 0, i);
 				}
 			if (m_vertexData.hasVertexVariable(RHI::SEMANTIC_NAME::TEXCOORD, 1))
 				for (std::uint32_t i = 0; i < vertexInfo.texcoord1s.size(); ++i) {
-					m_vertexData.setTexCoord(vertexInfo.texcoord1s[i], 1, i);
+					m_vertexData.SetTexCoord(vertexInfo.texcoord1s[i], 1, i);
 				}
 			if (m_vertexData.hasVertexVariable(RHI::SEMANTIC_NAME::BONE_WEIGHT))
 				for (std::uint32_t i = 0; i < vertexInfo.boneWeights.size(); ++i) {

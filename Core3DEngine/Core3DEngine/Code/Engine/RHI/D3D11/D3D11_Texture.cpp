@@ -102,7 +102,7 @@ bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, ResourceDesc& desc, co
     {
         // シェーダーリソースビュー
         D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-        srvDesc.Format = D3D11::getTypeLessToSRVFormat(desc.texture.format);
+        srvDesc.Format = D3D11::GetTypeLessToSRVFormat(desc.texture.format);
         srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
         srvDesc.Texture2D.MipLevels = d3d11Desc.MipLevels;
         srvDesc.Texture2D.MostDetailedMip = 0;

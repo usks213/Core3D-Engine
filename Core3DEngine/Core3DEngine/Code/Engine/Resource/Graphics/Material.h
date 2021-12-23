@@ -5,99 +5,63 @@
  * \author USAMI KOSHI
  * \date   2021/10/05
  *********************************************************************/
-#ifndef _CORE_MATERIAL_
-#define _CORE_MATERIAL_
+#ifndef _MATERIAL_
+#define _MATERIAL_
 
-#include "Shader.h"
+#include "GraphicsShader.h"
 #include "Texture.h"
 #include <Utils/Util_Mathf.h>
-
+#include <RHI\Core\RHI_GPUBuffer.h>
 
 namespace Core
 {
-	/// @brief マテリアルID
-	enum class MaterialID : std::uint32_t {};
-	/// @brief 存在しないマテリアルID
-	constexpr MaterialID NONE_MATERIAL_ID = std::numeric_limits<MaterialID>::max();
-
-
-	/// @class CoreMaterial
+	/// @class Material
 	/// @brief マテリアル
-	class CoreMaterial
+	class Material : public Resource
 	{
+		DECLARE_RESOURCE_INFO(Material);
 	public:
 		//------------------------------------------------------------------------------
 		// public methods
 		//------------------------------------------------------------------------------
 
 		/// @brief コンストラクタ
-		/// @param シェーダ情報
-		explicit CoreMaterial(const MaterialID& id, const std::string& name, const CoreShader& shader);
+		Material();
 
 		/// @brief デストラクタ
-		virtual ~CoreMaterial() noexcept = default;
+		~Material() noexcept = default;
 
+		/// @brief シェーダーからマテリアルデータを作成
+		/// @param shader グラフィックスシェーダー
+		/// @return 成功 TRUE / 失敗 FALSE
+		bool CreateMaterialData(const GraphicsShader& shader);
 
 	public:
 		//------------------------------------------------------------------------------
 		// public variables
 		//------------------------------------------------------------------------------
 
-		/// @brief マテリアルID
-		MaterialID			m_id;
-		/// @brief マテリアル名
-		std::string			m_name;
 		/// @brief 半透明フラグ
-		bool				m_isTransparent;
+		bool					m_isTransparent;
 		/// @brief ブレンドステート(半透明のみ)
-		BlendState			m_blendState;
+		RHI::BlendState			m_blendState;
 		/// @brief 深度ステンシルステート
-		DepthStencilState	m_depthStencilState;
+		RHI::DepthStencilState	m_depthStencilState;
 		/// @brief ラスタライザステート
-		RasterizeState		m_rasterizeState;
+		RHI::RasterizeState		m_rasterizeState;
 		/// @brief シェーダID
-		ShaderID			m_shaderID;
-		/// @brief シェーダータイプ
-		ShaderType			m_shaderType;
+		GraphicsShader::ID		m_shaderID;
 
-		/// @brief CBufferデータ
-		struct CBuffer
-		{
-			std::string						name;
-			std::unique_ptr<std::byte[]>	data;
-			std::size_t						size;
-			bool							isUpdate;	///< trueなら更新した
-		};
-
-		/// @brief テクスチャデータ
-		struct TextureData
-		{
-			std::string name;
-			TextureID	id;
-		};
-
-		/// @brief サンプラーデータ
-		struct SamplerData
-		{
-			std::string		name;
-			SamplerState	state;
-		};
 
 		/// @brief 全ステージ、スロット分のCBufferデータ
-		std::array<std::unordered_map<std::uint32_t, CBuffer>,
-			static_cast<size_t>(GraphicsShaderStage::MAX)>	m_cbufferData;
-		/// @brief 全ステージ、スロットのバインドするテクスチャ
-		std::array<std::unordered_map<std::uint32_t, TextureData>,
-			static_cast<size_t>(GraphicsShaderStage::MAX)>	m_textureData;
+		std::array<std::unordered_map<RHI::Slot, std::shared_ptr<RHI::GPUBuffer>>,
+			static_cast<size_t>(RHI::GraphicsShaderStage::MAX)>	m_cbufferData;
+		/// @brief 全ステージ、スロット分のテクスチャ
+		std::array<std::unordered_map<RHI::Slot, Texture::ID>,
+			static_cast<size_t>(RHI::GraphicsShaderStage::MAX)>	m_textureData;
 		/// @brief 全ステージ、スロット分のサンプラステート
-		std::array<std::unordered_map<std::uint32_t, SamplerData>,
-			static_cast<size_t>(GraphicsShaderStage::MAX)>	m_samplerData;
-
-		/// @brief CBuffer変数データ
-		std::unordered_map<std::string, CoreShader::CBufferVariable> m_cbufferVariable;
-
-		/// @brief  全ステージ、スロット分のCBufferの数
-		std::uint32_t m_cbufferCount;
+		std::array<std::unordered_map<RHI::Slot, RHI::SamplerState>,
+			static_cast<size_t>(RHI::GraphicsShaderStage::MAX)>	m_samplerData;
 
 	public:
 		//------------------------------------------------------------------------------
@@ -105,49 +69,64 @@ namespace Core
 		//------------------------------------------------------------------------------
 
 		/// @brief uint設定
-		void setUint(const char* name, const unsigned int& data) { setData(name, &data); }
+		void setUint(const char* name, const unsigned int& data, 
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief VectorUint2設定
-		void SetVectorUint2(const char* name, const VectorUint2& data) { setData(name, &data); }
+		void SetVectorUint2(const char* name, const VectorUint2& data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief VectorUint3設定
-		void SetVectorUint3(const char* name, const VectorUint3& data) { setData(name, &data); }
+		void SetVectorUint3(const char* name, const VectorUint3& data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief VectorUint4設定
-		void SetVectorUint4(const char* name, const VectorUint4& data) { setData(name, &data); }
+		void SetVectorUint4(const char* name, const VectorUint4& data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief float設定
-		void setFloat(const char* name, const float& data) { setData(name, &data); }
+		void SetFloat(const char* name, const float& data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief Vector2設定
-		void SetVector2(const char* name, const Vector2& data) { setData(name, &data); }
+		void SetVector2(const char* name, const Vector2& data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief Vector3設定
-		void SetVector3(const char* name, const Vector3& data) { setData(name, &data); }
+		void SetVector3(const char* name, const Vector3& data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief Vector4設定
-		void SetVector4(const char* name, const Vector4& data) { setData(name, &data); }
+		void SetVector4(const char* name, const Vector4& data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief Matrix設定
-		void SetMatrix(const char* name, const Matrix& data) { setData(name, &data); }
+		void SetMatrix(const char* name, const Matrix& data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief Struct設定
-		void setStruct(const char* name, const void* data) { setData(name, &data); }
+		void SetStruct(const char* name, const void* data,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX) { SetData(name, &data, stage); }
 
 		/// @brief テクスチャ設定
-		void setTexture(const char* name, const TextureID textureID);
+		void SetTexture(const char* name, const Texture::ID textureID,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX);
 
 		/// @brief テクスチャ取得
-		TextureID getTexture(const char* name);
+		Texture::ID GetTexture(const char* name,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX);
 
 		/// @brief サンプラ設定
-		void setSampler(const char* name, const SamplerState sampler);
+		void SetSampler(const char* name, const RHI::SamplerState sampler,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX);
 
 		/// @brief サンプラ取得
-		SamplerState GetSampler(const char* name);
+		RHI::SamplerState GetSampler(const char* name,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX);
 
 		/// @brief データ取得
-		void* GetData(const char* name);
+		void* GetData(const char* name,
+			RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::MAX);
 
 	protected:
 		//------------------------------------------------------------------------------
@@ -155,10 +134,10 @@ namespace Core
 		//------------------------------------------------------------------------------
 
 		/// @brief データ設定
-		void setData(const char* name, const void* data);
+		void SetData(const char* name, const void* data, RHI::GraphicsShaderStage stage);
 
 	};
 }
 
-#endif // !_CORE_MATERIAL_
+#endif // !_MATERIAL_
 

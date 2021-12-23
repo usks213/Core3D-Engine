@@ -154,7 +154,7 @@ DXGI_FORMAT Core::D3D12::GetDXGIFormat(Core::TextureFormat format) {
 /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
 /// @param format TypeLessフォーマット
 /// @return DSVフォーマット or そのまま
-DXGI_FORMAT Core::D3D12::getTypeLessToDSVFormat(Core::TextureFormat format)
+DXGI_FORMAT Core::D3D12::GetTypeLessToDSVFormat(Core::TextureFormat format)
 {
 	auto f = GetDXGIFormat(format);
 	if (f == DXGI_FORMAT_R32_TYPELESS)
@@ -178,7 +178,7 @@ DXGI_FORMAT Core::D3D12::getTypeLessToDSVFormat(Core::TextureFormat format)
 /// @brief TypeLessフォーマットをSRVフォーマットに変換して返す
 /// @param format TypeLessフォーマット
 /// @return SRVフォーマット or そのまま
-DXGI_FORMAT Core::D3D12::getTypeLessToSRVFormat(Core::TextureFormat format)
+DXGI_FORMAT Core::D3D12::GetTypeLessToSRVFormat(Core::TextureFormat format)
 {
 	auto f = GetDXGIFormat(format);
 	if (f == DXGI_FORMAT_R32_TYPELESS)

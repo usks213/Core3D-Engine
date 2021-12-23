@@ -102,7 +102,7 @@ Core::DepthStencilID D3D12Device::CreateDepthStencil(Core::TextureDesc& desc, fl
 	D3D12_CLEAR_VALUE depthClearValue = {};
 	depthClearValue.DepthStencil.Depth = depth;
 	depthClearValue.DepthStencil.Stencil = stencil;
-	depthClearValue.Format = Core::D3D12::getTypeLessToDSVFormat(desc.format);
+	depthClearValue.Format = Core::D3D12::GetTypeLessToDSVFormat(desc.format);
 
 	// テクスチャ生成
 	auto pTex = CreateD3D12Texture(desc, &depthClearValue);

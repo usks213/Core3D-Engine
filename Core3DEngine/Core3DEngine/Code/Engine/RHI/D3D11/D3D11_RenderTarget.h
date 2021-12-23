@@ -16,7 +16,7 @@ namespace Core::RHI::D3D11
 {
 	/// @class D3D11RenderTarget
 	/// @brief DirectX11レンダーターゲット
-	class D3D11RenderTarget final : public RenderTarget
+	class D3D11RenderTarget final : public RenderTarget, public D3D11Texture
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -27,22 +27,10 @@ namespace Core::RHI::D3D11
 		/// @param pDevice デバイス
 		/// @param desc テクスチャ情報
 		/// @param pData 初期化データ
-		explicit D3D11RenderTarget(ID3D11Device1* pDevice, TextureDesc& desc, const TextureData* pData = nullptr);
+		explicit D3D11RenderTarget(ID3D11Device1* pDevice, ResourceDesc& desc, const ResourceData* pData = nullptr);
 
 		/// @brief デストラクタ
 		~D3D11RenderTarget() noexcept = default;
-
-		/// @brief リソースポインタの取得
-		/// @return リソース型
-		void* GetResource() override { return m_tex.GetResource(); }
-
-		/// @brief SRVポインタの取得
-		/// @return SRV型
-		void* GetSRV() override { return m_tex.GetSRV(); }
-
-		/// @brief UAVポインタの取得
-		/// @return UAV型
-		void* GetUAV() override { return m_tex.GetUAV(); }
 
 		/// @brief レンダーターゲットビューの取得
 		/// @return 汎用ポインタ
@@ -52,9 +40,6 @@ namespace Core::RHI::D3D11
 		//------------------------------------------------------------------------------
 		// public variables
 		//------------------------------------------------------------------------------
-
-		/// @brief D3D11テクスチャ
-		D3D11Texture						m_tex;
 
 		/// @brief D3D11レンダーターゲットビュー
 		ComPtr<ID3D11RenderTargetView>		m_rtv;

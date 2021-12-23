@@ -20,7 +20,7 @@ D3D11DepthStencil::D3D11DepthStencil(ID3D11Device1* device, const Core::DepthSte
 	m_dsv(nullptr)
 {
 	// 深度ステンシルビュー
-	CD3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc(D3D11_DSV_DIMENSION_TEXTURE2D, getTypeLessToDSVFormat(d3dTex.m_desc.format));
+	CD3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc(D3D11_DSV_DIMENSION_TEXTURE2D, GetTypeLessToDSVFormat(d3dTex.m_desc.format));
 	if (d3dTex.m_desc.sampleDesc.isUse) dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
 
 	// 深度ステンシルビュー読み書き可

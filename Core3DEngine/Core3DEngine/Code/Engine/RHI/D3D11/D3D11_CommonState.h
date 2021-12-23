@@ -46,12 +46,12 @@ namespace Core::RHI::D3D11
     /// @brief TypeLessフォーマットをDSVフォーマットに変換して返す
     /// @param format TypeLessフォーマット
     /// @return DSVフォーマット or そのまま
-    DXGI_FORMAT getTypeLessToDSVFormat(TextureFormat format);
+    DXGI_FORMAT GetTypeLessToDSVFormat(TextureFormat format);
 
     /// @brief TypeLessフォーマットをSRVフォーマットに変換して返す
     /// @param format TypeLessフォーマット
     /// @return SRVフォーマット or そのまま
-    DXGI_FORMAT getTypeLessToSRVFormat(TextureFormat format);
+    DXGI_FORMAT GetTypeLessToSRVFormat(TextureFormat format);
 }
 
 #endif // !_D3D11_COMMON_STATE_

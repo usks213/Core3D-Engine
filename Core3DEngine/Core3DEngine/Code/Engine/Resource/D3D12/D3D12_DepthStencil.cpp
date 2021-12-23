@@ -28,7 +28,7 @@ D3D12DepthStencil::D3D12DepthStencil(ID3D12Device* device, const Core::DepthSten
 
 	//深度ビュー作成
 	D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
-	dsvDesc.Format = Core::D3D12::getTypeLessToDSVFormat(d3dTex.m_desc.format); //デプス値に32bit使用
+	dsvDesc.Format = Core::D3D12::GetTypeLessToDSVFormat(d3dTex.m_desc.format); //デプス値に32bit使用
 	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;//2Dテクスチャ
 	dsvDesc.Flags = D3D12_DSV_FLAG_NONE;//フラグは特になし
 

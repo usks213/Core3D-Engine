@@ -115,11 +115,11 @@ namespace Core::D3D12
 		// private methods 
 		//------------------------------------------------------------------------------
 
-		void setTextureResource(Core::GraphicsShaderStage stage, std::uint32_t rootIndex, const Core::TextureID& textureID);
+		void SetTextureResource(Core::GraphicsShaderStage stage, std::uint32_t rootIndex, const Core::TextureID& textureID);
 
-		void setSamplerResource(Core::GraphicsShaderStage stage, std::uint32_t rootIndex, Core::SamplerState state);
+		void SetSamplerResource(Core::GraphicsShaderStage stage, std::uint32_t rootIndex, Core::SamplerState state);
 
-		void setTrasitionResourceBarrier(ID3D12Resource* pResource, 
+		void SetTrasitionResourceBarrier(ID3D12Resource* pResource, 
 			D3D12_RESOURCE_STATES& before, const D3D12_RESOURCE_STATES after);
 
 	private:

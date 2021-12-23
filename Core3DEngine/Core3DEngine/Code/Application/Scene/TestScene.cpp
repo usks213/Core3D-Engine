@@ -157,8 +157,8 @@ void TestScene::Start()
 		auto unlitMatID = device->CreateMaterial("Unlit", unlitShaderID);
 		auto* pUnlitMat = device->getMaterial(unlitMatID);
 		pUnlitMat->SetVector4("_Color", Vector4(1, 1, 1, 1));
-		pUnlitMat->setTexture("_Texture", texID);
-		pUnlitMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
+		pUnlitMat->SetTexture("_Texture", texID);
+		pUnlitMat->SetSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
 		g_shaderID = unlitShaderID;
 		g_matID = unlitMatID;
 
@@ -209,8 +209,8 @@ void TestScene::Start()
 		g_postMatID = device->CreateMaterial("Post", g_postShaderID);
 		auto* pPostMat = device->getMaterial(g_postMatID);
 		pPostMat->SetVector3("_Color", Vector3(1, 1, 1));
-		pPostMat->setTexture("_RT", pRT->m_texID);
-		pPostMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
+		pPostMat->SetTexture("_RT", pRT->m_texID);
+		pPostMat->SetSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
 
 		// レンダーバッファの作成
 		g_postRdID = device->CreateRenderBuffer(g_postShaderID, quadID);
@@ -228,8 +228,8 @@ void TestScene::Start()
 		auto* pMat = device->getMaterial(g_lightMatID);
 		pMat->SetVector3("_Color", Vector3(1, 1, 1));
 		pMat->setUint("_PointLightNum", MAX_POINT_LIGHT);
-		pMat->setSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
-		pMat->setTexture("_Texture", g_texID);
+		pMat->SetSampler("_Sampler", Core::SamplerState::LINEAR_WRAP);
+		pMat->SetTexture("_Texture", g_texID);
 		pMat->SetMatrix("_mTex", texMatrix);
 
 		// ポイントライトバッファ作成
@@ -445,13 +445,13 @@ void TestScene::Render()
 		pPostMat->SetMatrix("_mWorld", world);
 		pPostMat->SetMatrix("_mView", view);
 		pPostMat->SetMatrix("_mProj", proj);
-		pPostMat->setTexture("_RT", pRT->m_texID);
+		pPostMat->SetTexture("_RT", pRT->m_texID);
 
 		// マテリアルの更新
 		pPostMat->SetVector3("_Color", Vector3(1, 1, 1));
 		static float _time;
 		_time += 0.05f;
-		pPostMat->setFloat("_Time", _time);
+		pPostMat->SetFloat("_Time", _time);
 
 
 		// バッファバッファ指定
@@ -469,7 +469,7 @@ void TestScene::Render()
 	}
 
 	// バインド解除
-	pPostMat->setTexture("_RT", Core::NONE_TEXTURE_ID);
+	pPostMat->SetTexture("_RT", Core::NONE_TEXTURE_ID);
 	cmdList->SetMaterial(g_postMatID);
 
 	// バックバッファへコピー

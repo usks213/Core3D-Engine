@@ -12,17 +12,18 @@
 #include <unordered_map>
 #include <memory>
 
-class SceneManager;
 
 namespace Core
 {
+	class Engine;
+
 	class ResourceManager final
 	{
 	public:
 		/// @brief コンストラクタ
 		/// @param pSceneManager シーンマネージャーポインタ
-		explicit ResourceManager(SceneManager* pSceneManager) noexcept :
-			m_pSceneManager(pSceneManager)
+		explicit ResourceManager(Engine* pEngine) noexcept :
+			m_pEngine(pEngine)
 		{
 		}
 
@@ -48,10 +49,37 @@ namespace Core
 			return pResult;
 		}
 
+		/// @brief コンポーネントを削除リストに登録
+		/// @param typeID コンポーネントタイプID
+		/// @param componentID コンポーネントID
+		void DestroyResource(const TypeID& typeID, const ResourceID& componentID);
+
+		/// @brief コンポーネントの検索
+		/// @param typeID コンポーネントタイプID
+		/// @param componentID コンポーネントID
+		/// @return コンポーネントポインタ or nullptr
+		Resource* GetResource(const TypeID& typeID, const ResourceID& componentID);
+
+		/// @brief コンポーネントの検索
+		/// @tparam T コンポーネント型
+		/// @param componentID コンポーネントID
+		/// @return コンポーネント型ポインタ or nullptr
+		template<class T, bool isComBase = std::is_base_of_v<Resource, T>>
+		T* GetResource(const T::ID resourceID)
+		{
+			static_assert(isComBase, "Not ResourceBase");
+			static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
+			return static_cast<T*>(GetResource(typeID, componentID));
+		}
+
+		/// @brief エンジンの取得
+		/// @return エンジンのポインタ
+		Engine* GetEngine() const noexcept { return m_pEngine; }
+
 	private:
 
-		/// @brief シーンマネージャー
-		SceneManager* m_pSceneManager;
+		/// @brief エンジンポインタ
+		Engine* m_pEngine;
 
 		std::unordered_map<TypeID, std::unordered_map<ResourceID, std::unique_ptr<Resource>>>	m_resourcePool;
 

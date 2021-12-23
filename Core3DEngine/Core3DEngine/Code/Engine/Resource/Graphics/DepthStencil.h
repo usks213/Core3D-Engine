@@ -16,6 +16,7 @@ namespace Core
 	/// @brief 深度ステンシル
 	class DepthStencil : public Texture
 	{
+		DECLARE_RESOURCE_INFO(DepthStencil);
 	public:
 		//------------------------------------------------------------------------------
 		// public methods

@@ -14,7 +14,7 @@ namespace Core::RHI
 {
 	/// @class RenderTarget
 	/// @brief レンダーターゲット
-	class RenderTarget :public Texture
+	class RenderTarget : virtual public Texture
 	{
 	public:
 		//------------------------------------------------------------------------------

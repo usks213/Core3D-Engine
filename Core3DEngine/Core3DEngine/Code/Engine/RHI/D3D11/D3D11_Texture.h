@@ -15,7 +15,7 @@ namespace Core::RHI::D3D11
 {
 	/// @class D3D11Texture
 	/// @brief DirectX11テクスチャ
-	class D3D11Texture : public Texture
+	class D3D11Texture : virtual public Texture
 	{
 	public:
 		//------------------------------------------------------------------------------
@@ -45,6 +45,10 @@ namespace Core::RHI::D3D11
 		/// @brief リソースポインタの取得
 		/// @return リソース型
 		void* GetResource() override { return m_tex.Get(); }
+
+		/// @brief CBVポイントの取得
+		/// @return テクスチャなのでnullptr
+		void* GetCBV() override { return nullptr; }
 
 		/// @brief SRVポインタの取得
 		/// @return SRV型

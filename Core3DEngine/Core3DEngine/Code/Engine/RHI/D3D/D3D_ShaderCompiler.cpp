@@ -463,7 +463,7 @@ bool D3DShaderCompiler::CreateCBufferLayouts(void* pReflection, ShaderResourceLa
 			// 変数情報代入
 			cbLayout.m_variables[name].size = varDesc.Size;
 			cbLayout.m_variables[name].offset = varDesc.StartOffset;
-			cbLayout.m_variables[name].slot = cbIdx - slotOffset;
+			cbLayout.m_variables[name].slot = cbLayout.m_slot;
 			// デフォルト値がある場合
 			if (varDesc.DefaultValue != nullptr)
 			{
@@ -474,6 +474,6 @@ bool D3DShaderCompiler::CreateCBufferLayouts(void* pReflection, ShaderResourceLa
 		}
 
 		// コンスタントバッファレイアウト格納
-		cbufferLayouts[cbIdx - slotOffset] = std::move(cbLayout);
+		cbufferLayouts[cbLayout.m_slot] = std::move(cbLayout);
 	}
 }

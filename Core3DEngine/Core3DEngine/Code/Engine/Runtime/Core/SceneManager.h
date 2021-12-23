@@ -80,14 +80,14 @@ namespace Core
 
 		/// @brief エンジンの取得
 		/// @return エンジンのポインタ
-		Core::Engine* GetEngine() { return m_pEngine; }
+		Engine* GetEngine() const noexcept { return m_pEngine; }
 
 	private:
 		//------------------------------------------------------------------------------
 		// private variables
 		//------------------------------------------------------------------------------
 
-		Core::Engine* m_pEngine;	///< エンジンのポインタ
+		Engine* m_pEngine;	///< エンジンのポインタ
 		std::unique_ptr<Scene>	m_pScene;	///< シーンのポインタ
 
 	};
