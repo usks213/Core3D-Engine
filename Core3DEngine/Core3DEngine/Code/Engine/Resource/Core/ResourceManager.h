@@ -65,7 +65,7 @@ namespace Core
 		/// @param componentID コンポーネントID
 		/// @return コンポーネント型ポインタ or nullptr
 		template<class T, bool isComBase = std::is_base_of_v<Resource, T>>
-		T* GetResource(const T::ID resourceID)
+		T* GetResource(const typename T::ID resourceID)
 		{
 			static_assert(isComBase, "Not ResourceBase");
 			static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
