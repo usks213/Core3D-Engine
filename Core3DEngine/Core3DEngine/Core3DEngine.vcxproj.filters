@@ -335,6 +335,9 @@
     <ClCompile Include="Code\Engine\Resource\Graphics\Material.cpp">
       <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Graphics\GraphicsShader.cpp">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h">

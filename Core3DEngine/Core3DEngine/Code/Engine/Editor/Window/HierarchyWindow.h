@@ -28,7 +28,7 @@ namespace Core
 
 	private:
 
-		void DispEntity(TransformManager* pTransformManager, const TransformID& parentID);
+		void DispEntity(TransformManager* pTransformManager, const Transform::ID& parentID);
 
 	};
 }

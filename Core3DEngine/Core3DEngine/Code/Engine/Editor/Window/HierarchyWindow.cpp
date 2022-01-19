@@ -36,8 +36,8 @@ void HierarchyWindow::OnGUI()
 		// Some processing...
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_DEMO_CELL"))
 		{
-			IM_ASSERT(payload->DataSize == sizeof(TransformID));
-			TransformID payload_n = *(const TransformID*)payload->Data;
+			IM_ASSERT(payload->DataSize == sizeof(Transform::ID));
+			Transform::ID payload_n = *(const Transform::ID*)payload->Data;
 			// 親子関係再構築
 			auto* pTransform = pTransformManager->FindTransform(payload_n);
 			if (pTransform) pTransform->ReturnRoot();
@@ -53,7 +53,7 @@ void HierarchyWindow::OnGUI()
 	}
 }
 
-void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const TransformID& parentID)
+void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const Transform::ID& parentID)
 {
 	// 親の取得
 	auto* pTransform = pTransformManager->FindTransform(parentID);
@@ -93,8 +93,8 @@ void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const Tran
 		// Some processing...
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_DEMO_CELL"))
 		{
-			IM_ASSERT(payload->DataSize == sizeof(TransformID));
-			TransformID payload_n = *(const TransformID*)payload->Data;
+			IM_ASSERT(payload->DataSize == sizeof(Transform::ID));
+			Transform::ID payload_n = *(const Transform::ID*)payload->Data;
 			// 親子関係再構築
 			auto* pDrop = pTransformManager->FindTransform(payload_n);
 			if (pDrop) pTransform->AddChild(payload_n);
@@ -104,8 +104,8 @@ void HierarchyWindow::DispEntity(TransformManager* pTransformManager, const Tran
 	// ドラッグ
 	if (ImGui::BeginDragDropSource()) {
 		// Some processing...
-		TransformID id = pTransform->GetTransformID();
-		ImGui::SetDragDropPayload("DND_DEMO_CELL", &id, sizeof(TransformID));
+		Transform::ID id = pTransform->GetTransformID();
+		ImGui::SetDragDropPayload("DND_DEMO_CELL", &id, sizeof(Transform::ID));
 		ImGui::Text("Move Parent");
 		ImGui::EndDragDropSource();
 	}

@@ -47,6 +47,7 @@
     <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_Shader.cpp" />
     <ClCompile Include="Code\Engine\Resource\D3D12\D3D12_Texture.cpp" />
     <ClCompile Include="Code\Engine\Resource\Geometry.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Graphics\GraphicsShader.cpp" />
     <ClCompile Include="Code\Engine\Resource\Graphics\Material.cpp" />
     <ClCompile Include="Code\Engine\RHI\Core\RHI_ShaderCBufferLayout.cpp" />
     <ClCompile Include="Code\Engine\RHI\Core\RHI_ShaderUtil.cpp" />

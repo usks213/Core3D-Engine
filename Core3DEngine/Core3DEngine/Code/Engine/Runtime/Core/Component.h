@@ -13,7 +13,7 @@
  /// @brief 型情報付加
 #define DECLARE_COMPONENT_INFO(T)	\
 DECLARE_OBJECT_INFO(T);				\
-using T##ID = ComponentID
+
 
 namespace Core
 {
@@ -26,13 +26,14 @@ namespace Core
 	{
 		friend class Entity;
 		friend class ComponentManager;
+		DECLARE_OBJECT_INFO(Component);
 	public:
 
 		/// @brief コンストラクタ
 		explicit Component() noexcept :
 			Object(),
 			m_pComponentManager(nullptr),
-			m_entityID(NONE_ENTITY_ID),
+			m_entityID(Entity::NONE_ID),
 			m_isEnable(true)
 		{
 		}
@@ -42,9 +43,9 @@ namespace Core
 
 		/// @brief コンポーネントID取得
 		/// @return コンポーネントID
-		ComponentID GetComponentID() noexcept
+		Component::ID GetComponentID() noexcept
 		{
-			return static_cast<ComponentID>(GetInstanceID());
+			return static_cast<Component::ID>(GetInstanceID());
 		}
 
 		/// @brief 親エンティティの取得
@@ -98,7 +99,7 @@ namespace Core
 		//--- serialize param
 
 		/// @brief 親のエンティティID
-		EntityID	m_entityID;
+		Entity::ID	m_entityID;
 		/// @brief アクティブフラグ
 		bool		m_isEnable;
 

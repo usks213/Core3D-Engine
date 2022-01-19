@@ -12,7 +12,7 @@ using namespace Core;
  /// @brief コンポーネントを削除リストに登録
  /// @param typeID コンポーネントタイプID
  /// @param componentID コンポーネントID
-void ComponentManager::DestroyComponent(const TypeID& typeID, const ComponentID& componentID)
+void ComponentManager::DestroyComponent(const TypeID& typeID, const Component::ID& componentID)
 {
 	// 検索
 	Component* pCom = FindComponent(typeID, componentID);
@@ -29,7 +29,7 @@ void ComponentManager::DestroyComponent(const TypeID& typeID, const ComponentID&
 /// @param typeID コンポーネントタイプID
 /// @param componentID コンポーネントID
 /// @return コンポーネント型ポインタ or nullptr
-Component* ComponentManager::FindComponent(const TypeID& typeID, const ComponentID& componentID)
+Component* ComponentManager::FindComponent(const TypeID& typeID, const Component::ID& componentID)
 {
 	// 検索
 	auto itr = m_componentLookupTable[typeID].find(componentID);
@@ -124,13 +124,13 @@ void ComponentManager::CleanupComponent()
 /// @brief 型ごとに一意なIDを作成
 /// @param typeID 型ID
 /// @return コンポーネントID
-ComponentID ComponentManager::CreateComponentID(const TypeID& typeID)
+Component::ID ComponentManager::CreateComponentID(const TypeID& typeID)
 {
 	// ID作成
-	ComponentID componentID = NONE_COMPONENT_ID;
+	Component::ID componentID = NONE_COMPONENT_ID;
 	do
 	{
-		componentID = static_cast<ComponentID>(static_cast<BaseID>(rand()) % NONE_BASE_ID);
+		componentID = static_cast<Component::ID>(static_cast<BaseID>(rand()) % NONE_BASE_ID);
 		auto itr = m_componentLookupTable[typeID].find(componentID);
 		if (m_componentLookupTable[typeID].end() == itr)
 		{

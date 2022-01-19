@@ -42,7 +42,7 @@ void InspectorWindow::OnGUI()
 	{
 	case EditorWindowManager::SelectObject::Type::Entity:
 	{
-		auto* pEntity = pEntityMgr->FindEntity(static_cast<EntityID>(selectObject.instanceID));
+		auto* pEntity = pEntityMgr->FindEntity(static_cast<Entity::ID>(selectObject.instanceID));
 		if (pEntity == nullptr) break;
 		// インスペクター表示
 		pEntity->OnInspectorGUI();

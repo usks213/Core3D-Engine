@@ -37,7 +37,7 @@ namespace Core
 		/// @param isEnable 有効フラグ
 		/// @return 生成したコンポーネント型ポインタ
 		template<class T, bool isComBase = std::is_base_of_v<Component, T>>
-		T* CreateComponent(const EntityID& entityID, bool isEnable)
+		T* CreateComponent(const Entity::ID& entityID, bool isEnable)
 		{
 			static_assert(isComBase, "Not ComponentBase");
 			static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
@@ -63,24 +63,24 @@ namespace Core
 		/// @brief コンポーネントを削除リストに登録
 		/// @param typeID コンポーネントタイプID
 		/// @param componentID コンポーネントID
-		void DestroyComponent(const TypeID& typeID, const ComponentID& componentID);
+		void DestroyComponent(const TypeID& typeID, const Component::ID& componentID);
 
 		/// @brief コンポーネントの検索
 		/// @param typeID コンポーネントタイプID
 		/// @param componentID コンポーネントID
 		/// @return コンポーネントポインタ or nullptr
-		Component* FindComponent(const TypeID& typeID, const ComponentID& componentID);
+		Component* FindComponent(const TypeID& typeID, const Component::ID& componentID);
 
 		/// @brief コンポーネントの検索
 		/// @tparam T コンポーネント型
 		/// @param componentID コンポーネントID
 		/// @return コンポーネント型ポインタ or nullptr
 		template<class T, bool isComBase = std::is_base_of_v<Component, T>>
-		T* FindComponent(const ComponentID& componentID)
+		T* FindComponent(const typename T::ID& componentID)
 		{
 			static_assert(isComBase, "Not ComponentBase");
 			static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
-			return static_cast<T*>(FindComponent(typeID, componentID));
+			return static_cast<T*>(FindComponent(typeID, static_cast<Component::ID>(componentID)));
 		}
 
 		/// @brief コンポーネントの有効指定
@@ -106,7 +106,7 @@ namespace Core
 		/// @brief 型ごとに一意なIDを作成
 		/// @param typeID 型ID
 		/// @return コンポーネントID
-		ComponentID CreateComponentID(const TypeID& typeID);
+		Component::ID CreateComponentID(const TypeID& typeID);
 
 		/// @brief 生成リストに格納
 		/// @param pComponent コンポーネントポインタ
@@ -127,21 +127,21 @@ namespace Core
 		Scene* m_pScene;
 
 		/// @brief コンポーネントのルックアップテーブル
-		std::unordered_map<TypeID, std::unordered_map<ComponentID, Index>>		m_componentLookupTable;
+		std::unordered_map<TypeID, std::unordered_map<Component::ID, Index>>	m_componentLookupTable;
 
 		/// @brief 生成リスト
-		std::unordered_map<TypeID, std::vector<ComponentID>>					m_CreateList;
+		std::unordered_map<TypeID, std::vector<Component::ID>>					m_CreateList;
 		/// @brief 削除リスト
-		std::unordered_map<TypeID, std::vector<ComponentID>>					m_destroyList;
+		std::unordered_map<TypeID, std::vector<Component::ID>>					m_destroyList;
 
 		/// @brief 有効コンポーネントリスト
-		std::unordered_map<TypeID, std::vector<ComponentID>>					m_enableComponents;
+		std::unordered_map<TypeID, std::vector<Component::ID>>					m_enableComponents;
 		/// @brief 有効コンポーネントテーブル
-		std::unordered_map<TypeID, std::unordered_map<ComponentID, Index>>		m_enableComponentsTable;
+		std::unordered_map<TypeID, std::unordered_map<Component::ID, Index>>	m_enableComponentsTable;
 		/// @brief 無効コンポーネントリスト
-		std::unordered_map<TypeID, std::vector<ComponentID>>					m_disableComponents;
+		std::unordered_map<TypeID, std::vector<Component::ID>>					m_disableComponents;
 		/// @brief 無効コンポーネントテーブル
-		std::unordered_map<TypeID, std::unordered_map<ComponentID, Index>>		m_disableComponentsTable;
+		std::unordered_map<TypeID, std::unordered_map<Component::ID, Index>>	m_disableComponentsTable;
 
 	};
 }

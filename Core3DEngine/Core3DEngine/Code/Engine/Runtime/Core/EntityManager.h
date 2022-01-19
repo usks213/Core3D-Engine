@@ -40,16 +40,16 @@ namespace Core
 		/// @param bStatic 静的指定
 		/// @return エンティティポインタ
 		Entity* CreateEntity(std::string_view name, bool bActive = true,
-			bool bStatic = false, const TransformID& parentID = NONE_TRANSFORM_ID);
+			bool bStatic = false, const Transform::ID& parentID = Transform::NONE_ID);
 
 		/// @brief エンティティの削除
 		/// @param instanceID インスタンスID
-		void DestroyEntity(const EntityID& entityID);
+		void DestroyEntity(const Entity::ID& entityID);
 
 		/// @brief エンティティの検索
 		/// @param entityID エンティティID
 		/// @return あった エンティティポインタ / なし nullptr
-		Entity* FindEntity(const EntityID& entityID);
+		Entity* FindEntity(const Entity::ID& entityID);
 
 		/// @brief コンポーネントマネージャー取得
 		/// @return コンポーネントマネージャー
@@ -64,7 +64,7 @@ namespace Core
 		Scene* m_pScene;
 
 		/// @brief エンティティプール
-		std::unordered_map<EntityID, std::unique_ptr<Entity>> m_entityPool;
+		std::unordered_map<Entity::ID, std::unique_ptr<Entity>> m_entityPool;
 
 	};
 }

@@ -27,7 +27,7 @@ public:																\
 [[nodiscard]] std::string_view GetScriptName() noexcept override {	\
 	return GetScriptTypeString();									\
 }																	\
-using T##ID = ComponentID
+using T##ID = Component::ID
 
 
 namespace Core

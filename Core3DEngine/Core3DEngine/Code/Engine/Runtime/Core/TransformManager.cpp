@@ -15,7 +15,7 @@ using namespace Core;
 
 
 Transform* TransformManager::CreateTransform(
-	const EntityID& entityID, bool bActive, bool bStatic, const TransformID& parentID)
+	const Entity::ID& entityID, bool bActive, bool bStatic, const Transform::ID& parentID)
 {
 	auto pComponentManager = m_pScene->GetComponentManager();
 	// 新規生成
@@ -38,7 +38,7 @@ Transform* TransformManager::CreateTransform(
 	return pTransform;
 }
 
-void TransformManager::DestroyTransform(const TransformID& transformID)
+void TransformManager::DestroyTransform(const Transform::ID& transformID)
 {
 	// 検索
 	Transform* pTransform = FindTransform(transformID);
@@ -52,14 +52,14 @@ void TransformManager::DestroyTransform(const TransformID& transformID)
 	}
 }
 
-Transform* TransformManager::FindTransform(const TransformID& transformID)
+Transform* TransformManager::FindTransform(const Transform::ID& transformID)
 {
 	// コンポーネントマネージャーから検索
 	auto pComponentManager = m_pScene->GetComponentManager();
-	return pComponentManager->FindComponent<Transform>(static_cast<ComponentID>(transformID));
+	return pComponentManager->FindComponent<Transform>(static_cast<Component::ID>(transformID));
 }
 
-void TransformManager::CreateRelation(const TransformID& transformID, const TransformID& parentID)
+void TransformManager::CreateRelation(const Transform::ID& transformID, const Transform::ID& parentID)
 {
 	Transform* pTransfrom = FindTransform(transformID);
 	Transform* pParent = FindTransform(parentID);
@@ -105,7 +105,7 @@ void TransformManager::CreateRelation(const TransformID& transformID, const Tran
 
 }
 
-void TransformManager::DestroyRelation(const TransformID& transformID, const TransformID& parentID)
+void TransformManager::DestroyRelation(const Transform::ID& transformID, const Transform::ID& parentID)
 {
 	Transform* pTransfrom = FindTransform(transformID);
 	Transform* pParent = FindTransform(parentID);
@@ -121,7 +121,7 @@ void TransformManager::DestroyRelation(const TransformID& transformID, const Tra
 
 	// 自分をルートへ
 	RegisterRoot(transformID);
-	pTransfrom->m_parent = NONE_TRANSFORM_ID;
+	pTransfrom->m_parent = Transform::NONE_ID;
 
 	//--- 行列再計算
 
@@ -196,7 +196,7 @@ void TransformManager::UpdateChildMatrix(Transform* pTransform,
 //	private methods
 //---------------------------------------------------------------------------
 
-void TransformManager::RegisterRoot(const TransformID& transformID)
+void TransformManager::RegisterRoot(const Transform::ID& transformID)
 {
 	// 検索
 	auto itr = m_rootTransformTable.find(transformID);
@@ -212,7 +212,7 @@ void TransformManager::RegisterRoot(const TransformID& transformID)
 	m_rootTransforms.push_back(transformID);
 }
 
-void TransformManager::RemoveRoot(const TransformID& transformID)
+void TransformManager::RemoveRoot(const Transform::ID& transformID)
 {
 	// 検索
 	auto itr = m_rootTransformTable.find(transformID);

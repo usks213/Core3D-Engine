@@ -117,7 +117,7 @@ const Vector3 Transform::euler()
 
 /// @brief 親のトランスフォーム指定
 /// @param parentID 親のトランスフォームID
-void Transform::SetParent(const TransformID& parentID)
+void Transform::SetParent(const Transform::ID& parentID)
 {
 	m_pTransformManager->CreateRelation(GetTransformID(), parentID);
 }
@@ -137,7 +137,7 @@ void Transform::ReturnRoot()
 
 /// @brief 子のトランスフォームを追加
 /// @param childID 子のトランスフォームID
-void Transform::AddChild(const TransformID& childID)
+void Transform::AddChild(const Transform::ID& childID)
 {
 	m_pTransformManager->CreateRelation(childID, GetTransformID());
 }
@@ -156,7 +156,7 @@ Transform* Transform::GetChild(std::size_t index)
 
 /// @brief 子のトランスフォームを削除
 /// @param childID 子のトランスフォームID
-void Transform::RemoveChild(const TransformID& childID)
+void Transform::RemoveChild(const Transform::ID& childID)
 {
 	m_pTransformManager->DestroyRelation(childID, GetTransformID());
 }

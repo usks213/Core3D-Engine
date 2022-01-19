@@ -100,7 +100,8 @@ bool Material::CreateMaterialData(const GraphicsShader& shader)
 void Material::SetData(const char* name, const void* data, RHI::GraphicsShaderStage stage)
 {
 	// RHIシェーダー取得
-	auto pRHIShader = GetResourceManager();
+	auto pShader = GetResourceManager()->GetResource<GraphicsShader>(m_shaderID);
+	auto pRHIShader = pShader->GetRHIGraphicsShader();
 
 	// 全ステージ探索
 	if (stage == RHI::GraphicsShaderStage::MAX)
@@ -109,13 +110,18 @@ void Material::SetData(const char* name, const void* data, RHI::GraphicsShaderSt
 		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
 		{
 			auto stageIndex = static_cast<size_t>(stage);
-			auto itr = m_cbufferVariableTable[stageIndex].find(name);
+			auto cbufferLayouts = pRHIShader->GetCBufferLayoutMap(stage);
 
-			// 一致したらバッファを更新
-			if (m_cbufferVariableTable[stageIndex].end() != itr)
+			for (auto& layout : cbufferLayouts)
 			{
-				auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
-				std::memcpy(pBuffer->GetData() + itr->second.offset, data, itr->second.size);
+				auto itr = layout.second.m_variables.find(name);
+				// 一致したらバッファを更新
+				if (layout.second.m_variables.end() != itr)
+				{
+					auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
+					std::memcpy(pBuffer->GetData() + itr->second.offset, data, itr->second.size);
+					break;
+				}
 			}
 		}
 	}
@@ -123,13 +129,18 @@ void Material::SetData(const char* name, const void* data, RHI::GraphicsShaderSt
 	{
 		// 指定ステージで検索・更新
 		auto stageIndex = static_cast<size_t>(stage);
-		auto itr = m_cbufferVariableTable[stageIndex].find(name);
+		auto cbufferLayouts = pRHIShader->GetCBufferLayoutMap(stage);
 
-		// 一致したらバッファを更新
-		if (m_cbufferVariableTable[stageIndex].end() != itr)
+		for (auto& layout : cbufferLayouts)
 		{
-			auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
-			std::memcpy(pBuffer->GetData() + itr->second.offset, data, itr->second.size);
+			auto itr = layout.second.m_variables.find(name);
+			// 一致したらバッファを更新
+			if (layout.second.m_variables.end() != itr)
+			{
+				auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
+				std::memcpy(pBuffer->GetData() + itr->second.offset, data, itr->second.size);
+				break;
+			}
 		}
 	}
 }
@@ -141,41 +152,10 @@ void Material::SetData(const char* name, const void* data, RHI::GraphicsShaderSt
 /// @brief データ取得
 void* Material::GetData(const char* name, RHI::GraphicsShaderStage stage)
 {
-	// 全ステージ探索
-	if (stage == RHI::GraphicsShaderStage::MAX)
-	{
-		// 全ステージで最小に見つけたデータ
-		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
-		{
-			auto stageIndex = static_cast<size_t>(stage);
-			auto itr = m_cbufferVariableTable[stageIndex].find(name);
+	// RHIシェーダー取得
+	auto pShader = GetResourceManager()->GetResource<GraphicsShader>(m_shaderID);
+	auto pRHIShader = pShader->GetRHIGraphicsShader();
 
-			// 一致したらバッファを更新
-			if (m_cbufferVariableTable[stageIndex].end() != itr)
-			{
-				auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
-				return pBuffer->GetData() + itr->second.offset;
-			}
-		}
-	}
-	else
-	{
-		// 指定ステージで検索・更新
-		auto stageIndex = static_cast<size_t>(stage);
-		auto itr = m_cbufferVariableTable[stageIndex].find(name);
-
-		// 一致したらバッファを更新
-		if (m_cbufferVariableTable[stageIndex].end() != itr)
-		{
-			auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
-			return pBuffer->GetData() + itr->second.offset;
-		}
-	}
-}
-
-/// @brief テクスチャ設定
-void Material::SetTexture(const char* name, const Texture::ID textureID, RHI::GraphicsShaderStage stage)
-{
 	// 全ステージ探索
 	if (stage == RHI::GraphicsShaderStage::MAX)
 	{
@@ -183,13 +163,17 @@ void Material::SetTexture(const char* name, const Texture::ID textureID, RHI::Gr
 		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
 		{
 			auto stageIndex = static_cast<size_t>(stage);
-			auto itr = m_textureData[stageIndex].find(name);
+			auto cbufferLayouts = pRHIShader->GetCBufferLayoutMap(stage);
 
-			// 一致したらテクスチャを格納
-			if (m_cbufferVariableTable[stageIndex].end() != itr)
+			for (auto& layout : cbufferLayouts)
 			{
-				auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
-				std::memcpy(pBuffer->GetData() + itr->second.offset, data, itr->second.size);
+				auto itr = layout.second.m_variables.find(name);
+				// 一致したバッファを返す
+				if (layout.second.m_variables.end() != itr)
+				{
+					auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
+					return pBuffer->GetData() + itr->second.offset;
+				}
 			}
 		}
 	}
@@ -197,65 +181,179 @@ void Material::SetTexture(const char* name, const Texture::ID textureID, RHI::Gr
 	{
 		// 指定ステージで検索・更新
 		auto stageIndex = static_cast<size_t>(stage);
-		auto itr = m_cbufferVariableTable[stageIndex].find(name);
+		auto cbufferLayouts = pRHIShader->GetCBufferLayoutMap(stage);
 
-		// 一致したらバッファを更新
-		if (m_cbufferVariableTable[stageIndex].end() != itr)
+		for (auto& layout : cbufferLayouts)
 		{
-			auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
-			std::memcpy(pBuffer->GetData() + itr->second.offset, data, itr->second.size);
+			auto itr = layout.second.m_variables.find(name);
+			// 一致したバッファを返す
+			if (layout.second.m_variables.end() != itr)
+			{
+				auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
+				return pBuffer->GetData() + itr->second.offset;
+			}
+		}
+	}
+}
+
+/// @brief テクスチャ設定
+void Material::SetTexture(const char* name, const Texture::ID textureID, RHI::GraphicsShaderStage stage)
+{
+	constexpr auto TYPE = static_cast<std::size_t>(RHI::ShaderResourceType::TEXTURE);
+	// RHIシェーダー取得
+	auto pShader = GetResourceManager()->GetResource<GraphicsShader>(m_shaderID);
+	auto pRHIShader = pShader->GetRHIGraphicsShader();
+
+	// 全ステージ探索
+	if (stage == RHI::GraphicsShaderStage::MAX)
+	{
+		// 全ステージで同じ名前のデータを更新
+		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
+		{
+			auto stageIndex = static_cast<size_t>(stage);
+			auto resourceLayouts = pRHIShader->GetResourceLayout(stage);
+
+			auto itr = resourceLayouts.m_localResource[TYPE].find(name);
+			// 一致したらテクスチャを格納
+			if (resourceLayouts.m_localResource[TYPE].end() != itr)
+			{
+				m_textureData[stageIndex][itr->second.slot] = textureID;
+				break;
+			}
+		}
+	}
+	else
+	{
+		// 指定ステージで検索・更新
+		auto stageIndex = static_cast<size_t>(stage);
+		auto resourceLayouts = pRHIShader->GetResourceLayout(stage);
+
+		auto itr = resourceLayouts.m_localResource[TYPE].find(name);
+		// 一致したらテクスチャを格納
+		if (resourceLayouts.m_localResource[TYPE].end() != itr)
+		{
+			m_textureData[stageIndex][itr->second.slot] = textureID;
 		}
 	}
 }
 
 /// @brief テクスチャ取得
-TextureID Material::GetTexture(const char* name, RHI::GraphicsShaderStage stage)
+Texture::ID Material::GetTexture(const char* name, RHI::GraphicsShaderStage stage)
 {
-	// 検索
-	for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
+	constexpr auto TYPE = static_cast<std::size_t>(RHI::ShaderResourceType::TEXTURE);
+	// RHIシェーダー取得
+	auto pShader = GetResourceManager()->GetResource<GraphicsShader>(m_shaderID);
+	auto pRHIShader = pShader->GetRHIGraphicsShader();
+
+	// 全ステージ探索
+	if (stage == RHI::GraphicsShaderStage::MAX)
 	{
-		auto stageIndex = static_cast<size_t>(stage);
-		for (const auto& texData : m_textureData[stageIndex])
+		// 全ステージで同じ名前のデータを更新
+		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
 		{
-			if (texData.second.name == name)
+			auto stageIndex = static_cast<size_t>(stage);
+			auto resourceLayouts = pRHIShader->GetResourceLayout(stage);
+
+			auto itr = resourceLayouts.m_localResource[TYPE].find(name);
+			// 一致したらテクスチャを格納
+			if (resourceLayouts.m_localResource[TYPE].end() != itr)
 			{
-				return texData.second.id;
+				return m_textureData[stageIndex][itr->second.slot];
 			}
+		}
+	}
+	else
+	{
+		// 指定ステージで検索・更新
+		auto stageIndex = static_cast<size_t>(stage);
+		auto resourceLayouts = pRHIShader->GetResourceLayout(stage);
+
+		auto itr = resourceLayouts.m_localResource[TYPE].find(name);
+		// 一致したらテクスチャを格納
+		if (resourceLayouts.m_localResource[TYPE].end() != itr)
+		{
+			return m_textureData[stageIndex][itr->second.slot];
 		}
 	}
 }
 
-/// @brief サンプラ設定
-void Material::SetSampler(const char* name, const SamplerState sampler, RHI::GraphicsShaderStage stage)
+/// @brief テクスチャ設定
+void Material::SetSampler(const char* name, const RHI::SamplerState sampler, RHI::GraphicsShaderStage stage)
 {
-	// 検索
-	for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
+	constexpr auto TYPE = static_cast<std::size_t>(RHI::ShaderResourceType::SAMPLER);
+	// RHIシェーダー取得
+	auto pShader = GetResourceManager()->GetResource<GraphicsShader>(m_shaderID);
+	auto pRHIShader = pShader->GetRHIGraphicsShader();
+
+	// 全ステージ探索
+	if (stage == RHI::GraphicsShaderStage::MAX)
 	{
-		auto stageIndex = static_cast<size_t>(stage);
-		for (auto& samData : m_samplerData[stageIndex])
+		// 全ステージで同じ名前のデータを更新
+		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
 		{
-			if (samData.second.name == name)
+			auto stageIndex = static_cast<size_t>(stage);
+			auto resourceLayouts = pRHIShader->GetResourceLayout(stage);
+
+			auto itr = resourceLayouts.m_localResource[TYPE].find(name);
+			// 一致したらテクスチャを格納
+			if (resourceLayouts.m_localResource[TYPE].end() != itr)
 			{
-				samData.second.state = sampler;
-				return;
+				m_samplerData[stageIndex][itr->second.slot] = sampler;
+				break;
 			}
+		}
+	}
+	else
+	{
+		// 指定ステージで検索・更新
+		auto stageIndex = static_cast<size_t>(stage);
+		auto resourceLayouts = pRHIShader->GetResourceLayout(stage);
+
+		auto itr = resourceLayouts.m_localResource[TYPE].find(name);
+		// 一致したらテクスチャを格納
+		if (resourceLayouts.m_localResource[TYPE].end() != itr)
+		{
+			m_samplerData[stageIndex][itr->second.slot] = sampler;
 		}
 	}
 }
 
-/// @brief サンプラ取得
-SamplerState Material::GetSampler(const char* name, RHI::GraphicsShaderStage stage)
+/// @brief テクスチャ取得
+RHI::SamplerState Material::GetSampler(const char* name, RHI::GraphicsShaderStage stage)
 {
-	// 検索
-	for (GraphicsShaderStage stage = GraphicsShaderStage::VS; stage < GraphicsShaderStage::MAX; ++stage)
+	constexpr auto TYPE = static_cast<std::size_t>(RHI::ShaderResourceType::SAMPLER);
+	// RHIシェーダー取得
+	auto pShader = GetResourceManager()->GetResource<GraphicsShader>(m_shaderID);
+	auto pRHIShader = pShader->GetRHIGraphicsShader();
+
+	// 全ステージ探索
+	if (stage == RHI::GraphicsShaderStage::MAX)
 	{
-		auto stageIndex = static_cast<size_t>(stage);
-		for (auto& samData : m_samplerData[stageIndex])
+		// 全ステージで同じ名前のデータを更新
+		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
 		{
-			if (samData.second.name == name)
+			auto stageIndex = static_cast<size_t>(stage);
+			auto resourceLayouts = pRHIShader->GetResourceLayout(stage);
+
+			auto itr = resourceLayouts.m_localResource[TYPE].find(name);
+			// 一致したらテクスチャを格納
+			if (resourceLayouts.m_localResource[TYPE].end() != itr)
 			{
-				return samData.second.state;
+				return m_samplerData[stageIndex][itr->second.slot];
 			}
+		}
+	}
+	else
+	{
+		// 指定ステージで検索・更新
+		auto stageIndex = static_cast<size_t>(stage);
+		auto resourceLayouts = pRHIShader->GetResourceLayout(stage);
+
+		auto itr = resourceLayouts.m_localResource[TYPE].find(name);
+		// 一致したらテクスチャを格納
+		if (resourceLayouts.m_localResource[TYPE].end() != itr)
+		{
+			return m_samplerData[stageIndex][itr->second.slot];
 		}
 	}
 }

@@ -12,6 +12,8 @@
 #include <RHI\Core\RHI_CommonState.h>
 #include "MeshInfo.h"
 
+#include "GraphicsShader.h"
+#include "RenderBuffer.h"
 
 namespace Core
 {
@@ -44,6 +46,8 @@ namespace Core
 		SubMeshInfo					m_subMesh;			///< サブメッシュ情報
 		AABB						m_aabb;				///< AABB
 		RHI::PrimitiveTopology		m_topology;			///< プリミティブトポロジー
+
+		std::unordered_map<GraphicsShader::ID, std::shared_ptr<RenderBuffer>> m_renderBuffers;
 	};
 }
 

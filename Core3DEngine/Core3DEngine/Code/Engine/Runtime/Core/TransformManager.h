@@ -30,29 +30,29 @@ namespace Core
 		/// @brief デストラクタ
 		~TransformManager() noexcept = default;
 
-		Transform* CreateTransform(const EntityID& entityID, bool bActive, bool bStatic,
-			const TransformID& parentID = NONE_TRANSFORM_ID);
+		Transform* CreateTransform(const Entity::ID& entityID, bool bActive, bool bStatic,
+			const Transform::ID& parentID = Transform::NONE_ID);
 
-		void DestroyTransform(const TransformID& transformID);
+		void DestroyTransform(const Transform::ID& transformID);
 
-		Transform* FindTransform(const TransformID& transformID);
+		Transform* FindTransform(const Transform::ID& transformID);
 
-		void CreateRelation(const TransformID& transformID, const TransformID& parentID);
+		void CreateRelation(const Transform::ID& transformID, const Transform::ID& parentID);
 
-		void DestroyRelation(const TransformID& transformID, const TransformID& parentID);
+		void DestroyRelation(const Transform::ID& transformID, const Transform::ID& parentID);
 
 		void UpdateAllMatrix(bool isStaticUpdate);
 
 		void UpdateChildMatrix(Transform* pTransform, const Matrix& parentMatrix, const Vector3& parentScale, const bool isParentDirty = false);
 
 		/// @brief ルートトランスフォームを取得
-		std::vector<TransformID>& GetRootTransforms() { return m_rootTransforms; }
+		std::vector<Transform::ID>& GetRootTransforms() { return m_rootTransforms; }
 
 	private:
 
-		void RegisterRoot(const TransformID& transformID);
+		void RegisterRoot(const Transform::ID& transformID);
 
-		void RemoveRoot(const TransformID& transformID);
+		void RemoveRoot(const Transform::ID& transformID);
 
 		/// @brief 開始位置から親の関係を探索し、一致した値を返す
 		/// @param pBegin 開始位置
@@ -68,9 +68,9 @@ namespace Core
 		Scene* m_pScene;
 
 		/// @brief ルートトランスフォームリスト
-		std::vector<TransformID>				m_rootTransforms;
+		std::vector<Transform::ID>				m_rootTransforms;
 		/// @brief ルートトランスフォーム検索テーブル
-		std::unordered_map<TransformID, Index>	m_rootTransformTable;
+		std::unordered_map<Transform::ID, Index>	m_rootTransformTable;
 
 	};
 }

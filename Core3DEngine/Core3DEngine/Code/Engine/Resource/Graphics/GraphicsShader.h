@@ -31,6 +31,11 @@ namespace Core
 		/// @brief デストラクタ
 		~GraphicsShader() noexcept = default;
 
+		/// @brief シェーダーデータ作成
+		/// @param desc RHIシェーダーDesc
+		/// @return 成功 TRUE / 失敗 FALSE
+		bool CreateShaderData(RHI::GraphicsShaderDesc& desc);
+
 		/// @brief RHIグラフィックスシェーダーの取得
 		/// @return RHIグラフィックスシェーダーのスマートポインタ
 		std::shared_ptr<RHI::GraphicsShader> GetRHIGraphicsShader() const

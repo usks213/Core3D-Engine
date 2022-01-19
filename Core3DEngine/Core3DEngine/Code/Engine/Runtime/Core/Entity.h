@@ -30,7 +30,7 @@ namespace Core
 			Object(),
 			m_pEntityManager(nullptr),
 			// components
-			m_transformID(NONE_TRANSFORM_ID),
+			m_transformID(Transform::NONE_ID),
 			m_components(),
 			m_scripts(),
 			// param
@@ -42,7 +42,7 @@ namespace Core
 		{
 		}
 
-		explicit Entity(const EntityID& id,
+		explicit Entity(const Entity::ID& id,
 			EntityManager* pEntityManager,
 			std::string_view name,
 			bool bActive, bool bStatic) noexcept :
@@ -50,7 +50,7 @@ namespace Core
 			Object(static_cast<InstanceID>(id)),
 			m_pEntityManager(pEntityManager),
 			// components
-			m_transformID(NONE_TRANSFORM_ID),
+			m_transformID(Transform::NONE_ID),
 			m_components(),
 			m_scripts(),
 			// param
@@ -67,9 +67,9 @@ namespace Core
 
 		/// @brief 自身のエンティティIDの取得
 		/// @return エンティティID
-		[[nodiscard]] EntityID GetEntityID() noexcept
+		[[nodiscard]] Entity::ID GetEntityID() noexcept
 		{
-			return static_cast<EntityID>(GetInstanceID());
+			return static_cast<Entity::ID>(GetInstanceID());
 		}
 
 		/// @brief 名前の取得
@@ -242,11 +242,11 @@ namespace Core
 		//--- serialize param
 
 		/// @brief トランスフォームID
-		TransformID										m_transformID;
+		Transform::ID										m_transformID;
 		/// @brief 保持しているコンポーネント
-		std::unordered_map<TypeID, ComponentID>			m_components;
+		std::unordered_map<TypeID, Component::ID>			m_components;
 		/// @brief 保持しているスクリプトコンポーネント
-		std::unordered_map<ScriptTypeID, ComponentID>	m_scripts;
+		std::unordered_map<ScriptTypeID, Component::ID>	m_scripts;
 
 		std::string				m_name;			///< エンティティ名
 		bool					m_isActive;		///< アクティブフラグ

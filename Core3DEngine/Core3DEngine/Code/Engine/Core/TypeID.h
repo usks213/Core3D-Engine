@@ -42,20 +42,20 @@ namespace Core
 	/// @brief 未定義スクリプトタイプID
 	constexpr ScriptTypeID NONE_SCRIPT_ID = NONE_TYPE_ID(ScriptTypeID);
 
-	/// @brief エンティティID
-	enum class EntityID : BaseID {};
-	/// @brief 未定義エンティティID
-	constexpr EntityID NONE_ENTITY_ID = NONE_TYPE_ID(EntityID);
+	///// @brief エンティティID
+	//enum class Entity::ID : BaseID {};
+	///// @brief 未定義エンティティID
+	//constexpr Entity::ID Entity::NONE_ID = NONE_TYPE_ID(Entity::ID);
 
-	/// @brief コンポーネントID
-	enum class ComponentID : BaseID {};
-	/// @brief 未定義コンポーネントID
-	constexpr ComponentID NONE_COMPONENT_ID = NONE_TYPE_ID(ComponentID);
+	///// @brief コンポーネントID
+	//enum class Component::ID : BaseID {};
+	///// @brief 未定義コンポーネントID
+	//constexpr Component::ID NONE_COMPONENT_ID = NONE_TYPE_ID(Component::ID);
 
-	/// @brief トランスフォームID
-	enum class TransformID : BaseID {};
-	/// @brief 未定義トランスフォームID
-	constexpr TransformID NONE_TRANSFORM_ID = NONE_TYPE_ID(TransformID);
+	///// @brief トランスフォームID
+	//enum class Transform::ID : BaseID {};
+	///// @brief 未定義トランスフォームID
+	//constexpr Transform::ID Transform::NONE_ID = NONE_TYPE_ID(Transform::ID);
 
 	/// @brief システムID
 	enum class SystemID : BaseID {};
@@ -67,10 +67,10 @@ namespace Core
 	/// @brief 未定義パイプラインID
 	constexpr PipelineID NONE_PIPELINE_ID = NONE_TYPE_ID(PipelineID);
 
-	/// @brief リソースID
-	enum class ResourceID : BaseID {};
-	/// @brief 未定義リソースID
-	constexpr ResourceID NONE_RESOURCE_ID = NONE_TYPE_ID(ResourceID);
+	///// @brief リソースID
+	//enum class Resource::ID : BaseID {};
+	///// @brief 未定義リソースID
+	//constexpr Resource::ID NONE_RESOURCE_ID = NONE_TYPE_ID(Resource::ID);
 }
 
 #endif // !_TYPE_ID_

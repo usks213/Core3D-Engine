@@ -31,7 +31,7 @@ namespace Core
 			Component(),
 			m_pTransformManager(nullptr),
 			m_isDirty(true),
-			m_parent(NONE_TRANSFORM_ID),
+			m_parent(Transform::NONE_ID),
 			m_childs()
 		{
 		}
@@ -41,9 +41,9 @@ namespace Core
 
 		/// @brief 自身のトランスフォームIDを取得
 		/// @return トランスフォームID
-		TransformID GetTransformID() noexcept
+		Transform::ID GetTransformID() noexcept
 		{
-			return static_cast<TransformID>(GetInstanceID());
+			return static_cast<Transform::ID>(GetInstanceID());
 		}
 
 		/// @brief インスペクター表示
@@ -82,7 +82,7 @@ namespace Core
 
 		/// @brief 親のトランスフォーム指定
 		/// @param parentID 親のトランスフォームID
-		void SetParent(const TransformID& parentID);
+		void SetParent(const Transform::ID& parentID);
 
 		/// @brief 親のトランスフォーム取得
 		/// @return トランスフォームポインタ
@@ -93,7 +93,7 @@ namespace Core
 
 		/// @brief 子のトランスフォームを追加
 		/// @param childID 子のトランスフォームID
-		void AddChild(const TransformID& childID);
+		void AddChild(const Transform::ID& childID);
 
 		/// @brief 指定した子のトランスフォームを取得
 		/// @param index インデックス
@@ -102,11 +102,11 @@ namespace Core
 
 		/// @brief 子のトランスフォームを削除
 		/// @param childID 子のトランスフォームID
-		void RemoveChild(const TransformID& childID);
+		void RemoveChild(const Transform::ID& childID);
 
 		/// @brief 子のリストを取得
 		/// @return 子の配列
-		std::vector<TransformID>& GetChildList() noexcept
+		std::vector<Transform::ID>& GetChildList() noexcept
 		{
 			return m_childs;
 		}
@@ -132,8 +132,8 @@ namespace Core
 
 		//--- serialize param
 
-		TransformID					m_parent;		  ///< 親のトランスフォームID
-		std::vector<TransformID>	m_childs;		  ///< 子のトランスフォームIDリスト
+		Transform::ID					m_parent;		  ///< 親のトランスフォームID
+		std::vector<Transform::ID>	m_childs;		  ///< 子のトランスフォームIDリスト
 
 		Vector3						m_localPosition;  ///< 
 		Quaternion					m_localRotation;  ///<

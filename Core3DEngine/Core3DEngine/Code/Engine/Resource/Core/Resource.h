@@ -14,8 +14,6 @@
  /// @brief 型情報付加
 #define DECLARE_RESOURCE_INFO(T)	\
 DECLARE_OBJECT_INFO(T)				
-//enum class ID : BaseID {};			\
-//T::ID Get##T##ID() { return static_cast<T::ID>(GetResourceID()); }
 
 namespace Core
 {
@@ -24,6 +22,7 @@ namespace Core
 	/// @brief リソースクラス
 	class Resource : public Object
 	{
+		DECLARE_OBJECT_INFO(Resource);
 	public:
 		/// @brief コンストラクタ
 		/// @return 
@@ -46,9 +45,9 @@ namespace Core
 
 		/// @brief リソースID取得
 		/// @return リソースID
-		ResourceID GetResourceID() const noexcept
+		Resource::ID GetResourceID() const noexcept
 		{
-			return static_cast<ResourceID>(GetInstanceID());
+			return static_cast<Resource::ID>(GetInstanceID());
 		}
 
 		/// @brief リソース名取得
