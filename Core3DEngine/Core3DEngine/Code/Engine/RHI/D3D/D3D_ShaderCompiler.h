@@ -63,7 +63,7 @@ namespace Core::RHI::D3D
 		/// @param cbufferLayouts CBufferレイアウトリスト(out)
 		/// @return 成功 TRUE / 失敗 FALSE
 		static bool CreateCBufferLayouts(void* pReflection, ShaderResourceLayout& resourceLayout,
-			std::unordered_map<Slot, ShaderCBufferLayout>& cbufferLayouts);
+			std::vector<ShaderCBufferLayout>& cbufferLayouts);
 	};
 }
 

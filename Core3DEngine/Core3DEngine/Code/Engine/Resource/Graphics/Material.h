@@ -54,13 +54,13 @@ namespace Core
 
 
 		/// @brief 全ステージ、スロット分のCBufferデータ
-		std::array<std::unordered_map<RHI::Slot, std::shared_ptr<RHI::GPUBuffer>>,
+		std::array<std::unordered_map<std::string, std::shared_ptr<RHI::GPUBuffer>>,
 			static_cast<size_t>(RHI::GraphicsShaderStage::MAX)>	m_cbufferData;
 		/// @brief 全ステージ、スロット分のテクスチャ
-		std::array<std::unordered_map<RHI::Slot, Texture::ID>,
+		std::array<std::unordered_map<std::string, Texture::ID>,
 			static_cast<size_t>(RHI::GraphicsShaderStage::MAX)>	m_textureData;
 		/// @brief 全ステージ、スロット分のサンプラステート
-		std::array<std::unordered_map<RHI::Slot, RHI::SamplerState>,
+		std::array<std::unordered_map<std::string, RHI::SamplerState>,
 			static_cast<size_t>(RHI::GraphicsShaderStage::MAX)>	m_samplerData;
 
 	public:

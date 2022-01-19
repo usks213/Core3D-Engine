@@ -73,7 +73,7 @@ namespace Core::RHI
 		/// @brief シェーダーCBufferレイアウトのマップ情報取得
 		/// @param stage グラフィックスシェーダーステージ
 		/// @return シェーダーCBufferレイアウトのマップの参照
-		std::unordered_map<Slot, ShaderCBufferLayout>& GetCBufferLayoutMap(GraphicsShaderStage stage)
+		std::vector<ShaderCBufferLayout>& GetCBufferLayoutList(GraphicsShaderStage stage)
 		{
 			return m_cbufferLayout[static_cast<std::size_t>(stage)];
 		}
@@ -94,11 +94,11 @@ namespace Core::RHI
 
 
 		/// @brief インプットレイアウト
-		ShaderInputLayout								m_inputLayout;
+		ShaderInputLayout					m_inputLayout;
 		/// @brief リソーステーブル
-		ShaderResourceLayout							m_resourceLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
+		ShaderResourceLayout				m_resourceLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
 		/// @brief CBufferレイアウト
-		std::unordered_map<Slot, ShaderCBufferLayout>	m_cbufferLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
+		std::vector<ShaderCBufferLayout>	m_cbufferLayout[static_cast<std::size_t>(GraphicsShaderStage::MAX)];
 
 	};
 }

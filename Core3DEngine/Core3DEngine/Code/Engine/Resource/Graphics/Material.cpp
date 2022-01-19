@@ -52,14 +52,14 @@ bool Material::CreateMaterialData(const GraphicsShader& shader)
 		auto resourceLayout = pRHIShader->GetResourceLayout(stage);
 
 		//--- CBuffer初期化
-		for (const auto& cbLayout : pRHIShader->GetCBufferLayoutMap(stage))
+		for (const auto& cbLayout : pRHIShader->GetCBufferLayoutList(stage))
 		{
 			// GPUBuffer確保
-			desc.buffer.size = cbLayout.second.m_size;
+			desc.buffer.size = cbLayout.m_size;
 			auto pBuffer = pDevice->CreateGPUBuffer(desc);
 
 			// 変数データ格納
-			for (const auto& var : cbLayout.second.m_variables)
+			for (const auto& var : cbLayout.m_variables)
 			{
 				auto& defaltVar = var.second.defaultVal;
 				// 初期化子データがある場合は初期化する
@@ -75,19 +75,19 @@ bool Material::CreateMaterialData(const GraphicsShader& shader)
 			}
 
 			// GPUBufferデータ
-			m_cbufferData[stageIndex][cbLayout.first] = pBuffer;
+			m_cbufferData[stageIndex][cbLayout.m_name] = pBuffer;
 		}
 
 		//--- テクスチャ初期化
 		for (const auto& tex : resourceLayout.m_localResource[static_cast<size_t>(RHI::ShaderResourceType::TEXTURE)])
 		{
-			m_textureData[stageIndex][tex.second.slot] = Texture::NONE_ID;
+			m_textureData[stageIndex][tex.first] = Texture::NONE_ID;
 		}
 
 		//--- サンプラ
 		for (const auto& smp : resourceLayout.m_localResource[static_cast<size_t>(RHI::ShaderResourceType::SAMPLER)])
 		{
-			m_samplerData[stageIndex][smp.second.slot] = RHI::SamplerState::NONE;
+			m_samplerData[stageIndex][smp.first] = RHI::SamplerState::NONE;
 		}
 	}
 }
@@ -110,15 +110,15 @@ void Material::SetData(const char* name, const void* data, RHI::GraphicsShaderSt
 		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
 		{
 			auto stageIndex = static_cast<size_t>(stage);
-			auto cbufferLayouts = pRHIShader->GetCBufferLayoutMap(stage);
+			auto cbufferLayouts = pRHIShader->GetCBufferLayoutList(stage);
 
 			for (auto& layout : cbufferLayouts)
 			{
-				auto itr = layout.second.m_variables.find(name);
+				auto itr = layout.m_variables.find(name);
 				// 一致したらバッファを更新
-				if (layout.second.m_variables.end() != itr)
+				if (layout.m_variables.end() != itr)
 				{
-					auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
+					auto& pBuffer = m_cbufferData[stageIndex][layout.m_name];
 					std::memcpy(pBuffer->GetData() + itr->second.offset, data, itr->second.size);
 					break;
 				}
@@ -129,15 +129,15 @@ void Material::SetData(const char* name, const void* data, RHI::GraphicsShaderSt
 	{
 		// 指定ステージで検索・更新
 		auto stageIndex = static_cast<size_t>(stage);
-		auto cbufferLayouts = pRHIShader->GetCBufferLayoutMap(stage);
+		auto cbufferLayouts = pRHIShader->GetCBufferLayoutList(stage);
 
 		for (auto& layout : cbufferLayouts)
 		{
-			auto itr = layout.second.m_variables.find(name);
+			auto itr = layout.m_variables.find(name);
 			// 一致したらバッファを更新
-			if (layout.second.m_variables.end() != itr)
+			if (layout.m_variables.end() != itr)
 			{
-				auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
+				auto& pBuffer = m_cbufferData[stageIndex][layout.m_name];
 				std::memcpy(pBuffer->GetData() + itr->second.offset, data, itr->second.size);
 				break;
 			}
@@ -163,15 +163,15 @@ void* Material::GetData(const char* name, RHI::GraphicsShaderStage stage)
 		for (RHI::GraphicsShaderStage stage = RHI::GraphicsShaderStage::VS; stage < RHI::GraphicsShaderStage::MAX; ++stage)
 		{
 			auto stageIndex = static_cast<size_t>(stage);
-			auto cbufferLayouts = pRHIShader->GetCBufferLayoutMap(stage);
+			auto cbufferLayouts = pRHIShader->GetCBufferLayoutList(stage);
 
 			for (auto& layout : cbufferLayouts)
 			{
-				auto itr = layout.second.m_variables.find(name);
+				auto itr = layout.m_variables.find(name);
 				// 一致したバッファを返す
-				if (layout.second.m_variables.end() != itr)
+				if (layout.m_variables.end() != itr)
 				{
-					auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
+					auto& pBuffer = m_cbufferData[stageIndex][layout.m_name];
 					return pBuffer->GetData() + itr->second.offset;
 				}
 			}
@@ -181,15 +181,15 @@ void* Material::GetData(const char* name, RHI::GraphicsShaderStage stage)
 	{
 		// 指定ステージで検索・更新
 		auto stageIndex = static_cast<size_t>(stage);
-		auto cbufferLayouts = pRHIShader->GetCBufferLayoutMap(stage);
+		auto cbufferLayouts = pRHIShader->GetCBufferLayoutList(stage);
 
 		for (auto& layout : cbufferLayouts)
 		{
-			auto itr = layout.second.m_variables.find(name);
+			auto itr = layout.m_variables.find(name);
 			// 一致したバッファを返す
-			if (layout.second.m_variables.end() != itr)
+			if (layout.m_variables.end() != itr)
 			{
-				auto& pBuffer = m_cbufferData[stageIndex][itr->second.slot];
+				auto& pBuffer = m_cbufferData[stageIndex][layout.m_name];
 				return pBuffer->GetData() + itr->second.offset;
 			}
 		}
@@ -217,7 +217,7 @@ void Material::SetTexture(const char* name, const Texture::ID textureID, RHI::Gr
 			// 一致したらテクスチャを格納
 			if (resourceLayouts.m_localResource[TYPE].end() != itr)
 			{
-				m_textureData[stageIndex][itr->second.slot] = textureID;
+				m_textureData[stageIndex][itr->first] = textureID;
 				break;
 			}
 		}
@@ -232,7 +232,7 @@ void Material::SetTexture(const char* name, const Texture::ID textureID, RHI::Gr
 		// 一致したらテクスチャを格納
 		if (resourceLayouts.m_localResource[TYPE].end() != itr)
 		{
-			m_textureData[stageIndex][itr->second.slot] = textureID;
+			m_textureData[stageIndex][itr->first] = textureID;
 		}
 	}
 }
@@ -258,7 +258,7 @@ Texture::ID Material::GetTexture(const char* name, RHI::GraphicsShaderStage stag
 			// 一致したらテクスチャを格納
 			if (resourceLayouts.m_localResource[TYPE].end() != itr)
 			{
-				return m_textureData[stageIndex][itr->second.slot];
+				return m_textureData[stageIndex][itr->first];
 			}
 		}
 	}
@@ -272,7 +272,7 @@ Texture::ID Material::GetTexture(const char* name, RHI::GraphicsShaderStage stag
 		// 一致したらテクスチャを格納
 		if (resourceLayouts.m_localResource[TYPE].end() != itr)
 		{
-			return m_textureData[stageIndex][itr->second.slot];
+			return m_textureData[stageIndex][itr->first];
 		}
 	}
 }
@@ -298,7 +298,7 @@ void Material::SetSampler(const char* name, const RHI::SamplerState sampler, RHI
 			// 一致したらテクスチャを格納
 			if (resourceLayouts.m_localResource[TYPE].end() != itr)
 			{
-				m_samplerData[stageIndex][itr->second.slot] = sampler;
+				m_samplerData[stageIndex][itr->first] = sampler;
 				break;
 			}
 		}
@@ -313,7 +313,7 @@ void Material::SetSampler(const char* name, const RHI::SamplerState sampler, RHI
 		// 一致したらテクスチャを格納
 		if (resourceLayouts.m_localResource[TYPE].end() != itr)
 		{
-			m_samplerData[stageIndex][itr->second.slot] = sampler;
+			m_samplerData[stageIndex][itr->first] = sampler;
 		}
 	}
 }
@@ -339,7 +339,7 @@ RHI::SamplerState Material::GetSampler(const char* name, RHI::GraphicsShaderStag
 			// 一致したらテクスチャを格納
 			if (resourceLayouts.m_localResource[TYPE].end() != itr)
 			{
-				return m_samplerData[stageIndex][itr->second.slot];
+				return m_samplerData[stageIndex][itr->first];
 			}
 		}
 	}
@@ -353,7 +353,7 @@ RHI::SamplerState Material::GetSampler(const char* name, RHI::GraphicsShaderStag
 		// 一致したらテクスチャを格納
 		if (resourceLayouts.m_localResource[TYPE].end() != itr)
 		{
-			return m_samplerData[stageIndex][itr->second.slot];
+			return m_samplerData[stageIndex][itr->first];
 		}
 	}
 }

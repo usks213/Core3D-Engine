@@ -404,7 +404,7 @@ bool D3DShaderCompiler::CreateResourceLayout(void* pReflection, ShaderResourceLa
 /// @param cbufferLayouts CBufferレイアウトリスト(out)
 /// @return 成功 TRUE / 失敗 FALSE
 bool D3DShaderCompiler::CreateCBufferLayouts(void* pReflection, ShaderResourceLayout& resourceLayout,
-	std::unordered_map<Slot, ShaderCBufferLayout>& cbufferLayouts)
+	std::vector<ShaderCBufferLayout>& cbufferLayouts)
 {
 #ifdef __d3d12_h__
 	D3D12_SHADER_DESC shaderDesc = {};
@@ -474,6 +474,6 @@ bool D3DShaderCompiler::CreateCBufferLayouts(void* pReflection, ShaderResourceLa
 		}
 
 		// コンスタントバッファレイアウト格納
-		cbufferLayouts[cbLayout.m_slot] = std::move(cbLayout);
+		cbufferLayouts.push_back(std::move(cbLayout));
 	}
 }
