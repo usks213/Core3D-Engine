@@ -8,6 +8,7 @@
 #ifndef _RESOURCE_MANAGER_
 #define _RESOURCE_MANAGER_
 
+#include <Utils\Util_Singleton.h>
 #include "Resource.h"
 #include <unordered_map>
 #include <memory>
@@ -15,21 +16,9 @@
 
 namespace Core
 {
-	class Engine;
-
-	class ResourceManager final
+	class ResourceManager final : public Util::Singleton<ResourceManager>
 	{
 	public:
-		/// @brief コンストラクタ
-		/// @param pSceneManager シーンマネージャーポインタ
-		explicit ResourceManager(Engine* pEngine) noexcept :
-			m_pEngine(pEngine)
-		{
-		}
-
-		/// @brief デストラクタ
-		~ResourceManager() noexcept = default;
-
 		/// @brief リソースの生成
 		/// @tparam T リソース型
 		/// @return 生成したrリソース型ポインタ
@@ -89,14 +78,7 @@ namespace Core
 		/// @brief 削除リストの実行
 		void CleanupResource();
 
-		/// @brief エンジンの取得
-		/// @return エンジンのポインタ
-		Engine* GetEngine() const noexcept { return m_pEngine; }
-
 	private:
-
-		/// @brief エンジンポインタ
-		Engine* m_pEngine;
 
 		/// @brief リソースプール
 		std::unordered_map<TypeID, std::unordered_map<Resource::ID, std::unique_ptr<Resource>>>	m_resourcePool;

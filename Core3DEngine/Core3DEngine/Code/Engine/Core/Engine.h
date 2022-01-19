@@ -26,10 +26,10 @@ namespace Core
 {
 	/// @class Engine
 	/// @brief ƒGƒ“ƒWƒ“
-	class Engine final : public Util::UtilSingleton<Engine>
+	class Engine final : public Util::Singleton<Engine>
 	{
 	private:
-		friend Util::UtilSingleton<Engine>;
+		friend Util::Singleton<Engine>;
 
 	public:
 		//------------------------------------------------------------------------------

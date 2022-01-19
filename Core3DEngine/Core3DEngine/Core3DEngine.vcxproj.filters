@@ -150,6 +150,18 @@
     <Filter Include="ソース ファイル\Engine\Resource\Graphics">
       <UniqueIdentifier>{9b698c81-0ffe-43f5-8e31-106e8f502c64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Engine\Rendering">
+      <UniqueIdentifier>{e0e08457-582b-4a23-abee-a9b14bd75bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Rendering\Core">
+      <UniqueIdentifier>{969871bf-a672-472c-ba93-65c05823dedd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Rendering\Pass">
+      <UniqueIdentifier>{e4bb0f14-762a-48a2-8675-b90975258416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Rendering\Pipeline">
+      <UniqueIdentifier>{7c23b467-bf96-444c-a4c2-58f0034e0e99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Application\StartUp.cpp">
@@ -338,6 +350,12 @@
     <ClCompile Include="Code\Engine\Resource\Graphics\GraphicsShader.cpp">
       <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\Rendering\Core\RenderContext.cpp">
+      <Filter>ソース ファイル\Engine\Rendering\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Rendering\Core\RenderPipeline.cpp">
+      <Filter>ソース ファイル\Engine\Rendering\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h">
@@ -449,12 +467,6 @@
       <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Runtime\Core\EntityManager.h">
-      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Runtime\Core\Pipeline.h">
-      <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Runtime\Core\PipelineManager.h">
       <Filter>ソース ファイル\Engine\Runtime\Core</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\Runtime\Core\Scene.h">
@@ -642,6 +654,21 @@
     </ClInclude>
     <ClInclude Include="Code\Engine\Resource\Graphics\MeshInfo.h">
       <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderingData.h">
+      <Filter>ソース ファイル\Engine\Rendering\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderingManager.h">
+      <Filter>ソース ファイル\Engine\Rendering\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderPass.h">
+      <Filter>ソース ファイル\Engine\Rendering\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderPipeline.h">
+      <Filter>ソース ファイル\Engine\Rendering\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderContext.h">
+      <Filter>ソース ファイル\Engine\Rendering\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

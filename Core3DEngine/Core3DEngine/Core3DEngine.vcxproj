@@ -31,6 +31,8 @@
     <ClCompile Include="Code\Engine\Editor\Window\InspectorWindow.cpp" />
     <ClCompile Include="Code\Engine\Editor\Window\ProjectWindow.cpp" />
     <ClCompile Include="Code\Engine\Main\Win\Win_Main.cpp" />
+    <ClCompile Include="Code\Engine\Rendering\Core\RenderContext.cpp" />
+    <ClCompile Include="Code\Engine\Rendering\Core\RenderPipeline.cpp" />
     <ClCompile Include="Code\Engine\Resource\Core\ResourceManager.cpp" />
     <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_GPUBuffer.cpp" />
     <ClCompile Include="Code\Engine\Resource\D3D11\D3D11_DepthStencil.cpp" />
@@ -100,6 +102,11 @@
     <ClInclude Include="Code\Engine\Editor\Window\ProjectWindow.h" />
     <ClInclude Include="Code\Engine\Editor\Window\SceneWindow.h" />
     <ClInclude Include="Code\Engine\Main\Core\Main.h" />
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderContext.h" />
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderingData.h" />
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderingManager.h" />
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderPass.h" />
+    <ClInclude Include="Code\Engine\Rendering\Core\RenderPipeline.h" />
     <ClInclude Include="Code\Engine\Resource\Core\Resource.h" />
     <ClInclude Include="Code\Engine\Resource\Core\ResourceManager.h" />
     <ClInclude Include="Code\Engine\Resource\D3D11\D3D11_GPUBuffer.h" />
@@ -164,8 +171,6 @@
     <ClInclude Include="Code\Engine\Runtime\Core\ComponentManager.h" />
     <ClInclude Include="Code\Engine\Runtime\Core\Entity.h" />
     <ClInclude Include="Code\Engine\Runtime\Core\EntityManager.h" />
-    <ClInclude Include="Code\Engine\Runtime\Core\Pipeline.h" />
-    <ClInclude Include="Code\Engine\Runtime\Core\PipelineManager.h" />
     <ClInclude Include="Code\Engine\Runtime\Core\Scene.h" />
     <ClInclude Include="Code\Engine\Runtime\Core\SceneManager.h" />
     <ClInclude Include="Code\Engine\Runtime\Core\Script.h" />

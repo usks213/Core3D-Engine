@@ -308,7 +308,7 @@ void D3D11CommandList::SetSampler(ShaderStage stage, ShaderResourceLayout& resou
 	}
 	else
 	{
-		auto& resources = resourceLayout.m_globalResource[static_cast<std::size_t>(ShaderResourceType::SAMPLER)];
+		auto& resources = resourceLayout.m_localResource[static_cast<std::size_t>(ShaderResourceType::SAMPLER)];
 		auto itr = resources.find(name.data());
 		if (resources.end() != itr)
 		{

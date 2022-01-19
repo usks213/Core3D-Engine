@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   Util_UtilSingleton.h
+ * \file   Util_Singleton.h
  * \brief  テンプレートシングルトン
  * 
  * \author USAMI KOSHI
@@ -10,10 +10,10 @@
 
 namespace Util
 {
-    ///@class UtilSingleton
+    ///@class Singleton
     ///@brief テンプレートシングルトン
     template <class T>
-    class UtilSingleton
+    class Singleton
     {
     public:
         //------------------------------------------------------------------------------
@@ -33,20 +33,20 @@ namespace Util
         //------------------------------------------------------------------------------
 
         /// @brief デフォルトコンストラクタ
-        UtilSingleton() = default;
+        Singleton() = default;
 
         /// @brief デフォルトデストラクタ
-        virtual ~UtilSingleton() = default;
+        virtual ~Singleton() = default;
 
     private:
         //------------------------------------------------------------------------------
         // private methods
         //------------------------------------------------------------------------------
 
-        UtilSingleton(const UtilSingleton&) = delete;
-        UtilSingleton(const UtilSingleton&&) = delete;
-        UtilSingleton& operator=(const UtilSingleton&) = delete;
-        UtilSingleton& operator=(const UtilSingleton&&) = delete;
+        Singleton(const Singleton&) = delete;
+        Singleton(const Singleton&&) = delete;
+        Singleton& operator=(const Singleton&) = delete;
+        Singleton& operator=(const Singleton&&) = delete;
     };
 }
 
