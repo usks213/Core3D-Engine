@@ -35,6 +35,11 @@ namespace Core
 		/// @brief デストラクタ
 		~Mesh() noexcept = default;
 
+		/// @brief シェーダーに対応するレンダーバッファの取得
+		/// @param shaderID グラフィックスシェーダーID
+		/// @return レンダーバッファ参照
+		std::shared_ptr<RenderBuffer> GetRenderBuffer(const GraphicsShader::ID& shaderID);
+
 	public:
 		//------------------------------------------------------------------------------
 		// public variables

@@ -51,6 +51,7 @@
     <ClCompile Include="Code\Engine\Resource\Geometry.cpp" />
     <ClCompile Include="Code\Engine\Resource\Graphics\GraphicsShader.cpp" />
     <ClCompile Include="Code\Engine\Resource\Graphics\Material.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Graphics\Mesh.cpp" />
     <ClCompile Include="Code\Engine\RHI\Core\RHI_ShaderCBufferLayout.cpp" />
     <ClCompile Include="Code\Engine\RHI\Core\RHI_ShaderUtil.cpp" />
     <ClCompile Include="Code\Engine\RHI\D3D11\D3D11_CommandList.cpp" />

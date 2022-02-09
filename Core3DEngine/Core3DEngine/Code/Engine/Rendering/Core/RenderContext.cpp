@@ -64,11 +64,22 @@ void RenderContext::SetMaterial(const Material& material) const
 			m_pCmdList->SetSampler(stage, pRHIShader->GetResourceLayout(gsStage),
 				sampler.first, sampler.second, false);
 		}
-
 	}
 }
 
-void RenderContext::SetMesh(const Mesh& mesh) const
+void RenderContext::SetMesh(Mesh& mesh, const GraphicsShader& shader) const
 {
+	// レンダーバッファの取得
+	const auto pRenderBuffer = mesh.GetRenderBuffer(shader.GetGraphicsShaderID());
+
+	// 頂点バッファをセット
+	m_pCmdList->SetVertexBuffer(pRenderBuffer->m_pRHIVertexBuffer, 0);
+	// インデックスバッファをセット
+	if (pRenderBuffer->m_indexData.count > 0) {
+		m_pCmdList->SetIndexBuffer(pRenderBuffer->m_pRHIIndexBuffer, 0);
+	}
+
+	// プリミティブ指定
+	m_pCmdList->SetPrimitiveTopology(mesh.m_topology);
 
 }

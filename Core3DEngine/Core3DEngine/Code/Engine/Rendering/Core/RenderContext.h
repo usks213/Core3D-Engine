@@ -16,6 +16,7 @@ namespace Core
 		class CommandList;
 	}
 
+	class GraphicsShader;
 	class Material;
 	class Mesh;
 
@@ -45,9 +46,17 @@ namespace Core
 
 		void SetMaterial(const Material& material) const;
 
-		void SetMesh(const Mesh& mesh) const;
+		void SetMesh(Mesh& mesh, const GraphicsShader& shader) const;
 
 		void Draw();
+
+		/// @brief RHIデバイスの取得
+		/// @return RHIデバイスポインタ
+		const RHI::Device* GetRHIDevice() { return m_pDevice; }
+
+		/// @brief RHIコマンドリストの取得
+		/// @return RHIコマンドリストポインタ
+		const RHI::CommandList* GetRHICommandList() { return m_pCmdList; }
 
 	private:
 		RHI::Device*		m_pDevice;	///< RHIデバイス

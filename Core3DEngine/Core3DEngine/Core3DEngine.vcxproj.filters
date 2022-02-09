@@ -356,6 +356,9 @@
     <ClCompile Include="Code\Engine\Rendering\Core\RenderPipeline.cpp">
       <Filter>ソース ファイル\Engine\Rendering\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Graphics\Mesh.cpp">
+      <Filter>ソース ファイル\Engine\Resource\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Application\Scene\TestScene.h">
