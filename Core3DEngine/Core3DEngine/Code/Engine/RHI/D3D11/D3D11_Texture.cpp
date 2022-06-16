@@ -38,14 +38,14 @@ namespace
 /// @return 成功 TURE / 失敗 FALSE
 bool D3D11Texture::CreateFormFile(ID3D11Device1* pDevice, const std::string& filepath)
 {
-
+    return false;
 }
 
 /// @brief Descからテクスチャを作成
 /// @param desc テクスチャ情報
 /// @param pData 初期化データ
 /// @return 成功 TURE / 失敗 FALSE
-bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, ResourceDesc& desc, const ResourceData* pData = nullptr)
+bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, ResourceDesc& desc, const ResourceData* pData)
 {
     // Descコピー
     m_desc = desc;
@@ -79,11 +79,11 @@ bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, ResourceDesc& desc, co
     if (pData == nullptr) {
         if (desc.texture.width <= 0 && desc.texture.height <= 0) {
             // 生成不可
-            return;
+            return false;
         }
         if (desc.usage == Usage::STATIC) {
             // エラー 初期値なし、書き換え不可
-            return;
+            return false;
         }
 
         CHECK_FAILED(pDevice->CreateTexture2D(&d3d11Desc, nullptr, m_tex.GetAddressOf()));
@@ -121,4 +121,6 @@ bool D3D11Texture::CreateFromDesc(ID3D11Device1* pDevice, ResourceDesc& desc, co
 
         CHECK_FAILED(pDevice->CreateUnorderedAccessView(m_tex.Get(), &uavDesc, m_uav.GetAddressOf()));
     }
+
+    return true;
 }

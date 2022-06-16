@@ -52,7 +52,6 @@ namespace Core::RHI
 		case GraphicsShaderStage::DS: return GraphicsShaderStageFlags::DS;
 		case GraphicsShaderStage::HS: return GraphicsShaderStageFlags::HS;
 		case GraphicsShaderStage::PS: return GraphicsShaderStageFlags::PS;
-		case GraphicsShaderStage::CS: return GraphicsShaderStageFlags::CS;
 		default:			   return GraphicsShaderStageFlags::NONE;
 		}
 	}

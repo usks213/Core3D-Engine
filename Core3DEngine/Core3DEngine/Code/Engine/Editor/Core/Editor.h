@@ -13,7 +13,10 @@
 namespace Core
 {
 	class Engine;
-	class CommandList;
+	namespace RHI
+	{
+		class CommandList;
+	}
 
 	/// @brief コアエディタークラス
 	class Editor
@@ -45,7 +48,7 @@ namespace Core
 
 		/// @brief 描画
 		/// @param cmdList コマンドリスト
-		virtual void Render(CommandList* cmdList) = 0;
+		virtual void Render(RHI::CommandList* cmdList) = 0;
 
 		//--- ゲッター ---
 

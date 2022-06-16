@@ -16,7 +16,6 @@
 namespace Core
 {
 	class RenderingManager;
-	class RenderPass;
 	class RenderContext;
 	class RenderingData;
 

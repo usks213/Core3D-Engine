@@ -15,7 +15,7 @@ using namespace Core;
 
 
 Transform* TransformManager::CreateTransform(
-	const Entity::ID& entityID, bool bActive, bool bStatic, const Transform::ID& parentID)
+	const EntityID& entityID, bool bActive, bool bStatic, const Transform::ID& parentID)
 {
 	auto pComponentManager = m_pScene->GetComponentManager();
 	// 新規生成
@@ -56,7 +56,7 @@ Transform* TransformManager::FindTransform(const Transform::ID& transformID)
 {
 	// コンポーネントマネージャーから検索
 	auto pComponentManager = m_pScene->GetComponentManager();
-	return pComponentManager->FindComponent<Transform>(static_cast<Component::ID>(transformID));
+	return pComponentManager->FindComponent<Transform>(transformID);
 }
 
 void TransformManager::CreateRelation(const Transform::ID& transformID, const Transform::ID& parentID)

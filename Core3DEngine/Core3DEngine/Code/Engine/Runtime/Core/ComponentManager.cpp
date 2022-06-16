@@ -127,7 +127,7 @@ void ComponentManager::CleanupComponent()
 Component::ID ComponentManager::CreateComponentID(const TypeID& typeID)
 {
 	// IDçÏê¨
-	Component::ID componentID = NONE_COMPONENT_ID;
+	Component::ID componentID = Component::NONE_ID;
 	do
 	{
 		componentID = static_cast<Component::ID>(static_cast<BaseID>(rand()) % NONE_BASE_ID);

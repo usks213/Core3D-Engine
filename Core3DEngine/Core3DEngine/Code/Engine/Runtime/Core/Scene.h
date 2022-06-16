@@ -37,16 +37,16 @@ namespace Core
 		virtual ~Scene() noexcept = default;
 
 		/// @brief スタート
-		virtual void Start() = 0;
+		virtual void Start() {}
 
 		/// @brief システムの更新
-		virtual void Update() = 0;
+		virtual void Update() {}
 
 		/// @brief パイプラインの描画
-		virtual void Render() = 0;
+		virtual void Render() {}
 
 		/// @brief エンド
-		virtual void End() = 0;
+		virtual void End() {}
 
 
 		/// @brief シーンマネージャーの取得

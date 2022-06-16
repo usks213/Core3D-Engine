@@ -25,10 +25,10 @@ Entity* EntityManager::CreateEntity(std::string_view name, bool bActive,
 	bool bStatic, const Transform::ID& parentID)
 {
 	// ID作成
-	Entity::ID entityID = Entity::NONE_ID;
+	EntityID entityID = NONE_ENTITY_ID;
 	do
 	{
-		entityID = static_cast<Entity::ID>(static_cast<BaseID>(rand()) % NONE_BASE_ID);
+		entityID = static_cast<EntityID>(static_cast<BaseID>(rand()) % NONE_BASE_ID);
 		auto itr = m_entityPool.find(entityID);
 		if (m_entityPool.end() == itr)
 		{
@@ -56,7 +56,7 @@ Entity* EntityManager::CreateEntity(std::string_view name, bool bActive,
 
 /// @brief エンティティの削除
 /// @param entityID インスタンスID
-void EntityManager::DestroyEntity(const Entity::ID& entityID)
+void EntityManager::DestroyEntity(const EntityID& entityID)
 {
 
 }
@@ -64,7 +64,7 @@ void EntityManager::DestroyEntity(const Entity::ID& entityID)
 /// @brief エンティティの検索
 /// @param entityID エンティティID
 /// @return あった エンティティポインタ / なし nullptr
-Entity* EntityManager::FindEntity(const Entity::ID& entityID)
+Entity* EntityManager::FindEntity(const EntityID& entityID)
 {
 	// 検索
 	auto itr = m_entityPool.find(entityID);

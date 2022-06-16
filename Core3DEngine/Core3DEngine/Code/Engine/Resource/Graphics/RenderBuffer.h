@@ -74,7 +74,7 @@ namespace Core
 			template<class T>
 			void SetVertexData(std::string_view semanticName, const std::uint32_t& semanticIndex,
 				const T& data, const std::uint32_t& index) {
-				for (auto& var : inputLayoutVariableList) {
+				for (auto& var : layout.GetVariableList()) {
 					if (var.semanticName == semanticName && var.semanticIndex == semanticIndex) {
 						std::memcpy(buffer.get() + size * index + var.offset, &data,
 							var.arrayNum * var.formatWidth);

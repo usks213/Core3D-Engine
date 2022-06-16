@@ -19,7 +19,7 @@ using namespace Core;
 
 void RenderContext::SetMaterial(const Material& material) const
 {
-	auto& resourceMgr = ResourceManager::get();
+	auto& resourceMgr = ResourceManager::GetInstance();
 	// シェーダーの取得
 	auto pShader = resourceMgr.GetResource<GraphicsShader>(material.m_shaderID);
 	auto pRHIShader = pShader->GetRHIGraphicsShader();

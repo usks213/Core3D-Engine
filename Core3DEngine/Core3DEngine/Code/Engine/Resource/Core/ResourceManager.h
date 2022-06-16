@@ -61,7 +61,7 @@ namespace Core
 			static_assert(isResourceBase, "Not ResourceBase");
 			static_assert(isID, "Not ID");
 			static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());
-			return static_cast<T*>(GetResource(typeID, static_cast<Resource::ID>(resourceID)));
+			return static_cast<T*>(GetResource(typeID, static_cast<ResourceID>(resourceID)));
 		}
 
 		/// @brief リソースを削除リストに登録

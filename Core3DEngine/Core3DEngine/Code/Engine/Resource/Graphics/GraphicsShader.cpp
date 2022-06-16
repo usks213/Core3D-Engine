@@ -18,7 +18,7 @@ using namespace Core;
 /// @return ¬Œ÷ TRUE / Ž¸”s FALSE
 bool GraphicsShader::CreateShaderData(RHI::GraphicsShaderDesc& desc)
 {
-	auto pRenderer = GetResourceManager()->GetEngine()->GetRenderer();
+	auto pRenderer = Engine::GetInstance().GetRenderer();
 	m_pRHIGraphicsShader = pRenderer->GetDevice()->CreateGraphicsShader(desc);
 	if (!m_pRHIGraphicsShader) return false;
 

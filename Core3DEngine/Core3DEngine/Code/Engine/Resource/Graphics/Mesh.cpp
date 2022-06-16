@@ -23,7 +23,7 @@ std::shared_ptr<RenderBuffer> Mesh::GetRenderBuffer(const GraphicsShader::ID& sh
 	}
 
 	// シェーダー取得
-	auto pShader = ResourceManager::get().GetResource<GraphicsShader>(shaderID);
+	auto pShader = ResourceManager::GetInstance().GetResource<GraphicsShader>(shaderID);
 	if (pShader == nullptr) return nullptr;
 	auto pRHIShader = pShader->GetRHIGraphicsShader();
 	if (!pRHIShader) return nullptr;

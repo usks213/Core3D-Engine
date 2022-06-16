@@ -22,7 +22,7 @@ namespace Util
 
         ///@brief インスタンス取得
         ///@return インスタンス
-        static T& get() {
+        static T& GetInstance() {
             static T instance;
             return instance;
         }

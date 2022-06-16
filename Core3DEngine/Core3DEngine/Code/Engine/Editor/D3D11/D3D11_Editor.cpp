@@ -15,6 +15,7 @@
 #include <ImGui/imgui_impl_dx11.h>
 
 using namespace Core::D3D11;
+using namespace Core::RHI::D3D11;
 
 /// @brief 初期化処理
 /// @param hWnd ウィンドウハンドル
@@ -89,7 +90,7 @@ void D3D11Editor::NewFrame()
 
 /// @brief 描画
 /// @param cmdList コマンドリスト
-void D3D11Editor::Render(Core::CommandList* cmdList)
+void D3D11Editor::Render(RHI::CommandList* cmdList)
 {
 	// バックバッファに変更
 	static_cast<D3D11CommandList*>(cmdList)->GetD3D11Renderer()->SetD3D11BackBuffer();

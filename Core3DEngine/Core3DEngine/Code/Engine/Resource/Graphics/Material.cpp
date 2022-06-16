@@ -33,8 +33,8 @@ Material::Material() :
 /// @return 成功 TRUE / 失敗 FALSE
 bool Material::CreateMaterialData(const GraphicsShader& shader)
 {
-	auto* pEngine = GetResourceManager()->GetEngine();
-	auto* pDevice = pEngine->GetRenderer()->GetDevice();
+	const auto& pEngine = Engine::GetInstance();
+	auto* pDevice = pEngine.GetRenderer()->GetDevice();
 	auto pRHIShader = shader.GetRHIGraphicsShader();
 
 	// バッファDesc
@@ -90,6 +90,8 @@ bool Material::CreateMaterialData(const GraphicsShader& shader)
 			m_samplerData[stageIndex][smp.first] = RHI::SamplerState::NONE;
 		}
 	}
+
+	return true;
 }
 
 //------------------------------------------------------------------------------

@@ -41,7 +41,7 @@ namespace Core::D3D11
 
 		/// @brief 描画
 		/// @param cmdList コマンドリスト
-		void Render(Core::CommandList* cmdList) override;
+		void Render(RHI::CommandList* cmdList) override;
 
 	private:
 

@@ -9,7 +9,7 @@
 
 #include <Core\Engine.h>
 #include <Editor\Core\Editor.h>
-#include <RHI\Core\Device.h>
+#include <RHI\Core\RHI_Device.h>
 
 using namespace Core;
 
@@ -35,8 +35,8 @@ void GameWindow::OnGUI()
 	auto* pDevice = pEditor->GetEngine()->GetRenderer()->GetDevice();
 
 	// ƒQ[ƒ€‚Ì•`‰æŒ‹‰Ê‚ð•\Ž¦
-	auto resultID = pScene->GetSceneResult();
-	auto pResultRT = pDevice->GetRenderTarget(resultID);
-	auto pResultTex = pDevice->GetTexture(pResultRT->m_texID);
-	ImGui::Image((ImTextureID)pResultTex->GetSRV(), ImVec2(16 * 45, 9 * 45));
+	//auto resultID = pScene->GetSceneResult();
+	//auto pResultRT = pDevice->GetRenderTarget(resultID);
+	//auto pResultTex = pDevice->GetTexture(pResultRT->m_texID);
+	//ImGui::Image((ImTextureID)pResultTex->GetSRV(), ImVec2(16 * 45, 9 * 45));
 }

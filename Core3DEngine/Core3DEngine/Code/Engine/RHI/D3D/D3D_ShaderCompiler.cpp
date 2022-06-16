@@ -101,14 +101,13 @@ bool D3DShaderCompiler::CompileFromFile(std::string_view filepath, ShaderStage s
 /// @return 成功 TRUE / 失敗 FALSE
 bool D3DShaderCompiler::GetReflection(ID3DBlob* pBlob, void* pRefletor)
 {
-	// シェーダリフレクション取得
-	CHECK_FAILED(D3DReflect(pBlob->GetBufferPointer(), pBlob->GetBufferSize(),
 #ifdef __d3d12_h__
-		IID_ID3D12ShaderReflection,
+	const GUID gudi = IID_ID3D12ShaderReflection;
 #else __d3d11_h__
-		IID_ID3D11ShaderReflection,
+	const GUID gudi = IID_ID3D11ShaderReflection;
 #endif // __d3d12.h_
-		&pRefletor));
+	// シェーダリフレクション取得
+	CHECK_FAILED(D3DReflect(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), gudi, &pRefletor));
 
 	// 成功
 	if (pRefletor)
@@ -396,6 +395,8 @@ bool D3DShaderCompiler::CreateResourceLayout(void* pReflection, ShaderResourceLa
 			resourceLayout.m_globalResource[type][bindDesc.Name] = data;
 		}
 	}
+
+	return true;
 }
 
 /// @brief CBufferレイアウト作成
@@ -476,4 +477,6 @@ bool D3DShaderCompiler::CreateCBufferLayouts(void* pReflection, ShaderResourceLa
 		// コンスタントバッファレイアウト格納
 		cbufferLayouts.push_back(std::move(cbLayout));
 	}
+
+	return true;
 }
