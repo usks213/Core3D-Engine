@@ -12,7 +12,7 @@ using namespace Core;
  /// @brief リソースを削除リストに登録
  /// @param typeID リソースタイプID
  /// @param resourceID リソースID
-void ResourceManager::DestroyResource(const TypeID& typeID, const Resource::ID& resourceID)
+void ResourceManager::DestroyResource(const TypeID& typeID, const ResourceID& resourceID)
 {
 	// 検索
 	Resource* pResource = GetResource(typeID, resourceID);
@@ -27,7 +27,7 @@ void ResourceManager::DestroyResource(const TypeID& typeID, const Resource::ID& 
 /// @param typeID リソースタイプID
 /// @param resourceID リソースID
 /// @return リソースポインタ or nullptr
-Resource* ResourceManager::GetResource(const TypeID& typeID, const Resource::ID& resourceID)
+Resource* ResourceManager::GetResource(const TypeID& typeID, const ResourceID& resourceID)
 {
 	// 検索
 	auto itr = m_resourcePool[typeID].find(resourceID);

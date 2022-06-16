@@ -23,13 +23,13 @@ DECLARE_TYPE_INFO( T );													\
 }																		\
 [[nodiscard]] std::string_view GetTypeName() const noexcept override {	\
 	return GetTypeString();												\
-}																		\
-enum class ID : BaseID {};												\
-[[nodiscard]] T::ID Get##T##ID() const noexcept {						\
-	return static_cast<T::ID>(GetInstanceID());							\
-}																		\
-static constexpr T::ID NONE_ID = NONE_TYPE_ID(T::ID);					\
-void _dumyFunction2() = delete
+}																		
+//enum class ID : BaseID {};												\
+//[[nodiscard]] T::ID Get##T##ID() const noexcept {						\
+//	return static_cast<T::ID>(GetInstanceID());							\
+//}																		\
+//static constexpr T::ID NONE_ID = NONE_TYPE_ID(T::ID);					\
+//void _dumyFunction2() = delete
 
 
 	/// @brief オブジェクト

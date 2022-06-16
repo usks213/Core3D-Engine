@@ -38,7 +38,7 @@ namespace Core
 		friend class Entity;
 	public:
 		/// @brief オブジェクト情報
-		DECLARE_OBJECT_INFO(Script);
+		DECLARE_COMPONENT_INFO(Script);
 	public:
 
 		/// @brief コンストラクタ

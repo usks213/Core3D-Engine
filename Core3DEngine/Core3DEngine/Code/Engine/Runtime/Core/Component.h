@@ -13,6 +13,12 @@
  /// @brief 型情報付加
 #define DECLARE_COMPONENT_INFO(T)	\
 DECLARE_OBJECT_INFO(T);				\
+enum class ID : BaseID {};											\
+[[nodiscard]] T::ID Get##T##ID() const noexcept {						\
+	return static_cast<T::ID>(GetInstanceID());							\
+}																		\
+static constexpr T::ID NONE_ID = NONE_TYPE_ID(T::ID);					\
+void _dumyFunction2() = delete
 
 
 namespace Core
@@ -26,14 +32,14 @@ namespace Core
 	{
 		friend class Entity;
 		friend class ComponentManager;
-		DECLARE_OBJECT_INFO(Component);
+		DECLARE_COMPONENT_INFO(Component);
 	public:
 
 		/// @brief コンストラクタ
 		explicit Component() noexcept :
 			Object(),
 			m_pComponentManager(nullptr),
-			m_entityID(Entity::NONE_ID),
+			m_entityID(NONE_ENTITY_ID),
 			m_isEnable(true)
 		{
 		}
@@ -99,7 +105,7 @@ namespace Core
 		//--- serialize param
 
 		/// @brief 親のエンティティID
-		Entity::ID	m_entityID;
+		EntityID	m_entityID;
 		/// @brief アクティブフラグ
 		bool		m_isEnable;
 

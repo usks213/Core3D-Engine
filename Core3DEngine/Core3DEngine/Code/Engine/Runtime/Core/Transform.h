@@ -23,7 +23,7 @@ namespace Core
 		friend class TransformManager;
 	public:
 		/// @brief オブジェクト情報
-		DECLARE_OBJECT_INFO(Transform);
+		DECLARE_COMPONENT_INFO(Transform);
 	public:
 
 		/// @brief コンストラクタ

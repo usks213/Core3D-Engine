@@ -37,7 +37,7 @@ namespace Core
 		/// @param isEnable 有効フラグ
 		/// @return 生成したコンポーネント型ポインタ
 		template<class T, bool isComBase = std::is_base_of_v<Component, T>>
-		T* CreateComponent(const Entity::ID& entityID, bool isEnable)
+		T* CreateComponent(const EntityID& entityID, bool isEnable)
 		{
 			static_assert(isComBase, "Not ComponentBase");
 			static constexpr TypeID typeID = static_cast<TypeID>(T::GetTypeHash());

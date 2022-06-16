@@ -10,7 +10,6 @@
 #include "SceneManager.h"
 
 #include <Core\Engine.h>
-#include <RHI\Core\Device.h>
 
 using namespace Core;
 
@@ -28,14 +27,6 @@ Scene::Scene(SceneManager* pSceneManager) noexcept :
 	float width = static_cast<float>(pSceneManager->GetEngine()->GetWindowWidth());
 	float height = static_cast<float>(pSceneManager->GetEngine()->GetWindowHeight());
 
-	// シーンリザルトの作成
-	Core::TextureDesc rtDesc = {};
-	rtDesc.name = "SceneResult";
-	rtDesc.width = width;
-	rtDesc.height = height;
-	rtDesc.bindFlags = 0 | Core::BindFlags::RENDER_TARGET | Core::BindFlags::SHADER_RESOURCE;
-	rtDesc.format = Core::TextureFormat::R8G8B8A8_UNORM;
-	m_sceneResultID = pSceneManager->GetEngine()->GetRenderer()->GetDevice()->CreateRenderTarget(rtDesc);
 }
 
 /// @brief エンティティマネージャーの取得

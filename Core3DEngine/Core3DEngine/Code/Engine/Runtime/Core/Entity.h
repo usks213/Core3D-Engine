@@ -9,12 +9,12 @@
 #define _ENTITY_
 
 #include "ComponentManager.h"
+#include "Transform.h"
 #include "Script.h"
 
 namespace Core
 {
 	class EntityManager;
-	class Transform;
 
 	/// @brief エンティティ
 	class Entity final : public Object
@@ -42,7 +42,7 @@ namespace Core
 		{
 		}
 
-		explicit Entity(const Entity::ID& id,
+		explicit Entity(const EntityID& id,
 			EntityManager* pEntityManager,
 			std::string_view name,
 			bool bActive, bool bStatic) noexcept :
@@ -67,9 +67,9 @@ namespace Core
 
 		/// @brief 自身のエンティティIDの取得
 		/// @return エンティティID
-		[[nodiscard]] Entity::ID GetEntityID() noexcept
+		[[nodiscard]] EntityID GetEntityID() noexcept
 		{
-			return static_cast<Entity::ID>(GetInstanceID());
+			return static_cast<EntityID>(GetInstanceID());
 		}
 
 		/// @brief 名前の取得

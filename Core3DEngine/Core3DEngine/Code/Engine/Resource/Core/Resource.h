@@ -13,7 +13,13 @@
 
  /// @brief 型情報付加
 #define DECLARE_RESOURCE_INFO(T)	\
-DECLARE_OBJECT_INFO(T)				
+DECLARE_OBJECT_INFO(T);				\
+enum class ID : BaseID {};											\
+[[nodiscard]] T::ID Get##T##ID() const noexcept {						\
+	return static_cast<T::ID>(GetInstanceID());							\
+}																		\
+static constexpr T::ID NONE_ID = NONE_TYPE_ID(T::ID);					\
+void _dumyFunction2() = delete			
 
 namespace Core
 {
@@ -45,9 +51,9 @@ namespace Core
 
 		/// @brief リソースID取得
 		/// @return リソースID
-		Resource::ID GetResourceID() const noexcept
+		ResourceID GetResourceID() const noexcept
 		{
-			return static_cast<Resource::ID>(GetInstanceID());
+			return static_cast<ResourceID>(GetInstanceID());
 		}
 
 		/// @brief リソース名取得

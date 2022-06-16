@@ -67,13 +67,13 @@ namespace Core
 		/// @brief リソースを削除リストに登録
 		/// @param typeID リソースタイプID
 		/// @param resourceID リソースID
-		void DestroyResource(const TypeID& typeID, const Resource::ID& resourceID);
+		void DestroyResource(const TypeID& typeID, const ResourceID& resourceID);
 
 		/// @brief リソースの検索
 		/// @param typeID リソースタイプID
 		/// @param resourceID リソースID
 		/// @return リソースポインタ or nullptr
-		Resource* GetResource(const TypeID& typeID, const Resource::ID& resourceID);
+		Resource* GetResource(const TypeID& typeID, const ResourceID& resourceID);
 
 		/// @brief 削除リストの実行
 		void CleanupResource();
@@ -81,10 +81,10 @@ namespace Core
 	private:
 
 		/// @brief リソースプール
-		std::unordered_map<TypeID, std::unordered_map<Resource::ID, std::unique_ptr<Resource>>>	m_resourcePool;
+		std::unordered_map<TypeID, std::unordered_map<ResourceID, std::unique_ptr<Resource>>>	m_resourcePool;
 
 		/// @brief 削除リスト
-		std::unordered_map<TypeID, std::vector<Resource::ID>>					m_destroyList;
+		std::unordered_map<TypeID, std::vector<ResourceID>>					m_destroyList;
 	};
 }
 

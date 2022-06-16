@@ -15,8 +15,6 @@
 #include "TransformManager.h"
 #include "SystemManager.h"
 
-#include <Resource\Core\RenderTarget.h>
-
 namespace Core
 {
 	// 前定義
@@ -71,16 +69,10 @@ namespace Core
 		/// @return システムマネージャーのポインタ
 		SystemManager* GetSystemManager() noexcept;
 
-		/// @brief シーンの描画結果を取得
-		/// @return レンダーターゲットID
-		Core::RenderTargetID GetSceneResult() { return m_sceneResultID; }
-
 	protected:
 		//------------------------------------------------------------------------------
 		// protected variables
 		//------------------------------------------------------------------------------
-
-		Core::RenderTargetID				m_sceneResultID;
 
 	private:
 		//------------------------------------------------------------------------------

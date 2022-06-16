@@ -42,15 +42,15 @@ namespace Core
 	/// @brief 未定義スクリプトタイプID
 	constexpr ScriptTypeID NONE_SCRIPT_ID = NONE_TYPE_ID(ScriptTypeID);
 
-	///// @brief エンティティID
-	//enum class Entity::ID : BaseID {};
-	///// @brief 未定義エンティティID
-	//constexpr Entity::ID Entity::NONE_ID = NONE_TYPE_ID(Entity::ID);
+	/// @brief エンティティID
+	enum class EntityID : BaseID {};
+	/// @brief 未定義エンティティID
+	constexpr EntityID NONE_ENTITY_ID = NONE_TYPE_ID(EntityID);
 
 	///// @brief コンポーネントID
-	//enum class Component::ID : BaseID {};
+	//enum class ComponentID : BaseID {};
 	///// @brief 未定義コンポーネントID
-	//constexpr Component::ID NONE_COMPONENT_ID = NONE_TYPE_ID(Component::ID);
+	//constexpr ComponentID NONE_COMPONENT_ID = NONE_TYPE_ID(ComponentID);
 
 	///// @brief トランスフォームID
 	//enum class Transform::ID : BaseID {};
@@ -67,10 +67,10 @@ namespace Core
 	/// @brief 未定義パイプラインID
 	constexpr PipelineID NONE_PIPELINE_ID = NONE_TYPE_ID(PipelineID);
 
-	///// @brief リソースID
-	//enum class Resource::ID : BaseID {};
-	///// @brief 未定義リソースID
-	//constexpr Resource::ID NONE_RESOURCE_ID = NONE_TYPE_ID(Resource::ID);
+	/// @brief リソースID
+	enum class ResourceID : BaseID {};
+	/// @brief 未定義リソースID
+	constexpr ResourceID NONE_RESOURCE_ID = NONE_TYPE_ID(ResourceID);
 }
 
 #endif // !_TYPE_ID_

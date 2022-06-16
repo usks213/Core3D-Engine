@@ -44,12 +44,12 @@ namespace Core
 
 		/// @brief エンティティの削除
 		/// @param instanceID インスタンスID
-		void DestroyEntity(const Entity::ID& entityID);
+		void DestroyEntity(const EntityID& entityID);
 
 		/// @brief エンティティの検索
 		/// @param entityID エンティティID
 		/// @return あった エンティティポインタ / なし nullptr
-		Entity* FindEntity(const Entity::ID& entityID);
+		Entity* FindEntity(const EntityID& entityID);
 
 		/// @brief コンポーネントマネージャー取得
 		/// @return コンポーネントマネージャー
@@ -64,7 +64,7 @@ namespace Core
 		Scene* m_pScene;
 
 		/// @brief エンティティプール
-		std::unordered_map<Entity::ID, std::unique_ptr<Entity>> m_entityPool;
+		std::unordered_map<EntityID, std::unique_ptr<Entity>> m_entityPool;
 
 	};
 }

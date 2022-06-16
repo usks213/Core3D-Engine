@@ -30,7 +30,7 @@ namespace Core
 		/// @brief デストラクタ
 		~TransformManager() noexcept = default;
 
-		Transform* CreateTransform(const Entity::ID& entityID, bool bActive, bool bStatic,
+		Transform* CreateTransform(const EntityID& entityID, bool bActive, bool bStatic,
 			const Transform::ID& parentID = Transform::NONE_ID);
 
 		void DestroyTransform(const Transform::ID& transformID);
